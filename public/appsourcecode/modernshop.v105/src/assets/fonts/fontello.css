@@ -1,0 +1,10 @@
+@font-face {
+  font-family: "fontello";
+  src: url("fontello.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.ion-ios-icon-check-cart:before { content: '\e800'; } /* '' */
+.ion-ios-icon-check-cart-outline:before { content: '\e800'; } /* '' */
+.ion-md-icon-check-cart:before { content: '\e800'; } /* '' */

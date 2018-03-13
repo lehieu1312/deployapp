@@ -578,15 +578,15 @@
                                         <%
                                         var numberappversion = appversions.inforAppversion[number].version.split(".");
                                         if(appversions.inforAppversion[number].isDeployed==false){%>
-                                            <<<<<<< HEAD <img src="/themes/img/appversion/iconnew.png">
-                                                <%}%>
-                                                    <%  if(appversions.inforAppversion[number].status==true){%>
-                                                        <img src="/themes/img/appversion/iconfeature.png"> =======
-                                                        <img class="new-appversion" src="/themes/img/appversion/iconnew.png">
-                                                        <%}%>
-                                                            <%  if(appversions.inforAppversion[number].status==true){%>
-                                                                <img class="feature-appversion" src="/themes/img/appversion/iconfeature.png"> >>>>>>> a7edf62b7f18de40473070bece6c0a4a9428701e
-                                                                <%}%>
+                                            <img src="/themes/img/appversion/iconnew.png">
+                                            <%}%>
+                                                <%  if(appversions.inforAppversion[number].status==true){%>
+                                                    <img src="/themes/img/appversion/iconfeature.png">
+                                                    <img class="new-appversion" src="/themes/img/appversion/iconnew.png">
+                                                    <%}%>
+                                                        <%  if(appversions.inforAppversion[number].status==true){%>
+                                                            <img class="feature-appversion" src="/themes/img/appversion/iconfeature.png">
+                                                            <%}%>
                                 </td>
                                 <input hidden id="nameapp-appversion" value="<%=appversions.nameApp%>">
                                 <td class="table-version findversion">

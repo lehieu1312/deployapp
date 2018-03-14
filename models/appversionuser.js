@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 let appversionuserschema = mongoose.Schema({
     idApp: String,
-    idAppadmin: ObjectId,
+    idAppAdmin: String,
     idInforapp: ObjectId,
     versionAdmin: String,
     dateCreate: Date,

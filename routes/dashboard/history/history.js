@@ -47,7 +47,7 @@ router.get('/history/:idapp', checkAdmin, (req, res) => {
                     async function renderhistory() {
                         for (let i = 0; i < count.length; i++) {
                             var getdatauser = await appversion.findOne({
-                                idApp: count[i].idApp,
+                                idApp: count[i].idAppAdmin,
                                 "inforAppversion.version": count[i].versionAdmin,
                                 // status: true
                             }).exec()

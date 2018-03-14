@@ -631,9 +631,19 @@
                                                         <%if(setNumberVersion(appversions.inforAppversion[number].version) == countversion){%>
                                                             <img class="feature-appversion" src="/themes/img/appversion/iconfeature.png">
                                                             <%}%>
+<<<<<<< HEAD
                                     </td>
                                     <input hidden id="nameapp-appversion" value="<%=appversions.nameApp%>">
                                     <td class="table-version findversion">
+=======
+                                </td>
+                                <input hidden id="nameapp-appversion" value="<%=appversions.nameApp%>">
+                                <td class="table-version findversion">
+                                    <%=appversions.inforAppversion[number].version%>
+                                </td>
+                                <td class="table-changelog findnote">
+                                    <span class="text-head-changelog">Release version
+>>>>>>> 028f30531cb28a82430a5719bc7cfa870884da8e
                                         <%=appversions.inforAppversion[number].version%>
                                     </td>
                                     <td class="table-changelog findnote">

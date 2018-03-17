@@ -8,26 +8,237 @@
         </div>
         <div id="content-notification" class="row row1">
             <div class="left-content-notification col-sm-8">
-                <span>
-                    <img src="/themes/img/notification/iconedit.png"> Compose Message</span>
+                <div class="span-compose-message">
+                    <span>
+                        <img src="/themes/img/notification/iconedit.png"> Compose Message</span>
+                </div>
                 <div class="form-group has-feedback">
-                    <label class="control-label" for="inputSuccess2">Title Notification *</label>
-                    <input type="text" class="resetinputlogin" id="register-firstname" name="firstname" aria-describedby="inputSuccess2Status">
+                    <label class="control-label col-md-12 label-notification set-position-relative" for="inputSuccess2">Title Notification *
+                        <span class="country-notification">
+                            <img src="/themes/img/notification/iconlanguage.png">
+                            <span> English</span>
+                            <img class="img-arow-notification" src="/themes/img/dashboard/iconarrow.png">
+                        </span>
+                    </label>
+                    <input placeholder="Enter Your title" type="text" class="resetinputlogin" id="register-firstname" name="firstname" aria-describedby="inputSuccess2Status">
                     <span class="form-control-feedback" aria-hidden="true">
                         <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
                     </span>
                 </div>
                 <div class="form-group has-feedback">
-                    <label class="control-label" for="inputSuccess2">Content Notification *</label>
-                    <input type="text" class="resetinputlogin" id="register-firstname" name="firstname" aria-describedby="inputSuccess2Status">
+                    <label class="control-label col-md-12 label-notification set-position-relative" for="inputSuccess2">Content Notification *
+                        <span class="country-notification">
+                            <img src="/themes/img/notification/iconlanguage.png">
+                            <span> English</span>
+                            <img class="img-arow-notification" src="/themes/img/dashboard/iconarrow.png">
+                        </span>
+                    </label>
+                    <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification"></textarea>
                     <span class="form-control-feedback" aria-hidden="true">
                         <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
                     </span>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="inputSuccess2">Internal link clickable</label>
+                    <div id="internal-link">
+                        <div class="select-product float-left">
+                            <span class="float-left">Product Url</span>
+                            <img class="float-right set-img-product-url" src="/themes/img/dashboard/iconarrow.png">
+                        </div>
+                        <input placeholder="Input product name" type="text" class="input-product-name  float-left">
+                    </div>
+                    <span class="form-control-feedback" aria-hidden="true">
+                        <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
+                    </span>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="inputSuccess2">Small Icon Notification</label>
+                    <span class="text-below-lable">* You should upload a 48x48 image for small icon</span>
+                    <div class="boder-icon-small-notification"></div>
+                    <div class="set-location-btn-notification">
+                        <button class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
+                        <button class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification">Delete File</button>
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="inputSuccess2">Icon Notification</label>
+                    <span class="text-below-lable">* You should upload a 256x256 image for icon</span>
+                    <div class="boder-icon-lange-notification"></div>
+                    <div class="set-location-btn-notification">
+                        <button class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
+                        <button class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification">Delete File</button>
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="inputSuccess2">Small Icon Notification</label>
+                    <span class="text-below-lable">* Use a 2:1 aspect, You should upload a 1024x512 image for icon</span>
+                    <div class="boder-icon-big-notification"></div>
+                    <div class="set-location-btn-notification">
+                        <button class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
+                        <button class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification">Delete File</button>
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="inputSuccess2">Small Icon Notification</label>
+                    <span class="text-below-lable">* You should upload a 17:2 image for icon</span>
+                    <div class="boder-icon-big-notification"></div>
+                    <div class="set-location-btn-notification">
+                        <button class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
+                        <button class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification">Delete File</button>
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="inputSuccess2">Title Color</label>
+                    <div id="cp1" class="input-group colorpicker-component boder-color-picker">
+                        <input type="text" value="#444549" class="form-control set-input-color" />
+                        <span class="input-group-addon float-left set-spant-color">
+                            <i class="set-i-color"></i>
+                        </span>
+                    </div>
+                    <script>
+                        $(function () {
+                            $('#cp1').colorpicker();
+                        });
+                    </script>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="inputSuccess2">Content Color</label>
+                    <div id="cp2" class="input-group colorpicker-component boder-color-picker">
+                        <input type="text" value="#919191" class="form-control set-input-color" />
+                        <span class="input-group-addon float-left set-spant-color">
+                            <i class="set-i-color"></i>
+                        </span>
+                    </div>
+                    <script>
+                        $(function () {
+                            $('#cp2').colorpicker();
+                        });
+                    </script>
+
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="inputSuccess2">Led Color</label>
+                    <div id="cp3" class="input-group colorpicker-component boder-color-picker">
+                        <input type="text" value="#ededed" class="form-control set-input-color" />
+                        <span class="input-group-addon float-left set-spant-color">
+                            <i class="set-i-color"></i>
+                        </span>
+                    </div>
+                    <script>
+                        $(function () {
+                            $('#cp3').colorpicker();
+                        });
+                    </script>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="inputSuccess2">Accent Color</label>
+                    <div id="cp4" class="input-group colorpicker-component boder-color-picker">
+                        <input type="text" value="#ededed" class="form-control set-input-color" />
+                        <span class="input-group-addon float-left set-spant-color">
+                            <i class="set-i-color"></i>
+                        </span>
+                    </div>
+                    <script>
+                        $(function () {
+                            $('#cp4').colorpicker();
+                        });
+                    </script>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="inputSuccess2">Android Background Images</label>
+                    <div class="">
+                        <label class="container-radio-custom">Send to Everyone
+                            <input type="radio" checked="checked" name="optradio">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="">
+                        <label class="container-radio-custom">Send to Particular Segment(s)
+                            <input type="radio" checked="checked" name="optradio">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="">
+                        <label class="container-radio-custom">Send to Test Device(s)
+                            <input type="radio" checked="checked" name="optradio">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <div class="infor-mobile-using">
+                        <span>Iphone 7,2 103.3.1
+                            <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
+                        </span>
+                    </div>
+                    <div class="infor-mobile-using set-infor-mobile-using">
+                        <span>Iphone 7,2 103.3.1
+                            <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="right-content-notification col-sm-4">
-                xyz
+                <div class="select-platform">
+                    <div class="text-select-platform float-left">
+                        <span>Reviews:</span>
+                    </div>
+                    <div style="display: none" class="border-select-platform select-platform-ios platform-ios">
+                        <img src="/themes/img/notification/iconios.png">
+                    </div>
+                    <div class="border-select-platform platform-selected select-platform-ios platform-ios-active">
+                        <img src="/themes/img/notification/iconiosactive.png">
+                    </div>
+                    <div class="border-select-platform select-platform-android platform-android">
+                        <img src="/themes/img/notification/iconandroid.png">
+                    </div>
+                    <div style="display: none" class="border-select-platform platform-selected select-platform-android platform-android-active">
+                        <img src="/themes/img/notification/iconandroidative.png">
+                    </div>
+                </div>
+                <div class="interface-mobi">
+                    <img src="/themes/img/notification/mobi.png">
+                </div>
             </div>
+        </div>
+        <div id="border-btn-notification">
+            <button class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Save</button>
+            <button class="setcolorfontinput setcolorloginbackround btn btn-lg-notification set-infor-mobile-using">Save And Send</button>
+        </div>
+        <div class="select-country-notification">
+            <div class="select-country-notificationx">
+                <div class="arrow-select">
+                    <div class="select-country-notificationx">
+                        <div class="arrow-select-custom">
+                        </div>
+                        <div class="arrow-select-custom-sub"></div>
+                    </div>
+                </div>
+                <div class="option-select">
+                    <ul>
+                        <li>
+                            <img src="/themes/img/notification/iconenglish.png"> English</li>
+                        <li>
+                            <img src="/themes/img/notification/iconvietnam.png"> Vietnamese</li>
+                        <li>
+                            <img src="/themes/img/notification/iconchina.png"> China(Traditional)</li>
+                        <li>
+                            <img src="/themes/img/notification/iconenglish.png"> Dutch</li>
+                        <li>
+                            <img src="/themes/img/notification/iconvietnam.png"> Georgian</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="select-product-url">
+            <ul>
+                <li>Product Url</li>
+                <li>Category Url</li>
+                <li>About Us Url</li>
+                <li>Bookmark Url</li>
+                <li>Term & Conditions</li>
+                <li>Privacy Policy</li>
+            </ul>
         </div>
     </div>
     </div>

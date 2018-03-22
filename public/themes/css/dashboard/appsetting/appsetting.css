@@ -1,6 +1,19 @@
 #content-appsetting {
     background-color: white;
-    min-height: 600px;
+    min-height: 800px;
     width: auto;
     margin: 20px;
+    padding-top: 20px;
+}
+
+.box-form-data {
+    padding-top: 20px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
 }

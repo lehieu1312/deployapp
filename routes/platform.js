@@ -473,10 +473,10 @@ router.post('/platforms', urlencodeParser, async function(req, res) {
 
                 if (sPlatform == 'android') {
                     console.log('add platform.......');
-                    var cmdRelease = 'ionic';
+                    var cmdRelease = 'cordova';
                     var argv;
                     console.log(sPlatform);
-                    argv = ['cordova', 'platform', 'add', 'android'];
+                    argv = ['platform', 'add', 'android'];
                     process.chdir(path.join(appRoot, 'public', 'project', pKeyFolder));
                     return commandLine(cmdRelease, argv);
                     // .then(() => {

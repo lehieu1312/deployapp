@@ -48,7 +48,6 @@ router.get('/build-android/:key', function(req, res) {
                 if (result.length < 1) {
                     res.render('404', { title: 'Page Not Found' });
                 } else {
-
                     console.log('Go in....');
                     async.each(result, function(kq) {
                         // var mang = kq.keyFolder;
@@ -312,10 +311,19 @@ router.post('/build-android', multipartMiddleware, async function(req, res, next
                 if (!fs.existsSync(path_signed)) {
                     fs.mkdirSync(path_signed);
                 }
-                var rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-release-unsigned.apk');
+                var rFile = "";
+                var wFile = "";
+                if (fs.existsSync(path.join(pathProjectApp, 'platforms', 'android', 'app', 'build', 'outputs', 'apk', 'release', 'app-release-unsigned.apk'))) {
+                    rFile = path.join(pathProjectApp, 'platforms', 'android', 'app', 'build', 'outputs', 'apk', 'release', 'app-release-unsigned.apk');
+                } else if (fs.existsSync(path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'release', 'android-release-unsigned.apk'))) {
+                    rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'release', 'android-release-unsigned.apk');
+                } else {
+                    rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-release-unsigned.apk');
+                }
                 console.log('r: ' + rFile);
-                var wFile = path.join(path_signed, 'android-release-unsigned.apk');
+                wFile = path.join(path_signed, 'android-release-unsigned.apk');
                 console.log('w: ' + wFile);
+
                 fse.copy(rFile, wFile, { replace: true }, (err) => {
                     if (err) return reject(err + '');
                     resolve('Copy file apk unsign success.');
@@ -355,7 +363,15 @@ router.post('/build-android', multipartMiddleware, async function(req, res, next
                 if (!fs.existsSync(path_unsigned)) {
                     fs.mkdirSync(path_unsigned);
                 }
-                var rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-debug.apk');
+                var rFile = "";
+                // path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-debug.apk');
+                if (fs.existsSync(path.join(pathProjectApp, 'platforms', 'android', 'app', 'build', 'outputs', 'apk', 'debug', 'app-debug.apk'))) {
+                    rFile = path.join(pathProjectApp, 'platforms', 'android', 'app', 'build', 'outputs', 'apk', 'debug', 'app-debug.apk');
+                } else if (fs.existsSync(path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'debug', 'android-debug.apk'))) {
+                    rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'debug', 'android-debug.apk');
+                } else {
+                    rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-debug.apk');
+                }
                 var wFile = path.join(path_unsigned, nApp + '-debug.apk');
 
                 fse.copy(rFile, wFile, { replace: true }, (err) => {
@@ -731,8 +747,9 @@ router.post('/build-android', multipartMiddleware, async function(req, res, next
         //     return updateDB(condUpdate, valUpdate);
         // })
         return checkBuilding(sumBuild, sKeyFolder).then(() => {
-                var cmd = 'ionic';
-                var argvBuild = ['cordova', 'build', 'android', '--prod'];
+                // var cmd = 'ionic';
+                var cmd = 'cordova';
+                var argvBuild = ['build', 'android', '--prod'];
                 process.chdir(path.join(appRoot, 'public', 'project', sKeyFolder));
                 return commandLine(cmd, argvBuild);
             })
@@ -743,8 +760,9 @@ router.post('/build-android', multipartMiddleware, async function(req, res, next
             })
             .then(() => {
                 console.log('build project release.....');
-                var cmdRelease = 'ionic';
-                var argv = ['cordova', 'build', 'android', '--release', '--prod'];
+                // var cmdRelease = 'ionic';
+                var cmdRelease = 'cordova';
+                var argv = ['build', 'android', '--release', '--prod'];
                 process.chdir(path.join(appRoot, 'public', 'project', sKeyFolder));
                 return commandLine(cmdRelease, argv);
                 // return commandCordova(argv)
@@ -1006,9 +1024,20 @@ router.post('/build-android-update', multipartMiddleware, async function(req, re
                 if (!fs.existsSync(path_signed)) {
                     fs.mkdirSync(path_signed);
                 }
-                var rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-release-unsigned.apk');
+                // var rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-release-unsigned.apk');
+                // console.log('r: ' + rFile);
+                // var wFile = path.join(path_signed, 'android-release-unsigned.apk');
+                var rFile = "";
+                var wFile = "";
+                if (fs.existsSync(path.join(pathProjectApp, 'platforms', 'android', 'app', 'build', 'outputs', 'apk', 'release', 'app-release-unsigned.apk'))) {
+                    rFile = path.join(pathProjectApp, 'platforms', 'android', 'app', 'build', 'outputs', 'apk', 'release', 'app-release-unsigned.apk');
+                } else if (fs.existsSync(path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'release', 'android-release-unsigned.apk'))) {
+                    rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'release', 'android-release-unsigned.apk');
+                } else {
+                    rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-release-unsigned.apk');
+                }
                 console.log('r: ' + rFile);
-                var wFile = path.join(path_signed, 'android-release-unsigned.apk');
+                wFile = path.join(path_signed, 'android-release-unsigned.apk');
                 console.log('w: ' + wFile);
                 fse.copy(rFile, wFile, { replace: true }, (err) => {
                     if (err) return reject(err + '');
@@ -1049,7 +1078,16 @@ router.post('/build-android-update', multipartMiddleware, async function(req, re
                 if (!fs.existsSync(path_unsigned)) {
                     fs.mkdirSync(path_unsigned);
                 }
-                var rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-debug.apk');
+                // var rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-debug.apk');
+                var rFile = "";
+                // path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-debug.apk');
+                if (fs.existsSync(path.join(pathProjectApp, 'platforms', 'android', 'app', 'build', 'outputs', 'apk', 'debug', 'app-debug.apk'))) {
+                    rFile = path.join(pathProjectApp, 'platforms', 'android', 'app', 'build', 'outputs', 'apk', 'debug', 'app-debug.apk');
+                } else if (fs.existsSync(path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'debug', 'android-debug.apk'))) {
+                    rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'debug', 'android-debug.apk');
+                } else {
+                    rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-debug.apk');
+                }
                 var wFile = path.join(path_unsigned, nApp + '-debug.apk');
                 // try {
                 //     fs.copySync(rFile, wFile)
@@ -1443,8 +1481,9 @@ router.post('/build-android-update', multipartMiddleware, async function(req, re
         //     return updateDB(condUpdate, valUpdate);
         // })
         return checkBuilding(sumBuild, sKeyFolder).then(() => {
-                var cmd = 'ionic';
-                var argvBuild = ['cordova', 'build', 'android', '--prod'];
+                // var cmd = 'ionic';
+                var cmd = 'cordova';
+                var argvBuild = ['build', 'android', '--prod'];
                 process.chdir(path.join(appRoot, 'public', 'project', sKeyFolder));
                 return commandLine(cmd, argvBuild)
             })
@@ -1455,8 +1494,9 @@ router.post('/build-android-update', multipartMiddleware, async function(req, re
             })
             .then(() => {
                 console.log('build project release.....');
-                var cmdRelease = 'ionic';
-                var argv = ['cordova', 'build', 'android', '--release', '--prod'];
+                // var cmdRelease = 'ionic';
+                var cmdRelease = 'cordova';
+                var argv = ['build', 'android', '--release', '--prod'];
                 process.chdir(path.join(appRoot, 'public', 'project', sKeyFolder));
                 return commandLine(cmdRelease, argv);
                 // return commandCordova(argv)

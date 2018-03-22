@@ -824,7 +824,8 @@ router.post('/build-ios-macsv', async(req, res) => {
                             return generatesBuildJSONAdHoc(result.UUID, result.teamID, fKeyFolder);
                         }).then(() => {
                             console.log('=========Building IPA to Test==========');
-                            var cmd = 'ionic';
+                            // var cmd = 'ionic';
+                            var cmd = 'cordova';
                             var argvBuild = ['build', 'ios', '--device', '--release', '--buildConfig'];
                             process.chdir(path.join(appRoot, 'public', 'projectios', fKeyFolder));
                             return commandLine(cmd, argvBuild);
@@ -901,7 +902,8 @@ router.post('/build-ios-macsv', async(req, res) => {
                             return generatesBuildJSONAppStore(result.UUID, result.teamID, fKeyFolder);
                         }).then(() => {
                             console.log('=========Building IPA to App Store==========');
-                            var cmd = 'ionic';
+                            // var cmd = 'ionic';
+                            var cmd = 'cordova';
                             var argvBuild = ['build', 'ios', '--device', '--release', '--buildConfig'];
                             process.chdir(path.join(appRoot, 'public', 'projectios', fKeyFolder));
                             return commandLine(cmd, argvBuild);
@@ -1399,7 +1401,8 @@ router.post('/build-ios-macsv', async(req, res) => {
             .then(() => {
                 //    console.log('kq: ' + result);
                 console.log('=======Add Platform========');
-                var cmdRelease = 'ionic';
+                // var cmdRelease = 'ionic';
+                var cmdRelease = 'cordova';
                 var argv;
                 // console.log(sPlatform);
                 argv = ['platform', 'add', 'ios'];
@@ -1982,7 +1985,8 @@ router.post('/build-ios-client', async function(req, res) {
             })
             .then(() => {
                 console.log('=================== Build debug ==========================');
-                var cmd = 'ionic';
+                // var cmd = 'ionic';
+                var cmd = 'cordova';
                 var argvBuild = ['build', 'ios', '--prod'];
                 process.chdir(path.join(appRoot, 'public', 'projectios', sKeyFolder));
                 return commandLine(cmd, argvBuild);
@@ -1994,7 +1998,8 @@ router.post('/build-ios-client', async function(req, res) {
                 return generatesBuildFile(teamID, uUID, sKeyFolder);
             }).then(() => {
                 console.log('=================== Build release ==========================');
-                var cmd = 'ionic';
+                // var cmd = 'ionic';
+                var cmd = 'cordova';
                 var argvBuild = ['build', 'ios', '--device', '--release', '--prod', '--buildConfig'];
                 process.chdir(path.join(appRoot, 'public', 'projectios', sKeyFolder));
                 return commandLine(cmd, argvBuild)
@@ -2375,7 +2380,8 @@ router.post('/build-ios', multipartMiddleware, async function(req, res) {
         console.log('--------------------------------------------------------');
         console.log('Start build ios........');
         return checkBuilding(sumBuild, sKeyFolder).then(() => {
-            var cmd = 'ionic';
+            // var cmd = 'ionic';
+            var cmd = 'cordova';
             var argvBuild = ['build', 'ios', '--prod'];
             process.chdir(path.join(appRoot, 'public', 'project', sKeyFolder));
             return commandLine(cmd, argvBuild)
@@ -2386,7 +2392,8 @@ router.post('/build-ios', multipartMiddleware, async function(req, res) {
             console.log('Generate File build.json...');
             return generatesBuildFile(teamID, uUID, sKeyFolder);
         }).then(() => {
-            var cmd = 'ionic';
+            // var cmd = 'ionic';
+            var cmd = 'cordova';
             var argvBuild = ['build', 'ios', '--device', '--release', '--prod'];
             process.chdir(path.join(appRoot, 'public', 'project', sKeyFolder));
             return commandLine(cmd, argvBuild)

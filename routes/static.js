@@ -440,6 +440,88 @@ router.get('/install-ios-app/:project', async(req, res) => {
     }
 
 });
+router.get('/install-ios-app-fix/:project', async(req, res) => {
+    try {
+
+
+        var sKeyFolder = req.params.project;
+        var sAppName;
+        var sBundleIDApp, arrBundle, iArrBundle, sDate, sDevice, iAppName;
+        // let result = await Infomation.find({ keyFolder: sKeyFolder }).exec();
+        // if (result.length > 0) {
+        // async.each(result, function(kq) {
+        //     sAppName = kq.appName;
+        //     console.log('sAppName' + sAppName);
+        // });
+        if (fs.existsSync(path.join(appRoot, 'public', 'backupipa', sKeyFolder))) {
+            var dirFileIPA = path.join(appRoot, 'public', 'backupipa', sKeyFolder, 'unsigned', sKeyFolder + '.ipa');
+            extract(dirFileIPA, { dir: path.join(appRoot, 'public', 'backupipa', sKeyFolder, 'unsigned') }, function(err) {
+                if (err) {
+                    console.log('Extract fail: ' + err);
+                    return res.render('error', { title: 'Error Data' });
+                }
+                console.log('extract success');
+                var appFolderUnzip = fs.readdirSync(path.join(appRoot, 'public', 'backupipa', sKeyFolder, 'unsigned', 'Payload'));
+                console.log(appFolderUnzip);
+                console.log(appFolderUnzip[0]);
+                var plistFile = path.join(appRoot, 'public', 'backupipa', sKeyFolder, 'unsigned', 'Payload', appFolderUnzip[0], 'embedded.mobileprovision');
+                provisioning(plistFile, function(error, data) {
+                    if (error) {
+                        return res.render('error', { title: 'Error data' });
+                    }
+                    console.log(data);
+                    console.log(data.Entitlements['application-identifier']);
+                    arrBundle = data.Entitlements['application-identifier'];
+                    iArrBundle = arrBundle.split('.');
+                    console.log(iArrBundle);
+                    iArrBundle.shift();
+                    // iArrBundle.join('.');
+                    // console.log('kq: ' + iArrBundle);
+                    var i = 0;
+                    async.each(iArrBundle, function(item) {
+                        if (i == 0) {
+                            sBundleIDApp = item;
+                        } else {
+                            sBundleIDApp += '.' + item;
+                        }
+                        // console.log(item);
+                        i++;
+                    })
+                    console.log(sBundleIDApp);
+                    sDate = data.CreationDate;
+                    console.log(sDate);
+                    sDevice = data.ProvisionedDevices;
+                    console.log(sDevice);
+                    iAppName = data.AppIDName
+                    console.log(iAppName);
+                    ////////
+                    var checkSafari;
+                    var browserInfo = browserDetect(req.headers['user-agent']);
+                    console.log(browserInfo);
+                    var nameBrowser = browserInfo.name;
+                    console.log('nameBrowser: ' + nameBrowser);
+                    if (nameBrowser == 'ios') {
+                        console.log('checked safari');
+                        checkSafari = true;
+                    } else {
+                        console.log('not checked safari');
+                        checkSafari = false;
+                    }
+                    console.log(checkSafari);
+                    return res.render('install-ios-app', { title: 'Install app iOS', hostServer: hostServer, keyFolder: sKeyFolder, appName: sAppName, bundleID: sBundleIDApp, sDate: sDate, sDevice: sDevice, moment: moment, CheckSafari: checkSafari });
+                });
+            });
+
+        } else {
+            return res.render('not-folder-app', { title: 'Not App Folder' });
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.render('error', { title: 'Error Data' });
+    }
+
+});
 router.get('/install-ios-app-test', async(req, res) => {
     var checkSafari = false;
     var browserInfo = browserDetect(req.headers['user-agent']);

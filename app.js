@@ -622,6 +622,7 @@ var appsetting = require("./routes/dashboard/appsetting/appsetting");
 var myorder = require("./routes/dashboard/myorder/myorder");
 var traffic = require("./routes/dashboard/traffic/traffic");
 var notification = require("./routes/dashboard/notification/notification");
+var appsetting = require("./routes/dashboard/appsetting/appsetting");
 // Rest API
 var API = require("./routes/restapi/app");
 
@@ -657,6 +658,7 @@ app.use('/', appsetting);
 app.use('/', myorder);
 app.use('/', traffic);
 app.use('/', notification);
+app.use('/', appsetting);
 
 /////////////////////
 app.use('/deploy-api/', API);

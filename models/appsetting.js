@@ -2,12 +2,24 @@ let mongoose = require('mongoose');
 
 let appsettingschema = mongoose.Schema({
     idApp: String,
-    nameApp: String,
     idUser: String,
+    version: String,
+    nameApp: String,
     description: String,
-    mailapp: String,
+    emailApp: String,
     authHref: String,
     auth: String,
+    wpUrl: String,
+    wpPerPage: Number,
+    requestTimeout: Number,
+    targetBlank: Boolean,
+    dateFormat: String,
+    oneSignalID: String,
+    ggAnalytic: String,
+    adModAndroidBanner: String,
+    adModeAndroidInterstitial: String,
+    adModeIosBaner: String,
+    adModeIosInterstitial: String,
     dateCreate: Date,
     status: Boolean
 });

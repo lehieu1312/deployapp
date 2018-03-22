@@ -7,7 +7,7 @@ var appRoot = require('app-root-path');
 appRoot = appRoot.toString();
 var request = require('request');
 var multer = require('multer')
-// var upload = multer({ dest: 'uploads/' })
+    // var upload = multer({ dest: 'uploads/' })
 var app = express();
 var md5 = require('md5');
 var User = require('../../models/user');
@@ -21,7 +21,7 @@ var fs = require('fs');
 var server = require('http').Server(app);
 var io = require("socket.io")(server);
 var moment = require("moment")
-// server.listen(3000)
+    // server.listen(3000)
 
 
 function checkAdmin(req, res, next) {
@@ -73,91 +73,91 @@ router.post('/getaccount', (req, res) => {
 
 })
 router.get('/dashboard', checkAdmin, (req, res) => {
-    try {
-        User.findOne({
-            id: req.session.iduser
-        }).then((data) => {
-            var myapps = [];
-            async function getmyapp() {
-                var today = moment().startOf('day')
-                var tomorrow = moment(today).add(1, 'days')
-                try {
-                    for (let i = 0; i < data.myapp.length; i++) {
-                        await TrafficModel.find({
-                            idApp: data.myapp[i].idApp,
-                        }).then((result) => {
-                            if (result == []) {
-                                var userOnline = [];
-                                var appToday = [];
-                                var useIos = [];
-                                var useAndroid = [];
-                                myapps[i] = {
+        try {
+            User.findOne({
+                id: req.session.iduser
+            }).then((data) => {
+                var myapps = [];
+                async function getmyapp() {
+                    var today = moment().startOf('day')
+                    var tomorrow = moment(today).add(1, 'days')
+                    try {
+                        for (let i = 0; i < data.myapp.length; i++) {
+                            await TrafficModel.find({
                                     idApp: data.myapp[i].idApp,
-                                    nameApp: data.myapp[i].nameApp,
-                                    userOnline: userOnline.length,
-                                    useToday: appToday.length,
-                                    useIos: useIos.length,
-                                    useAndroid: useAndroid.length
-                                }
-                            } else {
-                                var userOnline = result.filter(function (el) {
-                                    return new Date() - el.dateAccess <= 900000 &&
-                                        new Date() - el.dateAccess >= 0
-                                })
-                                var appToday = result.filter(function (el) {
-                                    return el.dateAccess - today >= 0 &&
-                                        el.dateAccess - today <= 86400000
-                                })
-                                var useIos = result.filter(function (el) {
-                                    return el.platform == "ios" &&
-                                        el.dateAccess - today >= 0 &&
-                                        el.dateAccess - today <= 86400000
-                                });
-                                var useAndroid = result.filter(function (el) {
-                                    return el.platform == "android" &&
-                                        el.dateAccess - today >= 0 &&
-                                        el.dateAccess - today <= 86400000
-                                });
-                                // console.log(useIos)
-                                myapps[i] = {
-                                    idApp: data.myapp[i].idApp,
-                                    nameApp: data.myapp[i].nameApp,
-                                    userOnline: userOnline.length,
-                                    useToday: appToday.length,
-                                    useIos: useIos.length,
-                                    useAndroid: useAndroid.length
-                                }
-                            }
-                            // console.log(result)
+                                }).then((result) => {
+                                    if (result == []) {
+                                        var userOnline = [];
+                                        var appToday = [];
+                                        var useIos = [];
+                                        var useAndroid = [];
+                                        myapps[i] = {
+                                            idApp: data.myapp[i].idApp,
+                                            nameApp: data.myapp[i].nameApp,
+                                            userOnline: userOnline.length,
+                                            useToday: appToday.length,
+                                            useIos: useIos.length,
+                                            useAndroid: useAndroid.length
+                                        }
+                                    } else {
+                                        var userOnline = result.filter(function(el) {
+                                            return new Date() - el.dateAccess <= 900000 &&
+                                                new Date() - el.dateAccess >= 0
+                                        })
+                                        var appToday = result.filter(function(el) {
+                                            return el.dateAccess - today >= 0 &&
+                                                el.dateAccess - today <= 86400000
+                                        })
+                                        var useIos = result.filter(function(el) {
+                                            return el.platform == "ios" &&
+                                                el.dateAccess - today >= 0 &&
+                                                el.dateAccess - today <= 86400000
+                                        });
+                                        var useAndroid = result.filter(function(el) {
+                                            return el.platform == "android" &&
+                                                el.dateAccess - today >= 0 &&
+                                                el.dateAccess - today <= 86400000
+                                        });
+                                        // console.log(useIos)
+                                        myapps[i] = {
+                                            idApp: data.myapp[i].idApp,
+                                            nameApp: data.myapp[i].nameApp,
+                                            userOnline: userOnline.length,
+                                            useToday: appToday.length,
+                                            useIos: useIos.length,
+                                            useAndroid: useAndroid.length
+                                        }
+                                    }
+                                    // console.log(result)
 
-                        })
-                        // }
-                        // })
+                                })
+                                // }
+                                // })
+                        }
+                    } catch (error) {
+                        res.redirect("/dashboard/404")
                     }
-                } catch (error) {
-                    res.redirect("/dashboard/404")
+                    // console.log(myapps)
+                    return res.render("./dashboard/detail", {
+                        title: "Dashboard",
+                        myapps,
+                        appuse: ""
+                    });
                 }
-                // console.log(myapps)
-                return res.render("./dashboard/detail", {
-                    title: "Dashboard",
-                    myapps,
-                    appuse: ""
-                });
-            }
-            getmyapp();
-        })
+                getmyapp();
+            })
 
-    } catch (error) {
-        console.log(error + "")
-        res.render("error", {
-            title: "Error",
-            error: error + ""
-        })
-    }
+        } catch (error) {
+            console.log(error + "")
+            res.render("error", {
+                title: "Error",
+                error: error + ""
+            })
+        }
 
-})
-// router.get('/dashboard/app', checkAdmin, (req, res) => {
-//     if (req.session.iduser) {
+    })
+    // router.get('/dashboard/app', checkAdmin, (req, res) => {
+    //     if (req.session.iduser) {
 
 //     }
 // })

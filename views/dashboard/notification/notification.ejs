@@ -20,7 +20,7 @@
                             <img class="img-arow-notification" src="/themes/img/dashboard/iconarrow.png">
                         </span>
                     </label>
-                    <input placeholder="Enter Your title" type="text" class="resetinputlogin" id="register-firstname" name="firstname">
+                    <input placeholder="Enter Your title" type="text" class="resetinputlogin input-title-notification" name="title-notification">
                     <span class="form-control-feedback" aria-hidden="true">
                         <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
                     </span>
@@ -33,7 +33,7 @@
                             <img class="img-arow-notification" src="/themes/img/dashboard/iconarrow.png">
                         </span>
                     </label>
-                    <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification"></textarea>
+                    <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification"></textarea>
                     <span class="form-control-feedback" aria-hidden="true">
                         <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
                     </span>
@@ -51,179 +51,250 @@
                         <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
                     </span>
                 </div>
-                <div class="form-group has-feedback">
-                    <label class="control-label" for="inputSuccess2">Small Icon Notification</label>
-                    <span class="text-below-lable">* You should upload a 48x48 image for small icon</span>
-                    <div class="boder-icon-small-notification"></div>
-                    <div class="set-location-btn-notification">
-                        <button class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
-                        <button class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification">Delete File</button>
-                    </div>
-                </div>
-                <div class="form-group has-feedback">
-                    <label class="control-label" for="inputSuccess2">Icon Notification</label>
-                    <span class="text-below-lable">* You should upload a 256x256 image for icon</span>
-                    <div class="boder-icon-lange-notification"></div>
-                    <div class="set-location-btn-notification">
-                        <button class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
-                        <button class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification">Delete File</button>
-                    </div>
-                </div>
-                <div class="form-group has-feedback">
-                    <label class="control-label" for="inputSuccess2">Bigimages Notification</label>
-                    <span class="text-below-lable">* Use a 2:1 aspect, You should upload a 1024x512 image for icon</span>
-                    <div class="boder-icon-big-notification"></div>
-                    <div class="set-location-btn-notification">
-                        <button class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
-                        <button class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification">Delete File</button>
-                    </div>
-                </div>
-                <div class="form-group has-feedback">
-                    <label class="control-label" for="inputSuccess2">Background Notification</label>
-                    <span class="text-below-lable">* You should upload a 17:2 image for icon</span>
-                    <div class="boder-icon-big-notification"></div>
-                    <div class="set-location-btn-notification">
-                        <button class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
-                        <button class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification">Delete File</button>
-                    </div>
-                </div>
-                <div class="form-group has-feedback">
-                    <label class="control-label" for="inputSuccess2">Title Color</label>
-                    <div id="cp1" class="input-group colorpicker-component boder-color-picker">
-                        <input type="text" value="#444549" class="form-control set-input-color" />
-                        <span class="input-group-addon float-left set-spant-color">
-                            <i class="set-i-color"></i>
-                        </span>
-                    </div>
-                    <script>
-                        $(function () {
-                            $('#cp1').colorpicker();
-                        });
-                    </script>
-                </div>
-                <div class="form-group has-feedback">
-                    <label class="control-label" for="inputSuccess2">Content Color</label>
-                    <div id="cp2" class="input-group colorpicker-component boder-color-picker">
-                        <input type="text" value="#919191" class="form-control set-input-color" />
-                        <span class="input-group-addon float-left set-spant-color">
-                            <i class="set-i-color"></i>
-                        </span>
-                    </div>
-                    <script>
-                        $(function () {
-                            $('#cp2').colorpicker();
-                        });
-                    </script>
+                <%
+                 var status1 = "display-none";
+                 var status2 = "display-none";
+                 var status3 = "display-none";
+                 var status4 = "display-none";
+                 var status5 = "display-none";
 
-                </div>
-                <div class="form-group has-feedback">
-                    <label class="control-label" for="inputSuccess2">Led Color</label>
-                    <div id="cp3" class="input-group colorpicker-component boder-color-picker">
-                        <input type="text" value="#ededed" class="form-control set-input-color" />
-                        <span class="input-group-addon float-left set-spant-color">
-                            <i class="set-i-color"></i>
-                        </span>
+                if(notification.smallIcon.length >0){
+                    status1 = "";
+                }
+                if(notification.iconNotification.length >0){
+                    status2 = "";
+                }
+                if(notification.bigimagesNotification.length >0){
+                    status3 = "";
+                }
+                if(notification.backgroundNotification.length >0){
+                    status4 = "";
+                }
+                %>
+                    <div class="form-group has-feedback">
+                        <label class="control-label" for="inputSuccess2">Small Icon Notification</label>
+                        <span class="text-below-lable">* You should upload a 48x48 image for small icon</span>
+                        <div class="boder-icon-small-notification <%=status1%>">
+                            <input hidden value="<%=notification.smallIcon%>">
+                            <img src="/themes/img/settingnotification/<%=notification.smallIcon%>">
+                        </div>
+                        <div class="set-location-btn-notification">
+                            <input type="file" hidden id="file-img-small" accept="image/*">
+                            <button id="btn-choose-small-icon" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
+                            <button id="btn-cancel-small-icon" class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification <%=status1%>">Delete File</button>
+                        </div>
                     </div>
-                    <script>
-                        $(function () {
-                            $('#cp3').colorpicker();
-                        });
-                    </script>
-                </div>
-                <div class="form-group has-feedback">
-                    <label class="control-label" for="inputSuccess2">Accent Color</label>
-                    <div id="cp4" class="input-group colorpicker-component boder-color-picker">
-                        <input type="text" value="#ededed" class="form-control set-input-color" />
-                        <span class="input-group-addon float-left set-spant-color">
-                            <i class="set-i-color"></i>
-                        </span>
+                    <div class="form-group has-feedback">
+                        <label class="control-label" for="inputSuccess2">Icon Notification</label>
+                        <span class="text-below-lable">* You should upload a 256x256 image for icon</span>
+                        <div class="boder-icon-large-notification <%=status2%>">
+                            <input hidden value="<%=notification.iconNotification%>">
+                            <img src="/themes/img/settingnotification/<%=notification.iconNotification%>">
+                        </div>
+                        <div class="set-location-btn-notification">
+                            <input type="file" hidden id="file-img-large" accept="image/*">
+                            <button id="btn-choose-large-icon" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
+                            <button id="btn-cancel-large-icon" class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification <%=status2%>">Delete File</button>
+                        </div>
                     </div>
-                    <script>
-                        $(function () {
-                            $('#cp4').colorpicker();
-                        });
-                    </script>
-                </div>
-                <div class="form-group has-feedback">
-                    <label class="control-label" for="inputSuccess2">Android Background Images</label>
-                    <div class="">
-                        <label class="container-radio-custom">Send to Everyone
-                            <input type="radio" checked="checked" name="optradio">
-                            <span class="checkmark"></span>
-                        </label>
+                    <div class="form-group has-feedback">
+                        <label class="control-label" for="inputSuccess2">Bigimages Notification</label>
+                        <span class="text-below-lable">* Use a 2:1 aspect, You should upload a 1024x512 image for icon</span>
+                        <div class="boder-icon-big-notification <%=status3%>">
+                            <input id="idapp-using" hidden value="<%=appuse.idApp%>">
+                            <input hidden value="<%=notification.bigimagesNotification%>">
+                            <img src="/themes/img/settingnotification/<%=notification.bigimagesNotification%>">
+                        </div>
+                        <div class="set-location-btn-notification">
+                            <input type="file" hidden id="file-img-bigimages" accept="image/*">
+                            <button id="btn-choose-bigimages-icon" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
+                            <button id="btn-cancel-bigimages-icon" class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification <%=status3%>">Delete File</button>
+                        </div>
                     </div>
-                    <div class="">
-                        <label class="container-radio-custom">Send to Particular Segment(s)
-                            <input type="radio" checked="checked" name="optradio">
-                            <span class="checkmark"></span>
-                        </label>
+                    <div class="form-group has-feedback">
+                        <label class="control-label" for="inputSuccess2">Background Notification</label>
+                        <span class="text-below-lable">* You should upload a 17:2 image for icon</span>
+                        <div class="boder-icon-background-notification <%=status4%>">
+                            <input hidden value="<%=notification.backgroundNotification%>">
+                            <img src="/themes/img/settingnotification/<%=notification.backgroundNotification%>">
+                        </div>
+                        <div class="set-location-btn-notification">
+                            <input type="file" hidden id="file-img-background" accept="image/*">
+                            <button id="btn-choose-background-icon" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
+                            <button id="btn-cancel-background-icon" class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification <%=status4%>">Delete File</button>
+                        </div>
                     </div>
-                    <div class="sent-to-segment set-position-relative">
-                        <div class="set-arrow-segments">
-                            <div class="select-country-notificationx">
-                                <div class="arrow-select-custom">
+                    <div class="form-group has-feedback">
+                        <label class="control-label" for="inputSuccess2">Title Color</label>
+                        <div id="cp1" class="input-group colorpicker-component boder-color-picker">
+                            <input type="text" value="#444549" class="form-control set-input-color" />
+                            <span class="input-group-addon float-left set-spant-color">
+                                <i class="set-i-color"></i>
+                            </span>
+                        </div>
+                        <script>
+                            $(function () {
+                                $('#cp1').colorpicker();
+                            });
+                        </script>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label class="control-label" for="inputSuccess2">Content Color</label>
+                        <div id="cp2" class="input-group colorpicker-component boder-color-picker">
+                            <input type="text" value="#919191" class="form-control set-input-color" />
+                            <span class="input-group-addon float-left set-spant-color">
+                                <i class="set-i-color"></i>
+                            </span>
+                        </div>
+                        <script>
+                            $(function () {
+                                $('#cp2').colorpicker();
+                            });
+                        </script>
+
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label class="control-label" for="inputSuccess2">Led Color</label>
+                        <div id="cp3" class="input-group colorpicker-component boder-color-picker">
+                            <input type="text" value="#ededed" class="form-control set-input-color" />
+                            <span class="input-group-addon float-left set-spant-color">
+                                <i class="set-i-color"></i>
+                            </span>
+                        </div>
+                        <script>
+                            $(function () {
+                                $('#cp3').colorpicker();
+                            });
+                        </script>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label class="control-label" for="inputSuccess2">Accent Color</label>
+                        <div id="cp4" class="input-group colorpicker-component boder-color-picker">
+                            <input type="text" value="#ededed" class="form-control set-input-color" />
+                            <span class="input-group-addon float-left set-spant-color">
+                                <i class="set-i-color"></i>
+                            </span>
+                        </div>
+                        <script>
+                            $(function () {
+                                $('#cp4').colorpicker();
+                            });
+                        </script>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label class="control-label" for="inputSuccess2">Android Background Images</label>
+                        <div class="">
+                            <label class="container-radio-custom">Send to Everyone
+                                <input id="send-to-everyone" type="radio" checked="checked" name="optradio">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="">
+                            <label class="container-radio-custom">Send to Particular Segment(s)
+                                <input id="send-to-segment" type="radio" name="optradio">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="sent-to-segment set-position-relative">
+                            <div class="set-arrow-segments">
+                                <div class="select-country-notificationx">
+                                    <div class="arrow-select-custom">
+                                    </div>
+                                    <div class="arrow-select-custom-sub"></div>
                                 </div>
-                                <div class="arrow-select-custom-sub"></div>
+                            </div>
+                            <div>
+                                <div class="form-group has-feedback">
+                                    <label class="control-label " for="inputSuccess2">Sent to segments
+                                    </label>
+                                    <input placeholder="Enter your segments" type="text" class="resetinputlogin" id="register-firstname" name="firstname">
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label class="control-label " for="inputSuccess2">Exclude users in segments
+                                    </label>
+                                    <input placeholder="Enter your exclude users" type="text" class="resetinputlogin" id="register-firstname" name="firstname">
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <div class="form-group has-feedback">
-                                <label class="control-label " for="inputSuccess2">Sent to segments
-                                </label>
-                                <input placeholder="Enter your segments" type="text" class="resetinputlogin" id="register-firstname" name="firstname">
-                            </div>
-                            <div class="form-group has-feedback">
-                                <label class="control-label " for="inputSuccess2">Exclude users in segments
-                                </label>
-                                <input placeholder="Enter your exclude users" type="text" class="resetinputlogin" id="register-firstname" name="firstname">
-                            </div>
+                        <div class="">
+                            <label class="container-radio-custom">Send to Test Device(s)
+                                <input id="send-to-test-device" type="radio" name="optradio">
+                                <span class="checkmark"></span>
+                            </label>
                         </div>
                     </div>
-                    <div class="">
-                        <label class="container-radio-custom">Send to Test Device(s)
-                            <input type="radio" checked="checked" name="optradio">
-                            <span class="checkmark"></span>
-                        </label>
+                    <div class="form-group has-feedback">
+                        <div class="infor-mobile-using">
+                            <span>Iphone 7,2 103.3.1
+                                <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
+                            </span>
+                        </div>
+                        <div class="infor-mobile-using set-infor-mobile-using">
+                            <span>Iphone 7,2 103.3.1
+                                <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group has-feedback">
-                    <div class="infor-mobile-using">
-                        <span>Iphone 7,2 103.3.1
-                            <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
-                        </span>
-                    </div>
-                    <div class="infor-mobile-using set-infor-mobile-using">
-                        <span>Iphone 7,2 103.3.1
-                            <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
-                        </span>
-                    </div>
-                </div>
             </div>
-            <div class="right-content-notification col-md-4">
-                <div class="select-platform">
-                    <div class="text-select-platform float-left">
-                        <span>Reviews:</span>
+            <div class="right-content-notification set-position-relative col-md-4">
+                <div class="fixed-div-plateform">
+                    <div class="select-platform">
+                        <div class="text-select-platform float-left">
+                            <span>Reviews:</span>
+                        </div>
+                        <div style="display: none" class="border-select-platform select-platform-ios platform-ios">
+                            <img src="/themes/img/notification/iconios.png">
+                        </div>
+                        <div class="border-select-platform platform-selected select-platform-ios platform-ios-active">
+                            <img src="/themes/img/notification/iconiosactive.png">
+                        </div>
+                        <div class="border-select-platform select-platform-android platform-android">
+                            <img src="/themes/img/notification/iconandroid.png">
+                        </div>
+                        <div style="display: none" class="border-select-platform platform-selected select-platform-android platform-android-active">
+                            <img src="/themes/img/notification/iconandroidative.png">
+                        </div>
                     </div>
-                    <div style="display: none" class="border-select-platform select-platform-ios platform-ios">
-                        <img src="/themes/img/notification/iconios.png">
+                    <div class="interface-mobi ">
+                        <img src="/themes/img/notification/mobi.png">
                     </div>
-                    <div class="border-select-platform platform-selected select-platform-ios platform-ios-active">
-                        <img src="/themes/img/notification/iconiosactive.png">
-                    </div>
-                    <div class="border-select-platform select-platform-android platform-android">
-                        <img src="/themes/img/notification/iconandroid.png">
-                    </div>
-                    <div style="display: none" class="border-select-platform platform-selected select-platform-android platform-android-active">
-                        <img src="/themes/img/notification/iconandroidative.png">
+                    <div class="interface-mobile-js ">
+                        <div class="boder-img-small-circle float-left">
+                            <% 
+                            let smallIcon = "testicon.jpg";
+                            if(notification.smallIcon.length > 0){
+                                smallIcon =notification.smallIcon;
+                            }else{
+                                if(notification.iconNotification.length > 0){
+                                    smallIcon = notification.iconNotification;
+                                }  
+                            }
+                             %>
+                                <img id="img-small-circle" class="img-small-circle" src="/themes/img/settingnotification/<%=smallIcon%>">
+                        </div>
+                        <div class="float-left content-mobile set-position-relative">
+                            <div>
+                                <span id="title-mobile" class="title-mobile">ModernShop</span>
+                                <span class="float-right">now</span>
+                            </div>
+                            <span id="content-mobile">Sensitive content Hidden</span>
+                            <% if(notification.smallIcon.length >0){
+                                status5 = "";
+                            } %>
+                                <div class="img-large-mobile <%=status5%>">
+                                    <img src="/themes/img/settingnotification/<%=notification.iconNotification%>">
+                                </div>
+                                <div class="img-big-mobile <%=status3%>">
+                                    <img src="/themes/img/settingnotification/<%=notification.bigimagesNotification%>">
+                                </div>
+                        </div>
                     </div>
                 </div>
-                <div class="interface-mobi">
-                    <img src="/themes/img/notification/mobi.png">
-                </div>
+
             </div>
         </div>
         <div id="border-btn-notification">
-            <button class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Save</button>
+            <button id="save-notification" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Save</button>
             <button class="setcolorfontinput setcolorloginbackround btn btn-lg-notification set-infor-mobile-using">Save And Send</button>
         </div>
         <div class="select-country-notification">

@@ -18,8 +18,7 @@ var Base64 = require('js-base64').Base64;
 var app = express();
 var moment = require("moment");
 
-var multer = require('multer')
-
+var multer = require('multer');
 
 var User = require('../../../models/user');
 var Inforapp = require('../../../models/inforapp');
@@ -234,6 +233,40 @@ router.post("/canceliconbackgroundnotification/:idApp", (req, res) => {
             message: "ok"
         })
     })
+})
+
+router.post("/push-notification", (req, res) => {
+    var sendNotification = function (data) {
+        var headers = {
+            "Content-Type": "application/json; charset=utf-8",
+            "Authorization": "Basic MDc0M2FlZjMtNTE0MS00ZWViLWFjYmMtYWY2MTRiYzliYzRm"
+        };
+
+        var options = {
+            host: "onesignal.com",
+            port: 443,
+            path: "/api/v1/notifications",
+            method: "POST",
+            headers: headers
+        };
+
+        var https = require('https');
+        var req = https.request(options, function (res) {
+            res.on('data', function (data) {
+                console.log("Response:");
+                console.log(JSON.parse(data));
+            });
+        });
+
+        req.on('error', function (e) {
+            console.log("ERROR:");
+            console.log(e);
+        });
+
+        req.write(JSON.stringify(data));
+        req.end();
+    };
+
 })
 
 module.exports = router;

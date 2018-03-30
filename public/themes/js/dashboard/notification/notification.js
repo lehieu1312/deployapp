@@ -1,5 +1,21 @@
 $(document).ready(() => {
-    // interface
+    var title = $("[name='title-notification-en']").val();
+    var content = $(".textarea-content-en").val();
+
+    var colorTitle = $('#cp1').children('input').val();
+    var colorContent = $('#cp2').children('input').val();
+    var colorLed = $('#cp3').children('input').val();
+    var colorAccent = $('#cp4').children('input').val();
+
+    var typeuUrl = "Product Url";
+    var url = $('#internal-link').find('input').val();
+
+    function trimSpace(str) {
+        return str.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, "").replace(/\s+/g, " ");
+    }
+
+
+
     $('.select-platform-ios').click(() => {
         $('.platform-ios').hide();
         $('.platform-ios-active').show();
@@ -15,7 +31,11 @@ $(document).ready(() => {
     $('body').click(() => {
         $(".select-country-notification").hide();
         $(".select-product-url").hide();
+        $(".select-send-to").hide();
     })
+    var numbershow;
+
+    // event click country....
     $('.country-notification').each(function (i) {
         $(this).click((event) => {
             let offset = $(this).children('.img-arow-notification').offset();
@@ -23,17 +43,181 @@ $(document).ready(() => {
                 top: offset.top + 15,
                 left: offset.left - 162
             });
+            if (document.getElementById('select-country-notification').style.display != "none") {
+                if (i == 0) {
+                    $('.select-country-notification').find("li").each(function (j) {
+                        if (j == 0) {
+                            $(this).click((e) => {
+                                $("[name='title-notification-en']").show();
+                                $("[name='title-notification-vn']").hide();
+                                $("[name='title-notification-china']").hide();
+                                $("[name='title-notification-dutch']").hide();
+                                $("[name='title-notification-georgian']").hide();
+                                // e.stopPropagation();
+                                title = $("[name='title-notification-en']").val();
+                            })
+                        }
+                        if (j == 1) {
+                            $(this).click((e) => {
+                                $("[name='title-notification-en']").hide();
+                                $("[name='title-notification-vn']").show();
+                                $("[name='title-notification-china']").hide();
+                                $("[name='title-notification-dutch']").hide();
+                                $("[name='title-notification-georgian']").hide();
+
+                                title = $("[name='title-notification-vn']").val();
+                            })
+                        }
+                        if (j == 2) {
+                            $(this).click((e) => {
+                                $("[name='title-notification-en']").hide();
+                                $("[name='title-notification-vn']").hide();
+                                $("[name='title-notification-china']").show();
+                                $("[name='title-notification-dutch']").hide();
+                                $("[name='title-notification-georgian']").hide();
+                                // e.stopPropagation();
+
+                                title = $("[name='title-notification-china']").val();
+                            })
+                        }
+                        if (j == 3) {
+                            $(this).click((e) => {
+                                $("[name='title-notification-en']").hide();
+                                $("[name='title-notification-vn']").hide();
+                                $("[name='title-notification-china']").hide();
+                                $("[name='title-notification-dutch']").show();
+                                $("[name='title-notification-georgian']").hide();
+                                // e.stopPropagation();
+
+                                title = $("[name='title-notification-dutch']").val();
+                            })
+                        }
+                        if (j == 4) {
+                            $(this).click((e) => {
+                                $("[name='title-notification-en']").hide();
+                                $("[name='title-notification-vn']").hide();
+                                $("[name='title-notification-china']").hide();
+                                $("[name='title-notification-dutch']").hide();
+                                $("[name='title-notification-georgian']").show();
+                                // e.stopPropagation();
+
+                                title = $("[name='title-notification-georgian']").val();
+                            })
+                        }
+                    })
+
+                    numbershow = 'title';
+                }
+                if (i == 1) {
+                    $('.select-country-notification').find("li").each(function (j) {
+                        if (j == 0) {
+                            $(this).click((e) => {
+                                $(".textarea-content-en").show();
+                                $(".textarea-content-vn").hide();
+                                $(".textarea-content-china").hide();
+                                $(".textarea-content-dutch").hide();
+                                $(".textarea-content-georgian").hide();
+                                // e.stopPropagation();
+                                content = $(".textarea-content-en").val();
+                            })
+                        }
+                        if (j == 1) {
+                            $(this).click((e) => {
+                                $(".textarea-content-en").hide();
+                                $(".textarea-content-vn").show();
+                                $(".textarea-content-china").hide();
+                                $(".textarea-content-dutch").hide();
+                                $(".textarea-content-georgian").hide();
+                                // e.stopPropagation();
+                                content = $(".textarea-content-vn").val();
+                            })
+                        }
+                        if (j == 2) {
+                            $(this).click((e) => {
+                                $(".textarea-content-en").hide();
+                                $(".textarea-content-vn").hide();
+                                $(".textarea-content-china").show();
+                                $(".textarea-content-dutch").hide();
+                                $(".textarea-content-georgian").hide();
+                                // e.stopPropagation();
+                                content = $(".textarea-content-china").val();
+                            })
+                        }
+                        if (j == 3) {
+                            $(this).click((e) => {
+                                $(".textarea-content-en").hide();
+                                $(".textarea-content-vn").hide();
+                                $(".textarea-content-china").hide();
+                                $(".textarea-content-dutch").show();
+                                $(".textarea-content-georgian").hide();
+                                // e.stopPropagation();
+                                content = $(".textarea-content-dutch").val();
+                            })
+                        }
+                        if (j == 4) {
+                            $(this).click((e) => {
+                                $(".textarea-content-en").hide();
+                                $(".textarea-content-vn").hide();
+                                $(".textarea-content-china").hide();
+                                $(".textarea-content-dutch").hide();
+                                $(".textarea-content-georgian").show();
+                                // e.stopPropagation();
+                                content = $(".textarea-content-georgian").val();
+                            })
+                        }
+                    })
+                    numbershow = 'content';
+                }
+            }
             event.stopPropagation();
         })
     });
+
     $('.select-product').click((event) => {
         let offset = $('.select-product').children('.set-img-product-url').offset();
-        $(".select-product-url").toggle().offset({
+        $("#select-product-url").toggle().offset({
             top: offset.top + 22,
             left: offset.left - 128
         });
+        if (document.getElementById('select-product-url').style.display != "none") {
+            $('.select-product-url').find('li').each(function (i) {
+                if (i == 0) {
+                    $(this).click(() => {
+                        typeuUrl = "Product Url"
+                    })
+                }
+                if (i == 1) {
+                    $(this).click(() => {
+                        typeuUrl = "Category Url"
+                    })
+                }
+                if (i == 2) {
+                    $(this).click(() => {
+                        typeuUrl = "About Us Url"
+                    })
+                }
+
+                if (i == 3) {
+                    $(this).click(() => {
+                        typeuUrl = "Bookmark Url"
+                    })
+                }
+                if (i == 4) {
+                    $(this).click(() => {
+                        typeuUrl = "Term & Conditions"
+                    })
+                }
+                if (i == 5) {
+                    $(this).click(() => {
+                        typeuUrl = "Privacy Policy"
+                    })
+                }
+            })
+        }
         event.stopPropagation();
     });
+
+    //-------------------------------------------
 
     $('#send-to-everyone').click(() => {
         $('.sent-to-segment').hide();
@@ -198,8 +382,27 @@ $(document).ready(() => {
         console.log(cancelBackground)
     })
 
-    console.log($('#cp1').children('input').val());
 
+    // color picker
+    $('#cp1').colorpicker().on('colorpickerChange colorpickerCreate', function (e) {
+        $('#title-mobile').css("color", e.color.toRgbString())
+        colorTitle = e.color.toRgbString();
+    });;
+    $('#cp2').colorpicker().on('colorpickerChange colorpickerCreate', function (e) {
+        $('#content-mobile').css("color", e.color.toRgbString())
+        colorContent = e.color.toRgbString();
+    });;
+    $('#cp3').colorpicker().on('colorpickerChange colorpickerCreate', function (e) {
+        colorLed = e.color.toRgbString();
+    });;
+    $('#cp4').colorpicker().on('colorpickerChange colorpickerCreate', function (e) {
+        colorAccent = e.color.toRgbString();
+    });;
+
+    // choolse url
+
+    //-----------------------------------------------------------
+    // save notification
     $("#save-notification").click(() => {
         $('#loading').show();
         $.when(
@@ -316,6 +519,28 @@ $(document).ready(() => {
                         success: function (data) {}
                     })
                 }
+            })(), (() => {
+                if (checknotification() == true) {
+                    $.ajax({
+                        usl: "/save-data-notification/" + idApp,
+                        data: {
+                            title,
+                            content,
+                            colorTitle,
+                            colorContent,
+                            colorLed,
+                            colorAccent,
+                            internalLink: [{
+                                typeuUrl,
+                                url
+                            }],
+                            sentTo: "all"
+                        },
+                        dataType: "json",
+                        type: 'POST',
+                        success: function (data) {}
+                    })
+                }
             })()
         ).then(() => {
             $('#loading').hide();
@@ -327,7 +552,47 @@ $(document).ready(() => {
                 $('.successPopup').hide();
             });
         })
+    });
+    //----------------------------------
+    $('.show-send-to').each(function (i) {
+        $(this).click((event) => {
+            let offset = $(this).offset();
+            $("#select-send-to").toggle().offset({
+                top: offset.top + 25,
+                left: offset.left
+            });
+            event.stopPropagation();
+        })
     })
+
+    //----------------------------------
+    var sentTo;
+
+    $('[name="notiradio"]').change(() => {
+        console.log($('[name="notiradio"]:checked').val());
+        if ($('[name="notiradio"]:checked').val() == "1") {
+            sentTo == "all"
+        }
+        if ($('[name="notiradio"]:checked').val() == "2") {
+            sentTo == "all"
+        }
+        if ($('[name="notiradio"]:checked').val() == "3") {
+            sentTo == "all"
+        }
+    })
+    //-----------------------------------------------------------
+    function checknotification() {
+        if (trimSpace(title) == "") {
+            return false;
+        }
+        if (trimSpace(content) == "") {
+            return false;
+        }
+        return true;
+    }
+
+
+
 
 
 });

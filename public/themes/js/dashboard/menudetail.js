@@ -178,6 +178,17 @@ $(document).ready(function () {
         <span id="text-href">Traffic</span>`)
 
     }
+    if (pathArray[1] == "notification") {
+        hoverarrow[6].style.color = "#00afee"
+        hovertext[6].style.color = "#00afee"
+        $('#navigate-text').append(
+            `<a class="colora" href="/dashboard"><span>Home</span><a>
+        <span class="setarrownavigate">
+            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
+        </span>
+        <span id="text-href">Notification</span>`)
+
+    }
     // console.log(pathArray)
 
 

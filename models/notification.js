@@ -2,10 +2,13 @@ let mongoose = require('mongoose');
 
 let notificationChema = mongoose.Schema({
     idApp: String,
-    idNotidication: String,
+    idNotification: String,
     titleNotification: String,
     contentNotification: String,
-    internalLink: String,
+    internalLink: [{
+        typeUrl: String,
+        url: String
+    }],
     smallIcon: String,
     iconNotification: String,
     bigimagesNotification: String,
@@ -14,6 +17,8 @@ let notificationChema = mongoose.Schema({
     contentColor: String,
     ledColor: String,
     accentColor: String,
+    sendTo: String,
+    excludeSendTo: String,
     dateCreate: Date,
     statusNotification: String,
     status: Boolean

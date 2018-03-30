@@ -321,7 +321,7 @@ p {
     padding: 0;
 }
 
-input[type="checkbox"] {
+#remem input[type="checkbox"] {
     visibility: hidden;
 }
 

@@ -20,7 +20,12 @@
                             <img class="img-arow-notification" src="/themes/img/dashboard/iconarrow.png">
                         </span>
                     </label>
-                    <input placeholder="Enter Your title" type="text" class="resetinputlogin input-title-notification" name="title-notification">
+                    <input placeholder="Enter Your title" type="text" class="resetinputlogin input-title-notification" name="title-notification-en">
+                    <input placeholder="Enter Your title" type="text" class="resetinputlogin input-title-notification display-none" name="title-notification-vn">
+                    <input placeholder="Enter Your title" type="text" class="resetinputlogin input-title-notification display-none" name="title-notification-china">
+                    <input placeholder="Enter Your title" type="text" class="resetinputlogin input-title-notification display-none" name="title-notification-dutch">
+                    <input placeholder="Enter Your title" type="text" class="resetinputlogin input-title-notification display-none" name="title-notification-georgian">
+
                     <span class="form-control-feedback" aria-hidden="true">
                         <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
                     </span>
@@ -33,7 +38,12 @@
                             <img class="img-arow-notification" src="/themes/img/dashboard/iconarrow.png">
                         </span>
                     </label>
-                    <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification"></textarea>
+                    <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification textarea-content-en"></textarea>
+                    <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-vn"></textarea>
+                    <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-china"></textarea>
+                    <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-dutch"></textarea>
+                    <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-georgian"></textarea>
+
                     <span class="form-control-feedback" aria-hidden="true">
                         <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
                     </span>
@@ -132,11 +142,7 @@
                                 <i class="set-i-color"></i>
                             </span>
                         </div>
-                        <script>
-                            $(function () {
-                                $('#cp1').colorpicker();
-                            });
-                        </script>
+
                     </div>
                     <div class="form-group has-feedback">
                         <label class="control-label" for="inputSuccess2">Content Color</label>
@@ -146,11 +152,7 @@
                                 <i class="set-i-color"></i>
                             </span>
                         </div>
-                        <script>
-                            $(function () {
-                                $('#cp2').colorpicker();
-                            });
-                        </script>
+
 
                     </div>
                     <div class="form-group has-feedback">
@@ -161,11 +163,7 @@
                                 <i class="set-i-color"></i>
                             </span>
                         </div>
-                        <script>
-                            $(function () {
-                                $('#cp3').colorpicker();
-                            });
-                        </script>
+
                     </div>
                     <div class="form-group has-feedback">
                         <label class="control-label" for="inputSuccess2">Accent Color</label>
@@ -175,23 +173,19 @@
                                 <i class="set-i-color"></i>
                             </span>
                         </div>
-                        <script>
-                            $(function () {
-                                $('#cp4').colorpicker();
-                            });
-                        </script>
+
                     </div>
                     <div class="form-group has-feedback">
                         <label class="control-label" for="inputSuccess2">Android Background Images</label>
                         <div class="">
                             <label class="container-radio-custom">Send to Everyone
-                                <input id="send-to-everyone" type="radio" checked="checked" name="optradio">
+                                <input id="send-to-everyone" type="radio" checked="checked" name="notiradio" value="1">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
                         <div class="">
                             <label class="container-radio-custom">Send to Particular Segment(s)
-                                <input id="send-to-segment" type="radio" name="optradio">
+                                <input id="send-to-segment" type="radio" name="notiradio" value="2">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
@@ -207,18 +201,20 @@
                                 <div class="form-group has-feedback">
                                     <label class="control-label " for="inputSuccess2">Sent to segments
                                     </label>
-                                    <input placeholder="Enter your segments" type="text" class="resetinputlogin" id="register-firstname" name="firstname">
+                                    <input placeholder="Enter your segments" type="text" class="resetinputlogin show-send-to" readonly id="notification-sent"
+                                        name="firstname">
                                 </div>
                                 <div class="form-group has-feedback">
                                     <label class="control-label " for="inputSuccess2">Exclude users in segments
                                     </label>
-                                    <input placeholder="Enter your exclude users" type="text" class="resetinputlogin" id="register-firstname" name="firstname">
+                                    <input placeholder="Enter your exclude users" type="text" class="resetinputlogin show-send-to" readonly id="notification-exclude"
+                                        name="firstname">
                                 </div>
                             </div>
                         </div>
                         <div class="">
                             <label class="container-radio-custom">Send to Test Device(s)
-                                <input id="send-to-test-device" type="radio" name="optradio">
+                                <input id="send-to-test-device" type="radio" name="notiradio" value="3">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
@@ -295,9 +291,9 @@
         </div>
         <div id="border-btn-notification">
             <button id="save-notification" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Save</button>
-            <button class="setcolorfontinput setcolorloginbackround btn btn-lg-notification set-infor-mobile-using">Save And Send</button>
+            <button id="send-notification" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification set-infor-mobile-using">Save And Send</button>
         </div>
-        <div class="select-country-notification">
+        <div id="select-country-notification" class="select-country-notification">
             <div class="select-country-notificationx">
                 <div class="arrow-select">
                     <div class="select-country-notificationx">
@@ -322,7 +318,7 @@
                 </div>
             </div>
         </div>
-        <div class="select-product-url">
+        <div id="select-product-url" class="select-product-url">
             <ul>
                 <li>Product Url</li>
                 <li>Category Url</li>
@@ -330,6 +326,19 @@
                 <li>Bookmark Url</li>
                 <li>Term & Conditions</li>
                 <li>Privacy Policy</li>
+            </ul>
+        </div>
+        <div id="select-send-to" class="select-send-to">
+            <ul>
+                <li>
+                    <input type="checkbox" name="vehicle1" value="all"> All
+                </li>
+                <li>
+                    <input type="checkbox" name="vehicle1" value="Engaged users"> Engaged users</li>
+                <li>
+                    <input type="checkbox" name="vehicle1" value="Active Users"> Active Users</li>
+                <li>
+                    <input type="checkbox" name="vehicle1" value="Inactive Users"> Inactive Users</li>
             </ul>
         </div>
     </div>

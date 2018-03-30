@@ -38,7 +38,7 @@
     <script type="text/javascript" charset="utf-8" src="/themes/js/ejs.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="/themes/js/jquery.animateNumber.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/chartjs/chartjs.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/menudetail.js"></script> -->
+    <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/menudetail.js"></script>
     <!-- datetime picker -->
     <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/momentdatetimepicker.js"></script>
     <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/datetimerpicker.min.js"></script>
@@ -60,17 +60,17 @@
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/anychart-font.min.css">
     <!-- new 21-11 -->
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             $.post(
                 "/getaccount", {},
-                function (data) {
+                function(data) {
                     $('.imgavatarsmall').attr('src', data.picture);
                     $('.setspanfullname').text(data.fullname);
                 }
             )
             $.post(
                 "/getamountapp", {},
-                function (data) {
+                function(data) {
                     $('.textamountapp').text("MyApp(" + data.amount + ")");
                 }
             )

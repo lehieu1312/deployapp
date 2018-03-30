@@ -747,8 +747,8 @@ router.post('/build-android', multipartMiddleware, async function(req, res, next
         //     return updateDB(condUpdate, valUpdate);
         // })
         return checkBuilding(sumBuild, sKeyFolder).then(() => {
-                // var cmd = 'ionic';
-                var cmd = 'cordova';
+                var cmd = 'ionic';
+                // var cmd = 'cordova';
                 var argvBuild = ['build', 'android', '--prod'];
                 process.chdir(path.join(appRoot, 'public', 'project', sKeyFolder));
                 return commandLine(cmd, argvBuild);
@@ -760,8 +760,8 @@ router.post('/build-android', multipartMiddleware, async function(req, res, next
             })
             .then(() => {
                 console.log('build project release.....');
-                // var cmdRelease = 'ionic';
-                var cmdRelease = 'cordova';
+                var cmdRelease = 'ionic';
+                // var cmdRelease = 'cordova';
                 var argv = ['build', 'android', '--release', '--prod'];
                 process.chdir(path.join(appRoot, 'public', 'project', sKeyFolder));
                 return commandLine(cmdRelease, argv);
@@ -1481,8 +1481,8 @@ router.post('/build-android-update', multipartMiddleware, async function(req, re
         //     return updateDB(condUpdate, valUpdate);
         // })
         return checkBuilding(sumBuild, sKeyFolder).then(() => {
-                // var cmd = 'ionic';
-                var cmd = 'cordova';
+                var cmd = 'ionic';
+                // var cmd = 'cordova';
                 var argvBuild = ['build', 'android', '--prod'];
                 process.chdir(path.join(appRoot, 'public', 'project', sKeyFolder));
                 return commandLine(cmd, argvBuild)
@@ -1494,8 +1494,8 @@ router.post('/build-android-update', multipartMiddleware, async function(req, re
             })
             .then(() => {
                 console.log('build project release.....');
-                // var cmdRelease = 'ionic';
-                var cmdRelease = 'cordova';
+                var cmdRelease = 'ionic';
+                // var cmdRelease = 'cordova';
                 var argv = ['build', 'android', '--release', '--prod'];
                 process.chdir(path.join(appRoot, 'public', 'project', sKeyFolder));
                 return commandLine(cmdRelease, argv);

@@ -4,6 +4,9 @@ var appRoot = require('app-root-path');
 appRoot = appRoot.toString();
 var path = require('path');
 var fs = require('fs');
+// var moment = require('moment');
+// moment(1521718676).forM
+// console.log(moment("1521718676").format('MMMM Do YYYY, h:mm:ss a'));
 
 'use strict';
 // const nodemailer = require('nodemailer');
@@ -14,20 +17,21 @@ nodemailer.createTestAccount((err, account) => {
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
         // host: 'mail.dev.deployapp.net',
-        host: 'test_deployapp.net',
+        host: 'mail.dev.deployapp.net',
         port: 25,
         // secureConnection: true,
         secure: true, // true for 465, false for other ports
+        requireTLS: true,
         auth: {
-            user: 'no-reply@taydotech.com',
-            pass: 'taydotech!@#deployapp' // generated ethereal password
+            user: 'abc@mail.dev.deployapp.net',
+            pass: 'lehieu123' // generated ethereal password
         }
     });
 
     // setup email data with unicode symbols
     let mailOptions = {
         from: '"Fred Foo 👻" <foo@example.com>', // sender address
-        to: 'hieu.ric@gmail.com', // list of receivers
+        to: 'anc@mail.dev.deployapp.net', // list of receivers
         subject: 'Hello ✔', // Subject line
         text: 'Hello world?', // plain text body
         html: '<b>Hello world?</b>' // html body

@@ -473,7 +473,7 @@ router.post('/platforms', urlencodeParser, async function(req, res) {
 
                 if (sPlatform == 'android') {
                     console.log('add platform.......');
-                    var cmdRelease = 'cordova';
+                    var cmdRelease = 'ionic';
                     var argv;
                     console.log(sPlatform);
                     argv = ['platform', 'add', 'android'];

@@ -15,6 +15,8 @@ let appsettingschema = mongoose.Schema({
     targetBlank: Boolean,
     dateFormat: String,
     oneSignalID: String,
+    oneSignalAppID: String,
+    oneSignalAPIKey: String,
     ggAnalytic: String,
     adModAndroidBanner: String,
     adModeAndroidInterstitial: String,

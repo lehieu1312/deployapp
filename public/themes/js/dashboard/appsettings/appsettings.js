@@ -123,31 +123,7 @@ $(document).ready(function() {
             $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
             //   $(this).find('#icon-err').removeClass('display-none').addClass('display-inline');
             checkValid = false;
-        }
-        // else {
-        //       $(this).find('input').removeClass('input-holder').removeClass('border-bottom-red');
-        //       $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
-        //       //   $(this).find('.help-block').html('');
-        //       //   $(this).removeClass('has-error').addClass('has-success');
-        //       //   $(this).find('input').focus();
-        //   }
-        //   else if (rules.toLowerCase() == "string") {
-        // && checkCharSpecial($(this).find('input').val()) == false
-        //   var value = $(this).find('input').val();
-        //   var checkSpecial = checkCharSpecial(value);
-        //   if (checkSpecial == false) {
-        //   $(this).find('input').val('');
-        //   $(this).find('input').attr('placeholder', '');
-        //   $(this).find('input').attr('placeholder', 'Field is contain characters special');
-        //   $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
-        //   $(this).find('#icon-err').removeClass('display-none').addClass('display-inline');
-        //   checkValid = false;
-        //   } else {
-        //       $(this).find('input').removeClass('input-holder').removeClass('border-bottom-red');
-        //       //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
-        //   }
-        //   }
-        else if (rules.toLowerCase() == "packageid") {
+        } else if (rules.toLowerCase() == "packageid") {
             var value = $(this).find('input').val();
             var checkSpecial = validPackageID(value);
 
@@ -164,16 +140,7 @@ $(document).ready(function() {
 
             } else {
                 $(this).find('input').removeClass('input-holder').removeClass('border-bottom-red');
-                //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
-                //   $(this).find('.help-block').html('');
-                //   $(this).removeClass('has-error').addClass('has-success');
             }
-
-            // if (cPackage.lenght() < 2 || typeof cPackage.lenght() == 'undefined') {
-            //     alert('Package is not match (com.domain.id) ');
-            //     $(this).focus();
-            //     return false;
-            // }
         } else if (rules.toLowerCase() == "email") {
             var checkmail = validateEmail($(this).find('input').val());
             if ($(this).find('input').val() == '') {
@@ -185,10 +152,7 @@ $(document).ready(function() {
                 $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
                 //   $(this).find('#icon-err').removeClass('display-none').addClass('display-inline');
                 checkValid = false;
-                //   $(this).find('.help-block').html('Please enter correct email');
-                //   $(this).removeClass('has-success').addClass('has-error');
-                //   $(this).find('input').focus();
-                //   checkValid = false;
+
             } else {
                 $(this).find('input').removeClass('input-holder').removeClass('border-bottom-red');
                 //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
@@ -217,27 +181,7 @@ $(document).ready(function() {
                 //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
             }
 
-        }
-        //   else if (rules.toLowerCase() == "dateformat") {
-        //       if ($(this).find('input').val() == '') {
-        //           $(this).find('input').attr('placeholder', 'Enter Date format, example: yyyy-MM-dd');
-        //           $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
-        //           checkValid = false;
-        //       } else if (checkDateFormat($(this).find('input').val()) == false) {
-        //           $(this).find('input').val('');
-        //           $(this).find('input').attr('placeholder', 'Enter Date format, example: yyyy-MM-dd');
-        //           $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
-        //           //   $(this).find('#icon-err').removeClass('display-none').addClass('display-inline');
-        //           checkValid = false;
-        //           // alert('OnesignalID not match format');
-        //           // $(this).focus();
-        //       } else {
-        //           $(this).find('input').removeClass('input-holder').removeClass('border-bottom-red');
-        //           //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
-        //       }
-
-        //   }
-        else if (rules.toLowerCase() == "onesignalid") {
+        } else if (rules.toLowerCase() == "onesignalid") {
             if ($(this).find('input').val() == '') {
                 $(this).find('input').attr('placeholder', 'Enter valid OneSignal App ID, like: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
                 $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
@@ -282,9 +226,21 @@ $(document).ready(function() {
             return true;
         }
     }
+
+    function checkAppSetting() {
+        var checkApp = true;
+        if ($('#appname').val() == "") {
+            $('#appname').val('');
+            $('#appname').attr('placeholder', '');
+            $('#appname').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        }
+        return checkApp;
+    }
     //   btn-setting-app
     $('#btn-save-setting-app').click(function() {
-        if (validateForm_setting_app() == true) {
+        // alert('1');
+        if (checkAppSetting() == true) {
             $('#loading').show();
             var obj = {};
             // $('.form-group').find('.help-block').html('');

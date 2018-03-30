@@ -21,18 +21,21 @@ router.get("/appsettings/:idapp", checkAdmin, (req, res) => {
     try {
         console.log(req.params.idapp);
         inforappModels.findOne({ idApp: req.params.idapp }).then((data) => {
-            appsettingModels.findOne({ idApp: req.params.idapp }).then((dataSettings) => {
-                console.log(data);
-                res.render("./dashboard/appsetting/appsetting", {
-                    title: "App Setting",
-                    appuse: {
-                        idApp: req.params.idapp,
-                        nameApp: data.nameApp
-                    },
-                    appSetting: dataSettings
-                });
-            })
-
+            if (data) {
+                appsettingModels.findOne({ idApp: req.params.idapp }).then((dataSettings) => {
+                    console.log(data);
+                    res.render("./dashboard/appsetting/appsetting", {
+                        title: "App Setting",
+                        appuse: {
+                            idApp: req.params.idapp,
+                            nameApp: data.nameApp
+                        },
+                        appSetting: dataSettings
+                    });
+                })
+            } else {
+                res.render('404', { title: "Page Not Found" });
+            }
         });
     } catch (error) {
         res.render('error', { error, title: "Data Error" });

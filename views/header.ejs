@@ -79,13 +79,13 @@
     </script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             $.post(
                 "/getaccount", {},
-                function (data) {
+                function(data) {
                     $('.imgavatarsmall').attr('src', data.picture)
                     $('.setspanfullname').text(data.fullname)
-                    // console.log(data)
+                        // console.log(data)
                 }
                 // $('img.avatar').attr('src', 'upload/' + data.img);
                 // $('.name').html(data.fullname);

@@ -231,90 +231,215 @@ $(document).ready(function() {
         var checkApp = true;
         if ($('#appname').val() == "") {
             $('#appname').val('');
-            $('#appname').attr('placeholder', '');
+            $('#appname').attr('placeholder', 'Can not be empty');
             $('#appname').addClass('input-holder').addClass('border-bottom-red');
             checkApp = false;
+        } else {
+            $('#appname').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
         }
+        if ($('#version').val() == "") {
+            $('#version').val('');
+            $('#version').attr('placeholder', 'Can not be empty');
+            $('#version').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#version').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
+        if ($('#description').val() == "") {
+            $('#description').val('');
+            $('#description').attr('placeholder', 'Can not be empty');
+            $('#description').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#description').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
+        if ($('#email').val() == "") {
+            $('#email').val('');
+            $('#email').attr('placeholder', 'Can not be empty');
+            $('#email').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else if (validateEmail($('#email').val()) == false) {
+            $('#email').val('');
+            $('#email').attr('placeholder', 'Enter valid email');
+            $('#email').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#email').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
+        if ($('#href').val() == "") {
+            $('#href').val('');
+            $('#href').attr('placeholder', 'Can not be empty');
+            $('#href').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#href').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
+        if ($('#auth').val() == "") {
+            $('#auth').val('');
+            $('#auth').attr('placeholder', 'Can not be empty');
+            $('#auth').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#auth').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
+        if ($('#onesignalappid').val() == "") {
+            $('#onesignalappid').val('');
+            $('#onesignalappid').attr('placeholder', 'Can not be empty');
+            $('#onesignalappid').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#onesignalappid').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
+        if ($('#onesignalapikey').val() == "") {
+            $('#onesignalapikey').val('');
+            $('#onesignalapikey').attr('placeholder', 'Can not be empty');
+            $('#onesignalapikey').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#onesignalapikey').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
+        if ($('#auth').val() == "") {
+            $('#auth').val('');
+            $('#auth').attr('placeholder', 'Can not be empty');
+            $('#auth').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#auth').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
+        if ($('#onesignalappid').val() == "") {
+            $('#onesignalappid').val('');
+            $('#onesignalappid').attr('placeholder', 'Can not be empty');
+            $('#onesignalappid').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#onesignalappid').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
+        if ($('#onesignalapikey').val() == "") {
+            $('#onesignalapikey').val('');
+            $('#onesignalapikey').attr('placeholder', 'Can not be empty');
+            $('#onesignalapikey').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#onesignalapikey').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
+        if ($('#wpurl').val() == "") {
+            $('#wpurl').val('');
+            $('#wpurl').attr('placeholder', 'Can not be empty');
+            $('#wpurl').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else if (ValidURL($('#wpurl').val()) == false) {
+            $('#wpurl').val('');
+            $('#wpurl').attr('placeholder', 'Enter valid URL to your wordpress, like: http(s)://your_website.com');
+            $('#wpurl').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#wpurl').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
+        if ($('#wpperpage').val() == "") {
+            $('#wpperpage').val('');
+            $('#wpperpage').attr('placeholder', 'Can not be empty');
+            $('#wpperpage').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else if (isNumber($('#wpperpage').val()) == false) {
+            $('#wpperpage').val('');
+            $('#wpperpage').attr('placeholder', 'Enter number');
+            $('#wpperpage').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#wpperpage').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
+        if ($('#reqtimeout').val() == "") {
+            $('#reqtimeout').val('');
+            $('#reqtimeout').attr('placeholder', 'Can not be empty');
+            $('#reqtimeout').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else if (isNumber($('#reqtimeout').val()) == false) {
+            $('#reqtimeout').val('');
+            $('#reqtimeout').attr('placeholder', 'Enter number');
+            $('#reqtimeout').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#reqtimeout').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
+        if ($('#onesignalid').val() == "") {
+            $('#onesignalid').val('');
+            $('#onesignalid').attr('placeholder', 'Can not be empty');
+            $('#onesignalid').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#onesignalid').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
+        if ($('#onesignalapikey').val() == "") {
+            $('#onesignalapikey').val('');
+            $('#onesignalapikey').attr('placeholder', 'Can not be empty');
+            $('#onesignalapikey').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#onesignalapikey').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
+
         return checkApp;
     }
     //   btn-setting-app
     $('#btn-save-setting-app').click(function() {
         // alert('1');
+        // alert(checkAppSetting());
         if (checkAppSetting() == true) {
-            $('#loading').show();
+            // $('#loading').show();
             var obj = {};
+
             // $('.form-group').find('.help-block').html('');
             // $('.form-group').removeClass('has-error').addClass('has-success');
             // $(".spinner").fadeIn();
             $.ajax({
-                url: "/setting-app",
+                url: "/dashboard/appsettings",
                 type: "POST",
-                data: $("#fSettingApp").serialize(),
+                data: $("#fSettingApps").serialize(),
                 //  processData: false,
                 //contentType: false,
                 success: function(result) {
-
-                    // $('#loading').text(result);
                     if (result.status == 1) {
                         console.log(result.content);
-
-                        location.href = "/platforms/" + result.keyFolder
-                    } else if (result.status == 3) {
-                        //   $('.error-all').find('.help-block').html(result.content);
-                        //   $('.error-all').removeClass('has-success').addClass('has-error');
-                        //
+                        $('.successPopup').show();
+                        $('.contenemail').html('SAVED');
+                        $("#success-alert").fadeTo(7000, 1000).slideUp(1000, function() {
+                            $("#success-alert").slideUp(1000);
+                            $('.successPopup').hide();
+                        });
+                        // $('.errPopup').show();
+                        // $('.alert-upload').html('Saved');
+                    } else if (result.status == 2) {
                         $('.errPopup').show();
-                        $('.alert-upload').html(result.content);
-                        //   $("#danger-alert").fadeTo(7000, 1000).slideUp(1000, function() {
-                        //       $("#danger-alert").slideUp(1000);
-                        //       $('.errPopup').hide();
-                        //   });
+                        $('.alert-upload').html(result.content[0]['msg']);
+
                     } else {
-                        //   $('.error-all').find('.help-block').html('Undefined error');
-                        //   $('.error-all').removeClass('has-success').addClass('has-error');
-                        //
                         $('.errPopup').show();
                         $('.alert-upload').html('Oops, something went wrong');
-                        //   $("#danger-alert").fadeTo(7000, 1000).slideUp(1000, function() {
-                        //       $("#danger-alert").slideUp(1000);
-                        //       $('.errPopup').hide();
-                        //   });
                     }
                 },
                 error: function(jqXHR, exception) {
-                        //show error message
-
-                        //   if (jqXHR.status == 200 || jqXHR.status == 0) {
-                        //       //   console.log(jqXHR.status + ' - ' + exception);
-                        //       //   $('.error-all').find('.help-block').html(jqXHR.status + ' - ' + exception);
-                        //       //   $('.error-all').removeClass('has-success').addClass('has-error');
-                        //       //
-                        //       $('.errPopup').show();
-                        //       $('.alert-upload').html(jqXHR.status + ' - ' + exception);
-                        //       $("#danger-alert").fadeTo(7000, 1000).slideUp(1000, function() {
-                        //           $("#danger-alert").slideUp(1000);
-                        //           $('.errPopup').hide();
-                        //       });
-                        //   } else {
-
-                        // location.href = "/upload"
-                        //   $('.error-all').find('.help-block').html(jqXHR.status + ' - ' + exception);
-                        //   $('.error-all').removeClass('has-success').addClass('has-error');
-                        //   //
                         $('.errPopup').show();
                         $('.alert-upload').html('Oops, something went wrong');
-                        //   $("#danger-alert").fadeTo(7000, 1000).slideUp(1000, function() {
-                        //       $("#danger-alert").slideUp(1000);
-                        //       $('.errPopup').hide();
-                        //   });
-                        //   }
-
                     }
                     // timeout: 300000
             }).always(function(data) {
-
                 $('#loading').hide();
-
             });
         }
     });

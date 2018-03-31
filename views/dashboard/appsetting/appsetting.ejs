@@ -4,86 +4,72 @@
         <div id="title-detail" class="row row1">
             <div id="title-appversion" class="content-title-detail has-feedback">
                 <span class="textmyapp">App Setting</span>
-                <span class="setsearch">
+                <!-- <span class="setsearch">
                     <input type="text" onkeyup="searchappversion()" id="inputsearchapp1" name="search" placeholder="Search...">
                     <span class="form-control-feedback2" aria-hidden="true">
                         <img src="/themes/img/dashboard/iconsearch.png">
                     </span>
-                </span>
+                </span> -->
             </div>
         </div>
         <div class="row row1">
             <div id="content-appsetting">
-                <form method="POST" action="">
+                <form method="POST" action="" id="fSettingApps">
                     <div class="col-sm-6 ">
+
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Application Name *</label>
-                            <input type="text" class="resetinputlogin" id="appname" name="appname" <%if(appSetting){%> value="
-                            <%=appSetting.nameApp%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" class="resetinputlogin" id="appname" name="appname" value="<%if(appSetting){%><%=appSetting.nameApp %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
+                            <input type="hidden" value="<%=appuse.idApp%>" name="appid">
                         </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Version *</label>
-                            <input type="text" class="resetinputlogin" id="version" name="version" <%if(appSetting){%> value="
-                            <%=appSetting.version%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" class="resetinputlogin" id="version" name="version" value="<%if(appSetting){%><%=appSetting.version %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr2" src="" alt="">
                         </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Description *</label>
-                            <input type="text" class="resetinputlogin" id="description" name="description" <%if(appSetting){%> value="
-                            <%=appSetting.description%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" class="resetinputlogin" id="description" name="description" value="<%if(appSetting){%><%=appSetting.description %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr3" src="" alt="">
                         </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Email *</label>
-                            <input type="text" class="resetinputlogin" id="email" name="email" <%if(appSetting){%> value="
-                            <%=appSetting.emailApp%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" class="resetinputlogin" id="email" name="email" value="<%if(appSetting){%><%=appSetting.emailApp %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr4" src="" alt="">
                         </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Href *</label>
-                            <input type="text" name="href" id="href" class="resetinputlogin" <%if(appSetting){%> value="
-                            <%=appSetting.authHref%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" name="href" id="href" class="resetinputlogin" value="<%if(appSetting){%><%=appSetting.authHref %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                         </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Auth *</label>
-                            <input type="text" class="resetinputlogin" id="auth" name="auth" <%if(appSetting){%> value="
-                            <%=appSetting.auth%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" class="resetinputlogin" id="auth" name="auth" value="<%if(appSetting){%><%=appSetting.auth %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
                         </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Onesignal App ID *</label>
-                            <input type="text" class="resetinputlogin" id="onesignalappid" name="onesignalappid" <%if(appSetting){%> value="
-                            <%=appSetting.oneSignalAppID%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" class="resetinputlogin" id="onesignalappid" name="onesignalappid" value="<%if(appSetting){%><%=appSetting.oneSignalAppID %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
                         </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Onesignal API Key *</label>
-                            <input type="text" class="resetinputlogin" id="onesignalapikey" name="onesignalapikey" <%if(appSetting){%> value="
-                            <%=appSetting.oneSignalAPIKey%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" class="resetinputlogin" id="onesignalapikey" name="onesignalapikey" value="<%if(appSetting){%><%=appSetting.oneSignalAPIKey %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
                         </span>
                         </div>
@@ -92,28 +78,22 @@
                     <div class="col-sm-6">
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Wordpress Url *</label>
-                            <input type="text" class="resetinputlogin" id="wpurl" name="wpurl" <%if(appSetting){%> value="
-                            <%=appSetting.wpUrl%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" class="resetinputlogin" id="wpurl" name="wpurl" value="<%if(appSetting){%><%=appSetting.wpUrl %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
                         </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Wordpress Per Page *</label>
-                            <input type="number" class="resetinputlogin" id="wpperpage" name="wpperpage" <%if(appSetting){%> value="
-                            <%=appSetting.wpPerPage%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="number" class="resetinputlogin" min=0 id="wpperpage" name="wpperpage" value="<%if(appSetting){%><%=appSetting.wpPerPage %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
                         </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Request Time Out *</label>
-                            <input type="number" class="resetinputlogin" id="reqtimeout" name="reqtimeout" <%if(appSetting){%> value="
-                            <%=appSetting.requestTimeout%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="number" class="resetinputlogin" min=0 id="reqtimeout" name="reqtimeout" value="<%if(appSetting){%><%=appSetting.requestTimeout %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
                         </span>
                         </div>
@@ -128,64 +108,50 @@
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Date Format *</label>
-                            <input type="text" class="resetinputlogin" id="dateformat" name="dateformat" <%if(appSetting){%> value="
-                            <%=appSetting.dateFormat%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" class="resetinputlogin" id="dateformat" name="dateformat" value="<%if(appSetting){%><%=appSetting.dateFormat %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
                         </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Onesignal ID *</label>
-                            <input type="text" class="resetinputlogin" id="onesignalid" name="onesignalid" <%if(appSetting){%> value="
-                            <%=appSetting.oneSignalID%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" class="resetinputlogin" id="onesignalid" name="onesignalid" value="<%if(appSetting){%><%=appSetting.oneSignalID %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
                         </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Google analytic *</label>
-                            <input type="text" class="resetinputlogin" id="gganalytic" name="gganalytic" <%if(appSetting){%> value="
-                            <%=appSetting.ggAnalytic%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" class="resetinputlogin" id="gganalytic" name="gganalytic" value="<%if(appSetting){%><%=appSetting.ggAnalytic %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
                         </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">AdMode Android Banner</label>
-                            <input type="text" class="resetinputlogin" id="admodeandroidbanner" name="admodeandroidbanner" <%if(appSetting){%> value="
-                            <%=appSetting.adModAndroidBanner%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" class="resetinputlogin" id="admodeandroidbanner" name="admodeandroidbanner" value="<%if(appSetting){%><%=appSetting.adModAndroidBanner %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
                         </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">AdMode Android Interstitial</label>
-                            <input type="text" class="resetinputlogin" id="admodeandroidinterstitial" name="admodeandroidinterstitial" <%if(appSetting){%> value="
-                            <%=appSetting.adModeAndroidInterstitial%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" class="resetinputlogin" id="admodeandroidinterstitial" name="admodeandroidinterstitial" value="<%if(appSetting){%><%=appSetting.adModeAndroidInterstitial %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
                         </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">AdMode iOS Banner</label>
-                            <input type="text" class="resetinputlogin" id="admodeiosbanner" name="admodeiosbanner" <%if(appSetting){%> value="
-                            <%=appSetting.adModeIosBaner%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" class="resetinputlogin" id="admodeiosbanner" name="admodeiosbanner" value="<%if(appSetting){%><%=appSetting.adModeIosBaner %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
                         </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">AdMode iOS Interstitial</label>
-                            <input type="text" class="resetinputlogin" id="admodeiosinterstitial" name="admodeiosinterstitial" <%if(appSetting){%> value="
-                            <%=appSetting.adModeIosInterstitial%>"
-                                <%}%>>
-                                    <span class="form-control-feedback" aria-hidden="true">
+                            <input type="text" class="resetinputlogin" id="admodeiosinterstitial" name="admodeiosinterstitial" value="<%if(appSetting){%><%=appSetting.adModeIosInterstitial %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
                         </span>
                         </div>

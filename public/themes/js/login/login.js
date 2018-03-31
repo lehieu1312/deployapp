@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var username = $('[name = "username"]');
     var password = $('[name = "pass"]');
     var rememberme = $("#rememberme");
@@ -41,7 +41,7 @@ $(document).ready(function () {
         $('.successPopup').show();
         $(".contenemail").text("");
         $(".contenemail").text("Congratulations on signing up for a successful account! Please visit your E-mail address to validate your email")
-        $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+        $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function() {
             $("#success-alert").slideUp(1000);
             $('.successPopup').hide();
         });
@@ -51,7 +51,7 @@ $(document).ready(function () {
         $('.successPopup').show();
         $(".contenemail").text("");
         $(".contenemail").text("You have successfully verified the email")
-        $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+        $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function() {
             $("#success-alert").slideUp(1000);
             $('.successPopup').hide();
         });
@@ -117,13 +117,13 @@ $(document).ready(function () {
     };
     // hide and show password   
     $('#iconeyehide').hide();
-    $('#iconeye').click(function () {
+    $('#iconeye').click(function() {
         password.attr("type", "text");
         // $('#iconeye').attr("src", "/themes/img/login/iconeyehide.png")
         $('#iconeye').hide();
         $('#iconeyehide').show();
     });
-    $('#iconeyehide').click(function () {
+    $('#iconeyehide').click(function() {
         password.attr("type", "password");
         // $('#iconeye').attr("src", "/themes/img/login/iconeyehide.png")
         $('#iconeyehide').hide();
@@ -164,7 +164,7 @@ $(document).ready(function () {
         return true;
     };
     // ajax post login
-    $('#form-login').submit(function () {
+    $('#form-login').submit(function() {
         if (loginform() == true) {
             $.ajax({
                 type: "post",
@@ -175,11 +175,11 @@ $(document).ready(function () {
                     password: password.val(),
                     rememberme: rememberme.val()
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data.status == "3") {
                         $('.errPopup').show();
                         $('.alert-upload').text(data.message);
-                        $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                        $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function() {
                             $("#danger-alert").slideUp(1000);
                             $('.errPopup').hide();
                         });
@@ -188,7 +188,7 @@ $(document).ready(function () {
                     } else if (data.status == "2") {
                         $('.errPopup').show();
                         $('.alert-upload').text(data.message);
-                        $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                        $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function() {
                             $("#danger-alert").slideUp(1000);
                             $('.errPopup').hide();
                         });
@@ -197,7 +197,7 @@ $(document).ready(function () {
             })
         }
     });
-    $('#form-forgotpass').submit(function () {
+    $('#form-forgotpass').submit(function() {
         // alert(resetpassform());
         // resetpassform() == false;
         // resetpassform();
@@ -215,7 +215,7 @@ $(document).ready(function () {
                         $('#myModal').modal('hide');
                         $('.errPopup').show();
                         $('.alert-upload').text(data.message);
-                        $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                        $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function() {
                             $("#danger-alert").slideUp(1000);
                             $('.errPopup').hide();
                         });
@@ -224,7 +224,7 @@ $(document).ready(function () {
                         $('#successPopup').show(500);
                         $(".contenemail").text("");
                         $(".contenemail").text("We have sent you an E-mail with instructions on how to reset your password");
-                        $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                        $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function() {
                             $("#success-alert").slideUp(1000);
                             $('.successPopup').hide();
                         });
@@ -233,13 +233,13 @@ $(document).ready(function () {
                         $('#successPopup').show(500);
                         $(".contenemail").text("");
                         $(".contenemail").text("We have sent you an E-mail with instructions on how to reset your password");
-                        $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                        $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function() {
                             $("#success-alert").slideUp(1000);
                             $('.successPopup').hide();
                         });
                     }
                 }
-            }).always(function (data) {
+            }).always(function(data) {
                 $('#loading').hide();
                 email.val("");
             });

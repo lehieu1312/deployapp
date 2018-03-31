@@ -5,14 +5,14 @@
                 <h3 class="textmyapp">My Apps</h3>
                 <span>Showing 1-
                     <span id="text-showing-myapp">6</span> of
-                    <%=myapps.length%> result
-                </span>
-                <span class="setsearch">
+                <%=myapps.length%> result
+                    </span>
+                    <span class="setsearch">
                     <input type="text" id="inputsearchapp" onkeyup="searchmyapp()" name="search" placeholder="Search..">
                     <span class="form-control-feedback-detail" aria-hidden="true">
                         <img src="/themes/img/dashboard/iconsearch.png">
                     </span>
-                </span>
+                    </span>
             </div>
 
         </div>
@@ -34,7 +34,7 @@
                                 <div class="arrowmenuuser-left1">
                                 </div>
                             </div>
-                            <a href="/appversion/<%=myapps[i].idApp%>">
+                            <a href="/dashboard/appversion/<%=myapps[i].idApp%>">
                                 <input hidden class="idapp-use<%=i%>" value="<%=myapps[i].idApp%>">
                                 <span class="nameapp setfont-head setfonttitlehead">
                                     <%=myapps[i].nameApp%>

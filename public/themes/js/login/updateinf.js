@@ -1,5 +1,4 @@
-
-$(document).ready(function () {
+$(document).ready(function() {
     var firstname = $('#updateinf-firstname');
     var lastname = $('#updateinf-lastname');
     var username = $('#updateinf-username');
@@ -20,7 +19,7 @@ $(document).ready(function () {
         $('#country1').toggle();
         event.stopPropagation();
     });
-    $('#country1>li').click(function () {
+    $('#country1>li').click(function() {
         $("#updateinf-country").text($(this).text());
         $("#updateinf-country").val($(this).val());
         $('#country1').toggle();
@@ -43,13 +42,13 @@ $(document).ready(function () {
     var emailReg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     // hide and show password   
     $('#iconeyehide').hide();
-    $('#iconeye').click(function () {
+    $('#iconeye').click(function() {
         password.attr("type", "text");
         // $('#iconeye').attr("src", "/themes/img/login/iconeyehide.png")
         $('#iconeye').hide();
         $('#iconeyehide').show();
     });
-    $('#iconeyehide').click(function () {
+    $('#iconeyehide').click(function() {
         password.attr("type", "password");
         // $('#iconeye').attr("src", "/themes/img/login/iconeyehide.png")
         $('#iconeyehide').hide();
@@ -62,34 +61,40 @@ $(document).ready(function () {
         b.attr("src", "/themes/img/login/iconerr.png");
         a.focus();
     }
+
     function fnerrconfirmpass(a, b) {
         a.val("");
         a.attr({ "class": "resetinputloginerr", "placeholder": errconfirmpass });
         b.attr("src", "/themes/img/login/iconerr.png");
         a.focus();
     }
+
     function fnerrpass(a, b) {
         a.val("");
         a.attr({ "class": "resetinputloginerr", "placeholder": errpass });
         b.attr("src", "/themes/img/login/iconerr.png");
         a.focus();
     }
+
     function fnerrempty(a, b) {
         a.val("");
         a.attr({ "class": "resetinputloginerr", "placeholder": errempty });
         b.attr("src", "/themes/img/login/iconerr.png");
         a.focus();
     }
+
     function fnerrname(a, b) {
         a.val("");
         a.attr({ "class": "resetinputloginerr", "placeholder": errname });
         b.attr("src", "/themes/img/login/iconerr.png");
         a.focus();
     }
+
     function hideerr(a, b) {
         a.attr({ "class": "resetinputlogin" });
         b.attr("src", "");
     }
+
     function hideerryey(a, b) {
         a.attr({ "class": "resetinputlogin" });
         b.attr("src", "/themes/img/login/iconeye1.png");
@@ -97,61 +102,76 @@ $(document).ready(function () {
 
     function formupdateinf() {
         if (trimSpace(firstname.val()) == "") {
-            fnerrempty(firstname, $('#iconerr1')); return false;
+            fnerrempty(firstname, $('#iconerr1'));
+            return false;
         } else if (name1Reg.test(firstname.val()) == true) {
-            fnerrname(firstname, $('#iconerr1')); return false;
+            fnerrname(firstname, $('#iconerr1'));
+            return false;
         } else {
             hideerr(firstname, $('#iconerr1'));
         }
 
         if (trimSpace(lastname.val()) == "") {
-            fnerrempty(lastname, $('#iconerr2')); return false;
+            fnerrempty(lastname, $('#iconerr2'));
+            return false;
         } else if (name1Reg.test(lastname.val()) == true) {
-            fnerrname(lastname, $('#iconerr2')); return false;
+            fnerrname(lastname, $('#iconerr2'));
+            return false;
         } else {
             hideerr(lastname, $('#iconerr2'));
         }
 
         if (trimSpace(username.val()) == "") {
-            fnerrempty(username, $('#iconerr3')); return false;
+            fnerrempty(username, $('#iconerr3'));
+            return false;
         } else if (nameReg.test(username.val()) == false) {
-            fnerrname(username, $('#iconerr3')); return false;
+            fnerrname(username, $('#iconerr3'));
+            return false;
         } else {
             hideerr(username, $('#iconerr3'));
         }
 
         if (trimSpace(email.val()) == "") {
-            fnerrempty(email, $('#iconerr4')); return false;
+            fnerrempty(email, $('#iconerr4'));
+            return false;
         } else if (emailReg.test(email.val()) == false) {
-            fnerrname(email, $('#iconerr4')); return false;
+            fnerrname(email, $('#iconerr4'));
+            return false;
         } else {
             hideerr(email, $('#iconerr4'));
         }
 
         if (trimSpace(password.val()) == "") {
-            fnerrempty(password, $('#iconeye')); return false;
+            fnerrempty(password, $('#iconeye'));
+            return false;
         } else if (password.val().length < 6) {
-            fnerrpass(password, $('#iconeye')); return false;
+            fnerrpass(password, $('#iconeye'));
+            return false;
         } else {
             hideerryey(password, $('#iconeye'));
         }
 
         if (trimSpace(comfirmpass.val()) == "") {
-            fnerrempty(comfirmpass, $('#iconerr6')); return false;
+            fnerrempty(comfirmpass, $('#iconerr6'));
+            return false;
         } else if (comfirmpass.val() != password.val()) {
-            fnerrconfirmpass(comfirmpass, $('#iconerr6')); return false;
+            fnerrconfirmpass(comfirmpass, $('#iconerr6'));
+            return false;
         } else {
             hideerr(comfirmpass, $('#iconerr6'));
         }
         if (trimSpace(address.val()) == "") {
-            fnerrempty(address, $('#iconerr7')); return false;
+            fnerrempty(address, $('#iconerr7'));
+            return false;
         } else if (addressReg.test(address.val()) == true) {
-            fnerrname(address, $('#iconerr7')); return false;
+            fnerrname(address, $('#iconerr7'));
+            return false;
         } else {
             hideerr(address, $('#iconerr7'));
         }
         if (trimSpace(zipcode.val()) == "") {
-            fnerrempty(zipcode, $('#iconerr9')); return false;
+            fnerrempty(zipcode, $('#iconerr9'));
+            return false;
         } else if (numberReg.test(zipcode.val()) == false) {
             fnerrzipcode(zipcode, $('#iconerr9'));
             return false;
@@ -161,7 +181,7 @@ $(document).ready(function () {
         return true;
     };
 
-    $('#form-updateinf').submit(function () {
+    $('#form-updateinf').submit(function() {
         if (formupdateinf() == true) {
             $('#loading').show();
             $.ajax({
@@ -169,31 +189,35 @@ $(document).ready(function () {
                 url: "/updateinf/ok",
                 dataType: "json",
                 data: {
-                    firstname: trimSpace(firstname.val()), lastname: trimSpace(lastname.val()), username: username.val(), email: email.val(), password: password.val(),
-                    address: trimSpace(address.val()), country: country.val(), zipcode: zipcode.val()
+                    firstname: trimSpace(firstname.val()),
+                    lastname: trimSpace(lastname.val()),
+                    username: username.val(),
+                    email: email.val(),
+                    password: password.val(),
+                    address: trimSpace(address.val()),
+                    country: country.val(),
+                    zipcode: zipcode.val()
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data.status == "3") {
                         $('.errPopup').show();
                         $('.alert-upload').text(data.message);
-                        $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                        $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function() {
                             $("#danger-alert").slideUp(1000);
                             $('.errPopup').hide();
                         });
-                    }
-                    else if (data.status == "1") {
+                    } else if (data.status == "1") {
                         window.location.href = "/index";
-                    }
-                    else if (data.status == "2") {
+                    } else if (data.status == "2") {
                         $('.errPopup').show();
                         $('.alert-upload').text(data.message);
-                        $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                        $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function() {
                             $("#danger-alert").slideUp(1000);
                             $('.errPopup').hide();
                         });
                     }
                 }
-            }).always(function (data) {
+            }).always(function(data) {
                 $('#loading').hide();
             });
         };

@@ -17,3 +17,13 @@
 .text-center {
     text-align: center;
 }
+
+.input-holder::-webkit-input-placeholder {
+    color: #dc2a2a;
+    font-family: "OpenSans-Regular";
+    font-size: 13px;
+}
+
+#fSettingApps .border-bottom-red {
+    border-bottom: 1px solid #dc2a2a;
+}

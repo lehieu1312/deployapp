@@ -87,7 +87,7 @@ $(document).ready(() => {
                 // console.log(i)
                 $.ajax({
                     type: "POST",
-                    url: "/changestatuspayment",
+                    url: "/dashboard/changestatuspayment",
                     dataType: "json",
                     data: {
                         codeOrder,

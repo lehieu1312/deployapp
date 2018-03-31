@@ -5,9 +5,9 @@ function settime(a) {
 function ajaxpageuser(numberdate, numberend) {
     let linkpageuer;
     if (numberend == 0) {
-        linkpageuer = "/pageuser/" + $("#idapp-using").val() + "?numberdate=" + numberdate;
+        linkpageuer = "/dashboard/pageuser/" + $("#idapp-using").val() + "?numberdate=" + numberdate;
     } else {
-        linkpageuer = "/pageuser/" + $("#idapp-using").val() + "?numberdate=" + numberdate + "&numberend=" + numberend;
+        linkpageuer = "/dashboard/pageuser/" + $("#idapp-using").val() + "?numberdate=" + numberdate + "&numberend=" + numberend;
     }
     $.post(
         linkpageuer, {},

@@ -25,7 +25,7 @@ $(document).ready(() => {
         $('#loading').show();
         $.ajax({
             type: "POST",
-            url: "/getnotehistory",
+            url: "/dashboard/getnotehistory",
             dataType: "json",
             data: {
                 note: trimSpace($(".textarea-history").val()),

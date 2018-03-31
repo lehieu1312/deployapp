@@ -57,7 +57,7 @@ $(document).ready(() => {
         $('#mymodal-deleteuser').modal('hide');
         $.ajax({
             type: "POST",
-            url: "/deleteuser",
+            url: "/dashboard/deleteuser",
             dataType: "json",
             data: {
                 email: trimSpace(email),
@@ -94,7 +94,7 @@ $(document).ready(() => {
             $('#loading').show();
             $.ajax({
                 type: "POST",
-                url: "/adduser",
+                url: "/dashboard/adduser",
                 dataType: "json",
                 data: {
                     email: $(".textarea-adduser").val(),
@@ -102,7 +102,7 @@ $(document).ready(() => {
                 },
                 success: (data) => {
                     if (data.status == "1") {
-                        window.location.href = "/myteam/" + data.message;
+                        window.location.href = "/dashboard/myteam/" + data.message;
                     } else if (data.status == "2") {
                         $('#errPopup').show();
                         $('.alert-upload').text(data.message);

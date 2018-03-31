@@ -1,5 +1,5 @@
 function ajaxorderstatistic(numberdate) {
-    let linkstatistic = "/orderstatistic/" + $("#idapp-using").val() + "?numberdate=" + numberdate;
+    let linkstatistic = "/dashboard/orderstatistic/" + $("#idapp-using").val() + "?numberdate=" + numberdate;
     $.post(
         linkstatistic, {},
         function (data) {

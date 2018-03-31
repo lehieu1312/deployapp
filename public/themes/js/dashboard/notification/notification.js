@@ -409,7 +409,7 @@ $(document).ready(() => {
             (() => {
                 if (formData1 != null) {
                     $.ajax({
-                        url: '/iconnotification/' + idApp,
+                        url: '/dashboard/iconnotification/' + idApp,
                         data: formData1,
                         contentType: false,
                         processData: false,
@@ -426,7 +426,7 @@ $(document).ready(() => {
             (() => {
                 if (formData2 != null) {
                     $.ajax({
-                        url: '/iconlargenotification/' + idApp,
+                        url: '/dashboard/iconlargenotification/' + idApp,
                         data: formData2,
                         contentType: false,
                         processData: false,
@@ -441,7 +441,7 @@ $(document).ready(() => {
             (() => {
                 if (formData3 != null) {
                     $.ajax({
-                        url: '/iconbigimagesnotification/' + idApp,
+                        url: '/dashboard/iconbigimagesnotification/' + idApp,
                         data: formData3,
                         contentType: false,
                         processData: false,
@@ -456,7 +456,7 @@ $(document).ready(() => {
             (() => {
                 if (formData4 != null) {
                     $.ajax({
-                        url: '/iconbackgroundnotification/' + idApp,
+                        url: '/dashboard/iconbackgroundnotification/' + idApp,
                         data: formData4,
                         contentType: false,
                         processData: false,
@@ -471,7 +471,7 @@ $(document).ready(() => {
             (() => {
                 if (cancelSmall != null) {
                     $.ajax({
-                        url: '/canceliconnotification/' + idApp,
+                        url: '/dashboard/canceliconnotification/' + idApp,
                         data: {
                             cancelSmall
                         },
@@ -484,7 +484,7 @@ $(document).ready(() => {
             (() => {
                 if (cancelIcon != null) {
                     $.ajax({
-                        url: '/canceliconlargenotification/' + idApp,
+                        url: '/dashboard/canceliconlargenotification/' + idApp,
                         data: {
                             cancelIcon
                         },
@@ -497,7 +497,7 @@ $(document).ready(() => {
             (() => {
                 if (cancelBig != null) {
                     $.ajax({
-                        url: '/canceliconbigimagesnotification/' + idApp,
+                        url: '/dashboard/canceliconbigimagesnotification/' + idApp,
                         data: {
                             cancelBig
                         },
@@ -510,7 +510,7 @@ $(document).ready(() => {
             (() => {
                 if (cancelBackground != null) {
                     $.ajax({
-                        url: '/canceliconbackgroundnotification/' + idApp,
+                        url: '/dashboard/canceliconbackgroundnotification/' + idApp,
                         data: {
                             cancelBackground
                         },
@@ -522,7 +522,7 @@ $(document).ready(() => {
             })(), (() => {
                 if (checknotification() == true) {
                     $.ajax({
-                        usl: "/save-data-notification/" + idApp,
+                        usl: "/dashboard/save-data-notification/" + idApp,
                         data: {
                             title,
                             content,

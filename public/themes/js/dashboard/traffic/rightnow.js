@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    var linkstatistic = "/rightnow/" + $("#idapp-using").val();
+    var linkstatistic = "/dashboard/rightnow/" + $("#idapp-using").val();
     $.post(
         linkstatistic, {},
         function (data) {

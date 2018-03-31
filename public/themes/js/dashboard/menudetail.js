@@ -63,6 +63,7 @@ $(document).ready(function () {
     var hoverarrow = document.getElementsByClassName('set-span-arrow-right')
     var hovertext = document.getElementsByClassName('subspantextmenu1')
     var pathArray = window.location.pathname.split('/');
+    console.log(pathArray)
     if (pathArray[1] == "appversion") {
         // hoversubmenu[0].style.display = "none"
         hoverarrow[0].style.color = "#00afee"

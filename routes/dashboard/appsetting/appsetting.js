@@ -20,8 +20,12 @@ function checkAdmin(req, res, next) {
 router.get("/appsettings/:idapp", checkAdmin, (req, res) => {
     try {
         console.log(req.params.idapp);
-        inforappModels.findOne({ idApp: req.params.idapp }).then((data) => {
-            appsettingModels.findOne({ idApp: req.params.idapp }).then((dataSettings) => {
+        inforappModels.findOne({
+            idApp: req.params.idapp
+        }).then((data) => {
+            appsettingModels.findOne({
+                idApp: req.params.idapp
+            }).then((dataSettings) => {
                 console.log(data);
                 res.render("./dashboard/appsetting/appsetting", {
                     title: "App Setting",
@@ -35,14 +39,20 @@ router.get("/appsettings/:idapp", checkAdmin, (req, res) => {
 
         });
     } catch (error) {
-        res.render('error', { error, title: "Data Error" });
+        res.render('error', {
+            error,
+            title: "Data Error"
+        });
     }
 });
 router.post("/appsettings/:idapp", checkAdmin, (req, res) => {
     try {
 
     } catch (error) {
-        res.render('error', { error, title: "Data Error" });
+        res.render('error', {
+            error,
+            title: "Data Error"
+        });
     }
 });
 module.exports = router;

@@ -1,7 +1,14 @@
 $(document).ready(function() {
     $('.button-close-notification').click(function() {
         $('.errPopup').hide();
-    })
+    });
+
+    $('#btn-close-platform-dash').click(function() {
+        $('#dialog-noti-choose-android-dashboard').hide();
+    });
+    $('#btn-close-platform-dash').click(function() {
+        $('#dialog-build-android-dashboard').hide();
+    });
 
     function validateEmail(email) {
         var str = /^[a-z][a-zA-Z0-9_.]*(\.[a-zA-Z][a-zA-Z0-9_.]*)?@[a-z][a-zA-Z-0-9]*\.[a-z]+(\.[a-z]+)?$/;

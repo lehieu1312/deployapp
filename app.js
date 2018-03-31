@@ -646,19 +646,20 @@ app.use('/', buildandroiddash);
 app.use('/', login);
 app.use('/', register);
 app.use('/', updateinfo);
-app.use('/', homeapp);
-app.use('/', appversion);
-app.use('/', history);
+app.use('/', detail);
 app.use('/', editprofile);
 app.use('/', forgot);
-app.use('/', detail);
-app.use('/', myteam);
 app.use('/', errdashboard404);
-app.use('/', appsetting);
-app.use('/', myorder);
-app.use('/', traffic);
-app.use('/', notification);
-app.use('/', appsetting);
+
+app.use('/dashboard', homeapp);
+app.use('/dashboard', appversion);
+app.use('/dashboard', history);
+app.use('/dashboard', myteam);
+app.use('/dashboard', appsetting);
+app.use('/dashboard', myorder);
+app.use('/dashboard', traffic);
+app.use('/dashboard', notification);
+// app.use('/dashboard', appsetting);
 
 /////////////////////
 app.use('/deploy-api/', API);

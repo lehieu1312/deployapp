@@ -1,6 +1,8 @@
 let mongoose = require('mongoose');
-
-let appsettingschema = mongoose.Schema({
+mongoose.Promise = global.Promise;
+var Schema = mongoose.Schema;
+var ObjectId = Schema.ObjectId;
+let appsettingschema = new Schema({
     idApp: String,
     idUser: String,
     version: String,
@@ -15,14 +17,19 @@ let appsettingschema = mongoose.Schema({
     targetBlank: Boolean,
     dateFormat: String,
     oneSignalID: String,
+    oneSignalAppID: String,
+    oneSignalAPIKey: String,
     ggAnalytic: String,
     adModAndroidBanner: String,
     adModeAndroidInterstitial: String,
     adModeIosBaner: String,
     adModeIosInterstitial: String,
     dateCreate: Date,
+    dateUpdate: Date,
     status: Boolean
+}, {
+    collection: 'appsettings'
 });
 
 
-let appsetting = module.exports = mongoose.model('appsettings', appsettingschema);
+module.exports = mongoose.model('appsettings', appsettingschema);

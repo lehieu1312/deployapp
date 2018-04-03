@@ -7,62 +7,99 @@
                 </span>
             </div>
         </div>
-        <div id="content-notification" class="row row1">
-            <div class="left-content-notification col-md-8">
-                <div class="span-compose-message">
-                    <span>
-                        <img src="/themes/img/notification/iconedit.png"> Compose Message</span>
-                </div>
-                <div class="form-group has-feedback">
-                    <label class="control-label col-md-12 label-notification set-position-relative" for="inputSuccess2">Title Notification *
-                        <span class="country-notification">
-                            <img src="/themes/img/notification/iconlanguage.png">
-                            <span> English</span>
-                            <img class="img-arow-notification" src="/themes/img/dashboard/iconarrow.png">
-                        </span>
-                    </label>
-                    <input placeholder="Enter Your title" type="text" class="resetinputlogin input-title-notification" name="title-notification-en">
-                    <input placeholder="Enter Your title" type="text" class="resetinputlogin input-title-notification display-none" name="title-notification-vn">
-                    <input placeholder="Enter Your title" type="text" class="resetinputlogin input-title-notification display-none" name="title-notification-china">
-                    <input placeholder="Enter Your title" type="text" class="resetinputlogin input-title-notification display-none" name="title-notification-dutch">
-                    <input placeholder="Enter Your title" type="text" class="resetinputlogin input-title-notification display-none" name="title-notification-georgian">
-
-                    <span class="form-control-feedback" aria-hidden="true">
-                        <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
-                    </span>
-                </div>
-                <div class="form-group has-feedback">
-                    <label class="control-label col-md-12 label-notification set-position-relative" for="inputSuccess2">Content Notification *
-                        <span class="country-notification">
-                            <img src="/themes/img/notification/iconlanguage.png">
-                            <span> English</span>
-                            <img class="img-arow-notification" src="/themes/img/dashboard/iconarrow.png">
-                        </span>
-                    </label>
-                    <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification textarea-content-en"></textarea>
-                    <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-vn"></textarea>
-                    <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-china"></textarea>
-                    <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-dutch"></textarea>
-                    <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-georgian"></textarea>
-
-                    <span class="form-control-feedback" aria-hidden="true">
-                        <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
-                    </span>
-                </div>
-                <div class="form-group has-feedback">
-                    <label class="control-label" for="inputSuccess2">Internal link clickable</label>
-                    <div id="internal-link">
-                        <div class="select-product float-left">
-                            <span class="float-left">Product Url</span>
-                            <img class="float-right set-img-product-url" src="/themes/img/dashboard/iconarrow.png">
-                        </div>
-                        <input placeholder="Input product name" type="text" class="input-product-name  float-left">
+        <form id="form-notification" onsubmit="return false">
+            <div id="content-notification" class="row row1">
+                <div class="left-content-notification col-md-8">
+                    <div class="span-compose-message">
+                        <span>
+                            <img src="/themes/img/notification/iconedit.png"> Compose Message</span>
                     </div>
-                    <span class="form-control-feedback" aria-hidden="true">
-                        <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
-                    </span>
-                </div>
-                <%
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-12 label-notification set-position-relative" for="inputSuccess2">Title Notification *
+                            <span class="country-notification">
+                                <img src="/themes/img/notification/iconlanguage.png">
+                                <span> English</span>
+                                <img class="img-arow-notification" src="/themes/img/dashboard/iconarrow.png">
+                            </span>
+                        </label>
+                        <%
+                            let title_en = {status: "display-none", value: ""};
+                            let title_vn= {status: "display-none", value: ""};
+                            let title_cn = {status: "display-none", value: ""};;
+                            let title_sx = {status: "display-none", value: ""};
+                            let title_ge = {status: "display-none", value: ""};
+                            if(notification.titleNotification.length > 0){
+                                if(Object.getOwnPropertyNames(notification.titleNotification)[0] == "en"){
+                                    title_en.status = "";
+                                    title_en.value = notification.titleNotification.en;
+                                }
+                                if(Object.getOwnPropertyNames(notification.titleNotification)[0] == "vn"){
+                                    title_vn.status = "";
+                                    title_vn.value = notification.titleNotification.vn;
+                                }
+                                if(Object.getOwnPropertyNames(notification.titleNotification)[0] == "cn"){
+                                    title_cn.status = "";
+                                    title_cn.value = notification.titleNotification.cn;
+                                }
+                                if(Object.getOwnPropertyNames(notification.titleNotification)[0] == "sx"){
+                                    title_sx.status = "";
+                                    title_sx.value = notification.titleNotification.sx;
+                                }
+                                if(Object.getOwnPropertyNames(notification.titleNotification)[0] == "ge"){
+                                    title_ge.status = "";
+                                    title_ge.value = notification.titleNotification.ge;
+                                }
+                            }else{
+                                title_en.status = "";
+                            }
+                        %>
+                            <input placeholder="Enter Your title" value="<%=title_en.value%>" type="text" value="" autocomplete="off" class="resetinputlogin input-title-notification <%=title_en.status%>"
+                                name="title-notification-en">
+                            <input placeholder="Enter Your title" value="<%=title_vn.value%>" type="text" autocomplete="off" class="resetinputlogin input-title-notification <%=title_vn.status%>"
+                                name="title-notification-vn">
+                            <input placeholder="Enter Your title" value="<%=title_cn.value%>" type="text" autocomplete="off" class="resetinputlogin input-title-notification <%=title_cn.status%>"
+                                name="title-notification-china">
+                            <input placeholder="Enter Your title" value="<%=title_sx.value%>" type="text" autocomplete="off" class="resetinputlogin input-title-notification <%=title_sx.status%>"
+                                name="title-notification-dutch">
+                            <input placeholder="Enter Your title" value="<%=title_ge.value%>" type="text" autocomplete="off" class="resetinputlogin input-title-notification <%=title_ge.status%>"
+                                name="title-notification-georgian">
+
+                            <span class="form-control-feedback" aria-hidden="true">
+                                <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
+                            </span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label class="control-label col-md-12 label-notification set-position-relative" for="inputSuccess2">Content Notification *
+                            <span class="country-notification">
+                                <img src="/themes/img/notification/iconlanguage.png">
+                                <span> English</span>
+                                <img class="img-arow-notification" src="/themes/img/dashboard/iconarrow.png">
+                            </span>
+                        </label>
+                        <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification textarea-content-en"></textarea>
+                        <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-vn"></textarea>
+                        <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-china"></textarea>
+                        <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-dutch"></textarea>
+                        <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-georgian"></textarea>
+
+                        <span class="form-control-feedback" aria-hidden="true">
+                            <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
+                        </span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label class="control-label" for="inputSuccess2">Internal link clickable</label>
+                        <div id="internal-link">
+                            <div class="select-product float-left">
+                                <span class="float-left">Product Url</span>
+                                <img class="float-right set-img-product-url" src="/themes/img/dashboard/iconarrow.png">
+                            </div>
+                            <input placeholder="Input product name" type="text" class="input-product-name  float-left">
+                        </div>
+                        <span class="form-control-feedback" aria-hidden="true">
+                            <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
+                        </span>
+                    </div>
+                    <%
                  var status1 = "display-none";
                  var status2 = "display-none";
                  var status3 = "display-none";
@@ -82,182 +119,182 @@
                     status4 = "";
                 }
                 %>
-                    <div class="form-group has-feedback">
-                        <label class="control-label" for="inputSuccess2">Small Icon Notification</label>
-                        <span class="text-below-lable">* You should upload a 48x48 image for small icon</span>
-                        <div class="boder-icon-small-notification <%=status1%>">
-                            <input hidden value="<%=notification.smallIcon%>">
-                            <img src="/themes/img/settingnotification/<%=notification.smallIcon%>">
+                        <div class="form-group has-feedback">
+                            <label class="control-label" for="inputSuccess2">Small Icon Notification</label>
+                            <span class="text-below-lable">* You should upload a 48x48 image for small icon</span>
+                            <div class="boder-icon-small-notification <%=status1%>">
+                                <input hidden value="<%=notification.smallIcon%>">
+                                <img src="/themes/img/settingnotification/<%=notification.smallIcon%>">
+                            </div>
+                            <div class="set-location-btn-notification">
+                                <input type="file" hidden id="file-img-small" accept="image/*">
+                                <button id="btn-choose-small-icon" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
+                                <button id="btn-cancel-small-icon" class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification <%=status1%>">Delete File</button>
+                            </div>
                         </div>
-                        <div class="set-location-btn-notification">
-                            <input type="file" hidden id="file-img-small" accept="image/*">
-                            <button id="btn-choose-small-icon" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
-                            <button id="btn-cancel-small-icon" class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification <%=status1%>">Delete File</button>
+                        <div class="form-group has-feedback">
+                            <label class="control-label" for="inputSuccess2">Icon Notification</label>
+                            <span class="text-below-lable">* You should upload a 256x256 image for icon</span>
+                            <div class="boder-icon-large-notification <%=status2%>">
+                                <input hidden value="<%=notification.iconNotification%>">
+                                <img src="/themes/img/settingnotification/<%=notification.iconNotification%>">
+                            </div>
+                            <div class="set-location-btn-notification">
+                                <input type="file" hidden id="file-img-large" accept="image/*">
+                                <button id="btn-choose-large-icon" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
+                                <button id="btn-cancel-large-icon" class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification <%=status2%>">Delete File</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group has-feedback">
-                        <label class="control-label" for="inputSuccess2">Icon Notification</label>
-                        <span class="text-below-lable">* You should upload a 256x256 image for icon</span>
-                        <div class="boder-icon-large-notification <%=status2%>">
-                            <input hidden value="<%=notification.iconNotification%>">
-                            <img src="/themes/img/settingnotification/<%=notification.iconNotification%>">
+                        <div class="form-group has-feedback">
+                            <label class="control-label" for="inputSuccess2">Bigimages Notification</label>
+                            <span class="text-below-lable">* Use a 2:1 aspect, You should upload a 1024x512 image for icon</span>
+                            <div class="boder-icon-big-notification <%=status3%>">
+                                <input id="idapp-using" hidden value="<%=appuse.idApp%>">
+                                <input hidden value="<%=notification.bigimagesNotification%>">
+                                <img src="/themes/img/settingnotification/<%=notification.bigimagesNotification%>">
+                            </div>
+                            <div class="set-location-btn-notification">
+                                <input type="file" hidden id="file-img-bigimages" accept="image/*">
+                                <button id="btn-choose-bigimages-icon" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
+                                <button id="btn-cancel-bigimages-icon" class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification <%=status3%>">Delete File</button>
+                            </div>
                         </div>
-                        <div class="set-location-btn-notification">
-                            <input type="file" hidden id="file-img-large" accept="image/*">
-                            <button id="btn-choose-large-icon" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
-                            <button id="btn-cancel-large-icon" class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification <%=status2%>">Delete File</button>
+                        <div class="form-group has-feedback">
+                            <label class="control-label" for="inputSuccess2">Background Notification</label>
+                            <span class="text-below-lable">* You should upload a 17:2 image for icon</span>
+                            <div class="boder-icon-background-notification <%=status4%>">
+                                <input hidden value="<%=notification.backgroundNotification%>">
+                                <img src="/themes/img/settingnotification/<%=notification.backgroundNotification%>">
+                            </div>
+                            <div class="set-location-btn-notification">
+                                <input type="file" hidden id="file-img-background" accept="image/*">
+                                <button id="btn-choose-background-icon" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
+                                <button id="btn-cancel-background-icon" class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification <%=status4%>">Delete File</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group has-feedback">
-                        <label class="control-label" for="inputSuccess2">Bigimages Notification</label>
-                        <span class="text-below-lable">* Use a 2:1 aspect, You should upload a 1024x512 image for icon</span>
-                        <div class="boder-icon-big-notification <%=status3%>">
-                            <input id="idapp-using" hidden value="<%=appuse.idApp%>">
-                            <input hidden value="<%=notification.bigimagesNotification%>">
-                            <img src="/themes/img/settingnotification/<%=notification.bigimagesNotification%>">
-                        </div>
-                        <div class="set-location-btn-notification">
-                            <input type="file" hidden id="file-img-bigimages" accept="image/*">
-                            <button id="btn-choose-bigimages-icon" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
-                            <button id="btn-cancel-bigimages-icon" class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification <%=status3%>">Delete File</button>
-                        </div>
-                    </div>
-                    <div class="form-group has-feedback">
-                        <label class="control-label" for="inputSuccess2">Background Notification</label>
-                        <span class="text-below-lable">* You should upload a 17:2 image for icon</span>
-                        <div class="boder-icon-background-notification <%=status4%>">
-                            <input hidden value="<%=notification.backgroundNotification%>">
-                            <img src="/themes/img/settingnotification/<%=notification.backgroundNotification%>">
-                        </div>
-                        <div class="set-location-btn-notification">
-                            <input type="file" hidden id="file-img-background" accept="image/*">
-                            <button id="btn-choose-background-icon" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Choose File</button>
-                            <button id="btn-cancel-background-icon" class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification <%=status4%>">Delete File</button>
-                        </div>
-                    </div>
-                    <div class="form-group has-feedback">
-                        <label class="control-label" for="inputSuccess2">Title Color</label>
-                        <div id="cp1" class="input-group colorpicker-component boder-color-picker">
-                            <input type="text" value="#444549" class="form-control set-input-color" />
-                            <span class="input-group-addon float-left set-spant-color">
-                                <i class="set-i-color"></i>
-                            </span>
-                        </div>
+                        <div class="form-group has-feedback">
+                            <label class="control-label" for="inputSuccess2">Title Color</label>
+                            <div id="cp1" class="input-group colorpicker-component boder-color-picker">
+                                <input type="text" value="#444549" class="form-control set-input-color" />
+                                <span class="input-group-addon float-left set-spant-color">
+                                    <i class="set-i-color"></i>
+                                </span>
+                            </div>
 
-                    </div>
-                    <div class="form-group has-feedback">
-                        <label class="control-label" for="inputSuccess2">Content Color</label>
-                        <div id="cp2" class="input-group colorpicker-component boder-color-picker">
-                            <input type="text" value="#919191" class="form-control set-input-color" />
-                            <span class="input-group-addon float-left set-spant-color">
-                                <i class="set-i-color"></i>
-                            </span>
                         </div>
+                        <div class="form-group has-feedback">
+                            <label class="control-label" for="inputSuccess2">Content Color</label>
+                            <div id="cp2" class="input-group colorpicker-component boder-color-picker">
+                                <input type="text" value="#919191" class="form-control set-input-color" />
+                                <span class="input-group-addon float-left set-spant-color">
+                                    <i class="set-i-color"></i>
+                                </span>
+                            </div>
 
 
-                    </div>
-                    <div class="form-group has-feedback">
-                        <label class="control-label" for="inputSuccess2">Led Color</label>
-                        <div id="cp3" class="input-group colorpicker-component boder-color-picker">
-                            <input type="text" value="#ededed" class="form-control set-input-color" />
-                            <span class="input-group-addon float-left set-spant-color">
-                                <i class="set-i-color"></i>
-                            </span>
                         </div>
+                        <div class="form-group has-feedback">
+                            <label class="control-label" for="inputSuccess2">Led Color</label>
+                            <div id="cp3" class="input-group colorpicker-component boder-color-picker">
+                                <input type="text" value="#ededed" class="form-control set-input-color" />
+                                <span class="input-group-addon float-left set-spant-color">
+                                    <i class="set-i-color"></i>
+                                </span>
+                            </div>
 
-                    </div>
-                    <div class="form-group has-feedback">
-                        <label class="control-label" for="inputSuccess2">Accent Color</label>
-                        <div id="cp4" class="input-group colorpicker-component boder-color-picker">
-                            <input type="text" value="#ededed" class="form-control set-input-color" />
-                            <span class="input-group-addon float-left set-spant-color">
-                                <i class="set-i-color"></i>
-                            </span>
                         </div>
+                        <div class="form-group has-feedback">
+                            <label class="control-label" for="inputSuccess2">Accent Color</label>
+                            <div id="cp4" class="input-group colorpicker-component boder-color-picker">
+                                <input type="text" value="#ededed" class="form-control set-input-color" />
+                                <span class="input-group-addon float-left set-spant-color">
+                                    <i class="set-i-color"></i>
+                                </span>
+                            </div>
 
-                    </div>
-                    <div class="form-group has-feedback">
-                        <label class="control-label" for="inputSuccess2">Android Background Images</label>
-                        <div class="">
-                            <label class="container-radio-custom">Send to Everyone
-                                <input id="send-to-everyone" type="radio" checked="checked" name="notiradio" value="1">
-                                <span class="checkmark"></span>
-                            </label>
                         </div>
-                        <div class="">
-                            <label class="container-radio-custom">Send to Particular Segment(s)
-                                <input id="send-to-segment" type="radio" name="notiradio" value="2">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                        <div class="sent-to-segment set-position-relative">
-                            <div class="set-arrow-segments">
-                                <div class="select-country-notificationx">
-                                    <div class="arrow-select-custom">
+                        <div class="form-group has-feedback">
+                            <label class="control-label" for="inputSuccess2">Android Background Images</label>
+                            <div class="">
+                                <label class="container-radio-custom">Send to Everyone
+                                    <input id="send-to-everyone" type="radio" checked="checked" name="notiradio" value="1">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="">
+                                <label class="container-radio-custom">Send to Particular Segment(s)
+                                    <input id="send-to-segment" type="radio" name="notiradio" value="2">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="sent-to-segment set-position-relative">
+                                <div class="set-arrow-segments">
+                                    <div class="select-country-notificationx">
+                                        <div class="arrow-select-custom">
+                                        </div>
+                                        <div class="arrow-select-custom-sub"></div>
                                     </div>
-                                    <div class="arrow-select-custom-sub"></div>
+                                </div>
+                                <div>
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label " for="inputSuccess2">Sent to segments
+                                        </label>
+                                        <input placeholder="Enter your segments" type="text" class="resetinputlogin show-send-to" readonly id="notification-sent"
+                                            name="firstname">
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label " for="inputSuccess2">Exclude users in segments
+                                        </label>
+                                        <input placeholder="Enter your exclude users" type="text" class="resetinputlogin show-send-to" readonly id="notification-exclude"
+                                            name="firstname">
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <div class="form-group has-feedback">
-                                    <label class="control-label " for="inputSuccess2">Sent to segments
-                                    </label>
-                                    <input placeholder="Enter your segments" type="text" class="resetinputlogin show-send-to" readonly id="notification-sent"
-                                        name="firstname">
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <label class="control-label " for="inputSuccess2">Exclude users in segments
-                                    </label>
-                                    <input placeholder="Enter your exclude users" type="text" class="resetinputlogin show-send-to" readonly id="notification-exclude"
-                                        name="firstname">
-                                </div>
+                            <div class="">
+                                <label class="container-radio-custom">Send to Test Device(s)
+                                    <input id="send-to-test-device" type="radio" name="notiradio" value="3">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </div>
-                        <div class="">
-                            <label class="container-radio-custom">Send to Test Device(s)
-                                <input id="send-to-test-device" type="radio" name="notiradio" value="3">
-                                <span class="checkmark"></span>
-                            </label>
+                        <div class="form-group has-feedback">
+                            <div class="infor-mobile-using">
+                                <span>Iphone 7,2 103.3.1
+                                    <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
+                                </span>
+                            </div>
+                            <div class="infor-mobile-using set-infor-mobile-using">
+                                <span>Iphone 7,2 103.3.1
+                                    <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group has-feedback">
-                        <div class="infor-mobile-using">
-                            <span>Iphone 7,2 103.3.1
-                                <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
-                            </span>
+                </div>
+                <div class="right-content-notification set-position-relative col-md-4">
+                    <div class="fixed-div-plateform">
+                        <div class="select-platform">
+                            <div class="text-select-platform float-left">
+                                <span>Reviews:</span>
+                            </div>
+                            <div style="display: none" class="border-select-platform select-platform-ios platform-ios">
+                                <img src="/themes/img/notification/iconios.png">
+                            </div>
+                            <div class="border-select-platform platform-selected select-platform-ios platform-ios-active">
+                                <img src="/themes/img/notification/iconiosactive.png">
+                            </div>
+                            <div class="border-select-platform select-platform-android platform-android">
+                                <img src="/themes/img/notification/iconandroid.png">
+                            </div>
+                            <div style="display: none" class="border-select-platform platform-selected select-platform-android platform-android-active">
+                                <img src="/themes/img/notification/iconandroidative.png">
+                            </div>
                         </div>
-                        <div class="infor-mobile-using set-infor-mobile-using">
-                            <span>Iphone 7,2 103.3.1
-                                <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
-                            </span>
+                        <div class="interface-mobi ">
+                            <img src="/themes/img/notification/mobi.png">
                         </div>
-                    </div>
-            </div>
-            <div class="right-content-notification set-position-relative col-md-4">
-                <div class="fixed-div-plateform">
-                    <div class="select-platform">
-                        <div class="text-select-platform float-left">
-                            <span>Reviews:</span>
-                        </div>
-                        <div style="display: none" class="border-select-platform select-platform-ios platform-ios">
-                            <img src="/themes/img/notification/iconios.png">
-                        </div>
-                        <div class="border-select-platform platform-selected select-platform-ios platform-ios-active">
-                            <img src="/themes/img/notification/iconiosactive.png">
-                        </div>
-                        <div class="border-select-platform select-platform-android platform-android">
-                            <img src="/themes/img/notification/iconandroid.png">
-                        </div>
-                        <div style="display: none" class="border-select-platform platform-selected select-platform-android platform-android-active">
-                            <img src="/themes/img/notification/iconandroidative.png">
-                        </div>
-                    </div>
-                    <div class="interface-mobi ">
-                        <img src="/themes/img/notification/mobi.png">
-                    </div>
-                    <div class="interface-mobile-js ">
-                        <div class="boder-img-small-circle float-left">
-                            <% 
+                        <div class="interface-mobile-js ">
+                            <div class="boder-img-small-circle float-left">
+                                <% 
                             let smallIcon = "testicon.jpg";
                             if(notification.smallIcon.length > 0){
                                 smallIcon =notification.smallIcon;
@@ -267,33 +304,34 @@
                                 }  
                             }
                              %>
-                                <img id="img-small-circle" class="img-small-circle" src="/themes/img/settingnotification/<%=smallIcon%>">
-                        </div>
-                        <div class="float-left content-mobile set-position-relative">
-                            <div>
-                                <span id="title-mobile" class="title-mobile">ModernShop</span>
-                                <span class="float-right">now</span>
+                                    <img id="img-small-circle" class="img-small-circle" src="/themes/img/settingnotification/<%=smallIcon%>">
                             </div>
-                            <span id="content-mobile">Sensitive content Hidden</span>
-                            <% if(notification.smallIcon.length >0){
+                            <div class="float-left content-mobile set-position-relative">
+                                <div>
+                                    <span id="title-mobile" class="title-mobile">ModernShop</span>
+                                    <span class="float-right">now</span>
+                                </div>
+                                <span id="content-mobile">Sensitive content Hidden</span>
+                                <% if(notification.smallIcon.length >0){
                                 status5 = "";
                             } %>
-                                <div class="img-large-mobile <%=status5%>">
-                                    <img src="/themes/img/settingnotification/<%=notification.iconNotification%>">
-                                </div>
-                                <div class="img-big-mobile <%=status3%>">
-                                    <img src="/themes/img/settingnotification/<%=notification.bigimagesNotification%>">
-                                </div>
+                                    <div class="img-large-mobile <%=status5%>">
+                                        <img src="/themes/img/settingnotification/<%=notification.iconNotification%>">
+                                    </div>
+                                    <div class="img-big-mobile <%=status3%>">
+                                        <img src="/themes/img/settingnotification/<%=notification.bigimagesNotification%>">
+                                    </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
-        </div>
-        <div id="border-btn-notification">
-            <button id="save-notification" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Save</button>
-            <button id="send-notification" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification set-infor-mobile-using">Save And Send</button>
-        </div>
+            <div id="border-btn-notification">
+                <button type="submit" id="save-notification" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Save</button>
+                <button id="send-notification" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification set-infor-mobile-using">Save And Send</button>
+            </div>
+        </form>
         <div id="select-country-notification" class="select-country-notification">
             <div class="select-country-notificationx">
                 <div class="arrow-select">
@@ -332,16 +370,30 @@
         <div id="select-send-to" class="select-send-to">
             <ul>
                 <li>
-                    <input type="checkbox" name="vehicle1" value="all"> All
+                    <input type="checkbox" name="segments-check" value="all"> All
                 </li>
                 <li>
-                    <input type="checkbox" name="vehicle1" value="Engaged users"> Engaged users</li>
+                    <input type="checkbox" name="segments-check" value="Engaged users"> Engaged users</li>
                 <li>
-                    <input type="checkbox" name="vehicle1" value="Active Users"> Active Users</li>
+                    <input type="checkbox" name="segments-check" value="Active Users"> Active Users</li>
                 <li>
-                    <input type="checkbox" name="vehicle1" value="Inactive Users"> Inactive Users</li>
+                    <input type="checkbox" name="segments-check" value="Inactive Users"> Inactive Users</li>
             </ul>
         </div>
+        <div id="select-exclude" class="select-send-to">
+            <ul>
+                <li>
+                    <input type="checkbox" name="segments-check-exclude" value="all"> All
+                </li>
+                <li>
+                    <input type="checkbox" name="segments-check-exclude" value="Engaged users"> Engaged users</li>
+                <li>
+                    <input type="checkbox" name="segments-check-exclude" value="Active Users"> Active Users</li>
+                <li>
+                    <input type="checkbox" name="segments-check-exclude" value="Inactive Users"> Inactive Users</li>
+            </ul>
+        </div>
+
     </div>
     </div>
     </div>

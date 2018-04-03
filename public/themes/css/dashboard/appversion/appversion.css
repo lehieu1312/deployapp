@@ -102,7 +102,7 @@ table {
     color: #fff;
 } */
 
-#btn-deploy {
+.btn-deploy {
     margin-right: 15px;
     font-family: 'OpenSans-Regular';
     padding: 5px 15px 5px 15px;

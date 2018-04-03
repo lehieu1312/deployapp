@@ -38,7 +38,7 @@ $(document).ready(() => {
                     // $('#loading').show();
                     $.ajax({
                         type: "POST",
-                        url: "/deleteapp",
+                        url: "/dashboard/deleteapp",
                         dataType: "json",
                         data: {
                             idApp

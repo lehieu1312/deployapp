@@ -20,9 +20,9 @@ function ajaxstatistic(numberdate, numberend) {
     }
     let linkstatistic;
     if (numberend == 0) {
-        linkstatistic = "/statisticstracking/" + $("#idapp-using").val() + "?numberdate=" + numberdate;
+        linkstatistic = "/dashboard/statisticstracking/" + $("#idapp-using").val() + "?numberdate=" + numberdate;
     } else {
-        linkstatistic = "/statisticstracking/" + $("#idapp-using").val() + "?numberdate=" + numberdate + "&numberend=" + numberend;
+        linkstatistic = "/dashboard/statisticstracking/" + $("#idapp-using").val() + "?numberdate=" + numberdate + "&numberend=" + numberend;
     }
     // console.log(linkstatistic);
     $.post(linkstatistic, {},

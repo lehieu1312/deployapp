@@ -124,9 +124,9 @@ function ajaxuserbytime(numberdate, numberend) {
     $('div').removeClass("border-legend-user")
     let linkstatistic;
     if (numberend == 0) {
-        linkstatistic = "/userbytime/" + $("#idapp-using").val() + "?numberdate=" + numberdate;
+        linkstatistic = "/dashboard/userbytime/" + $("#idapp-using").val() + "?numberdate=" + numberdate;
     } else {
-        linkstatistic = "/userbytime/" + $("#idapp-using").val() + "?numberdate=" + numberdate + "&numberend=" + numberend;
+        linkstatistic = "/dashboard/userbytime/" + $("#idapp-using").val() + "?numberdate=" + numberdate + "&numberend=" + numberend;
     }
 
     function getWeekDates() {

@@ -1,6 +1,12 @@
 $(document).ready(() => {
-    var title = $("[name='title-notification-en']").val();
-    var content = $(".textarea-content-en").val();
+    var title = {
+        value: $("[name='title-notification-en']").val(),
+        country: ""
+    };
+    var content = {
+        "en": $(".textarea-content-en").val(),
+        country: ""
+    }
 
     var colorTitle = $('#cp1').children('input').val();
     var colorContent = $('#cp2').children('input').val();
@@ -9,6 +15,8 @@ $(document).ready(() => {
 
     var typeuUrl = "Product Url";
     var url = $('#internal-link').find('input').val();
+    var sentTo = ["all"];
+    var exclude = [];
 
     function trimSpace(str) {
         return str.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, "").replace(/\s+/g, " ");
@@ -54,7 +62,10 @@ $(document).ready(() => {
                                 $("[name='title-notification-dutch']").hide();
                                 $("[name='title-notification-georgian']").hide();
                                 // e.stopPropagation();
-                                title = $("[name='title-notification-en']").val();
+                                title = {
+                                    value: $("[name='title-notification-en']").val(),
+                                    country: "en"
+                                }
                             })
                         }
                         if (j == 1) {
@@ -65,7 +76,10 @@ $(document).ready(() => {
                                 $("[name='title-notification-dutch']").hide();
                                 $("[name='title-notification-georgian']").hide();
 
-                                title = $("[name='title-notification-vn']").val();
+                                title = {
+                                    value: $("[name='title-notification-vn']").val(),
+                                    country: "vn"
+                                }
                             })
                         }
                         if (j == 2) {
@@ -76,8 +90,10 @@ $(document).ready(() => {
                                 $("[name='title-notification-dutch']").hide();
                                 $("[name='title-notification-georgian']").hide();
                                 // e.stopPropagation();
-
-                                title = $("[name='title-notification-china']").val();
+                                title = {
+                                    value: $("[name='title-notification-china']").val(),
+                                    country: "cn"
+                                }
                             })
                         }
                         if (j == 3) {
@@ -89,7 +105,10 @@ $(document).ready(() => {
                                 $("[name='title-notification-georgian']").hide();
                                 // e.stopPropagation();
 
-                                title = $("[name='title-notification-dutch']").val();
+                                title = {
+                                    value: $("[name='title-notification-dutch']").val(),
+                                    country: "sx"
+                                }
                             })
                         }
                         if (j == 4) {
@@ -101,11 +120,13 @@ $(document).ready(() => {
                                 $("[name='title-notification-georgian']").show();
                                 // e.stopPropagation();
 
-                                title = $("[name='title-notification-georgian']").val();
+                                title = {
+                                    value: $("[name='title-notification-georgian']").val(),
+                                    country: "ge"
+                                }
                             })
                         }
                     })
-
                     numbershow = 'title';
                 }
                 if (i == 1) {
@@ -118,7 +139,9 @@ $(document).ready(() => {
                                 $(".textarea-content-dutch").hide();
                                 $(".textarea-content-georgian").hide();
                                 // e.stopPropagation();
-                                content = $(".textarea-content-en").val();
+                                content = {
+                                    "en": $(".textarea-content-en").val()
+                                }
                             })
                         }
                         if (j == 1) {
@@ -129,7 +152,9 @@ $(document).ready(() => {
                                 $(".textarea-content-dutch").hide();
                                 $(".textarea-content-georgian").hide();
                                 // e.stopPropagation();
-                                content = $(".textarea-content-vn").val();
+                                content = {
+                                    "vn": $(".textarea-content-vn").val()
+                                }
                             })
                         }
                         if (j == 2) {
@@ -140,7 +165,9 @@ $(document).ready(() => {
                                 $(".textarea-content-dutch").hide();
                                 $(".textarea-content-georgian").hide();
                                 // e.stopPropagation();
-                                content = $(".textarea-content-china").val();
+                                content = {
+                                    "cn": $(".textarea-content-china").val()
+                                }
                             })
                         }
                         if (j == 3) {
@@ -151,7 +178,9 @@ $(document).ready(() => {
                                 $(".textarea-content-dutch").show();
                                 $(".textarea-content-georgian").hide();
                                 // e.stopPropagation();
-                                content = $(".textarea-content-dutch").val();
+                                content = {
+                                    "sx": $(".textarea-content-dutch").val()
+                                }
                             })
                         }
                         if (j == 4) {
@@ -162,7 +191,9 @@ $(document).ready(() => {
                                 $(".textarea-content-dutch").hide();
                                 $(".textarea-content-georgian").show();
                                 // e.stopPropagation();
-                                content = $(".textarea-content-georgian").val();
+                                content = {
+                                    "ge": $(".textarea-content-georgian").val()
+                                }
                             })
                         }
                     })
@@ -245,20 +276,59 @@ $(document).ready(() => {
         document.getElementById('file-img-background').click();
     };
     // feature mobile
-    $('.input-title-notification').keyup(function (e) {
-        let textEnter = $('.input-title-notification').val();
-        if (textEnter == "") {
-            textEnter = "Name app"
-        }
-        $('#title-mobile').text(textEnter);
-    });
-    $('.textarea-content-notification').keyup(function (e) {
-        let textEnter = $('.textarea-content-notification').val();
-        if (textEnter == "") {
-            textEnter = "Content..."
-        }
-        $('#content-mobile').text(textEnter);
-    });
+    $('#internal-link').find('input').keyup(function (e) {
+        url = $('#internal-link').find('input').val();
+    })
+    $('.input-title-notification').each(function (i) {
+        $(this).keyup(function (e) {
+            let textEnter = $(this).val();
+            if (textEnter == "") {
+                textEnter = "Name app"
+            }
+            if (i == 0) {
+                title = {
+                    value: textEnter,
+                    country: "en"
+                }
+            }
+            if (i == 1) {
+                title = {
+                    value: textEnter,
+                    country: "vn"
+                }
+            }
+            if (i == 2) {
+                title = {
+                    value: textEnter,
+                    country: "cn"
+                }
+            }
+            if (i == 3) {
+                title = {
+                    value: textEnter,
+                    country: "sx"
+                }
+            }
+            if (i == 4) {
+                title = {
+                    value: textEnter,
+                    country: "ge"
+                }
+            }
+
+            $('#title-mobile').text(textEnter);
+        });
+    })
+    $('.textarea-content-notification').each(function (i) {
+        $(this).keyup(function (e) {
+            let textEnter = $(this).val();
+            if (textEnter == "") {
+                textEnter = "Content..."
+            }
+            content = textEnter;
+            $('#content-mobile').text(textEnter);
+        });
+    })
 
     var formData1;
     var formData2;
@@ -403,126 +473,245 @@ $(document).ready(() => {
 
     //-----------------------------------------------------------
     // save notification
-    $("#save-notification").click(() => {
-        $('#loading').show();
-        $.when(
-            (() => {
-                if (formData1 != null) {
-                    $.ajax({
-                        url: '/iconnotification/' + idApp,
-                        data: formData1,
-                        contentType: false,
-                        processData: false,
-                        type: 'POST',
-                        success: function (data) {
-                            if (data.status == 1) {
-                                $('.boder-icon-small-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
-                                $('.boder-icon-small-notification').show();
+
+
+    //----------------------------------
+
+
+    $('.show-send-to').each(function (i) {
+        if (i == 0) {
+            $(this).click((event) => {
+                let offset = $(this).offset();
+                $("#select-send-to").toggle().offset({
+                    top: offset.top + 25,
+                    left: offset.left
+                });
+                event.stopPropagation();
+            })
+        } else {
+            $(this).click((event) => {
+                let offset = $(this).offset();
+                $("#select-exclude").toggle().offset({
+                    top: offset.top + 25,
+                    left: offset.left
+                });
+                event.stopPropagation();
+            })
+        }
+
+    })
+    $('#select-send-to').find('li').each(function (i) {
+        let arraysegments = [];
+        $(this).click((e) => {
+            arraysegments = [];
+            if ($(this).children('input').is(":checked")) {
+                $(this).children('input').prop('checked', false);
+            } else {
+                $(this).children('input').prop('checked', true);
+            }
+            $('#select-send-to').find('li').children('input').each(function (index) {
+                if ($(this).is(":checked")) {
+                    arraysegments.push($(this).val())
+                }
+            })
+            sentTo = arraysegments;
+            $('#notification-sent').val(arraysegments)
+            console.log(arraysegments)
+            e.stopPropagation();
+        })
+    })
+    $('#select-exclude').find('li').each(function (i) {
+        let arrayexclude = [];
+        $(this).click((e) => {
+            arrayexclude = [];
+            if ($(this).children('input').is(":checked")) {
+                $(this).children('input').prop('checked', false);
+            } else {
+                $(this).children('input').prop('checked', true);
+            }
+            $('#select-exclude').find('li').children('input').each(function (index) {
+                if ($(this).is(":checked")) {
+                    arrayexclude.push($(this).val())
+                }
+            })
+            exclude = arrayexclude;
+            console.log(arrayexclude)
+            $('#notification-exclude').val(arrayexclude)
+            e.stopPropagation();
+        })
+    })
+    //----------------------------------
+
+
+    $('[name="notiradio"]').change(() => {
+        console.log($('[name="notiradio"]:checked').val());
+        if ($('[name="notiradio"]:checked').val() == "1") {
+            sentTo = ["all"];
+            exclude = [];
+        }
+        if ($('[name="notiradio"]:checked').val() == "2") {
+
+        }
+        if ($('[name="notiradio"]:checked').val() == "3") {
+            sentTo = "all"
+        }
+    })
+    //-----------------------------------------------------------
+    function checknotification() {
+
+        if (trimSpace(title[Object.getOwnPropertyNames(title)[0]]) == "") {
+            $('#loading').hide()
+            $('#errPopup').show();
+            $('.alert-upload').text("The title can not be empty");
+            $("#errPopup").fadeTo(5000, 1000).slideUp(1000, function () {
+                $("#errPopup").slideUp(1000);
+                $('#errPopup').hide();
+            });
+            return false;
+        }
+        if (trimSpace(content[Object.getOwnPropertyNames(content)[0]]) == "") {
+            $('#loading').hide()
+            $('#errPopup').show();
+            $('.alert-upload').text("The content can not be empty");
+            $("#errPopup").fadeTo(5000, 1000).slideUp(1000, function () {
+                $("#errPopup").slideUp(1000);
+                $('#errPopup').hide();
+            });
+            return false;
+        }
+        if (trimSpace(url) == "") {
+            $('#loading').hide()
+            $('#errPopup').show();
+            $('.alert-upload').text("The url can not be empty");
+            $("#errPopup").fadeTo(5000, 1000).slideUp(1000, function () {
+                $("#errPopup").slideUp(1000);
+                $('#errPopup').hide();
+            });
+            return false;
+        }
+        return true;
+    }
+
+    function savenoti() {
+        if (checknotification() == true) {
+            $.when(
+                (() => {
+                    if (formData1 != null) {
+                        $.ajax({
+                            url: '/dashboard/iconnotification/' + idApp,
+                            data: formData1,
+                            contentType: false,
+                            processData: false,
+                            type: 'POST',
+                            success: function (data) {
+                                if (data.status == 1) {
+                                    $('.boder-icon-small-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
+                                    $('.boder-icon-small-notification').show();
+                                }
                             }
-                        }
-                    })
-                }
-            })(),
-            (() => {
-                if (formData2 != null) {
+                        })
+                    }
+                })(),
+                (() => {
+                    if (formData2 != null) {
+                        $.ajax({
+                            url: '/dashboard/iconlargenotification/' + idApp,
+                            data: formData2,
+                            contentType: false,
+                            processData: false,
+                            type: 'POST',
+                            success: function (data) {
+                                $('.boder-icon-large-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
+                                $('.boder-icon-large-notification').show();
+                            }
+                        })
+                    }
+                })(),
+                (() => {
+                    if (formData3 != null) {
+                        $.ajax({
+                            url: '/dashboard/iconbigimagesnotification/' + idApp,
+                            data: formData3,
+                            contentType: false,
+                            processData: false,
+                            type: 'POST',
+                            success: function (data) {
+                                $('.boder-icon-big-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
+                                $('.boder-icon-big-notification').show();
+                            }
+                        })
+                    }
+                })(),
+                (() => {
+                    if (formData4 != null) {
+                        $.ajax({
+                            url: '/dashboard/iconbackgroundnotification/' + idApp,
+                            data: formData4,
+                            contentType: false,
+                            processData: false,
+                            type: 'POST',
+                            success: function (data) {
+                                $('.boder-icon-background-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
+                                $('.boder-icon-background-notification').show();
+                            }
+                        })
+                    }
+                })(),
+                (() => {
+                    if (cancelSmall != null) {
+                        $.ajax({
+                            url: '/dashboard/canceliconnotification/' + idApp,
+                            data: {
+                                cancelSmall
+                            },
+                            dataType: "json",
+                            type: 'POST',
+                            success: function (data) {}
+                        })
+                    }
+                })(),
+                (() => {
+                    if (cancelIcon != null) {
+                        $.ajax({
+                            url: '/dashboard/canceliconlargenotification/' + idApp,
+                            data: {
+                                cancelIcon
+                            },
+                            dataType: "json",
+                            type: 'POST',
+                            success: function (data) {}
+                        })
+                    }
+                })(),
+                (() => {
+                    if (cancelBig != null) {
+                        $.ajax({
+                            url: '/dashboard/canceliconbigimagesnotification/' + idApp,
+                            data: {
+                                cancelBig
+                            },
+                            dataType: "json",
+                            type: 'POST',
+                            success: function (data) {}
+                        })
+                    }
+                })(),
+                (() => {
+                    if (cancelBackground != null) {
+                        $.ajax({
+                            url: '/dashboard/canceliconbackgroundnotification/' + idApp,
+                            data: {
+                                cancelBackground
+                            },
+                            dataType: "json",
+                            type: 'POST',
+                            success: function (data) {}
+                        })
+                    }
+                })(),
+                (() => {
                     $.ajax({
-                        url: '/iconlargenotification/' + idApp,
-                        data: formData2,
-                        contentType: false,
-                        processData: false,
-                        type: 'POST',
-                        success: function (data) {
-                            $('.boder-icon-large-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
-                            $('.boder-icon-large-notification').show();
-                        }
-                    })
-                }
-            })(),
-            (() => {
-                if (formData3 != null) {
-                    $.ajax({
-                        url: '/iconbigimagesnotification/' + idApp,
-                        data: formData3,
-                        contentType: false,
-                        processData: false,
-                        type: 'POST',
-                        success: function (data) {
-                            $('.boder-icon-big-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
-                            $('.boder-icon-big-notification').show();
-                        }
-                    })
-                }
-            })(),
-            (() => {
-                if (formData4 != null) {
-                    $.ajax({
-                        url: '/iconbackgroundnotification/' + idApp,
-                        data: formData4,
-                        contentType: false,
-                        processData: false,
-                        type: 'POST',
-                        success: function (data) {
-                            $('.boder-icon-background-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
-                            $('.boder-icon-background-notification').show();
-                        }
-                    })
-                }
-            })(),
-            (() => {
-                if (cancelSmall != null) {
-                    $.ajax({
-                        url: '/canceliconnotification/' + idApp,
-                        data: {
-                            cancelSmall
-                        },
-                        dataType: "json",
-                        type: 'POST',
-                        success: function (data) {}
-                    })
-                }
-            })(),
-            (() => {
-                if (cancelIcon != null) {
-                    $.ajax({
-                        url: '/canceliconlargenotification/' + idApp,
-                        data: {
-                            cancelIcon
-                        },
-                        dataType: "json",
-                        type: 'POST',
-                        success: function (data) {}
-                    })
-                }
-            })(),
-            (() => {
-                if (cancelBig != null) {
-                    $.ajax({
-                        url: '/canceliconbigimagesnotification/' + idApp,
-                        data: {
-                            cancelBig
-                        },
-                        dataType: "json",
-                        type: 'POST',
-                        success: function (data) {}
-                    })
-                }
-            })(),
-            (() => {
-                if (cancelBackground != null) {
-                    $.ajax({
-                        url: '/canceliconbackgroundnotification/' + idApp,
-                        data: {
-                            cancelBackground
-                        },
-                        dataType: "json",
-                        type: 'POST',
-                        success: function (data) {}
-                    })
-                }
-            })(), (() => {
-                if (checknotification() == true) {
-                    $.ajax({
-                        usl: "/save-data-notification/" + idApp,
+                        url: "/dashboard/save-data-notification/" + idApp,
                         data: {
                             title,
                             content,
@@ -534,65 +723,62 @@ $(document).ready(() => {
                                 typeuUrl,
                                 url
                             }],
-                            sentTo: "all"
+                            sentTo,
+                            exclude
                         },
                         dataType: "json",
                         type: 'POST',
                         success: function (data) {}
                     })
-                }
-            })()
-        ).then(() => {
-            $('#loading').hide();
-            $('#successPopup').show(500);
-            $(".contenemail").text("");
-            $(".contenemail").text("Saved !");
-            $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
-                $("#success-alert").slideUp(1000);
-                $('.successPopup').hide();
-            });
-        })
-    });
-    //----------------------------------
-    $('.show-send-to').each(function (i) {
-        $(this).click((event) => {
-            let offset = $(this).offset();
-            $("#select-send-to").toggle().offset({
-                top: offset.top + 25,
-                left: offset.left
-            });
-            event.stopPropagation();
-        })
-    })
-
-    //----------------------------------
-    var sentTo;
-
-    $('[name="notiradio"]').change(() => {
-        console.log($('[name="notiradio"]:checked').val());
-        if ($('[name="notiradio"]:checked').val() == "1") {
-            sentTo == "all"
+                    // }
+                })()
+            ).then(() => {
+                $('#loading').hide();
+                $('#successPopup').show(500);
+                $(".contenemail").text("");
+                $(".contenemail").text("Saved !");
+                $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                    $("#success-alert").slideUp(1000);
+                    $('.successPopup').hide();
+                });
+            })
         }
-        if ($('[name="notiradio"]:checked').val() == "2") {
-            sentTo == "all"
-        }
-        if ($('[name="notiradio"]:checked').val() == "3") {
-            sentTo == "all"
-        }
-    })
-    //-----------------------------------------------------------
-    function checknotification() {
-        if (trimSpace(title) == "") {
-            return false;
-        }
-        if (trimSpace(content) == "") {
-            return false;
-        }
-        return true;
     }
+    $("#save-notification").click(() => {
+        $('#loading').show();
+        savenoti()
+    });
 
-
-
+    $("#send-notification").click(() => {
+        console.log({
+            title,
+            content,
+            colorTitle,
+            colorContent,
+            colorLed,
+            colorAccent,
+            internalLink: [{
+                typeuUrl,
+                url
+            }],
+            sentTo,
+            exclude
+        })
+        // $('#loading').show();
+        // savenoti().then(() => {
+        //     $.ajax({
+        //         url: "/dashboard/send-notification/" + idApp,
+        //         data: {
+        //             idApp
+        //         },
+        //         dataType: "json",
+        //         type: 'POST',
+        //         success: function (data) {}
+        //     }).always(() => {
+        //         $('#loading').hide()
+        //     })
+        // })
+    })
 
 
 });

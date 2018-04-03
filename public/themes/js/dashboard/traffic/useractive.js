@@ -7,9 +7,9 @@ function ajaxuseractive(numberdate, numberend) {
     }
     let linkpageuer;
     if (numberend == 0) {
-        linkpageuer = "/useractive/" + $("#idapp-using").val() + "?numberdate=" + numberdate;
+        linkpageuer = "/dashboard/useractive/" + $("#idapp-using").val() + "?numberdate=" + numberdate;
     } else {
-        linkpageuer = "/useractive/" + $("#idapp-using").val() + "?numberdate=" + numberdate + "&numberend=" + numberend;
+        linkpageuer = "/dashboard/useractive/" + $("#idapp-using").val() + "?numberdate=" + numberdate + "&numberend=" + numberend;
     }
     $.post(
         linkpageuer, {},

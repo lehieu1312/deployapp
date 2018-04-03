@@ -21,9 +21,9 @@ function order(a) {
 function ajaxproduct(numberdate, numberend) {
     let linkproduct;
     if (numberend == 0) {
-        linkproduct = "/productstatistic/" + $("#idapp-using").val() + "?numberdate=" + numberdate;
+        linkproduct = "/dashboard/productstatistic/" + $("#idapp-using").val() + "?numberdate=" + numberdate;
     } else {
-        linkproduct = "/productstatistic/" + $("#idapp-using").val() + "?numberdate=" + numberdate + "&numberend=" + numberend;
+        linkproduct = "/dashboard/productstatistic/" + $("#idapp-using").val() + "?numberdate=" + numberdate + "&numberend=" + numberend;
     }
     $.post(linkproduct, {},
         (data) => {

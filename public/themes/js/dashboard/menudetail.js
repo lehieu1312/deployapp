@@ -63,7 +63,8 @@ $(document).ready(function () {
     var hoverarrow = document.getElementsByClassName('set-span-arrow-right')
     var hovertext = document.getElementsByClassName('subspantextmenu1')
     var pathArray = window.location.pathname.split('/');
-    if (pathArray[1] == "appversion") {
+    console.log(pathArray)
+    if (pathArray[2] == "appversion") {
         // hoversubmenu[0].style.display = "none"
         hoverarrow[0].style.color = "#00afee"
         hovertext[0].style.color = "#00afee"
@@ -75,7 +76,7 @@ $(document).ready(function () {
         <span id="text-href">App Version</span>`)
 
     }
-    if (pathArray[1] == "editprofile") {
+    if (pathArray[2] == "editprofile") {
         // hoversubmenu[0].style.display = "none"
         $('#navigate-text').append(
             `<a class="colora" href="/dashboard"><span>Home</span><a>
@@ -85,7 +86,7 @@ $(document).ready(function () {
         <span id="text-href">User</span>`)
 
     }
-    if (pathArray[1] == "dashboard") {
+    if (pathArray[2] == "dashboard") {
         // hoverarrow[1].style.color = "#00afee"
         // hovertext[1].style.color = "#00afee"
         $('#navigate-text').append(
@@ -96,7 +97,7 @@ $(document).ready(function () {
         <span id="text-href">My app</span>`)
 
     }
-    if (pathArray[1] == "history") {
+    if (pathArray[2] == "history") {
         hoverarrow[1].style.color = "#00afee"
         hovertext[1].style.color = "#00afee"
         $('#navigate-text').append(
@@ -107,7 +108,7 @@ $(document).ready(function () {
         <span id="text-href">History</span>`)
 
     }
-    if (pathArray[1] == "myteam") {
+    if (pathArray[2] == "myteam") {
         hoverarrow[2].style.color = "#00afee"
         hovertext[2].style.color = "#00afee"
         $('#navigate-text').append(
@@ -118,7 +119,7 @@ $(document).ready(function () {
         <span id="text-href">My Team</span>`)
 
     }
-    if (pathArray[1] == "appsetting") {
+    if (pathArray[2] == "appsetting") {
         hoverarrow[3].style.color = "#00afee"
         hovertext[3].style.color = "#00afee"
         $('#navigate-text').append(
@@ -129,7 +130,7 @@ $(document).ready(function () {
         <span id="text-href">Traffic</span>`)
 
     }
-    if (pathArray[1] == "myorder") {
+    if (pathArray[2] == "myorder") {
         hoverarrow[4].style.color = "#00afee"
         hovertext[4].style.color = "#00afee"
         if (pathArray[2] != "detail") {
@@ -167,7 +168,7 @@ $(document).ready(function () {
 
     }
 
-    if (pathArray[1] == "traffic") {
+    if (pathArray[2] == "traffic") {
         hoverarrow[5].style.color = "#00afee"
         hovertext[5].style.color = "#00afee"
         $('#navigate-text').append(
@@ -178,7 +179,7 @@ $(document).ready(function () {
         <span id="text-href">Traffic</span>`)
 
     }
-    if (pathArray[1] == "notification") {
+    if (pathArray[2] == "notification") {
         hoverarrow[6].style.color = "#00afee"
         hovertext[6].style.color = "#00afee"
         $('#navigate-text').append(

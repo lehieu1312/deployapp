@@ -3,7 +3,7 @@ $(document).ready(() => {
 })
 anychart.onDocumentReady(function () {
     anychart.data.loadJsonFile(
-        hostSeverSocket + '/sessioncountry/app1',
+        hostSeverSocket + '/dashboard/sessioncountry/' + $('#idapp-using').val(),
         function (data) {
             var userall = 0;;
             for (let i = 0; i < data.length; i++) {

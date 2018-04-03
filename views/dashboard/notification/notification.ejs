@@ -28,29 +28,32 @@
                             let title_cn = {status: "display-none", value: ""};;
                             let title_sx = {status: "display-none", value: ""};
                             let title_ge = {status: "display-none", value: ""};
-                            if(notification.titleNotification.length > 0){
-                                if(Object.getOwnPropertyNames(notification.titleNotification)[0] == "en"){
-                                    title_en.status = "";
-                                    title_en.value = notification.titleNotification.en;
-                                }
-                                if(Object.getOwnPropertyNames(notification.titleNotification)[0] == "vn"){
-                                    title_vn.status = "";
-                                    title_vn.value = notification.titleNotification.vn;
-                                }
-                                if(Object.getOwnPropertyNames(notification.titleNotification)[0] == "cn"){
-                                    title_cn.status = "";
-                                    title_cn.value = notification.titleNotification.cn;
-                                }
-                                if(Object.getOwnPropertyNames(notification.titleNotification)[0] == "sx"){
-                                    title_sx.status = "";
-                                    title_sx.value = notification.titleNotification.sx;
-                                }
-                                if(Object.getOwnPropertyNames(notification.titleNotification)[0] == "ge"){
-                                    title_ge.status = "";
-                                    title_ge.value = notification.titleNotification.ge;
+                            if(notification.titleNotification != ""){
+                                if(Object.getOwnPropertyNames(notification.titleNotification)[0]){
+                                    if(Object.getOwnPropertyNames(notification.titleNotification)[0] == "en"){
+                                        title_en.status = "";
+                                        title_en.value = notification.titleNotification.en;
+                                    }
+                                    if(Object.getOwnPropertyNames(notification.titleNotification)[0] == "vn"){
+                                        title_vn.status = "";
+                                        title_vn.value = notification.titleNotification.vn;
+                                    }
+                                    if(Object.getOwnPropertyNames(notification.titleNotification)[0] == "cn"){
+                                        title_cn.status = "";
+                                        title_cn.value = notification.titleNotification.cn;
+                                    }
+                                    if(Object.getOwnPropertyNames(notification.titleNotification)[0] == "sx"){
+                                        title_sx.status = "";
+                                        title_sx.value = notification.titleNotification.sx;
+                                    }
+                                    if(Object.getOwnPropertyNames(notification.titleNotification)[0] == "ge"){
+                                        title_ge.status = "";
+                                        title_ge.value = notification.titleNotification.ge;
+                                    }
                                 }
                             }else{
                                 title_en.status = "";
+                                title_en.value = "";
                             }
                         %>
                             <input placeholder="Enter Your title" value="<%=title_en.value%>" type="text" value="" autocomplete="off" class="resetinputlogin input-title-notification <%=title_en.status%>"
@@ -76,15 +79,54 @@
                                 <img class="img-arow-notification" src="/themes/img/dashboard/iconarrow.png">
                             </span>
                         </label>
-                        <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification textarea-content-en"></textarea>
-                        <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-vn"></textarea>
-                        <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-china"></textarea>
-                        <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-dutch"></textarea>
-                        <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification display-none textarea-content-georgian"></textarea>
+                        <%
+                            let content_en = {status: "display-none", value: ""};
+                            let content_vn= {status: "display-none", value: ""};
+                            let content_cn = {status: "display-none", value: ""};;
+                            let content_sx = {status: "display-none", value: ""};
+                            let content_ge = {status: "display-none", value: ""};
+                            if(notification.contentNotification != ""){
+                            if(Object.getOwnPropertyNames(notification.contentNotification)[0]){
+                                if(Object.getOwnPropertyNames(notification.contentNotification)[0] == "en"){
+                                    content_en.status = "";
+                                    content_en.value = notification.contentNotification["en"];
+                                }
+                                if(Object.getOwnPropertyNames(notification.contentNotification)[0] == "vn"){
+                                    content_vn.status = "";
+                                    content_vn.value = notification.contentNotification.vn;
+                                }
+                                if(Object.getOwnPropertyNames(notification.contentNotification)[0] == "cn"){
+                                    content_cn.status = "";
+                                    content_cn.value = notification.contentNotification.cn;
+                                }
+                                if(Object.getOwnPropertyNames(notification.contentNotification)[0] == "sx"){
+                                    content_sx.status = "";
+                                    content_sx.value = notification.contentNotification.sx;
+                                }
+                                if(Object.getOwnPropertyNames(notification.contentNotification)[0] == "ge"){
+                                    content_ge.status = "";
+                                    content_ge.value = notification.contentNotification.ge;
+                                }
+                            }
+                            }else{
+                                content_en.status = "";
+                                content_en.value = "";
+                            }
+                        %>
+                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_en.status%> textarea-content-en"><%=content_en.value%>
+                            </textarea>
+                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_vn.status%>  textarea-content-vn"><%=content_vn.value%>
+                            </textarea>
+                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_cn.status%> textarea-content-china"><%=content_cn.value%>
+                            </textarea>
+                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_sx.status%>  textarea-content-dutch"><%=content_sx.value%>
+                            </textarea>
+                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_ge.status%> textarea-content-georgian"><%=content_ge.value%>
+                            </textarea>
 
-                        <span class="form-control-feedback" aria-hidden="true">
-                            <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
-                        </span>
+                            <span class="form-control-feedback" aria-hidden="true">
+                                <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
+                            </span>
                     </div>
                     <div class="form-group has-feedback">
                         <label class="control-label" for="inputSuccess2">Internal link clickable</label>
@@ -93,7 +135,7 @@
                                 <span class="float-left">Product Url</span>
                                 <img class="float-right set-img-product-url" src="/themes/img/dashboard/iconarrow.png">
                             </div>
-                            <input placeholder="Input product name" type="text" class="input-product-name  float-left">
+                            <input placeholder="Input product name" value="<%=notification.internalLink[0].url%>" type="text" class="input-product-name  float-left">
                         </div>
                         <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
@@ -172,10 +214,25 @@
                                 <button id="btn-cancel-background-icon" class="setcolorfontinput setbackground-btn-cancel btn btn-lg-notification <%=status4%>">Delete File</button>
                             </div>
                         </div>
+                        <%
+                        if(notification.titleColor == ""){
+                            notification.titleColor = "#444549"
+                        }
+                        if(notification.contentColor == ""){
+                            notification.contentColor = "#919191"
+                        }
+                        if(notification.ledColor == ""){
+                            notification.ledColor = "#ededed"
+                        }
+                        if(notification.accentColor == ""){
+                            notification.accentColor = "#ededed"
+                        }
+                        
+                        %>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Title Color</label>
                             <div id="cp1" class="input-group colorpicker-component boder-color-picker">
-                                <input type="text" value="#444549" class="form-control set-input-color" />
+                                <input type="text" value="<%=notification.titleColor%>" class="form-control set-input-color" />
                                 <span class="input-group-addon float-left set-spant-color">
                                     <i class="set-i-color"></i>
                                 </span>
@@ -185,7 +242,7 @@
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Content Color</label>
                             <div id="cp2" class="input-group colorpicker-component boder-color-picker">
-                                <input type="text" value="#919191" class="form-control set-input-color" />
+                                <input type="text" value="<%=notification.contentColor%>" class="form-control set-input-color" />
                                 <span class="input-group-addon float-left set-spant-color">
                                     <i class="set-i-color"></i>
                                 </span>
@@ -196,7 +253,7 @@
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Led Color</label>
                             <div id="cp3" class="input-group colorpicker-component boder-color-picker">
-                                <input type="text" value="#ededed" class="form-control set-input-color" />
+                                <input type="text" value="<%=notification.ledColor%>" class="form-control set-input-color" />
                                 <span class="input-group-addon float-left set-spant-color">
                                     <i class="set-i-color"></i>
                                 </span>
@@ -206,7 +263,7 @@
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Accent Color</label>
                             <div id="cp4" class="input-group colorpicker-component boder-color-picker">
-                                <input type="text" value="#ededed" class="form-control set-input-color" />
+                                <input type="text" value="<%=notification.accentColor%>" class="form-control set-input-color" />
                                 <span class="input-group-addon float-left set-spant-color">
                                     <i class="set-i-color"></i>
                                 </span>
@@ -370,7 +427,7 @@
         <div id="select-send-to" class="select-send-to">
             <ul>
                 <li>
-                    <input type="checkbox" name="segments-check" value="all"> All
+                    <input type="checkbox" name="segments-check" value="All"> All
                 </li>
                 <li>
                     <input type="checkbox" name="segments-check" value="Engaged users"> Engaged users</li>

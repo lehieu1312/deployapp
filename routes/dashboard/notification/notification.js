@@ -28,6 +28,7 @@ var producstatictis = require('../../../models/productstatistic');
 var userofapp = require('../../../models/userofapp');
 var userstatistic = require('../../../models/userstatistic');
 var notification = require("../../../models/notification")
+var appsetting = require("../../../models/appsettings")
 
 
 var storage = multer.diskStorage({
@@ -51,15 +52,15 @@ function checkAdmin(req, res, next) {
 var uploading = multer({
     storage: storage
 });
-
+// get notification
 router.get("/notification/:idApp", checkAdmin, (req, res) => {
     notification.findOne({
         idApp: req.params.idApp,
         status: false
     }).then((data) => {
-        // console.log(data);
+        console.log(data);
         if (!data) {
-            let newnotification = new notification({
+            notification.insert({
                 idApp: req.params.idApp,
                 idNotification: "",
                 titleNotification: "",
@@ -78,8 +79,7 @@ router.get("/notification/:idApp", checkAdmin, (req, res) => {
                 dateCreate: new Date(),
                 statusNotification: "",
                 status: false
-            });
-            newnotification.save(() => {
+            }).then(() => {
                 notification.findOne({
                     idApp: req.params.idApp,
                     status: false
@@ -117,7 +117,7 @@ router.get("/notification/:idApp", checkAdmin, (req, res) => {
         }
     })
 })
-
+// save icon small notification
 router.post("/iconnotification/:idApp", uploading.single('iconnotification'), (req, res) => {
     notification.findOne({
         idApp: req.params.idApp,
@@ -138,6 +138,7 @@ router.post("/iconnotification/:idApp", uploading.single('iconnotification'), (r
         })
     })
 })
+// save icon large notification
 router.post("/iconlargenotification/:idApp", uploading.single('imglarge'), (req, res) => {
     notification.findOne({
         idApp: req.params.idApp,
@@ -158,7 +159,7 @@ router.post("/iconlargenotification/:idApp", uploading.single('imglarge'), (req,
         })
     })
 })
-
+// save icon big notification
 router.post("/iconbigimagesnotification/:idApp", uploading.single('bigimages'), (req, res) => {
     notification.findOne({
         idApp: req.params.idApp,
@@ -179,6 +180,7 @@ router.post("/iconbigimagesnotification/:idApp", uploading.single('bigimages'), 
         })
     })
 })
+// save icon background notification
 router.post("/iconbackgroundnotification/:idApp", uploading.single('background'), (req, res) => {
     notification.findOne({
         idApp: req.params.idApp,
@@ -272,19 +274,24 @@ router.post("/canceliconbackgroundnotification/:idApp", (req, res) => {
 
 router.post('/save-data-notification/:idApp', (req, res) => {
     try {
-        console.log("-------------------------------");
-        console.log(req.body)
-        console.log("-------------------------------");
+        var data = JSON.parse(Object.getOwnPropertyNames(req.body)[0]);
+        console.log(data)
+        var nametitle = data.title['country'];
+        var namecontent = data.content['country'];
         let query = {
-            titleNotification: req.body.title,
-            contentNotification: req.body.content,
-            titleColor: req.body.colorTitle,
-            contentColor: req.body.colorContent,
-            ledColor: req.body.colorLed,
-            accentColor: req.body.colorAccent,
-            internalLink: req.body.internalLink,
-            sendTo: req.body.sentTo,
-            excludeSendTo: req.body.exclude
+            titleNotification: {
+                [nametitle]: data.title['value']
+            },
+            contentNotification: {
+                [namecontent]: data.content['value']
+            },
+            titleColor: data.colorTitle,
+            contentColor: data.colorContent,
+            ledColor: data.colorLed,
+            accentColor: data.colorAccent,
+            internalLink: data.internalLink[0],
+            sendTo: data.sendTo,
+            excludeSendTo: data.exclude
         }
         notification.update({
             idApp: req.params.idApp,
@@ -302,63 +309,85 @@ router.post('/save-data-notification/:idApp', (req, res) => {
 })
 
 router.post('/send-notification/:idApp', (req, res) => {
+    try {
+        notification.findOne({
+            idApp: req.params.idApp,
+            status: false
+        }).then((result) => {
+            console.log("----------------------------------");
+            console.log(result);
+            appsetting.findOne({
+                idApp: req.params.idApp
+            }).then((setting) => {
+                console.log("----------------------------------");
+                console.log(setting);
+                var sendNotification = function (data) {
+                    var headers = {
+                        "Content-Type": "application/json; charset=utf-8",
+                        "Authorization": "Basic " + setting.oneSignalAPIKey
+                    };
 
-    newnotification.findOne({
-        idApp: req.params.idApp,
-        status: false
-    })
-    var sendNotification = function (data) {
-        var headers = {
-            "Content-Type": "application/json; charset=utf-8",
-            "Authorization": "Basic NjdhYzc1MmMtZWRhYS00OWY4LThkZDItNTJmMzExZjk2YTA2"
-        };
+                    var options = {
+                        host: "onesignal.com",
+                        port: 443,
+                        path: "/api/v1/notifications",
+                        method: "POST",
+                        headers: headers
+                    };
 
-        var options = {
-            host: "onesignal.com",
-            port: 443,
-            path: "/api/v1/notifications",
-            method: "POST",
-            headers: headers
-        };
+                    var https = require('https');
+                    var req = https.request(options, function (res) {
+                        res.on('data', function (data) {
+                            console.log("Response:");
+                            console.log(JSON.parse(data));
+                        });
+                    });
 
-        var https = require('https');
-        var req = https.request(options, function (res) {
-            res.on('data', function (data) {
-                console.log("Response:");
-                console.log(JSON.parse(data));
-            });
-        });
+                    req.on('error', function (e) {
+                        console.log("ERROR:");
+                        console.log(e);
+                    });
+                    req.write(JSON.stringify(data));
+                    req.end();
+                };
+                notification.update({
+                    idApp: setting.idApp,
+                    status: false
+                }, {
+                    status: true
+                }).then(() => {
+                    var message = {
+                        app_id: setting.oneSignalAppID,
+                        headings: result.titleNotification,
+                        contents: result.contentNotification,
+                        url: result.internalLink.url,
+                        large_icon: hostServer + "themes/img/settingnotification/" + result.smallIcon,
+                        small_icon: hostServer + "themes/img/settingnotification/" + result.iconNotification,
+                        big_picture: hostServer + "themes/img/settingnotification/" + result.bigimagesNotification,
+                        android_led_color: "#ededed",
+                        android_accent_color: "#ededed",
+                        android_background_layout: {
+                            "image": hostServer + "themes/img/settingnotification/" + result.backgroundNotification
+                        },
+                        included_segments: result.sendTo,
+                        excluded_segments: result.excludeSendTo,
 
-        req.on('error', function (e) {
-            console.log("ERROR:");
-            console.log(e);
-        });
+                    };
+                    // console.log("----------------------------------");
+                    // console.log(message)
+                    sendNotification(message);
+                    return res.json({
+                        status: 1,
+                        message: "ok"
+                    })
+                });
+            })
 
-        req.write(JSON.stringify(data));
-        req.end();
-    };
+        })
+    } catch (error) {
+        console.log(error + "")
+    }
 
-    var message = {
-        app_id: "9dd05ff0-a03d-41e5-a1c7-df0da932b3a7",
-        headings: {
-            "en": "Notification deployapp"
-        },
-        contents: {
-            "en": "Message to deployapp"
-        },
-        url: "http://www.google.com",
-        large_icon: "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg",
-        small_icon: "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg",
-        big_picture: "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg",
-        android_led_color: "#ededed",
-        android_accent_color: "#ededed",
-        android_background_layout: "",
-        included_segments: ["All"],
-        excluded_segments: [],
-
-    };
-
-    sendNotification(message);
 })
 
 module.exports = router;

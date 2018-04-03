@@ -1,29 +1,31 @@
 $(document).ready(() => {
+
+    // khai báo
     var title = {
         value: $("[name='title-notification-en']").val(),
-        country: ""
+        country: "en"
     };
     var content = {
-        "en": $(".textarea-content-en").val(),
-        country: ""
+        value: trimSpace($(".textarea-content-en").val()),
+        country: "en"
     }
+    var country = ["en", "vn", "cn", "sx", "ge"]
 
     var colorTitle = $('#cp1').children('input').val();
     var colorContent = $('#cp2').children('input').val();
     var colorLed = $('#cp3').children('input').val();
     var colorAccent = $('#cp4').children('input').val();
 
-    var typeuUrl = "Product Url";
+    var typeUrl = "Product Url";
     var url = $('#internal-link').find('input').val();
-    var sentTo = ["all"];
+    var sendTo = ["All"];
     var exclude = [];
 
+    // remove space
     function trimSpace(str) {
         return str.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, "").replace(/\s+/g, " ");
     }
-
-
-
+    // togle platform    
     $('.select-platform-ios').click(() => {
         $('.platform-ios').hide();
         $('.platform-ios-active').show();
@@ -139,8 +141,10 @@ $(document).ready(() => {
                                 $(".textarea-content-dutch").hide();
                                 $(".textarea-content-georgian").hide();
                                 // e.stopPropagation();
-                                content = {
-                                    "en": $(".textarea-content-en").val()
+
+                                var content = {
+                                    value: $(".textarea-content-en").val(),
+                                    country: "en"
                                 }
                             })
                         }
@@ -152,8 +156,9 @@ $(document).ready(() => {
                                 $(".textarea-content-dutch").hide();
                                 $(".textarea-content-georgian").hide();
                                 // e.stopPropagation();
-                                content = {
-                                    "vn": $(".textarea-content-vn").val()
+                                var content = {
+                                    value: $(".textarea-content-en").val(),
+                                    country: "vn"
                                 }
                             })
                         }
@@ -165,8 +170,9 @@ $(document).ready(() => {
                                 $(".textarea-content-dutch").hide();
                                 $(".textarea-content-georgian").hide();
                                 // e.stopPropagation();
-                                content = {
-                                    "cn": $(".textarea-content-china").val()
+                                var content = {
+                                    value: $(".textarea-content-en").val(),
+                                    country: "cn"
                                 }
                             })
                         }
@@ -178,8 +184,9 @@ $(document).ready(() => {
                                 $(".textarea-content-dutch").show();
                                 $(".textarea-content-georgian").hide();
                                 // e.stopPropagation();
-                                content = {
-                                    "sx": $(".textarea-content-dutch").val()
+                                var content = {
+                                    value: $(".textarea-content-en").val(),
+                                    country: "sx"
                                 }
                             })
                         }
@@ -191,8 +198,9 @@ $(document).ready(() => {
                                 $(".textarea-content-dutch").hide();
                                 $(".textarea-content-georgian").show();
                                 // e.stopPropagation();
-                                content = {
-                                    "ge": $(".textarea-content-georgian").val()
+                                var content = {
+                                    value: $(".textarea-content-en").val(),
+                                    country: "ge"
                                 }
                             })
                         }
@@ -214,33 +222,33 @@ $(document).ready(() => {
             $('.select-product-url').find('li').each(function (i) {
                 if (i == 0) {
                     $(this).click(() => {
-                        typeuUrl = "Product Url"
+                        typeUrl = "Product Url"
                     })
                 }
                 if (i == 1) {
                     $(this).click(() => {
-                        typeuUrl = "Category Url"
+                        typeUrl = "Category Url"
                     })
                 }
                 if (i == 2) {
                     $(this).click(() => {
-                        typeuUrl = "About Us Url"
+                        typeUrl = "About Us Url"
                     })
                 }
 
                 if (i == 3) {
                     $(this).click(() => {
-                        typeuUrl = "Bookmark Url"
+                        typeUrl = "Bookmark Url"
                     })
                 }
                 if (i == 4) {
                     $(this).click(() => {
-                        typeuUrl = "Term & Conditions"
+                        typeUrl = "Term & Conditions"
                     })
                 }
                 if (i == 5) {
                     $(this).click(() => {
-                        typeuUrl = "Privacy Policy"
+                        typeUrl = "Privacy Policy"
                     })
                 }
             })
@@ -285,36 +293,36 @@ $(document).ready(() => {
             if (textEnter == "") {
                 textEnter = "Name app"
             }
-            if (i == 0) {
-                title = {
-                    value: textEnter,
-                    country: "en"
-                }
+            // if (i == 0) {
+            title = {
+                value: textEnter,
+                country: country[i]
             }
-            if (i == 1) {
-                title = {
-                    value: textEnter,
-                    country: "vn"
-                }
-            }
-            if (i == 2) {
-                title = {
-                    value: textEnter,
-                    country: "cn"
-                }
-            }
-            if (i == 3) {
-                title = {
-                    value: textEnter,
-                    country: "sx"
-                }
-            }
-            if (i == 4) {
-                title = {
-                    value: textEnter,
-                    country: "ge"
-                }
-            }
+            // }
+            // if (i == 1) {
+            //     title = {
+            //         value: textEnter,
+            //         country: "vn"
+            //     }
+            // }
+            // if (i == 2) {
+            //     title = {
+            //         value: textEnter,
+            //         country: "cn"
+            //     }
+            // }
+            // if (i == 3) {
+            //     title = {
+            //         value: textEnter,
+            //         country: "sx"
+            //     }
+            // }
+            // if (i == 4) {
+            //     title = {
+            //         value: textEnter,
+            //         country: "ge"
+            //     }
+            // }
 
             $('#title-mobile').text(textEnter);
         });
@@ -325,7 +333,36 @@ $(document).ready(() => {
             if (textEnter == "") {
                 textEnter = "Content..."
             }
-            content = textEnter;
+            // if (i == 0) {
+            content = {
+                value: textEnter,
+                country: country[i]
+            }
+            // }
+            // if (i == 1) {
+            //     content = {
+            //         value: textEnter,
+            //         country: "vn"
+            //     }
+            // }
+            // if (i == 2) {
+            //     content = {
+            //         value: textEnter,
+            //         country: "cn"
+            //     }
+            // }
+            // if (i == 3) {
+            //     content = {
+            //         value: textEnter,
+            //         country: "sx"
+            //     }
+            // }
+            // if (i == 4) {
+            //     content = {
+            //         value: textEnter,
+            //         country: "ge"
+            //     }
+            // }
             $('#content-mobile').text(textEnter);
         });
     })
@@ -454,19 +491,29 @@ $(document).ready(() => {
 
 
     // color picker
+    function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+    }
+
+    function rgbToHex(r, g, b) {
+        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    }
     $('#cp1').colorpicker().on('colorpickerChange colorpickerCreate', function (e) {
-        $('#title-mobile').css("color", e.color.toRgbString())
-        colorTitle = e.color.toRgbString();
+        $('#title-mobile').css("color", e.color.toHexString())
+        colorTitle = e.color.toHexString();
+        console.log(e.color.toHexString())
+
     });;
     $('#cp2').colorpicker().on('colorpickerChange colorpickerCreate', function (e) {
-        $('#content-mobile').css("color", e.color.toRgbString())
-        colorContent = e.color.toRgbString();
+        $('#content-mobile').css("color", e.color.toHexString())
+        colorContent = e.color.toHexString();
     });;
     $('#cp3').colorpicker().on('colorpickerChange colorpickerCreate', function (e) {
-        colorLed = e.color.toRgbString();
+        colorLed = e.color.toHexString();
     });;
     $('#cp4').colorpicker().on('colorpickerChange colorpickerCreate', function (e) {
-        colorAccent = e.color.toRgbString();
+        colorAccent = e.color.toHexString();
     });;
 
     // choolse url
@@ -514,7 +561,7 @@ $(document).ready(() => {
                     arraysegments.push($(this).val())
                 }
             })
-            sentTo = arraysegments;
+            sendTo = arraysegments;
             $('#notification-sent').val(arraysegments)
             console.log(arraysegments)
             e.stopPropagation();
@@ -546,14 +593,14 @@ $(document).ready(() => {
     $('[name="notiradio"]').change(() => {
         console.log($('[name="notiradio"]:checked').val());
         if ($('[name="notiradio"]:checked').val() == "1") {
-            sentTo = ["all"];
+            sendTo = ["All"];
             exclude = [];
         }
         if ($('[name="notiradio"]:checked').val() == "2") {
 
         }
         if ($('[name="notiradio"]:checked').val() == "3") {
-            sentTo = "all"
+            sendTo = "All"
         }
     })
     //-----------------------------------------------------------
@@ -593,144 +640,193 @@ $(document).ready(() => {
     }
 
     function savenoti() {
-        if (checknotification() == true) {
-            $.when(
-                (() => {
-                    if (formData1 != null) {
-                        $.ajax({
-                            url: '/dashboard/iconnotification/' + idApp,
-                            data: formData1,
-                            contentType: false,
-                            processData: false,
-                            type: 'POST',
-                            success: function (data) {
-                                if (data.status == 1) {
-                                    $('.boder-icon-small-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
-                                    $('.boder-icon-small-notification').show();
-                                }
-                            }
-                        })
-                    }
-                })(),
-                (() => {
-                    if (formData2 != null) {
-                        $.ajax({
-                            url: '/dashboard/iconlargenotification/' + idApp,
-                            data: formData2,
-                            contentType: false,
-                            processData: false,
-                            type: 'POST',
-                            success: function (data) {
-                                $('.boder-icon-large-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
-                                $('.boder-icon-large-notification').show();
-                            }
-                        })
-                    }
-                })(),
-                (() => {
-                    if (formData3 != null) {
-                        $.ajax({
-                            url: '/dashboard/iconbigimagesnotification/' + idApp,
-                            data: formData3,
-                            contentType: false,
-                            processData: false,
-                            type: 'POST',
-                            success: function (data) {
-                                $('.boder-icon-big-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
-                                $('.boder-icon-big-notification').show();
-                            }
-                        })
-                    }
-                })(),
-                (() => {
-                    if (formData4 != null) {
-                        $.ajax({
-                            url: '/dashboard/iconbackgroundnotification/' + idApp,
-                            data: formData4,
-                            contentType: false,
-                            processData: false,
-                            type: 'POST',
-                            success: function (data) {
-                                $('.boder-icon-background-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
-                                $('.boder-icon-background-notification').show();
-                            }
-                        })
-                    }
-                })(),
-                (() => {
-                    if (cancelSmall != null) {
-                        $.ajax({
-                            url: '/dashboard/canceliconnotification/' + idApp,
-                            data: {
-                                cancelSmall
-                            },
-                            dataType: "json",
-                            type: 'POST',
-                            success: function (data) {}
-                        })
-                    }
-                })(),
-                (() => {
-                    if (cancelIcon != null) {
-                        $.ajax({
-                            url: '/dashboard/canceliconlargenotification/' + idApp,
-                            data: {
-                                cancelIcon
-                            },
-                            dataType: "json",
-                            type: 'POST',
-                            success: function (data) {}
-                        })
-                    }
-                })(),
-                (() => {
-                    if (cancelBig != null) {
-                        $.ajax({
-                            url: '/dashboard/canceliconbigimagesnotification/' + idApp,
-                            data: {
-                                cancelBig
-                            },
-                            dataType: "json",
-                            type: 'POST',
-                            success: function (data) {}
-                        })
-                    }
-                })(),
-                (() => {
-                    if (cancelBackground != null) {
-                        $.ajax({
-                            url: '/dashboard/canceliconbackgroundnotification/' + idApp,
-                            data: {
-                                cancelBackground
-                            },
-                            dataType: "json",
-                            type: 'POST',
-                            success: function (data) {}
-                        })
-                    }
-                })(),
-                (() => {
+
+        $.when(
+            (() => {
+                if (formData1 != null) {
                     $.ajax({
-                        url: "/dashboard/save-data-notification/" + idApp,
+                        url: '/dashboard/iconnotification/' + idApp,
+                        data: formData1,
+                        contentType: false,
+                        processData: false,
+                        async: false,
+                        type: 'POST',
+                        success: function (data) {
+                            if (data.status == 1) {
+                                $('.boder-icon-small-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
+                                $('.boder-icon-small-notification').show();
+                            }
+                        }
+                    })
+                }
+            })(),
+            (() => {
+                if (formData2 != null) {
+                    $.ajax({
+                        url: '/dashboard/iconlargenotification/' + idApp,
+                        data: formData2,
+                        contentType: false,
+                        processData: false,
+                        async: false,
+                        type: 'POST',
+                        success: function (data) {
+                            $('.boder-icon-large-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
+                            $('.boder-icon-large-notification').show();
+                        }
+                    })
+                }
+            })(),
+            (() => {
+                if (formData3 != null) {
+                    $.ajax({
+                        url: '/dashboard/iconbigimagesnotification/' + idApp,
+                        data: formData3,
+                        contentType: false,
+                        processData: false,
+                        async: false,
+                        type: 'POST',
+                        success: function (data) {
+                            $('.boder-icon-big-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
+                            $('.boder-icon-big-notification').show();
+                        }
+                    })
+                }
+            })(),
+            (() => {
+                if (formData4 != null) {
+                    $.ajax({
+                        url: '/dashboard/iconbackgroundnotification/' + idApp,
+                        data: formData4,
+                        contentType: false,
+                        processData: false,
+                        async: false,
+                        type: 'POST',
+                        success: function (data) {
+                            $('.boder-icon-background-notification').children('img').attr("src", "/themes/img/settingnotification/" + data.message)
+                            $('.boder-icon-background-notification').show();
+                        }
+                    })
+                }
+            })(),
+            (() => {
+                if (cancelSmall != null) {
+                    $.ajax({
+                        url: '/dashboard/canceliconnotification/' + idApp,
                         data: {
-                            title,
-                            content,
-                            colorTitle,
-                            colorContent,
-                            colorLed,
-                            colorAccent,
-                            internalLink: [{
-                                typeuUrl,
-                                url
-                            }],
-                            sentTo,
-                            exclude
+                            cancelSmall
                         },
                         dataType: "json",
+                        async: false,
                         type: 'POST',
                         success: function (data) {}
                     })
-                    // }
+                }
+            })(),
+            (() => {
+                if (cancelIcon != null) {
+                    $.ajax({
+                        url: '/dashboard/canceliconlargenotification/' + idApp,
+                        data: {
+                            cancelIcon
+                        },
+                        dataType: "json",
+                        async: false,
+                        type: 'POST',
+                        success: function (data) {}
+                    })
+                }
+            })(),
+            (() => {
+                if (cancelBig != null) {
+                    $.ajax({
+                        url: '/dashboard/canceliconbigimagesnotification/' + idApp,
+                        data: {
+                            cancelBig
+                        },
+                        dataType: "json",
+                        async: false,
+                        type: 'POST',
+                        success: function (data) {}
+                    })
+                }
+            })(),
+            (() => {
+                if (cancelBackground != null) {
+                    $.ajax({
+                        url: '/dashboard/canceliconbackgroundnotification/' + idApp,
+                        data: {
+                            cancelBackground
+                        },
+                        dataType: "json",
+                        async: false,
+                        type: 'POST',
+                        success: function (data) {}
+                    })
+                }
+            })(),
+            (() => {
+                $.ajax({
+                    url: "/dashboard/save-data-notification/" + idApp,
+                    data: JSON.stringify({
+                        title,
+                        content,
+                        colorTitle,
+                        colorContent,
+                        colorLed,
+                        colorAccent,
+                        internalLink: [{
+                            typeUrl,
+                            url
+                        }],
+                        sendTo,
+                        exclude
+                    }),
+                    dataType: "json",
+                    async: false,
+                    type: 'POST',
+                    success: function (data) {}
+                })
+                // }
+            })()
+        )
+
+    }
+    $("#save-notification").click(() => {
+        if (checknotification() == true) {
+            $('#loading').show();
+            $.when(savenoti()).then(() => {
+                $('#loading').hide();
+                $('#successPopup').show(500);
+                $(".contenemail").text("");
+                $(".contenemail").text("Saved !");
+                $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                    $("#success-alert").slideUp(1000);
+                    $('.successPopup').hide();
+                });
+            })
+        }
+    });
+
+    $("#send-notification").click(() => {
+        if (checknotification() == true) {
+            $('#loading').show();
+            $.when(savenoti(),
+                (() => {
+                    $.ajax({
+                        url: "/dashboard/send-notification/" + idApp,
+                        data: {
+                            idApp
+                        },
+                        dataType: "json",
+                        async: false,
+                        type: 'POST',
+                        success: function (data) {
+                            if(data.status == 1){
+                                window.location.href= "/dashboard/notification/" + idApp
+                            }
+
+                        }
+                    })
                 })()
             ).then(() => {
                 $('#loading').hide();
@@ -743,42 +839,6 @@ $(document).ready(() => {
                 });
             })
         }
-    }
-    $("#save-notification").click(() => {
-        $('#loading').show();
-        savenoti()
-    });
-
-    $("#send-notification").click(() => {
-        console.log({
-            title,
-            content,
-            colorTitle,
-            colorContent,
-            colorLed,
-            colorAccent,
-            internalLink: [{
-                typeuUrl,
-                url
-            }],
-            sentTo,
-            exclude
-        })
-        // $('#loading').show();
-        // savenoti().then(() => {
-        //     $.ajax({
-        //         url: "/dashboard/send-notification/" + idApp,
-        //         data: {
-        //             idApp
-        //         },
-        //         dataType: "json",
-        //         type: 'POST',
-        //         success: function (data) {}
-        //     }).always(() => {
-        //         $('#loading').hide()
-        //     })
-        // })
     })
-
 
 });

@@ -60,7 +60,7 @@ router.get("/notification/:idApp", checkAdmin, (req, res) => {
     }).then((data) => {
         console.log(data);
         if (!data) {
-            notification.insert({
+            notification.create({
                 idApp: req.params.idApp,
                 idNotification: "",
                 titleNotification: "",

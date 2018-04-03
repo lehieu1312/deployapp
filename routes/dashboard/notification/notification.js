@@ -35,7 +35,7 @@ var storage = multer.diskStorage({
         cb(null, path.join(appRoot, 'public', 'themes/img/settingnotification'))
     },
     filename: function (req, file, cb) {
-        console.log(file.originalname);
+        // console.log(file.originalname);
         cb(null, md5(Date.now()) + "." + file.originalname.split('.').pop().toLowerCase())
     }
 })
@@ -57,18 +57,48 @@ router.get("/notification/:idApp", checkAdmin, (req, res) => {
         idApp: req.params.idApp,
         status: false
     }).then((data) => {
-        console.log(data);
+        // console.log(data);
         if (!data) {
             let newnotification = new notification({
                 idApp: req.params.idApp,
+                idNotification: "",
+                titleNotification: "",
+                contentNotification: "",
+                internalLink: "",
+                smallIcon: "",
+                iconNotification: "",
+                bigimagesNotification: "",
+                backgroundNotification: "",
+                titleColor: "",
+                contentColor: "",
+                ledColor: "",
+                accentColor: "",
+                sendTo: "",
+                excludeSendTo: "",
+                dateCreate: new Date(),
+                statusNotification: "",
                 status: false
             });
-            newnotification.save();
-            res.render("./dashboard/notification/notification", {
-                title: "Notification",
-                appuse,
-                notification: ""
-            })
+            newnotification.save(() => {
+                notification.findOne({
+                    idApp: req.params.idApp,
+                    status: false
+                }).then(() => {
+                    Inforapp.findOne({
+                        idApp: req.params.idApp
+                    }).then((infor) => {
+                        let appuse = {
+                            idApp: infor.idApp,
+                            nameApp: infor.nameApp
+                        }
+                        res.render("./dashboard/notification/notification", {
+                            title: "Notification",
+                            appuse,
+                            notification: ""
+                        })
+                    })
+                })
+            });
         } else {
             Inforapp.findOne({
                 idApp: req.params.idApp
@@ -171,9 +201,10 @@ router.post("/iconbackgroundnotification/:idApp", uploading.single('background')
 })
 
 router.post("/canceliconnotification/:idApp", (req, res) => {
-    console.log(req)
+    // console.log(req)
     notification.update({
-        idApp: req.params.idApp
+        idApp: req.params.idApp,
+        status: false
     }, {
         smallIcon: ""
     }).then((data) => {
@@ -189,7 +220,8 @@ router.post("/canceliconnotification/:idApp", (req, res) => {
 })
 router.post("/canceliconlargenotification/:idApp", (req, res) => {
     notification.update({
-        idApp: req.params.idApp
+        idApp: req.params.idApp,
+        status: false
     }, {
         iconNotification: ""
     }).then((data) => {
@@ -205,7 +237,8 @@ router.post("/canceliconlargenotification/:idApp", (req, res) => {
 })
 router.post("/canceliconbigimagesnotification/:idApp", (req, res) => {
     notification.update({
-        idApp: req.params.idApp
+        idApp: req.params.idApp,
+        status: false
     }, {
         bigimagesNotification: ""
     }).then((data) => {
@@ -221,7 +254,8 @@ router.post("/canceliconbigimagesnotification/:idApp", (req, res) => {
 })
 router.post("/canceliconbackgroundnotification/:idApp", (req, res) => {
     notification.update({
-        idApp: req.params.idApp
+        idApp: req.params.idApp,
+        status: false
     }, {
         backgroundNotification: ""
     }).then((data) => {
@@ -235,11 +269,48 @@ router.post("/canceliconbackgroundnotification/:idApp", (req, res) => {
     })
 })
 
-router.post("/push-notification", (req, res) => {
+
+router.post('/save-data-notification/:idApp', (req, res) => {
+    try {
+        console.log("-------------------------------");
+        console.log(req.body)
+        console.log("-------------------------------");
+        let query = {
+            titleNotification: req.body.title,
+            contentNotification: req.body.content,
+            titleColor: req.body.colorTitle,
+            contentColor: req.body.colorContent,
+            ledColor: req.body.colorLed,
+            accentColor: req.body.colorAccent,
+            internalLink: req.body.internalLink,
+            sendTo: req.body.sentTo,
+            excludeSendTo: req.body.exclude
+        }
+        notification.update({
+            idApp: req.params.idApp,
+            status: false
+        }, query).then(() => {
+            return res.json({
+                status: 1,
+                message: "ok"
+            })
+        })
+    } catch (error) {
+        console.log(error + "")
+    }
+
+})
+
+router.post('/send-notification/:idApp', (req, res) => {
+
+    newnotification.findOne({
+        idApp: req.params.idApp,
+        status: false
+    })
     var sendNotification = function (data) {
         var headers = {
             "Content-Type": "application/json; charset=utf-8",
-            "Authorization": "Basic MDc0M2FlZjMtNTE0MS00ZWViLWFjYmMtYWY2MTRiYzliYzRm"
+            "Authorization": "Basic NjdhYzc1MmMtZWRhYS00OWY4LThkZDItNTJmMzExZjk2YTA2"
         };
 
         var options = {
@@ -267,6 +338,27 @@ router.post("/push-notification", (req, res) => {
         req.end();
     };
 
+    var message = {
+        app_id: "9dd05ff0-a03d-41e5-a1c7-df0da932b3a7",
+        headings: {
+            "en": "Notification deployapp"
+        },
+        contents: {
+            "en": "Message to deployapp"
+        },
+        url: "http://www.google.com",
+        large_icon: "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg",
+        small_icon: "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg",
+        big_picture: "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg",
+        android_led_color: "#ededed",
+        android_accent_color: "#ededed",
+        android_background_layout: "",
+        included_segments: ["All"],
+        excluded_segments: [],
+
+    };
+
+    sendNotification(message);
 })
 
 module.exports = router;

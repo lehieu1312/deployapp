@@ -126,7 +126,7 @@ function ajaxuserbytime(numberdate, numberend) {
     if (numberend == 0) {
         linkstatistic = "/dashboard/userbytime/" + $("#idapp-using").val() + "?numberdate=" + numberdate;
     } else {
-        linkstatistic = "/userbytime/" + $("#idapp-using").val() + "?numberdate=" + numberdate + "&numberend=" + numberend;
+        linkstatistic = "/dashboard/userbytime/" + $("#idapp-using").val() + "?numberdate=" + numberdate + "&numberend=" + numberend;
     }
 
     function getWeekDates() {

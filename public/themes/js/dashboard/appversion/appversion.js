@@ -88,7 +88,10 @@ function clickdeployapp(idApp, version) {
     });
 
     $('#btn-next-platform-dash').click(() => {
+        $(".pl-android").removeClass("platform-active");
+        $(".pl-ios").removeClass("platform-active");
         if (platform == "") {
+            // alert(platform);
             $('.errPopup').show();
             $('.alert-upload').html('Please choose a platform');
             $("#danger-alert").fadeTo(3000, 1000).slideUp(1000, function() {
@@ -104,7 +107,15 @@ function clickdeployapp(idApp, version) {
                 $("#dialog-build-ios-dashboard").fadeIn();
             }
         }
+    });
+    $('#btn-close-platform-dash').click(function() {
+        platform = "";
+        $('#dialog-noti-choose-android-dashboard').hide();
 
+    });
+    $('#btn-close-deployapp-dash').click(function() {
+        platform = "";
+        $('#dialog-build-android-dashboard').hide();
+    });
 
-    })
 }

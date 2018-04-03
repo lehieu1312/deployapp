@@ -11,6 +11,7 @@ let appversionuserschema = mongoose.Schema({
     note: String,
     fileApkDebug: String,
     fileApkSigned: String,
+    userDeploy: String,
     status: Boolean
 })
 let apversionuser = module.exports = mongoose.model("appversionusers", appversionuserschema)

@@ -116,7 +116,7 @@ router.post('/build-android', multipartMiddleware, async function(req, res, next
     req.check('confirmkeystore', 'Confirm keystore does not match the keystore.').equals(req.body.keystore);
     req.check('CN', 'First and last name is required').notEmpty();
     req.check('OU', 'Organizational unit is required').notEmpty();
-    req.check('C', 'Organizational is required').notEmpty();
+    req.check('O', 'Organizational is required').notEmpty();
     req.check('L', 'City or location is required').notEmpty();
     req.check('ST', 'State or Province is required').notEmpty();
     req.check('C', 'Two-letter country is required').notEmpty();

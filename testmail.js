@@ -23,15 +23,15 @@ nodemailer.createTestAccount((err, account) => {
         secure: true, // true for 465, false for other ports
         requireTLS: true,
         auth: {
-            user: 'abc@mail.dev.deployapp.net',
-            pass: 'lehieu123' // generated ethereal password
+            user: 'hieu.ric@gmail.com',
+            pass: 'nlah1312!@#' // generated ethereal password
         }
     });
 
     // setup email data with unicode symbols
     let mailOptions = {
         from: '"Fred Foo 👻" <foo@example.com>', // sender address
-        to: 'anc@mail.dev.deployapp.net', // list of receivers
+        to: 'lehieu.iq@gmail.com', // list of receivers
         subject: 'Hello ✔', // Subject line
         text: 'Hello world?', // plain text body
         html: '<b>Hello world?</b>' // html body

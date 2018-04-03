@@ -3,12 +3,6 @@ $(document).ready(function() {
         $('.errPopup').hide();
     });
 
-    $('#btn-close-platform-dash').click(function() {
-        $('#dialog-noti-choose-android-dashboard').hide();
-    });
-    $('#btn-close-platform-dash').click(function() {
-        $('#dialog-build-android-dashboard').hide();
-    });
 
     function validateEmail(email) {
         var str = /^[a-z][a-zA-Z0-9_.]*(\.[a-zA-Z][a-zA-Z0-9_.]*)?@[a-z][a-zA-Z-0-9]*\.[a-z]+(\.[a-z]+)?$/;
@@ -191,10 +185,11 @@ $(document).ready(function() {
                 type: "POST",
                 data: {
                     // email: $('#email').val(),
-                    platform: 'android',
+                    platform: $('#platform').val(),
                     version: $('#version').val(),
                     idapp: $('#idapp').val(),
                     confirmkeystore: $('#confirmkeystore').val(),
+                    keystore: $('#keystore').val(),
                     CN: $('#CN').val(),
                     OU: $('#OU').val(),
                     O: $('#O').val(),
@@ -208,6 +203,8 @@ $(document).ready(function() {
                         $('.errSuccess').show();
                         $('.alert-upload').html(result.content[0]['msg']);
                     } else if (result.status == 2) {
+                        // alert(result.content[0]['msg']);
+                        console.log(JSON.stringify(result.content));
                         $('.errPopup').show();
                         $('.alert-upload').html(result.content[0]['msg']);
                     } else if (result.status == 3) {

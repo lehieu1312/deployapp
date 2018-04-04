@@ -437,7 +437,8 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                                 console.log('...Zip File....');
                                 console.log(path.join(appRoot, 'public', 'backupapk', idAppUser));
                                 return zipAlignApp(path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp, nameApp);
-                            }).then(() => {
+                            })
+                            .then(() => {
                                 console.log('Success');
                                 return res.json({ status: 1, content: "Success." });
                             });

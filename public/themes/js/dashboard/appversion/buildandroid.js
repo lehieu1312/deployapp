@@ -54,6 +54,7 @@ $(document).ready(function() {
         //     $('#email').removeClass('input-holder').removeClass('border-bottom-red');
         //     $('#icon-err-email').removeClass('display-inline').addClass('display-none');
         // }
+
         if ($('#keystore').val() == "") {
             $('#keystore').attr('placeholder', 'Key Store Password can not be empty ');
             $('#keystore').addClass('input-holder').addClass('border-bottom-red');
@@ -178,6 +179,7 @@ $(document).ready(function() {
     }
     $('#btn-deploy-android-dash').click(function() {
         // alert(idApp);
+
         if (validateForm_build_android() == true) {
             $('#loading').show();
             $.ajax({
@@ -188,6 +190,7 @@ $(document).ready(function() {
                     platform: $('#platform').val(),
                     version: $('#version').val(),
                     idapp: $('#idapp').val(),
+                    idappuser: $('#idappuser').val(),
                     confirmkeystore: $('#confirmkeystore').val(),
                     keystore: $('#keystore').val(),
                     CN: $('#CN').val(),

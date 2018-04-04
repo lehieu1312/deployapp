@@ -16,13 +16,13 @@ $(document).ready(() => {
     }
     ///////////////// ICON EYE BUILD DASHBOARD////////////
     $('#icon-eye-hide-build').hide();
-    $('#icon-eye-build').click(function () {
+    $('#icon-eye-build').click(function() {
         $('#keystore').attr("type", "text");
         // $('#iconeye').attr("src", "/themes/img/login/iconeyehide.png")
         $('#icon-eye-build').hide();
         $('#icon-eye-hide-build').show();
     });
-    $('#icon-eye-hide-build').click(function () {
+    $('#icon-eye-hide-build').click(function() {
         $('#keystore').attr("type", "password");
         // $('#iconeye').attr("src", "/themes/img/login/iconeyehide.png")
         $('#icon-eye-hide-build').hide();
@@ -30,13 +30,13 @@ $(document).ready(() => {
     });
     ///////////////// ICON EYE BUILD UPDATE DASHBOARD////////////
     $('#icon-eye-hide-build-update').hide();
-    $('#icon-eye-build-update').click(function () {
+    $('#icon-eye-build-update').click(function() {
         $('#password_keystore').attr("type", "text");
         // $('#iconeye').attr("src", "/themes/img/login/iconeyehide.png")
         $('#icon-eye-build-update').hide();
         $('#icon-eye-hide-build-update').show();
     });
-    $('#icon-eye-hide-build-update').click(function () {
+    $('#icon-eye-hide-build-update').click(function() {
         $('#password_keystore').attr("type", "password");
         // $('#iconeye').attr("src", "/themes/img/login/iconeyehide.png")
         $('#icon-eye-hide-build-update').hide();
@@ -49,20 +49,21 @@ $(document).ready(() => {
     //     alert(JSON.stringify(sms_box));
     // });
 
-    var idApp, version, platform;
+    var idAppAdmin, versionAdmin, platform, idAppUser;
 
 });
 
-function clickdeployapp(idApp, version) {
+function clickdeployapp(idApp, version, idAppUser) {
     console.log(idApp);
     console.log(version);
-    idApp = idApp;
-    version = version;
-    $('#idapp').val(idApp);
-    $('#version').val(version);
+    idAppAdmin = idApp;
+    versionAdmin = version;
+    $('#idapp').val(idAppAdmin);
+    $('#version').val(versionAdmin);
+    $('#idappuser').val(idAppUser);
     $('#dialog-noti-choose-android-dashboard').fadeIn();
     var platform = "";
-    $("#ios").click(function () {
+    $("#ios").click(function() {
         $('#platformval').val('ios');
         $(".pl-ios").addClass("platform-active");
         $(".tile-pl-ios").css("color", "#00afee")
@@ -72,7 +73,7 @@ function clickdeployapp(idApp, version) {
         $('#platform').val(platform);
         // alert(platform);
     });
-    $("#android").click(function () {
+    $("#android").click(function() {
         $('#platformval').val('android');
         // $(".pl-ios").removeClass("platform-active");
         $(".pl-android").addClass("platform-active");
@@ -94,7 +95,7 @@ function clickdeployapp(idApp, version) {
             // alert(platform);
             $('.errPopup').show();
             $('.alert-upload').html('Please choose a platform');
-            $("#danger-alert").fadeTo(3000, 1000).slideUp(1000, function () {
+            $("#danger-alert").fadeTo(3000, 1000).slideUp(1000, function() {
                 $("#danger-alert").slideUp(1000);
                 $('.errPopup').hide();
             });

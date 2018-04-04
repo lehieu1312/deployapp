@@ -162,9 +162,10 @@
     margin-right: 10px;
 }
 
-.btn-close-platform-dash:hover {
+.btn-close-platform-dash:hover,
+.btn-close-platform-dash:active {
     color: #141313;
-    background-color: #b4b7b7;
+    background-color: #C6CBCB;
 }
 
 .box-platform {

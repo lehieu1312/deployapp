@@ -461,7 +461,7 @@ router.post('/platforms', urlencodeParser, async function(req, res) {
             .then(function() {
                 process.chdir(path.join(appRoot, 'public', 'project', pKeyFolder));
                 console.log('Access file...');
-                commandLine('chmod', ['-R', '777', './'])
+                commandLine('chmod', ['-R', '777', './']);
             })
             .then(function() {
                 process.chdir(path.join(appRoot, 'public', 'project', pKeyFolder));

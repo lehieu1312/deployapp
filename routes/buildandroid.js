@@ -301,8 +301,6 @@ router.post('/build-android', multipartMiddleware, async function(req, res, next
     let copyFileApkToSign = (pathProjectApp, pathBackupAPK, keyFolder) => {
         return new Promise((resolve, reject) => {
             try {
-
-
                 var path_outputs = path.join(pathBackupAPK, keyFolder);
                 if (!fs.existsSync(path_outputs)) {
                     fs.mkdirSync(path_outputs);

@@ -10,16 +10,16 @@ var extract = require('extract-zip');
 var QRCode = require('qrcode');
 var appRoot = require('app-root-path');
 appRoot = appRoot.toString();
-
+var Base64js = require('js-base64').Base64;
 var crossSpawn = require('cross-spawn');
 var async = require('async');
 var AppSettingModels = require('../../../models/appsettings');
 var AppVersionAdminModels = require('../../../models/appversionadmin');
 var AppVersionUserModels = require('../../../models/appversionuser');
 var listBuildingModels = require('../../../models/listbuilding');
-var libSetting = require('../../../lib/setting');
 var base64 = require('../../../lib/base64');
-var Base64js = require('js-base64').Base64;
+var libSetting = require('../../../lib/setting');
+var hostServer = libSetting.hostServer;
 var sumBuild = libSetting.totalBuilding;
 
 
@@ -299,35 +299,63 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
             return deferred.promise;
         }
         let genKeyStoreText = (pathWriteFile, fIdAppUser, fVersionApp, fKeyStore, fCN, fOU, fO, fL, fST, fC, fAlias) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    var pathBackupKey = path.join(pathWriteFile, fIdAppUser);
+                    if (!fs.existsSync(pathBackupKey)) {
+                        fs.mkdirSync(pathBackupKey);
+                    }
+                    var pathBackupKeyVersion = path.join(pathWriteFile, fIdAppUser, fVersionApp);
+                    if (!fs.existsSync(pathBackupKey)) {
+                        fs.mkdirSync(pathBackupKey);
+                    }
+                    var pathBackSigned = path.join(pathWriteFile, fIdAppUser, fVersionApp, 'signed');
+                    if (!fs.existsSync(pathBackSigned)) {
+                        fs.mkdirSync(pathBackSigned);
+                    }
+                    var dataFile = 'Password: ' + fKeyStore + '\r\nFirst and last name: ' + fCN + '\r\nOrganizational unit: ' + fOU + '\r\nOrganizational: ' + fO + '\r\nCity or location: ' + fL + '\r\nState or Province: ' + fST + '\r\nTwo-letter country: ' + fC + '\r\nAlias name: ' + fAlias;
+                    fs.writeFile(path.join(pathBackSigned, 'keystore.txt'), dataFile, function(err) {
+                        if (err) {
+                            console.log('err: ' + err);
+                            return reject(err);
+                        }
+                        resolve('Generate file keystore success.');
+                    })
+                } catch (error) {
+                    console.log(error);
+                    reject(error);
+                }
+
+            })
+
+        }
+        let updateDBAppversionUser = (fIdAppDB, fIdAppAdminDB, fVersionAdminDB, fVersionUserDB, fLinkApkDebugDB, linkApkSignedDB, linkKeyStoreDB, linkKeyStoreTextDB) => {
                 return new Promise((resolve, reject) => {
                     try {
-                        var pathBackupKey = path.join(pathWriteFile, fIdAppUser);
-                        if (!fs.existsSync(pathBackupKey)) {
-                            fs.mkdirSync(pathBackupKey);
-                        }
-                        var pathBackupKeyVersion = path.join(pathWriteFile, fIdAppUser, fVersionApp);
-                        if (!fs.existsSync(pathBackupKey)) {
-                            fs.mkdirSync(pathBackupKey);
-                        }
-                        var pathBackSigned = path.join(pathWriteFile, fIdAppUser, fVersionApp, 'signed');
-                        if (!fs.existsSync(pathBackSigned)) {
-                            fs.mkdirSync(pathBackSigned);
-                        }
-                        var dataFile = 'Password: ' + fKeyStore + '\r\nFirst and last name: ' + fCN + '\r\nOrganizational unit: ' + fOU + '\r\nOrganizational: ' + fO + '\r\nCity or location: ' + fL + '\r\nState or Province: ' + fST + '\r\nTwo-letter country: ' + fC + '\r\nAlias name: ' + fAlias;
-                        fs.writeFile(path.join(pathBackSigned, 'keystore.txt'), dataFile, function(err) {
-                            if (err) {
-                                console.log('err: ' + err);
-                                return reject(err);
-                            }
-                            resolve('Generate file keystore success.');
-                        })
+                        // Infomation.findOneAndUpdate({ keyFolder: dbNameFolder }, { $set: { isParams: false } }, { upsert: false }, function(err, result)
+                        var appVersionUserData = new AppVersionUserModels({
+                            idApp: fIdAppDB,
+                            idAppAdmin: fIdAppAdminDB,
+                            versionAdmin: fVersionAdminDB,
+                            version: fVersionUserDB,
+                            dateCreate: Date.now(),
+                            linkApkDebug: fLinkApkDebugDB,
+                            linkApkSigned: linkApkSignedDB,
+                            linkKeyStore: linkKeyStoreDB,
+                            linkKeyStoreText: linkKeyStoreTextDB,
+                            userDeploy: req.session.iduser,
+                            status: true
+                        });
+                        appVersionUserData.save().then(() => {
+                            listBuildingModels.remove({ keyFolder: fIdAppDB }).then(() => {
+                                resolve('Update db success.');
+                            });
+                        });
+
                     } catch (error) {
-                        console.log(error);
                         reject(error);
                     }
-
                 })
-
             }
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
         var pathSourceCodeAdmin = path.join(appRoot, 'public', 'sourcecodeapp', nameFileCodeAdmin);
@@ -437,6 +465,37 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                                 console.log('...Zip File....');
                                 console.log(path.join(appRoot, 'public', 'backupapk', idAppUser));
                                 return zipAlignApp(path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp, nameApp);
+                            }).then(() => {
+                                console.log('===Update database===');
+                                // var hostName = req.headers.host;
+                                var slinkDebug = path.join('static', 'debug', idAppUser, versionApp, sAppName + '-debug.apk');
+                                var slinkSigned = path.join('static', 'signed', idAppUser, versionApp, sAppName + '.apk');
+                                slinkDebug = slinkDebug.replace(/ /g, '%20');
+                                slinkDebug = slinkDebug.replace("\\", "/");
+                                slinkSigned = slinkSigned.replace(/ /g, '%20');
+                                slinkSigned = slinkSigned.replace("\\", "/");
+                                slinkDebug = hostServer + '/' + slinkDebug;
+                                slinkSigned = hostServer + '/' + slinkSigned;
+                                console.log(slinkDebug);
+                                console.log(slinkSigned);
+                                var sLinkKeyStore = hostServer + '/download-keystore/' + idAppUser + '/' + versionApp;
+                                var sLinkKeyStoreText = hostServer + '/download-keystoretxt/' + idAppUser + '/' + versionApp;
+
+                                var idAppDB = idAppUser;
+                                var idAppAdminDB = idAppServerAdmin;
+                                var versionAdminDB = versionAppAdmin;
+                                var dateCreateDB = Date.now();
+                                var versionUserDB = versionApp;
+                                var linkApkDebugDB = slinkDebug;
+                                var linkApkSignedDB = slinkSigned;
+                                var linkKeyStoreDB = sLinkKeyStore;
+                                var linkKeyStoreTextDB = sLinkKeyStoreText;
+                                console.log(req.session);
+                                // var userDeployappDB
+
+                                // var value = { linkDebug: slinkDebug, linkSigned: slinkSigned, linkKeyStore: sLinkKeyStore, linkKeyStoretxt: sLinkKeyStoreText, stepBuild: 'builded', buildNewApp: true };
+                                return updateDBAppversionUser(idAppDB, idAppAdminDB, versionAdminDB, versionUserDB, linkApkDebugDB, linkApkSignedDB, linkKeyStoreDB, linkKeyStoreTextDB);
+                                // return sendLinkMail(mailCustomer, slinkDebug, slinkSigned, sAppName)
                             })
                             .then(() => {
                                 console.log('Success');

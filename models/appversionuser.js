@@ -9,8 +9,10 @@ let appversionuserschema = mongoose.Schema({
     dateCreate: Date,
     version: String,
     note: String,
-    fileApkDebug: String,
-    fileApkSigned: String,
+    linkApkDebug: String,
+    linkApkSigned: String,
+    linkKeyStore: String,
+    linkKeyStoreText: String,
     userDeploy: String,
     status: Boolean
 })

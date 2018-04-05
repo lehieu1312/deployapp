@@ -623,6 +623,9 @@ var myorder = require("./routes/dashboard/myorder/myorder");
 var traffic = require("./routes/dashboard/traffic/traffic");
 var notification = require("./routes/dashboard/notification/notification");
 var appsetting = require("./routes/dashboard/appsetting/appsetting");
+
+var sentnotification = require("./routes/dashboard/notification/sentnotification");
+var allusernoti = require("./routes/dashboard/notification/allusers");
 // Rest API
 var API = require("./routes/restapi/app");
 
@@ -659,6 +662,8 @@ app.use('/dashboard', appsetting);
 app.use('/dashboard', myorder);
 app.use('/dashboard', traffic);
 app.use('/dashboard', notification);
+app.use('/dashboard', sentnotification);
+app.use('/dashboard', allusernoti);
 // app.use('/dashboard', appsetting);
 
 /////////////////////

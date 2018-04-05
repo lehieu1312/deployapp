@@ -58,8 +58,10 @@ function setDataDevices(idApp) {
             });
             // you can set limit and offset (optional) or you can leave it empty
             myClient.viewDevices('limit=100&offset=0', function (err, httpResponse, data) {
-                var getdata = JSON.parse(data);
-                var play_user = getdata.players;
+                let getdata = JSON.parse(data);
+                console.log("getdata:")
+                console.log(getdata)
+                let play_user = getdata.players;
                 let device_test = play_user.filter(function (el) {
                     return el.test_type != null
                 });
@@ -394,7 +396,6 @@ router.post('/send-notification/:idApp', (req, res) => {
             }).then((setting) => {
                 console.log("----------------------------------");
                 console.log(setting);
-                var iduser;
                 var sendNotification = function (data) {
                     var headers = {
                         "Content-Type": "application/json; charset=utf-8",
@@ -410,8 +411,16 @@ router.post('/send-notification/:idApp', (req, res) => {
                     var req = https.request(options, function (res) {
                         res.on('data', function (data) {
                             console.log("Response:");
-                            console.log(JSON.parse(data));
-                            iduser = JSON.parse(data);
+                            let getdata = JSON.parse(data);
+                            console.log(getdata.id);
+                            (async () => {
+                                await notification.update({
+                                    idApp: setting.idApp,
+                                    status: false
+                                }, {
+                                    idNotification: getdata.id,
+                                })
+                            })()
                         });
                     });
                     req.on('error', function (e) {
@@ -451,7 +460,6 @@ router.post('/send-notification/:idApp', (req, res) => {
                     idApp: setting.idApp,
                     status: false
                 }, {
-                    idNotification: iduser,
                     status: true
                 }).then(() => {
                     return res.json({

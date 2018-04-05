@@ -465,11 +465,11 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                         console.log('--------------------------------------------------------');
                         console.log('-------Checking Build-------');
                         return checkBuilding(sumBuild, idAppUser)
-                            // .then(() => {
-                            //     process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
-                            //     console.log('...Access file...');
-                            //     commandLine('chmod', ['-R', '777', './']);
-                            // })
+                            .then(() => {
+                                process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
+                                console.log('...Access file...');
+                                commandLine('chmod', ['-R', '777', './']);
+                            })
                             .then(() => {
                                 process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
                                 console.log('Start rebuild...');
@@ -482,6 +482,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                                 process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
                                 return commandLine(cmdRelease, argv);
                             }).then(() => {
+                                console.log('...Build Android Debug...');
                                 var cmd = 'ionic';
                                 // var cmd = 'cordova';
                                 var argvBuild = ['build', 'android', '--prod'];
@@ -491,7 +492,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                                 console.log('...Copy File Apk Unsign...');
                                 return copyFileApkDebugDash(path.join(appRoot, 'public', 'project', idAppUser), path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp, nameApp);
                             }).then(() => {
-                                console.log('...Build project release...');
+                                console.log('...Build Android Release...');
                                 var cmdRelease = 'ionic';
                                 // var cmdRelease = 'cordova';
                                 var argv = ['build', 'android', '--release', '--prod'];

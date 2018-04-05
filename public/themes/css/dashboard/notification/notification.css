@@ -512,6 +512,7 @@
 }
 
 .img-small-circle {
+    border: solid 0.5px #ededed;
     border-radius: 50%;
     width: 30px;
     height: 30px;

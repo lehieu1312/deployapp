@@ -113,17 +113,11 @@
                                 content_en.value = "";
                             }
                         %>
-                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_en.status%> textarea-content-en"><%=content_en.value%>
-                            </textarea>
-                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_vn.status%>  textarea-content-vn"><%=content_vn.value%>
-                            </textarea>
-                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_cn.status%> textarea-content-china"><%=content_cn.value%>
-                            </textarea>
-                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_sx.status%>  textarea-content-dutch"><%=content_sx.value%>
-                            </textarea>
-                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_ge.status%> textarea-content-georgian"><%=content_ge.value%>
-                            </textarea>
-
+                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_en.status%> textarea-content-en"><%=content_en.value%></textarea>
+                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_vn.status%>  textarea-content-vn"><%=content_vn.value%></textarea>
+                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_cn.status%> textarea-content-china"><%=content_cn.value%></textarea>
+                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_sx.status%>  textarea-content-dutch"><%=content_sx.value%></textarea>
+                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_ge.status%> textarea-content-georgian"><%=content_ge.value%></textarea>
                             <span class="form-control-feedback" aria-hidden="true">
                                 <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
                             </span>
@@ -315,16 +309,23 @@
                             </div>
                         </div>
                         <div class="form-group has-feedback">
+                            <%for(let i =0 ; i < device.length; i++){%>
+                              <input hidden class="value_device" value="<%=device[i].idUser%>" type="text">
+                              <%  if(i==0){
+                                %>
+
                             <div class="infor-mobile-using">
-                                <span>Iphone 7,2 103.3.1
+                                <span><%=device[i].device_model + " " + device[i].device_os%>
                                     <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
                                 </span>
                             </div>
+                            <%}else{%>
                             <div class="infor-mobile-using set-infor-mobile-using">
-                                <span>Iphone 7,2 103.3.1
+                                    <span><%=device[i].device_model + " " + device[i].device_os%>
                                     <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
                                 </span>
                             </div>
+                            <%}}%>
                         </div>
                 </div>
                 <div class="right-content-notification set-position-relative col-md-4">
@@ -352,7 +353,7 @@
                         <div class="interface-mobile-js ">
                             <div class="boder-img-small-circle float-left">
                                 <% 
-                            let smallIcon = "testicon.jpg";
+                            let smallIcon = "testicon.png";
                             if(notification.smallIcon.length > 0){
                                 smallIcon =notification.smallIcon;
                             }else{

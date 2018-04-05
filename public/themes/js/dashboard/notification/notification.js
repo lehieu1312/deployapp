@@ -18,7 +18,7 @@ $(document).ready(() => {
 
     var typeUrl = "Product Url";
     var url = $('#internal-link').find('input').val();
-    var sendTo = ["All"];
+    var sendToUser = ["All"];
     var exclude = [];
 
     // remove space
@@ -143,7 +143,7 @@ $(document).ready(() => {
                                 // e.stopPropagation();
 
                                 var content = {
-                                    value: $(".textarea-content-en").val(),
+                                    value:trimSpace($(".textarea-content-en").val()),
                                     country: "en"
                                 }
                             })
@@ -157,7 +157,7 @@ $(document).ready(() => {
                                 $(".textarea-content-georgian").hide();
                                 // e.stopPropagation();
                                 var content = {
-                                    value: $(".textarea-content-en").val(),
+                                    value: trimSpace($(".textarea-content-vn").val()),
                                     country: "vn"
                                 }
                             })
@@ -171,7 +171,7 @@ $(document).ready(() => {
                                 $(".textarea-content-georgian").hide();
                                 // e.stopPropagation();
                                 var content = {
-                                    value: $(".textarea-content-en").val(),
+                                    value: trimSpace($(".textarea-content-china").val()),
                                     country: "cn"
                                 }
                             })
@@ -185,7 +185,7 @@ $(document).ready(() => {
                                 $(".textarea-content-georgian").hide();
                                 // e.stopPropagation();
                                 var content = {
-                                    value: $(".textarea-content-en").val(),
+                                    value:trimSpace($(".textarea-content-dutch").val()),
                                     country: "sx"
                                 }
                             })
@@ -199,7 +199,7 @@ $(document).ready(() => {
                                 $(".textarea-content-georgian").show();
                                 // e.stopPropagation();
                                 var content = {
-                                    value: $(".textarea-content-en").val(),
+                                    value: trimSpace($(".textarea-content-georgian").val()),
                                     country: "ge"
                                 }
                             })
@@ -293,36 +293,10 @@ $(document).ready(() => {
             if (textEnter == "") {
                 textEnter = "Name app"
             }
-            // if (i == 0) {
             title = {
                 value: textEnter,
                 country: country[i]
             }
-            // }
-            // if (i == 1) {
-            //     title = {
-            //         value: textEnter,
-            //         country: "vn"
-            //     }
-            // }
-            // if (i == 2) {
-            //     title = {
-            //         value: textEnter,
-            //         country: "cn"
-            //     }
-            // }
-            // if (i == 3) {
-            //     title = {
-            //         value: textEnter,
-            //         country: "sx"
-            //     }
-            // }
-            // if (i == 4) {
-            //     title = {
-            //         value: textEnter,
-            //         country: "ge"
-            //     }
-            // }
 
             $('#title-mobile').text(textEnter);
         });
@@ -333,36 +307,11 @@ $(document).ready(() => {
             if (textEnter == "") {
                 textEnter = "Content..."
             }
-            // if (i == 0) {
             content = {
-                value: textEnter,
+                
+                value: trimSpace(textEnter) ,
                 country: country[i]
             }
-            // }
-            // if (i == 1) {
-            //     content = {
-            //         value: textEnter,
-            //         country: "vn"
-            //     }
-            // }
-            // if (i == 2) {
-            //     content = {
-            //         value: textEnter,
-            //         country: "cn"
-            //     }
-            // }
-            // if (i == 3) {
-            //     content = {
-            //         value: textEnter,
-            //         country: "sx"
-            //     }
-            // }
-            // if (i == 4) {
-            //     content = {
-            //         value: textEnter,
-            //         country: "ge"
-            //     }
-            // }
             $('#content-mobile').text(textEnter);
         });
     })
@@ -460,7 +409,7 @@ $(document).ready(() => {
             $("#img-small-circle").attr("src", valicon);
             $(".img-large-mobile").hide();
         } else {
-            $("#img-small-circle").attr("src", "/themes/img/settingnotification/testicon.jpg");
+            $("#img-small-circle").attr("src", "/themes/img/settingnotification/testicon.png");
         }
         cancelSmall = $(".boder-icon-small-notification").children("input").val();
         $("#btn-cancel-small-icon").hide();
@@ -469,7 +418,7 @@ $(document).ready(() => {
     $("#btn-cancel-large-icon").click(() => {
         valicon = "";
         if (valiconmall.length < 1) {
-            $("#img-small-circle").attr("src", "/themes/img/settingnotification/testicon.jpg");
+            $("#img-small-circle").attr("src", "/themes/img/settingnotification/testicon.png");
         }
         cancelIcon = $(".boder-icon-large-notification").children("input").val();
         $("#btn-cancel-large-icon").hide();
@@ -561,7 +510,7 @@ $(document).ready(() => {
                     arraysegments.push($(this).val())
                 }
             })
-            sendTo = arraysegments;
+            sendToUser = arraysegments;
             $('#notification-sent').val(arraysegments)
             console.log(arraysegments)
             e.stopPropagation();
@@ -593,14 +542,14 @@ $(document).ready(() => {
     $('[name="notiradio"]').change(() => {
         console.log($('[name="notiradio"]:checked').val());
         if ($('[name="notiradio"]:checked').val() == "1") {
-            sendTo = ["All"];
+            sendToUser = ["All"];
             exclude = [];
         }
         if ($('[name="notiradio"]:checked').val() == "2") {
 
         }
         if ($('[name="notiradio"]:checked').val() == "3") {
-            sendTo = "All"
+            sendToUser = "All"
         }
     })
     //-----------------------------------------------------------
@@ -778,7 +727,7 @@ $(document).ready(() => {
                             typeUrl,
                             url
                         }],
-                        sendTo,
+                        sendToUser,
                         exclude
                     }),
                     dataType: "json",
@@ -832,7 +781,7 @@ $(document).ready(() => {
                 $('#loading').hide();
                 $('#successPopup').show(500);
                 $(".contenemail").text("");
-                $(".contenemail").text("Saved !");
+                $(".contenemail").text("Sent !");
                 $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
                     $("#success-alert").slideUp(1000);
                     $('.successPopup').hide();

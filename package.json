@@ -37,6 +37,7 @@
     "nodemailer": "^4.0.1",
     "nodemailer-express-handlebars": "^2.0.0",
     "object-to-xml": "^1.1.0",
+    "onesignal-node": "^1.0.2",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth2": "^0.1.6",

@@ -13,10 +13,13 @@ appRoot = appRoot.toString();
 var Base64js = require('js-base64').Base64;
 var crossSpawn = require('cross-spawn');
 var async = require('async');
+var nodemailer = require('nodemailer');
+var hbs = require('nodemailer-express-handlebars');
 var AppSettingModels = require('../../../models/appsettings');
 var AppVersionAdminModels = require('../../../models/appversionadmin');
 var AppVersionUserModels = require('../../../models/appversionuser');
 var listBuildingModels = require('../../../models/listbuilding');
+var UsersModels = require('../../../models/user');
 var base64 = require('../../../lib/base64');
 var libSetting = require('../../../lib/setting');
 var hostServer = libSetting.hostServer;
@@ -29,7 +32,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
         //////////////////Declare Variable/////////////
         var mailCustomer, OU, CN, O, L, ST, C, keystore, keystore_again, alias, sKeyFolder;
         var sTypeApp, sPathRootApp, sAppName;
-        var platformsApp, versionAppAdmin, idAppServerAdmin, nameFileCodeAdmin, idAppUser, idAppUserDecode;
+        var platformsApp, versionAppAdmin, idAppServerAdmin, nameFileCodeAdmin, idAppUser, idAppUserDecode, emailUser;
         var packageID, nameApp, versionApp, descriptionApp, emailApp, hrefApp, authApp;
         var wordpressUrl, wordpressPerPage, requestTimeOut, targetBlank, dateFormat, onesignalID, ggAnalytic, adModAndroidBanner, adModeAndroidInterstitial, adModiOsBanner, adModiOSInterstitial;
         ////////////////Check Value Form///////////////
@@ -102,7 +105,12 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
         adModeAndroidInterstitial = dataSettings.adModeAndroidInterstitial;
         adModiOsBanner = dataSettings.adModeIosBaner;
         adModiOSInterstitial = dataSettings.adModeIosInterstitial;
-        //////////////////////////////
+
+        ///// Get Email Of User////////
+        console.log(req.session.iduser);
+        var dataUser = await UsersModels.findOne({ id: req.session.iduser }).exec();
+        console.log('dataUser: ' + dataUser);
+        emailUser = dataUser.email;
         ////////////////////////////////////////////////FUNCTION PROCESS////////////////////////////////////////////////////
         let checkBuilding = (totalBuild, fKeyFolder) => {
             return new Promise(async(resolve, reject) => {
@@ -330,32 +338,73 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
 
         }
         let updateDBAppversionUser = (fIdAppDB, fIdAppAdminDB, fVersionAdminDB, fVersionUserDB, fLinkApkDebugDB, linkApkSignedDB, linkKeyStoreDB, linkKeyStoreTextDB) => {
-                return new Promise((resolve, reject) => {
-                    try {
-                        // Infomation.findOneAndUpdate({ keyFolder: dbNameFolder }, { $set: { isParams: false } }, { upsert: false }, function(err, result)
-                        var appVersionUserData = new AppVersionUserModels({
-                            idApp: fIdAppDB,
-                            idAppAdmin: fIdAppAdminDB,
-                            versionAdmin: fVersionAdminDB,
-                            version: fVersionUserDB,
-                            dateCreate: Date.now(),
-                            linkApkDebug: fLinkApkDebugDB,
-                            linkApkSigned: linkApkSignedDB,
-                            linkKeyStore: linkKeyStoreDB,
-                            linkKeyStoreText: linkKeyStoreTextDB,
-                            userDeploy: req.session.iduser,
-                            status: true
+            return new Promise((resolve, reject) => {
+                try {
+                    var dateCreateDB = Date.now();
+                    // Infomation.findOneAndUpdate({ keyFolder: dbNameFolder }, { $set: { isParams: false } }, { upsert: false }, function(err, result)
+                    var appVersionUserData = new AppVersionUserModels({
+                        idApp: fIdAppDB,
+                        idAppAdmin: fIdAppAdminDB,
+                        versionAdmin: fVersionAdminDB,
+                        version: fVersionUserDB,
+                        dateCreate: dateCreateDB,
+                        linkApkDebug: fLinkApkDebugDB,
+                        linkApkSigned: linkApkSignedDB,
+                        linkKeyStore: linkKeyStoreDB,
+                        linkKeyStoreText: linkKeyStoreTextDB,
+                        userDeploy: req.session.iduser,
+                        status: true
+                    });
+                    appVersionUserData.save().then(() => {
+                        listBuildingModels.remove({ keyFolder: fIdAppDB }).then(() => {
+                            resolve({ linkApkDebug: fLinkApkDebugDB, linkApkSigned: linkApkSignedDB, linkKeyStore: linkKeyStoreDB, version: fVersionUserDB, dateCreate: dateCreateDB });
                         });
-                        appVersionUserData.save().then(() => {
-                            listBuildingModels.remove({ keyFolder: fIdAppDB }).then(() => {
-                                resolve('Update db success.');
-                            });
-                        });
+                    });
 
-                    } catch (error) {
-                        reject(error);
+                } catch (error) {
+                    reject(error);
+                }
+            })
+        }
+        let sendLinkMail = (emailReceive, linkAppDebug, linkAppSigned, fLinkKeyStore, App, fVersionApp, dateApp) => {
+                return new Promise((resolve, reject) => {
+                    var transporter = nodemailer.createTransport({ // config mail server
+                        host: 'smtp.gmail.com',
+                        // port:'465',
+                        auth: {
+                            user: 'no-reply@taydotech.com',
+                            pass: 'taydotech!@#deployapp'
+                        }
+                    });
+                    transporter.use('compile', hbs({
+                        viewPath: path.join(appRoot, 'views'),
+                        extName: '.ejs'
+                    }));
+
+                    var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
+                        from: 'Deploy App <no-reply@taydotech.com>',
+                        to: emailReceive,
+                        subject: 'Notification from DeployApp: ' + App + '(' + fVersionApp + ') is now ready for download',
+                        template: 'mail',
+                        context: {
+                            App,
+                            linkAppDebug,
+                            linkAppSigned,
+                            fLinkKeyStore,
+                            fVersionApp,
+                            sDate
+                        }
                     }
-                })
+                    transporter.sendMail(mainOptions, function(err, info) {
+                        if (err) {
+                            return reject(err);
+                        }
+                        console.log('info mail: ' + info);
+                        console.log('info mail 2: ' + JSON.stringify(info));
+                        return resolve('Message sent: ' + info.response);
+
+                    });
+                });
             }
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
         var pathSourceCodeAdmin = path.join(appRoot, 'public', 'sourcecodeapp', nameFileCodeAdmin);
@@ -468,8 +517,8 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                             }).then(() => {
                                 console.log('===Update database===');
                                 // var hostName = req.headers.host;
-                                var slinkDebug = path.join('static', 'debug', idAppUser, versionApp, sAppName + '-debug.apk');
-                                var slinkSigned = path.join('static', 'signed', idAppUser, versionApp, sAppName + '.apk');
+                                var slinkDebug = path.join('static', 'debug', idAppUser, versionApp, nameApp + '-debug.apk');
+                                var slinkSigned = path.join('static', 'signed', idAppUser, versionApp, nameApp + '.apk');
                                 slinkDebug = slinkDebug.replace(/ /g, '%20');
                                 slinkDebug = slinkDebug.replace("\\", "/");
                                 slinkSigned = slinkSigned.replace(/ /g, '%20');
@@ -496,6 +545,12 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                                 // var value = { linkDebug: slinkDebug, linkSigned: slinkSigned, linkKeyStore: sLinkKeyStore, linkKeyStoretxt: sLinkKeyStoreText, stepBuild: 'builded', buildNewApp: true };
                                 return updateDBAppversionUser(idAppDB, idAppAdminDB, versionAdminDB, versionUserDB, linkApkDebugDB, linkApkSignedDB, linkKeyStoreDB, linkKeyStoreTextDB);
                                 // return sendLinkMail(mailCustomer, slinkDebug, slinkSigned, sAppName)
+                            }).then((resValue) => {
+                                console.log('Start send mail');
+                                console.log(resValue);
+                                return sendLinkMail(emailUser, resValue.linkApkDebug, resValue.linkApkSigned, resValue.linkKeyStore, nameApp, resValue.version, resValue.dateCreate);
+                                // sendLinkMail = (emailReceive, linkAppDebug, linkAppSigned, fLinkKeyStore, App, fVersionApp, dateApp)
+                                // resolve({ linkApkDebug: fLinkApkDebugDB, linkApkSigned: linkApkSignedDB, linkKeyStore: linkKeyStoreDB, version: fVersionUserDB, dateCreate: dateCreateDB });
                             })
                             .then(() => {
                                 console.log('Success');

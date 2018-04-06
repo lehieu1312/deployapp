@@ -202,6 +202,38 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                 }
             })
         }
+        let copyFileApkDebug = (pathProjectApp, pathBackupAPK, skeyFolder, nApp) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    var path_backupapk = path.join(pathBackupAPK, skeyFolder);
+                    if (!fs.existsSync(path_backupapk)) {
+                        fs.mkdirSync(path_backupapk);
+                    }
+                    var path_unsigned = path.join(pathBackupAPK, skeyFolder, 'unsigned');
+                    if (!fs.existsSync(path_unsigned)) {
+                        fs.mkdirSync(path_unsigned);
+                    }
+                    var rFile = "";
+                    // path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-debug.apk');
+                    if (fs.existsSync(path.join(pathProjectApp, 'platforms', 'android', 'app', 'build', 'outputs', 'apk', 'debug', 'app-debug.apk'))) {
+                        rFile = path.join(pathProjectApp, 'platforms', 'android', 'app', 'build', 'outputs', 'apk', 'debug', 'app-debug.apk');
+                    } else if (fs.existsSync(path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'debug', 'android-debug.apk'))) {
+                        rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'debug', 'android-debug.apk');
+                    } else {
+                        rFile = path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-debug.apk');
+                    }
+                    var wFile = path.join(path_unsigned, nApp + '-debug.apk');
+
+                    fse.copy(rFile, wFile, { replace: true }, (err) => {
+                        if (err) return reject(err + '');
+                        resolve('Copy file apk unsign success.');
+                    });
+
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
         let copyFileApkDebugDash = (pathProjectApp, pathBackupAPK, fIdAppUser, fVerApp, fApp) => {
             return new Promise((resolve, reject) => {
                 try {
@@ -492,7 +524,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                                 return commandLine(cmd, argvBuild);
                             }).then(() => {
                                 console.log('...Copy File Apk Unsign...');
-                                return copyFileApkDebugDash(path.join(appRoot, 'public', 'project', idAppUser), path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp, nameApp);
+                                return copyFileApkDebug(path.join(appRoot, 'public', 'project', idAppUser), path.join(appRoot, 'public', 'backupapk'), idAppUser, nameApp);
                             }).then(() => {
                                 console.log('...Build Android Release...');
                                 var cmdRelease = 'ionic';

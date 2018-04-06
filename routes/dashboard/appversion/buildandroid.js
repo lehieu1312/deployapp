@@ -474,14 +474,16 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                                 process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
                                 console.log('Start rebuild...');
                                 return commandLine('npm', ['rebuild', 'node-sass']);
-                            }).then(() => {
-                                console.log('...Add platform...');
-                                var cmdRelease = 'ionic';
-                                var argv;
-                                argv = ['platform', 'add', 'android'];
-                                process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
-                                return commandLine(cmdRelease, argv);
-                            }).then(() => {
+                            })
+                            // .then(() => {
+                            //     console.log('...Add platform...');
+                            //     var cmdRelease = 'ionic';
+                            //     var argv;
+                            //     argv = ['platform', 'add', 'android'];
+                            //     process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
+                            //     return commandLine(cmdRelease, argv);
+                            // })
+                            .then(() => {
                                 console.log('...Build Android Debug...');
                                 var cmd = 'ionic';
                                 // var cmd = 'cordova';

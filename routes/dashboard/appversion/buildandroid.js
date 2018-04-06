@@ -590,7 +590,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                                 console.log('Success');
                                 return res.json({ status: 1, content: "Success." });
                             }).catch((ex) => {
-                                listBuilding.remove({ keyFolder: idAppUser }, function(err, kq) {
+                                listBuildingModels.remove({ keyFolder: idAppUser }, function(err, kq) {
                                     if (err) {
                                         return res.json({ status: 3, content: err + '' });
                                     }

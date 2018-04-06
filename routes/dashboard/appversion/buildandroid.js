@@ -552,8 +552,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                                 return sendLinkMail(emailUser, resValue.linkApkDebug, resValue.linkApkSigned, resValue.linkKeyStore, nameApp, resValue.version, resValue.dateCreate);
                                 // sendLinkMail = (emailReceive, linkAppDebug, linkAppSigned, fLinkKeyStore, App, fVersionApp, dateApp)
                                 // resolve({ linkApkDebug: fLinkApkDebugDB, linkApkSigned: linkApkSignedDB, linkKeyStore: linkKeyStoreDB, version: fVersionUserDB, dateCreate: dateCreateDB });
-                            })
-                            .then(() => {
+                            }).then(() => {
                                 console.log('Success');
                                 return res.json({ status: 1, content: "Success." });
                             });

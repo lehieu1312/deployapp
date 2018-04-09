@@ -29,57 +29,13 @@ var userofapp = require('../../../models/userofapp');
 var userstatistic = require('../../../models/userstatistic');
 var notification = require("../../../models/notification")
 var appsetting = require("../../../models/appsettings")
-var devicesTest = require("../../../models/devicesNotification")
+//var devicesTest = require("../../../models/devicesNotification")
 
 function checkAdmin(req, res, next) {
     if (req.session.iduser) {
         next();
     } else {
         res.redirect('/login');
-    }
-}
-
-// get data device test onesignal app
-function setDataDevices(idApp) {
-    try {
-        appsetting.findOne({
-            idApp
-        }).then((setting) => {
-            var myClient = new OneSignal.Client({
-                app: {
-                    appAuthKey: setting.oneSignalAPIKey,
-                    appId: setting.oneSignalID
-                }
-            });
-            // you can set limit and offset (optional) or you can leave it empty
-            myClient.viewDevices('limit=100&offset=0', function (err, httpResponse, data) {
-                let getdata = JSON.parse(data);
-                console.log("getdata:")
-                console.log(getdata)
-                let play_user = getdata.players;
-                let device_test = play_user.filter(function (el) {
-                    return el.test_type != null
-                });
-                let get_device_tes = [];
-                for (let i = 0; i < device_test.length; i++) {
-                    get_device_tes.push({
-                        idApp,
-                        idUser: device_test[i].id,
-                        device_os: device_test[i].device_os,
-                        device_model: device_test[i].device_model,
-                        dateCreate: device_test[i].created_at,
-                        status: true
-                    })
-                }
-                devicesTest.remove({
-                    idApp
-                }).then(() => {
-                    devicesTest.insertMany(get_device_tes)
-                })
-            });
-        })
-    } catch (error) {
-        console.log(error + "")
     }
 }
 
@@ -99,10 +55,42 @@ var uploading = multer({
 
 
 router.get("/sentnotification", (req, res) => {
-    res.render("./dashboard/notification/sentnotification", {
-        title: "Sent Notification",
-        appuse: ""
-    })
+    // res.render("./dashboard/notification/sentnotification", {
+    //     title: "Sent Notification",
+    //     appuse: ""
+    // })
+    try {
+        console.log("avc")
+        appsetting.findOne({
+            idApp: "Y29tLnRheWRvdGVjaC5jZWxsc3RvcmU"
+        }).then((setting) => {
+            console.log(setting)
+            var myNoti = new OneSignal.Client({
+                userAuthKey: setting.oneSignalUserID,
+                app: {
+                    appAuthKey: setting.oneSignalAPIKey,
+                    appId: setting.oneSignalID
+                }
+            });
+            myNoti.viewNotifications('limit=30', function (err, httpResponse, data) {
+                if (httpResponse.statusCode === 200 && !err) {
+                    let datanoti = JSON.parse(data);
+                    datanoti = datanoti.notifications
+                    var notiArrays = [];
+                    // for (let i = 0; i < datanoti.length; i++) {
+                    //     notiArrays.push {
+                    //         datanoti[i].
+                    //     }
+                    // }
+                    return res.json(datanoti)
+                }
+            });
+        })
+    } catch (error) {
+        console.log(error + '')
+    }
+
+
 })
 
 module.exports = router;

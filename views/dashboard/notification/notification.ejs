@@ -113,11 +113,21 @@
                                 content_en.value = "";
                             }
                         %>
-                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_en.status%> textarea-content-en"><%=content_en.value%></textarea>
-                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_vn.status%>  textarea-content-vn"><%=content_vn.value%></textarea>
-                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_cn.status%> textarea-content-china"><%=content_cn.value%></textarea>
-                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_sx.status%>  textarea-content-dutch"><%=content_sx.value%></textarea>
-                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_ge.status%> textarea-content-georgian"><%=content_ge.value%></textarea>
+                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_en.status%> textarea-content-en">
+                                <%=content_en.value%>
+                            </textarea>
+                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_vn.status%>  textarea-content-vn">
+                                <%=content_vn.value%>
+                            </textarea>
+                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_cn.status%> textarea-content-china">
+                                <%=content_cn.value%>
+                            </textarea>
+                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_sx.status%>  textarea-content-dutch">
+                                <%=content_sx.value%>
+                            </textarea>
+                            <textarea placeholder="Enter Your content..." rows="5" class="textarea-notification textarea-content-notification <%=content_ge.status%> textarea-content-georgian">
+                                <%=content_ge.value%>
+                            </textarea>
                             <span class="form-control-feedback" aria-hidden="true">
                                 <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
                             </span>
@@ -223,110 +233,105 @@
                         }
                         
                         %>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">Title Color</label>
-                            <div id="cp1" class="input-group colorpicker-component boder-color-picker">
-                                <input type="text" value="<%=notification.titleColor%>" class="form-control set-input-color" />
-                                <span class="input-group-addon float-left set-spant-color">
-                                    <i class="set-i-color"></i>
-                                </span>
-                            </div>
+                            <div class="form-group has-feedback">
+                                <label class="control-label" for="inputSuccess2">Title Color</label>
+                                <div id="cp1" class="input-group colorpicker-component boder-color-picker">
+                                    <input type="text" value="<%=notification.titleColor%>" class="form-control set-input-color" />
+                                    <span class="input-group-addon float-left set-spant-color">
+                                        <i class="set-i-color"></i>
+                                    </span>
+                                </div>
 
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">Content Color</label>
-                            <div id="cp2" class="input-group colorpicker-component boder-color-picker">
-                                <input type="text" value="<%=notification.contentColor%>" class="form-control set-input-color" />
-                                <span class="input-group-addon float-left set-spant-color">
-                                    <i class="set-i-color"></i>
-                                </span>
                             </div>
+                            <div class="form-group has-feedback">
+                                <label class="control-label" for="inputSuccess2">Content Color</label>
+                                <div id="cp2" class="input-group colorpicker-component boder-color-picker">
+                                    <input type="text" value="<%=notification.contentColor%>" class="form-control set-input-color" />
+                                    <span class="input-group-addon float-left set-spant-color">
+                                        <i class="set-i-color"></i>
+                                    </span>
+                                </div>
 
 
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">Led Color</label>
-                            <div id="cp3" class="input-group colorpicker-component boder-color-picker">
-                                <input type="text" value="<%=notification.ledColor%>" class="form-control set-input-color" />
-                                <span class="input-group-addon float-left set-spant-color">
-                                    <i class="set-i-color"></i>
-                                </span>
                             </div>
+                            <div class="form-group has-feedback">
+                                <label class="control-label" for="inputSuccess2">Led Color</label>
+                                <div id="cp3" class="input-group colorpicker-component boder-color-picker">
+                                    <input type="text" value="<%=notification.ledColor%>" class="form-control set-input-color" />
+                                    <span class="input-group-addon float-left set-spant-color">
+                                        <i class="set-i-color"></i>
+                                    </span>
+                                </div>
 
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">Accent Color</label>
-                            <div id="cp4" class="input-group colorpicker-component boder-color-picker">
-                                <input type="text" value="<%=notification.accentColor%>" class="form-control set-input-color" />
-                                <span class="input-group-addon float-left set-spant-color">
-                                    <i class="set-i-color"></i>
-                                </span>
                             </div>
+                            <div class="form-group has-feedback">
+                                <label class="control-label" for="inputSuccess2">Accent Color</label>
+                                <div id="cp4" class="input-group colorpicker-component boder-color-picker">
+                                    <input type="text" value="<%=notification.accentColor%>" class="form-control set-input-color" />
+                                    <span class="input-group-addon float-left set-spant-color">
+                                        <i class="set-i-color"></i>
+                                    </span>
+                                </div>
 
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">Android Background Images</label>
-                            <div class="">
-                                <label class="container-radio-custom">Send to Everyone
-                                    <input id="send-to-everyone" type="radio" checked="checked" name="notiradio" value="1">
-                                    <span class="checkmark"></span>
-                                </label>
                             </div>
-                            <div class="">
-                                <label class="container-radio-custom">Send to Particular Segment(s)
-                                    <input id="send-to-segment" type="radio" name="notiradio" value="2">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="sent-to-segment set-position-relative">
-                                <div class="set-arrow-segments">
-                                    <div class="select-country-notificationx">
-                                        <div class="arrow-select-custom">
+                            <div class="form-group has-feedback">
+                                <label class="control-label" for="inputSuccess2">Android Background Images</label>
+                                <div class="">
+                                    <label class="container-radio-custom">Send to Everyone
+                                        <input id="send-to-everyone" type="radio" checked="checked" name="notiradio" value="1">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="">
+                                    <label class="container-radio-custom">Send to Particular Segment(s)
+                                        <input id="send-to-segment" type="radio" name="notiradio" value="2">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="sent-to-segment set-position-relative">
+                                    <div class="set-arrow-segments">
+                                        <div class="select-country-notificationx">
+                                            <div class="arrow-select-custom">
+                                            </div>
+                                            <div class="arrow-select-custom-sub"></div>
                                         </div>
-                                        <div class="arrow-select-custom-sub"></div>
+                                    </div>
+                                    <div>
+                                        <div class="form-group has-feedback">
+                                            <label class="control-label " for="inputSuccess2">Sent to segments
+                                            </label>
+                                            <input placeholder="Enter your segments" type="text" class="resetinputlogin show-send-to" readonly id="notification-sent"
+                                                name="firstname">
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label class="control-label " for="inputSuccess2">Exclude users in segments
+                                            </label>
+                                            <input placeholder="Enter your exclude users" type="text" class="resetinputlogin show-send-to" readonly id="notification-exclude"
+                                                name="firstname">
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="form-group has-feedback">
-                                        <label class="control-label " for="inputSuccess2">Sent to segments
-                                        </label>
-                                        <input placeholder="Enter your segments" type="text" class="resetinputlogin show-send-to" readonly id="notification-sent"
-                                            name="firstname">
-                                    </div>
-                                    <div class="form-group has-feedback">
-                                        <label class="control-label " for="inputSuccess2">Exclude users in segments
-                                        </label>
-                                        <input placeholder="Enter your exclude users" type="text" class="resetinputlogin show-send-to" readonly id="notification-exclude"
-                                            name="firstname">
-                                    </div>
+                                <div class="">
+                                    <label class="container-radio-custom">Send to Test Device(s)
+                                        <input id="send-to-test-device" type="radio" name="notiradio" value="3" data-toggle="modal" data-target="#myModal-chooleUser">
+                                        <span class="checkmark"></span>
+                                    </label>
                                 </div>
                             </div>
-                            <div class="">
-                                <label class="container-radio-custom">Send to Test Device(s)
-                                    <input id="send-to-test-device" type="radio" name="notiradio" value="3">
-                                    <span class="checkmark"></span>
-                                </label>
+                            <div class="form-group has-feedback">
+                                <div class="infor-mobile-using">
+                                    <span>
+                                        Iphone 7.1 10.1.1
+                                        <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
+                                    </span>
+                                </div>
+                                <div class="infor-mobile-using set-infor-mobile-using">
+                                    <span>
+                                        Iphone 7.1 10.1.1
+                                        <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <%for(let i =0 ; i < device.length; i++){%>
-                              <input hidden class="value_device" value="<%=device[i].idUser%>" type="text">
-                              <%  if(i==0){
-                                %>
-
-                            <div class="infor-mobile-using">
-                                <span><%=device[i].device_model + " " + device[i].device_os%>
-                                    <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
-                                </span>
-                            </div>
-                            <%}else{%>
-                            <div class="infor-mobile-using set-infor-mobile-using">
-                                    <span><%=device[i].device_model + " " + device[i].device_os%>
-                                    <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
-                                </span>
-                            </div>
-                            <%}}%>
-                        </div>
                 </div>
                 <div class="right-content-notification set-position-relative col-md-4">
                     <div class="fixed-div-plateform">
@@ -451,7 +456,63 @@
                     <input type="checkbox" name="segments-check-exclude" value="Inactive Users"> Inactive Users</li>
             </ul>
         </div>
-
+        <div class="container ">
+            <div class="modal fade" id="myModal-chooleUser" role="dialog">
+                <div class="modal-dialog  ">
+                    <div class="modal-content2">
+                        <div class="dialogdeleteapp">
+                            <div class="dialogdeleteapp-head-history">
+                                Select sent to test devices
+                            </div>
+                            <form id="form-choole-user" onsubmit="return false">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-12 header-modal-noti">
+                                        <div class="col-sm-6">
+                                            <div class="form-group-12" id="remember1">
+                                                <div class="checkboxFive">
+                                                    <div class="checkbox-custom-noti">
+                                                        <input type="checkbox" hidden value="faile" id="checkbox-allusser">
+                                                        <label for="checkbox-allusser"></label>
+                                                        <span class="spanremember">&nbsp All devices</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="has-feedback">
+                                                <input id="seach-device" type="text" name="text" class="col-sm-12" size="50" placeholder="Search a device">
+                                                <span class="set-search-icon" aria-hidden="true">
+                                                    <img src="/themes/img/dashboard/iconsearch.png">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 content-modal-noti">
+                                        <%for(let i=0; i < 5;i++){%>
+                                            <div class="col-sm-6">
+                                                <div class="form-group-12" id="remember1">
+                                                    <div class="checkboxFive">
+                                                        <div class="checkbox-custom-noti">
+                                                            <input type="checkbox" name="sub-user-test" hidden value="faile" id="checkbox-custom-user-<%=i%>">
+                                                            <label for="checkbox-custom-user-<%=i%>"></label>
+                                                            <span class="spanremember">&nbsp Iphone7,2 11.3.0</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%}%>
+                                    </div>
+                                </div>
+                                <div class="dialogdeleteapp-foot-noti col-sm-12">
+                                    <button type="submit" class="float-right btn-blue margin-btn-noti" id="ok-user">OK</button>
+                                    <button id="cancel-user" class="float-right btn-gray margin-btn-noti" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     </div>
     </div>

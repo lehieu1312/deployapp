@@ -29,7 +29,7 @@ var userofapp = require('../../../models/userofapp');
 var userstatistic = require('../../../models/userstatistic');
 var notification = require("../../../models/notification")
 var appsetting = require("../../../models/appsettings")
-var devicesTest = require("../../../models/devicesNotification")
+//var devicesTest = require("../../../models/devicesNotification")
 
 function checkAdmin(req, res, next) {
     if (req.session.iduser) {

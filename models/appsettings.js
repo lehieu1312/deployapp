@@ -17,6 +17,7 @@ let appsettingschema = new Schema({
     targetBlank: Boolean,
     dateFormat: String,
     oneSignalID: String,
+    oneSignalUserID: String,
     oneSignalAppID: String,
     oneSignalAPIKey: String,
     ggAnalytic: String,

@@ -143,7 +143,7 @@ $(document).ready(() => {
                                 // e.stopPropagation();
 
                                 var content = {
-                                    value:trimSpace($(".textarea-content-en").val()),
+                                    value: trimSpace($(".textarea-content-en").val()),
                                     country: "en"
                                 }
                             })
@@ -185,7 +185,7 @@ $(document).ready(() => {
                                 $(".textarea-content-georgian").hide();
                                 // e.stopPropagation();
                                 var content = {
-                                    value:trimSpace($(".textarea-content-dutch").val()),
+                                    value: trimSpace($(".textarea-content-dutch").val()),
                                     country: "sx"
                                 }
                             })
@@ -212,6 +212,8 @@ $(document).ready(() => {
         })
     });
 
+
+    // type url
     $('.select-product').click((event) => {
         let offset = $('.select-product').children('.set-img-product-url').offset();
         $("#select-product-url").toggle().offset({
@@ -257,7 +259,7 @@ $(document).ready(() => {
     });
 
     //-------------------------------------------
-
+    // cholse sent to
     $('#send-to-everyone').click(() => {
         $('.sent-to-segment').hide();
         $('.infor-mobile-using').hide();
@@ -308,8 +310,8 @@ $(document).ready(() => {
                 textEnter = "Content..."
             }
             content = {
-                
-                value: trimSpace(textEnter) ,
+
+                value: trimSpace(textEnter),
                 country: country[i]
             }
             $('#content-mobile').text(textEnter);
@@ -468,10 +470,6 @@ $(document).ready(() => {
     // choolse url
 
     //-----------------------------------------------------------
-    // save notification
-
-
-    //----------------------------------
 
 
     $('.show-send-to').each(function (i) {
@@ -553,6 +551,42 @@ $(document).ready(() => {
         }
     })
     //-----------------------------------------------------------
+    // cholse devices test
+    $('#checkbox-allusser').change(()=>{
+        if($('#checkbox-allusser').is(":checked")){
+            $('[name="sub-user-test"]').each(function(i){
+                $(this).prop('checked', true);
+            })
+        }else{
+            $('[name="sub-user-test"]').each(function(i){
+                $(this).prop('checked', false);
+            })
+        }
+    })
+
+
+    //-----------------------------------------------------------
+
+
+
+
+    $("#save-notification").click(() => {
+        if (checknotification() == true) {
+            $('#loading').show();
+            $.when(savenoti()).then(() => {
+                $('#loading').hide();
+                $('#successPopup').show(500);
+                $(".contenemail").text("");
+                $(".contenemail").text("Saved !");
+                $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                    $("#success-alert").slideUp(1000);
+                    $('.successPopup').hide();
+                });
+            })
+        }
+    });
+
+
     function checknotification() {
 
         if (trimSpace(title[Object.getOwnPropertyNames(title)[0]]) == "") {
@@ -588,8 +622,43 @@ $(document).ready(() => {
         return true;
     }
 
-    function savenoti() {
+    $("#send-notification").click(() => {
+        if (checknotification() == true) {
+            $('#loading').show();
+            $.when(savenoti(),
+                (() => {
+                    $.ajax({
+                        url: "/dashboard/send-notification/" + idApp,
+                        data: {
+                            idApp
+                        },
+                        dataType: "json",
+                        async: false,
+                        type: 'POST',
+                        success: function (data) {
+                            if (data.status == 1) {
+                                window.location.href = "/dashboard/notification/" + idApp
+                            }
 
+                        }
+                    })
+                })()
+            ).then(() => {
+                $('#loading').hide();
+                $('#successPopup').show(500);
+                $(".contenemail").text("");
+                $(".contenemail").text("Sent !");
+                $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                    $("#success-alert").slideUp(1000);
+                    $('.successPopup').hide();
+                });
+            })
+        }
+    })
+
+
+    // save notification
+    function savenoti() {
         $.when(
             (() => {
                 if (formData1 != null) {
@@ -738,56 +807,8 @@ $(document).ready(() => {
                 // }
             })()
         )
-
     }
-    $("#save-notification").click(() => {
-        if (checknotification() == true) {
-            $('#loading').show();
-            $.when(savenoti()).then(() => {
-                $('#loading').hide();
-                $('#successPopup').show(500);
-                $(".contenemail").text("");
-                $(".contenemail").text("Saved !");
-                $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
-                    $("#success-alert").slideUp(1000);
-                    $('.successPopup').hide();
-                });
-            })
-        }
-    });
+    //----------------------------------
 
-    $("#send-notification").click(() => {
-        if (checknotification() == true) {
-            $('#loading').show();
-            $.when(savenoti(),
-                (() => {
-                    $.ajax({
-                        url: "/dashboard/send-notification/" + idApp,
-                        data: {
-                            idApp
-                        },
-                        dataType: "json",
-                        async: false,
-                        type: 'POST',
-                        success: function (data) {
-                            if(data.status == 1){
-                                window.location.href= "/dashboard/notification/" + idApp
-                            }
-
-                        }
-                    })
-                })()
-            ).then(() => {
-                $('#loading').hide();
-                $('#successPopup').show(500);
-                $(".contenemail").text("");
-                $(".contenemail").text("Sent !");
-                $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
-                    $("#success-alert").slideUp(1000);
-                    $('.successPopup').hide();
-                });
-            })
-        }
-    })
 
 });

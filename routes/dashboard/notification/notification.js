@@ -29,9 +29,9 @@ var traffic = require('../../../models/traffic');
 var producstatictis = require('../../../models/productstatistic');
 var userofapp = require('../../../models/userofapp');
 var userstatistic = require('../../../models/userstatistic');
-var notification = require("../../../models/notification")
-var appsetting = require("../../../models/appsettings")
-var devicesTest = require("../../../models/devicesNotification")
+var notification = require("../../../models/notification");
+var appsetting = require("../../../models/appsettings");
+var userOnesignal = require("../../../models/usersonesignal")
 
 
 
@@ -44,7 +44,7 @@ function checkAdmin(req, res, next) {
     }
 }
 
-// get data device test onesignal app
+// get data device onesignal app
 function setDataDevices(idApp) {
     try {
         appsetting.findOne({
@@ -57,30 +57,61 @@ function setDataDevices(idApp) {
                 }
             });
             // you can set limit and offset (optional) or you can leave it empty
-            myClient.viewDevices('limit=100&offset=0', function (err, httpResponse, data) {
+            myClient.viewDevices('test_users=true', function (err, httpResponse, data) {
                 let getdata = JSON.parse(data);
-                console.log("getdata:")
-                console.log(getdata)
+                console.log(getdata);
                 let play_user = getdata.players;
-                let device_test = play_user.filter(function (el) {
-                    return el.test_type != null
-                });
-                let get_device_tes = [];
-                for (let i = 0; i < device_test.length; i++) {
-                    get_device_tes.push({
-                        idApp,
-                        idUser: device_test[i].id,
-                        device_os: device_test[i].device_os,
-                        device_model: device_test[i].device_model,
-                        dateCreate: device_test[i].created_at,
-                        status: true
+                
+                (async () => {
+                    for (let i = 0; i < play_user.length; i++) {
+                        play_user[i] = await {
+                            idApp,
+                            id: play_user[i].id,
+                            identifier: play_user[i].identifier,
+                            session_count: play_user[i].session_count,
+                            language: play_user[i].language,
+                            timezone: play_user[i].timezone,
+                            game_version: play_user[i].game_version,
+                            device_os: play_user[i].device_os,
+                            device_type: play_user[i].device_type,
+                            device_model: play_user[i].device_model,
+                            ad_id: play_user[i].ad_id,
+                            tags: play_user[i].tags,
+                            last_active: play_user[i].last_active,
+                            playtime: play_user[i].playtime,
+                            amount_spent: play_user[i].amount_spent,
+                            created_at: play_user[i].created_at,
+                            invalid_identifier: play_user[i].invalid_identifier,
+                            badge_count: play_user[i].badge_count,
+                            sdk: play_user[i].sdk,
+                            test_type: play_user[i].test_type,
+                            isTest: play_user[i].isTest,
+                            ip: play_user[i].ip,
+                        }
+                    }
+                    userOnesignal.remove({idApp}).then(()=>{
+                        userOnesignal.insertMany(play_user);
                     })
-                }
-                devicesTest.remove({
-                    idApp
-                }).then(() => {
-                    devicesTest.insertMany(get_device_tes)
-                })
+                    // userOnesignal.find({
+                    //     idApp
+                    // }).then((old_user) => {
+                    //     console.log(old_user)
+                    //     if (old_user.length > 0) {
+                    //         var User_test = play_user;
+                    //         for (let i = 0; i < old_user.length; i++) {
+                    //             User_test.splice(User_test.indexOf(old_user[i].id), 1);
+                    //         }
+                    //         console.log("User_test:");
+                    //         console.log(User_test);
+                    //         userOnesignal.insertMany(User_test)
+                    //     } else {
+                    //         var User_test = play_user;
+                    //         userOnesignal.insertMany(User_test)
+                    //     }
+
+                    // })
+                })()
+
             });
         })
     } catch (error) {
@@ -144,18 +175,10 @@ router.get("/notification/:idApp", checkAdmin, (req, res) => {
                                 idApp: infor.idApp,
                                 nameApp: infor.nameApp
                             }
-                            devicesTest.find({
-                                idApp: req.params.idApp
-                            }).then((device) => {
-                                console.log("device:");
-                                console.log(device);
-                                res.render("./dashboard/notification/notification", {
-                                    title: "Notification",
-                                    appuse,
-                                    notification: data,
-                                    device
-
-                                })
+                            res.render("./dashboard/notification/notification", {
+                                title: "Notification",
+                                appuse,
+                                notification: data,
                             })
                         })
                     })
@@ -168,21 +191,12 @@ router.get("/notification/:idApp", checkAdmin, (req, res) => {
                         idApp: infor.idApp,
                         nameApp: infor.nameApp
                     }
-                    devicesTest.find({
-                        idApp: req.params.idApp
-                    }).then((device) => {
-                        console.log("device:");
-                        console.log(device);
-                        res.render("./dashboard/notification/notification", {
-                            title: "Notification",
-                            appuse,
-                            notification: data,
-                            device
-
-                        })
+                    res.render("./dashboard/notification/notification", {
+                        title: "Notification",
+                        appuse,
+                        notification: data,
                     })
                 })
-
             }
         })
 

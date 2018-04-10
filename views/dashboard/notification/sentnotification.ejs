@@ -1,5 +1,4 @@
 <% include ./../headerdetail %>
-    <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/notification/notification.js"></script>
     <div class="xcontent clsmenu">
         <div id="title-detail" class="row row1">
             <div id="title-appversion" class="content-title-detail has-feedback">
@@ -135,68 +134,53 @@
                 <table id="table-appversion">
                     <tr id="title-table-header">
                         <th width="7.6%">#</th>
-                        <th width="16%">Date
+                        <th width="10%">Status
                             <img class="setarrow showmenuuser" src="/themes/img/login/IconArrow.png" alt="deployapp">
                         </th>
-                        <th width="22.2%">Deployed
+                        <th width="10%">Sent at
                             <img class="setarrow showmenuuser" src="/themes/img/login/IconArrow.png" alt="deployapp">
                         </th>
-                        <th width="12.2%">Version
+                        <th width="30%">Message
                             <img class="setarrow showmenuuser" src="/themes/img/login/IconArrow.png" alt="deployapp">
                         </th>
-                        <th width="42%">Note
+                        <th width="12%">Delivery
                             <img class="setarrow showmenuuser" src="/themes/img/login/IconArrow.png" alt="deployapp">
                         </th>
+                        <th width="10%">Sent to
+                            <img class="setarrow showmenuuser" src="/themes/img/login/IconArrow.png" alt="deployapp">
+                        </th>
+                        <th width="10%">Clicked
+                            <img class="setarrow showmenuuser" src="/themes/img/login/IconArrow.png" alt="deployapp">
+                        </th>
+                        <th width="2.4%"></th>
                     </tr>
-                    <%for(var i = 0; i<history.length ;i++){ %>
-                        <% var number = history.length - i - 1;
-                        var d = history[number].dateCreate;
-                        var m = d.getMonth() + 1;
-                        var updated = d.getDate() + "/" + m + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " GMT";    
-                        var arr = updated.split(" ");
-                         %>
-                            <tr id="version<%=i%>" class="tr-content-appversion findcode">
-                                <td>
-                                    <input id="history-app" hidden value="<%=history[number].idApp%>">
-                                    <%= i + 1%>
-                                </td>
-                                <td class="table-time-appversion finddate">
-                                    <input id="time-ready<%=i%>" type="hidden" value="<%=d%>">
-                                    <span>
-                                        <%=arr[0]%>
-                                    </span>
-                                    <br>
-                                    <span>
-                                        <%=arr[1]%>
-                                            <%=arr[2]%>
-                                    </span>
-                                </td>
-                                <td class="table-nameapp findnameapp">
-                                    <%=appuse.nameApp%>
-                                </td>
-                                <td class="table-version findversion">
-                                    <%=history[number].version%>
-                                </td>
-                                <td class="table-changelog findnote">
-                                    <% if(history[number].note != ""){ %>
-                                        <span class="note-table-history">
-                                            <%=history[number].note%>
-                                        </span>
-                                        <br>
-                                        <a class="write-note" href="#" data-toggle="modal" data-target="#myModal">
-                                            <img src="/themes/img/appversion/iconwrite.png" atl="iconwrite"> Edit
-                                        </a>
-                                        <%  }else{%>
-                                            <!-- <span class="note-table-history">
-                                            </span> -->
-                                            <a class="write-note" href="#" data-toggle="modal" data-target="#myModal">
-                                                <img src="/themes/img/appversion/iconwrite.png" atl="iconwrite"> Write</a>
-                                            <%  }%>
-                                </td>
-                            </tr>
-                            <%}%>
+                    <%for(var i = 0; i<data.length ;i++){ %>
+                        <tr id="version<%=i%>" class="tr-content-appversion findcode">
+                            <td>
+                                <%= i + 1%>
+                            </td>
+                            <td class="table-time-appversion finddate">
+                                <span class="text-status">Delivered</span>
+                            </td>
+                            <td class="table-nameapp findnameapp">
 
-                                </tbody>
+                            </td>
+                            <td class="table-version findversion">
+
+                            </td>
+                            <td class="table-changelog findnote">
+
+                            </td>
+                            <td class="">
+
+                            </td>
+                            <td class="">
+
+                            </td>
+                        </tr>
+                        <%}%>
+
+                            </tbody>
                 </table>
 
                 <div class="example">
@@ -288,3 +272,4 @@
     </div>
     </div>
     </div>
+    <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/appversion/pagination.js"></script>

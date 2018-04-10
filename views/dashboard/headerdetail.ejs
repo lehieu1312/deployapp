@@ -20,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/editprofile.css">
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/homeapp/homeapp.css">
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/notification/notification.css">
+    <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/sentnotification/sentnotification.css">
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/appversion/appversion.css">
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/appversion/appversion_deployapp.css">
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/datetimepicker.css">
@@ -60,17 +61,17 @@
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/anychart-font.min.css">
     <!-- new 21-11 -->
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             $.post(
                 "/getaccount", {},
-                function(data) {
+                function (data) {
                     $('.imgavatarsmall').attr('src', data.picture);
                     $('.setspanfullname').text(data.fullname);
                 }
             )
             $.post(
                 "/getamountapp", {},
-                function(data) {
+                function (data) {
                     $('.textamountapp').text("MyApp(" + data.amount + ")");
                 }
             )

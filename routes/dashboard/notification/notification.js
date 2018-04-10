@@ -59,9 +59,8 @@ function setDataDevices(idApp) {
             // you can set limit and offset (optional) or you can leave it empty
             myClient.viewDevices('test_users=true', function (err, httpResponse, data) {
                 let getdata = JSON.parse(data);
-                console.log(getdata);
+                // console.log(getdata);
                 let play_user = getdata.players;
-                
                 (async () => {
                     for (let i = 0; i < play_user.length; i++) {
                         play_user[i] = await {
@@ -89,27 +88,11 @@ function setDataDevices(idApp) {
                             ip: play_user[i].ip,
                         }
                     }
-                    userOnesignal.remove({idApp}).then(()=>{
+                    userOnesignal.remove({
+                        idApp
+                    }).then(() => {
                         userOnesignal.insertMany(play_user);
                     })
-                    // userOnesignal.find({
-                    //     idApp
-                    // }).then((old_user) => {
-                    //     console.log(old_user)
-                    //     if (old_user.length > 0) {
-                    //         var User_test = play_user;
-                    //         for (let i = 0; i < old_user.length; i++) {
-                    //             User_test.splice(User_test.indexOf(old_user[i].id), 1);
-                    //         }
-                    //         console.log("User_test:");
-                    //         console.log(User_test);
-                    //         userOnesignal.insertMany(User_test)
-                    //     } else {
-                    //         var User_test = play_user;
-                    //         userOnesignal.insertMany(User_test)
-                    //     }
-
-                    // })
                 })()
 
             });
@@ -141,7 +124,7 @@ router.get("/notification/:idApp", checkAdmin, (req, res) => {
             status: false
         }).then((data) => {
             console.log("data:");
-            console.log(data);
+            // console.log(data);
             if (!data) {
                 (async () => {
                     await notification.create({
@@ -363,7 +346,7 @@ router.post("/canceliconbackgroundnotification/:idApp", (req, res) => {
 router.post('/save-data-notification/:idApp', (req, res) => {
     try {
         var data = JSON.parse(Object.getOwnPropertyNames(req.body)[0]);
-        console.log(data)
+        // console.log(data)
         var nametitle = data.title['country'];
         var namecontent = data.content['country'];
         let query = {
@@ -404,62 +387,88 @@ router.post('/send-notification/:idApp', (req, res) => {
             status: false
         }).then((result) => {
             console.log("----------------------------------");
-            console.log(result);
+            // console.log(result);
             appsetting.findOne({
                 idApp: req.params.idApp
             }).then((setting) => {
                 console.log("----------------------------------");
-                console.log(setting);
+                // console.log(setting);
                 var sendNotification = function (data) {
-                    var headers = {
-                        "Content-Type": "application/json; charset=utf-8",
-                        "Authorization": "Basic " + setting.oneSignalAPIKey
-                    };
-                    var options = {
-                        host: "onesignal.com",
-                        port: 443,
-                        path: "/api/v1/notifications",
-                        method: "POST",
-                        headers: headers
-                    };
-                    var req = https.request(options, function (res) {
-                        res.on('data', function (data) {
-                            console.log("Response:");
-                            let getdata = JSON.parse(data);
-                            console.log(getdata.id);
-                            (async () => {
-                                await notification.update({
-                                    idApp: setting.idApp,
-                                    status: false
-                                }, {
-                                    idNotification: getdata.id,
+                    try {
+                        return new Promise(function (resolve, reject) {
+                            var headers = {
+                                "Content-Type": "application/json; charset=utf-8",
+                                "Authorization": "Basic " + setting.oneSignalAPIKey
+                            };
+                            var options = {
+                                host: "onesignal.com",
+                                port: 443,
+                                path: "/api/v1/notifications",
+                                method: "POST",
+                                headers: headers
+                            };
+
+                            var req = https.request(options, function (res) {
+                                res.on('data', function (data) {
+                                    let getdata = JSON.parse(data);
+                                    var myNoti = new OneSignal.Client({
+                                        userAuthKey: setting.oneSignalUserID,
+                                        app: {
+                                            appAuthKey: setting.oneSignalAPIKey,
+                                            appId: setting.oneSignalID
+                                        }
+                                    });
+                                    myNoti.viewNotification(getdata.id, function (err, httpResponse, data) {
+                                        if (httpResponse.statusCode === 200 && !err) {
+                                            let datanoti = JSON.parse(data);
+                                            console.log(datanoti);
+                                            var notiArrays = [];
+                                            notification.update({
+                                                idApp: setting.idApp,
+                                                status: false
+                                            }, {
+                                                idNotification: getdata.id,
+                                                successful: datanoti.successful,
+                                                failed: datanoti.failed,
+                                                converted: datanoti.converted,
+                                                remaining: datanoti.remaining,
+                                            }).exec()
+                                            resolve(datanoti);
+                                        }
+                                    });
                                 })
-                            })()
-                        });
-                    });
-                    req.on('error', function (e) {
-                        console.log("ERROR:");
-                        console.log(e);
-                    });
-                    req.write(JSON.stringify(data));
-                    req.end();
+
+                            });
+
+                            req.on('error', function (e) {
+                                console.log("ERROR:");
+                                console.log(e);
+                            });
+                            req.write(JSON.stringify(data));
+                            req.end();
+                        })
+
+                    } catch (error) {
+                        console.log(error + "");
+                    }
                 };
+
                 var message = {
                     app_id: setting.oneSignalID,
                     headings: result.titleNotification,
                     contents: result.contentNotification,
-                    url: result.internalLink.url,
+                    url: result.internalLink[0].url,
                     // large_icon: "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg",
                     // small_icon: "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg",
                     // big_picture: "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg",
                     // android_background_layout: {
                     //     "image": "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg"
                     // },
-                    large_icon: hostServer + "themes/img/settingnotification/" + result.smallIcon,
-                    small_icon: hostServer + "themes/img/settingnotification/" + result.iconNotification,
-                    big_picture: hostServer + "themes/img/settingnotification/" + result.bigimagesNotification,
+                    large_icon: hostServer + "/themes/img/settingnotification/" + result.smallIcon,
+                    small_icon: hostServer + "/themes/img/settingnotification/" + result.iconNotification,
+                    big_picture: hostServer + "/themes/img/settingnotification/" + result.bigimagesNotification,
                     android_background_layout: {
-                        "image": hostServer + "themes/img/settingnotification/" + result.backgroundNotification
+                        "image": hostServer + "/themes/img/settingnotification/" + result.backgroundNotification
                     },
 
                     android_led_color: "#ededed",
@@ -469,18 +478,20 @@ router.post('/send-notification/:idApp', (req, res) => {
 
                 };
 
-                sendNotification(message);
-                notification.update({
-                    idApp: setting.idApp,
-                    status: false
-                }, {
-                    status: true
-                }).then(() => {
-                    return res.json({
-                        status: 1,
-                        message: "ok"
-                    })
-                });
+                sendNotification(message).then(() => {
+                    notification.update({
+                        idApp: setting.idApp,
+                        status: false
+                    }, {
+                        status: true
+                    }).then(() => {
+                        console.log("vao out..")
+                        return res.json({
+                            status: 1,
+                            message: "ok"
+                        })
+                    });
+                })
             })
 
         })

@@ -19,8 +19,12 @@ let notificationChema = mongoose.Schema({
     accentColor: String,
     sendToUser: Array,
     excludesendToUser: Array,
-    isAdroid : Boolean,
+    isAdroid: Boolean,
     isIos: Boolean,
+    successful: Number,
+    failed: Number,
+    converted: Number,
+    remaining: Number,
     dateCreate: Date,
     statusNotification: String,
     status: Boolean

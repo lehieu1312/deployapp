@@ -470,7 +470,6 @@ router.post('/platforms', urlencodeParser, async function(req, res) {
             })
             .then(() => {
                 //    console.log('kq: ' + result);
-
                 if (sPlatform == 'android') {
                     console.log('add platform.......');
                     var cmdRelease = 'ionic';

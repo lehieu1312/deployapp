@@ -503,7 +503,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                             .then(() => {
                                 process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
                                 console.log('...Access file...');
-                                commandLine('chmod', ['-R', '777', './']);
+                                return commandLine('chmod', ['-R', '777', './']);
                             })
                             .then(() => {
                                 process.chdir(path.join(appRoot, 'public', 'project', idAppUser));

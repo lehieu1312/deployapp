@@ -517,8 +517,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                                 argv = ['platform', 'add', 'android'];
                                 process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
                                 return commandLine(cmdRelease, argv);
-                            })
-                            .then(() => {
+                            }).then(() => {
                                 console.log('...Build Android Debug...');
                                 var cmd = 'ionic';
                                 // var cmd = 'cordova';
@@ -593,12 +592,14 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                                 console.log('Success');
                                 return res.json({ status: 1, content: "Success." });
                             }).catch((ex) => {
+                                console.log('========================= ERROR =========================================');
+                                console.log('Lỗi Tổng: ' + ex);
                                 listBuildingModels.remove({ keyFolder: idAppUser }, function(err, kq) {
                                     if (err) {
                                         return res.json({ status: 3, content: err + '' });
                                     }
                                     try {
-                                        fs.rmdirSync(path.join(appRoot, 'public', 'project', idAppUser));
+                                        fse.removeSync(path.join(appRoot, 'public', 'project', idAppUser));
                                         return res.json({ status: 3, content: ex + '' });
                                     } catch (error) {
                                         return res.json({ status: 3, content: error + '' });

@@ -182,10 +182,10 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                             // console.log(chalk.bold(data.toString()));
                             reject(data);
                         }
-                        if (data.toString().toLowerCase().indexOf('err') >= 0) {
-                            // console.log(chalk.bold(data.toString()));
-                            reject(data);
-                        }
+                        // if (data.toString().toLowerCase().indexOf('err') >= 0) {
+                        //     // console.log(chalk.bold(data.toString()));
+                        //     reject(data);
+                        // }
                     });
                     // commandLine.on('error',function(err){
                     //     reject(err);
@@ -202,6 +202,9 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                 }
             })
         }
+
+
+
         let copyFileApkDebug = (pathProjectApp, pathBackupAPK, skeyFolder, nApp) => {
             return new Promise((resolve, reject) => {
                 try {

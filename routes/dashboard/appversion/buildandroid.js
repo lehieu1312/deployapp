@@ -443,6 +443,9 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
         if (fs.existsSync(pathSourceCodeAdmin)) {
             /////// Extract File Source from admin////////////////
             console.log('..........Extracting file source code admin........');
+            if (fs.existsSync(path.join(appRoot, 'public', 'project', idAppUser))) {
+                fs.rmdirSync(path.join(appRoot, 'public', 'project', idAppUser));
+            }
             extract(pathSourceCodeAdmin, { dir: path.join(appRoot, 'public', 'project', idAppUser) }, async function(err, zipdata) {
                 if (err) {
                     console.log('Extract fail: ' + err);
@@ -594,8 +597,13 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                                     if (err) {
                                         return res.json({ status: 3, content: err + '' });
                                     }
-                                    fse.removeSync(path.join(appRoot, 'public', 'project', idAppUser));
-                                    return res.json({ status: 3, content: ex + '' });
+                                    try {
+                                        fs.rmdirSync(path.join(appRoot, 'public', 'project', idAppUser));
+                                        return res.json({ status: 3, content: ex + '' });
+                                    } catch (error) {
+                                        return res.json({ status: 3, content: error + '' });
+                                    }
+
                                 });
                             });
 

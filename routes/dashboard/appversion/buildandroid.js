@@ -444,7 +444,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
             /////// Extract File Source from admin////////////////
             console.log('..........Extracting file source code admin........');
             if (fs.existsSync(path.join(appRoot, 'public', 'project', idAppUser))) {
-                fse.rmdirSync(path.join(appRoot, 'public', 'project', idAppUser));
+                fse.removeSync(path.join(appRoot, 'public', 'project', idAppUser));
             }
             extract(pathSourceCodeAdmin, { dir: path.join(appRoot, 'public', 'project', idAppUser) }, async function(err, zipdata) {
                 if (err) {

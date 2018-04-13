@@ -67,7 +67,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
         L = req.body.L;
         ST = req.body.ST;
         C = req.body.C;
-        // keystore = req.body.keystore,
+        keystore = req.body.keystore;
         keystore_again = req.body.confirmKeystore;
         alias = req.body.alias;
         /////////////////////////////////////
@@ -373,6 +373,45 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
 
             })
 
+        }
+        let jarSignerApp = (pathBackupAPK, fKeyFolder, fVersionApp, fKeystore, alias) => {
+
+            var deferred = Q.defer();
+            const signApp = spawn('jarsigner', ['-verbose', '-sigalg', 'SHA1withRSA', '-digestalg', 'SHA1', '-keystore', path.join(pathBackupAPK, fKeyFolder, fVersionApp, 'signed', 'my-release-key.keystore'), '-storepass', '"' + fKeystore + '"', path.join(pathBackupAPK, fKeyFolder, fVersionApp, 'signed', 'android-release-unsigned.apk'), alias, ], { stdio: 'inherit', shell: true, silent: true });
+            signApp.on('data', function(data) {
+                console.log('data sign app out: ' + data.toString());
+            });
+            signApp.on('close', function(code) {
+                if (code > 0) {
+                    return deferred.reject(code);
+                }
+                return deferred.resolve();
+            });
+            return deferred.promise;
+        }
+
+        let zipAlignApp = (pathBackupAPK, fVersionApp, fKeyFolder, App) => {
+
+            var deferred = Q.defer();
+            console.log(path.join(pathBackupAPK, fKeyFolder, fVersionApp, 'signed', 'android-release-unsigned.apk'));
+            console.log(path.join(pathBackupAPK, fKeyFolder, 'signed', App + '.apk'));
+
+            var pathFileZip = path.join(pathBackupAPK, fKeyFolder, 'signed', App + '.apk');
+            if (fs.existsSync(pathFileZip)) {
+                fs.unlinkSync(pathFileZip)
+            }
+            const zipalign = spawn('zipalign ', ['-v', '4', path.join(pathBackupAPK, fKeyFolder, 'signed', 'android-release-unsigned.apk'), '"' + pathFileZip + '"'], { stdio: 'inherit', shell: true, silent: true });
+
+            zipalign.on('data', function(data) {
+                console.log('data zip align app out: ' + data.toString());
+            });
+            zipalign.on('close', function(code) {
+                if (code > 0) {
+                    return deferred.reject(code);
+                }
+                return deferred.resolve();
+            });
+            return deferred.promise;
         }
         let updateDBAppversionUser = (fIdAppDB, fIdAppAdminDB, fVersionAdminDB, fVersionUserDB, fLinkApkDebugDB, linkApkSignedDB, linkKeyStoreDB, linkKeyStoreTextDB) => {
             return new Promise((resolve, reject) => {

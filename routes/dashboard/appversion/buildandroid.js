@@ -288,6 +288,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                     if (!fs.existsSync(path_Signed)) {
                         fs.mkdirSync(path_Signed);
                     }
+                    console.log('...Create folder...');
                     var rFile = "";
                     var wFile = "";
                     if (fs.existsSync(path.join(pathProjectApp, 'platforms', 'android', 'app', 'build', 'outputs', 'apk', 'release', 'app-release-unsigned.apk'))) {
@@ -538,8 +539,8 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                                 process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
                                 return commandLine(cmdRelease, argv);
                             }).then(() => {
-                                console.log('...Copy  File Apk Sign....');
-                                return copyFileApkToSignDash(path.join(appRoot, 'public', 'project', idAppUser), path.join(appRoot, 'public', 'backupapk'), idAppUser);
+                                console.log('...Copy File Apk Sign....');
+                                return copyFileApkToSignDash(path.join(appRoot, 'public', 'project', idAppUser), path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp);
                             }).then(() => {
                                 console.log('...Generate Key...');
                                 return generatesKeyStore(path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp, CN, OU, O, L, ST, C, keystore, alias);
@@ -607,7 +608,6 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                                     } catch (error) {
                                         return res.json({ status: 3, content: error + '' });
                                     }
-
                                 });
                             });
 

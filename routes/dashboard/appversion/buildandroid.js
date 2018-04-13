@@ -12,6 +12,7 @@ var appRoot = require('app-root-path');
 appRoot = appRoot.toString();
 var Base64js = require('js-base64').Base64;
 var crossSpawn = require('cross-spawn');
+var spawn = require('child_process').spawn;
 var async = require('async');
 var nodemailer = require('nodemailer');
 var hbs = require('nodemailer-express-handlebars');

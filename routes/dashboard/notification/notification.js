@@ -19,9 +19,7 @@ var app = express();
 var moment = require("moment");
 var https = require('https');
 var OneSignal = require('onesignal-node');
-
 var multer = require('multer');
-
 var User = require('../../../models/user');
 var Inforapp = require('../../../models/inforapp');
 var orderofapp = require('../../../models/orderofapp');
@@ -31,9 +29,8 @@ var userofapp = require('../../../models/userofapp');
 var userstatistic = require('../../../models/userstatistic');
 var notification = require("../../../models/notification");
 var appsetting = require("../../../models/appsettings");
-var userOnesignal = require("../../../models/usersonesignal")
-
-
+var userOnesignal = require("../../../models/usersonesignal");
+var userplayers = require("../../../models/usersonesignal");
 
 
 function checkAdmin(req, res, next) {
@@ -154,14 +151,25 @@ router.get("/notification/:idApp", checkAdmin, (req, res) => {
                         Inforapp.findOne({
                             idApp: req.params.idApp
                         }).then((infor) => {
+
                             let appuse = {
                                 idApp: infor.idApp,
                                 nameApp: infor.nameApp
                             }
-                            res.render("./dashboard/notification/notification", {
-                                title: "Notification",
-                                appuse,
-                                notification: data,
+                            userplayers.find({
+                                idApp: req.params.idApp,
+                                isTest: true
+                            }, {
+                                id: 1,
+                                device_model: 1,
+                                device_os: 1
+                            }).then((devide_test) => {
+                                res.render("./dashboard/notification/notification", {
+                                    title: "Notification",
+                                    appuse,
+                                    notification: data,
+                                    device: devide_test
+                                })
                             })
                         })
                     })
@@ -174,10 +182,20 @@ router.get("/notification/:idApp", checkAdmin, (req, res) => {
                         idApp: infor.idApp,
                         nameApp: infor.nameApp
                     }
-                    res.render("./dashboard/notification/notification", {
-                        title: "Notification",
-                        appuse,
-                        notification: data,
+                    userplayers.find({
+                        idApp: req.params.idApp,
+                        isTest: true
+                    }, {
+                        id: 1,
+                        device_model: 1,
+                        device_os: 1
+                    }).then((devide_test) => {
+                        res.render("./dashboard/notification/notification", {
+                            title: "Notification",
+                            appuse,
+                            notification: data,
+                            device: devide_test
+                        })
                     })
                 })
             }
@@ -432,8 +450,9 @@ router.post('/send-notification/:idApp', (req, res) => {
                                                 failed: datanoti.failed,
                                                 converted: datanoti.converted,
                                                 remaining: datanoti.remaining,
-                                            }).exec()
-                                            resolve(datanoti);
+                                            }).then(() => {
+                                                resolve(datanoti);
+                                            })
                                         }
                                     });
                                 })

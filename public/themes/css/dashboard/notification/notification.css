@@ -6,6 +6,26 @@
     padding-bottom: 30px;
 }
 
+.btn-add-test-noti {
+    margin-right: 15px;
+    font-family: 'OpenSans-Regular';
+    padding: 5px 15px 5px 15px;
+    color: rgb(0, 175, 238);
+    background: white;
+    border-radius: 3px;
+    border: solid 1px rgb(0, 175, 238);
+}
+
+.btn-del-test-noti {
+    margin-right: 15px;
+    font-family: 'OpenSans-Regular';
+    padding: 5px 15px 5px 15px;
+    color: #dc2a2a;
+    background: white;
+    border-radius: 3px;
+    border: solid 1px #dc2a2a;
+}
+
 #content-notification>div {
     padding: 12px 20px;
 }
@@ -510,11 +530,13 @@
 .boder-img-small-circle {
     padding: 6px;
 }
-#form-choole-user .col-sm-12{
-padding-left: 0px;
-padding-right: 0px;
+
+#form-choole-user .col-sm-12 {
+    padding-left: 0px;
+    padding-right: 0px;
 }
-.modal-content2{
+
+.modal-content2 {
     margin-top: 65px;
 }
 
@@ -529,17 +551,20 @@ padding-right: 0px;
     background: white;
     height: auto;
 }
-.header-modal-noti>div{
+
+.header-modal-noti>div {
     padding: 0px 40px 0 40px;
 }
-.content-modal-noti>div{
+
+.content-modal-noti>div {
     padding: 10px 40px 0px 40px;
 }
-.margin-btn-noti{
+
+.margin-btn-noti {
     margin-right: 15px;
 }
 
-.set-search-icon{
+.set-search-icon {
     position: absolute;
     top: -12px;
     display: block;
@@ -547,17 +572,20 @@ padding-right: 0px;
     line-height: 34px;
     text-align: center;
 }
-.content-modal-noti{
+
+.content-modal-noti {
     background: white;
     height: 200px;
     overflow-y: scroll;
 }
-#seach-device{
+
+#seach-device {
     text-indent: 17px;
     margin-top: -4px;
     border: none;
     border-bottom: solid 1px #dedede;
 }
+
 .content-modal-noti::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
     background-color: #ffffff;
@@ -573,12 +601,13 @@ padding-right: 0px;
     border: 2px solid #cecece;
 }
 
-.dialogdeleteapp-foot-noti{
-    padding:  15px 0 15px 0;
+.dialogdeleteapp-foot-noti {
+    padding: 15px 0 15px 0;
     border-top: solid 1px #dedede;
     background: white;
     height: auto;
 }
+
 .img-small-circle {
     border: solid 0.5px #ededed;
     border-radius: 50%;

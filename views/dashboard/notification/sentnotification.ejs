@@ -30,48 +30,80 @@
 
                 </ul>
             </div>
-            <div id="filter-date" class="btn-group">
-                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span id="span-selcect-date" class="span-button-select">All Dates</span>
+            <div id="filter-sent-noti" class="btn-group">
+                <button class="btn-custom btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="span-button-select">Viewing-All Notifications</span>
                     <span class="caret arow-button-select"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li id="select-date-1">
-                        <a href="#">Hours Ago</a>
+                    <li>
+                        <a href="#">
+                            <div class="choolse-select-sent-noti float-left">
+                                <img class="set-img-select-noti" src="/themes/img/sentnotification/iconcheck.png">
+                            </div>
+                            <div class="content-select-sent-noti float-left">
+                                <div class="title-sent-noti">
+                                    Viewing-All Notifications
+                                </div>
+                                <span class="text-note-select-noti">
+                                    Dashboard,API, and automated notifications
+                                    <br> Excludes web push welcome notifications
+                                </span>
+                            </div>
+                        </a>
                     </li>
-                    <li id="select-date-2">
-                        <a href="#">Yesterday</a>
+                    <li>
+                        <a href="#">
+                            <div class="choolse-select-sent-noti float-left">
+                                <img class="set-img-select-noti" src="/themes/img/sentnotification/iconcheck.png">
+                            </div>
+                            <div class="content-select-sent-noti float-left">
+                                <div class="title-sent-noti">
+                                    Dashboard Notifications
+                                </div>
+                                <span class="text-note-select-noti">
+                                    Notifications created from your dashboard
+                                    <br>Includes A/B test notifications
+                                </span>
+                            </div>
+                        </a>
                     </li>
-                    <li id="select-date-3">
-                        <a href="#">Last Weed</a>
+                    <li class="set-li-select-noti">
+                        <a href="#">
+                            <div class="choolse-select-sent-noti float-left">
+                                <img class="set-img-select-noti" src="/themes/img/sentnotification/iconcheck.png">
+                            </div>
+                            <div class="content-select-sent-noti float-left">
+                                <div class="title-sent-noti">
+                                    Viewing-All Notifications
+                                </div>
+                                <span class="text-note-select-noti">
+                                    Notification created using the REST API.
+                                    <br>Includes WordPress plugin notifications and older
+                                    <br>automated notifications, and excludes web push
+                                    <br>welcome notfications
+                                </span>
+                            </div>
+                        </a>
                     </li>
-                    <li id="select-date-4">
-                        <a href="#">All Dates</a>
-                    </li>
-                    <li role="separator" class="divider"></li>
-                    <li id="select-date-5">
-                        <input hidden id="fillter-date-custom" value="">
-                        <a href="#">Custom...</a>
+                    <li>
+                        <a href="#">
+                            <div class="choolse-select-sent-noti float-left">
+                                <img class="set-img-select-noti" src="/themes/img/sentnotification/iconcheck.png">
+                            </div>
+                            <div class="content-select-sent-noti float-left">
+                                <div class="title-sent-noti">
+                                    Viewing-All Notifications
+                                </div>
+                                <span class="text-note-select-noti">
+                                    Newly created automated notifications from the
+                                    <br> dashboard.
+                                </span>
+                            </div>
+                        </a>
                     </li>
                 </ul>
             </div>
-            <!-- <div id="filter-status" class="btn-group">
-                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span id="span-selcect-status" class="span-button-select">New</span>
-                    <span class="caret arow-button-select"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li id="slect-status-1">
-                        <a href="#">New</a>
-                    </li>
-                    <li id="slect-status-2">
-                        <a href="#">Feature</a>
-                    </li>
-                    <li id="slect-status-3">
-                        <a href="#">All</a>
-                    </li>
-                </ul>
-            </div> -->
             <div class="pagination-table-appversion1 row">
                 <ul class="pagination">
                     <li class="edit-li-pagination">
@@ -133,11 +165,11 @@
             <div id="content-appversion">
                 <table id="table-appversion">
                     <tr id="title-table-header">
-                        <th width="7.6%">#</th>
+                        <th width="6.6%">#</th>
                         <th width="10%">Status
                             <img class="setarrow showmenuuser" src="/themes/img/login/IconArrow.png" alt="deployapp">
                         </th>
-                        <th width="10%">Sent at
+                        <th width="13%">Sent at
                             <img class="setarrow showmenuuser" src="/themes/img/login/IconArrow.png" alt="deployapp">
                         </th>
                         <th width="30%">Message
@@ -154,33 +186,126 @@
                         </th>
                         <th width="2.4%"></th>
                     </tr>
-                    <%for(var i = 0; i<data.length ;i++){ %>
-                        <tr id="version<%=i%>" class="tr-content-appversion findcode">
-                            <td>
-                                <%= i + 1%>
-                            </td>
-                            <td class="table-time-appversion finddate">
-                                <span class="text-status">Delivered</span>
-                            </td>
-                            <td class="table-nameapp findnameapp">
+                    <%
+                    var dateNow = new Date();
+                    %>
+                        <%for(var i = 0; i<data.length ;i++){ %>
+                            <% let message = Object.getOwnPropertyNames(data[i].contentNotification)[0]%>
+                                <tr id="version<%=i%>" class="tr-content-appversion findcode">
+                                    <td>
+                                        <%= i + 1%>
+                                    </td>
+                                    <td class="table-time-appversion finddate">
+                                        <span class="status-sent-notification">Delivered</span>
+                                    </td>
+                                    <td class="findnameapp">
+                                        <%
+                                    let d = data[i].dateCreate;
+                                    let m = d.getMonth() + 1;
+                                    let updated = d.getDate() + "/" + m + "/" + d.getFullYear() + "," + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+                                  
+                                    var timeOld = Math.floor((dateNow-d)/86400000);
+                                    var hoursOld = Math.floor(((dateNow-d)%86400000)/3600000)
+                                  
+                                    %>
+                                            <span>
+                                                <%=updated%>
+                                            </span>
+                                            <br>
+                                            <span>
+                                                <%=timeOld%> days,
+                                                    <%=hoursOld%> hours ago
+                                            </span>
+                                    </td>
+                                    <td class="table-version findversion">
+                                        <%=data[i].contentNotification[message]%>
+                                    </td>
+                                    <td class="table-changelog findnote">
+                                        <%
+                                    let all = (data[i].successful + data[i].failed + data[i].remaining);
+                                    let Delivered = (data[i].successful*100/all).toFixed(1)+ "%";
+                                    let failed = (data[i].failed*100/all).toFixed(1) + "%";
+                                    let invalid = (data[i].remaining*100/all).toFixed(1) + "%";
+                                    %>
+                                            <div class="left-progress-sent-noti">
+                                                <div class="progress-sent-noti">
+                                                    <div class="progress-bar progress-bar-success" style="width:<%=Delivered%>">
+                                                    </div>
+                                                    <div class="progress-bar progress-bar-warning " style="width:<%=failed%>">
+                                                    </div>
+                                                    <div class="progress-bar progress-bar-danger" style="width:<%=invalid%>">
+                                                    </div>
+                                                </div>
+                                                <div class="tooltip-sent-noti">
+                                                    <div class="header-sent-noti">
+                                                        <div class="title-tooltip">
+                                                            <span class="title-sent-noti">Dellvery Statistics</span>
+                                                        </div>
+                                                        <div class="content-tooltip">
+                                                            <div class="sub-tooltip">
+                                                                <img class="set-img-tooltip-noti" src="/themes/img/sentnotification/delivered.png">
+                                                                <span>
+                                                                    <%=data[i].successful+" Delivered"%>
+                                                                        <span>
+                                                                            <%="(" +Delivered + ")" %>
+                                                                        </span>
+                                                                </span>
+                                                            </div>
+                                                            <div class="sub-tooltip">
+                                                                <img class="set-img-tooltip-noti" src="/themes/img/sentnotification/failed.png">
+                                                                <span>
+                                                                    <%=data[i].failed+" Failed " %>
+                                                                        <span>
+                                                                            <%="(" +failed + ")" %>
+                                                                        </span>
+                                                                </span>
+                                                            </div>
+                                                            <div class="sub-tooltip">
+                                                                <img class="set-img-tooltip-noti" src="/themes/img/sentnotification/invalid.png">
+                                                                <span>
+                                                                    <%=data[i].remaining+" Invalid" %>
+                                                                        <span>
+                                                                            <%="(" +invalid + ")" %>
+                                                                        </span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="footer-sent-noti">
+                                                        <div class="arrow-down-noti-1">
+                                                        </div>
+                                                        <div class="arrow-down-noti-2">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                            </td>
-                            <td class="table-version findversion">
-
-                            </td>
-                            <td class="table-changelog findnote">
-
-                            </td>
-                            <td class="">
-
-                            </td>
-                            <td class="">
-
-                            </td>
-                        </tr>
-                        <%}%>
-
-                            </tbody>
+                                    </td>
+                                    <td class="">
+                                        <%=data[i].successful%>
+                                    </td>
+                                    <td class="">
+                                        <%= (data[i].converted*100/data[i].successful).toFixed(1)+ "%"%>
+                                    </td>
+                                    <td class="set-position-relative">
+                                        <input class="value-id-noti" hidden value="<%=data[i].idNotification%>">
+                                        <img class="setimg-head-myapp deleteuser" src="/themes/img/dashboard/iconmenumore.png">
+                                        <div class="delete-noti" style="display: none;">
+                                            <a href="#" data-toggle="modal" data-target="#mymodal-delete-noti">
+                                                <div class="element-delete">
+                                                    <img class="imgicondelete" src="/themes/img/dashboard/icondelete.png">
+                                                    <span>Delete</span>
+                                                </div>
+                                            </a>
+                                            <div class="arrowmenuuser-left">
+                                            </div>
+                                            <div class="arrowmenuuser-left1">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <%}%>
+                                    </tbody>
                 </table>
 
                 <div class="example">
@@ -269,7 +394,27 @@
                 </div>
             </div>
         </div>
+        <input id="idapp-using" hidden value="<%=appuse.idApp%>">
+        <div class="container ">
+            <div class="modal fade" id="mymodal-delete-noti" role="dialog">
+                <div class="modal-dialog  ">
+                    <div class="modal-content1">
+                        <div class="dialogdeleteapp">
+                            <div class="dialogdeleteapp-head">
+                                Are you sure you want to Delete this message?
+                            </div>
+                            <div class="dialogdeleteapp-foot">
+                                <button id="delete-ok">Delete</button>
+                                <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     </div>
     </div>
+
     <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/appversion/pagination.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/sentnotification/sentnotification.js"></script>

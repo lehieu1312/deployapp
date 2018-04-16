@@ -1784,6 +1784,15 @@
         text-align: left;
     }
     
+    .text-howto-signapp {
+        margin-top: 9px;
+        margin-left: 10px;
+    }
+    
+    .text-right {
+        text-align: right
+    }
+    
     .content-faqs {
         margin-top: 35px;
         font-family: "OpenSans-Light";

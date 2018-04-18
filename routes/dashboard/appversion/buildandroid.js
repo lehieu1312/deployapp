@@ -468,7 +468,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                             linkAppSigned,
                             fLinkKeyStore,
                             fVersionApp,
-                            sDate
+                            dateApp
                         }
                     }
                     transporter.sendMail(mainOptions, function(err, info) {

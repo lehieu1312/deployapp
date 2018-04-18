@@ -344,7 +344,7 @@ passport.use(new passportfb({
         profileFields: ['id', 'email', 'first_name', 'last_name', 'gender', 'age_range', 'timezone', 'picture', 'locale']
     },
     (accessToken, refreshToken, profile, done) => {
-
+        console.log('profile FB: ' + JSON.stringify(profile));
         User.findOne({
             email: profile._json.email
         }, (err, result) => {

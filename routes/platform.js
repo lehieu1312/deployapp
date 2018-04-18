@@ -458,11 +458,11 @@ router.post('/platforms', urlencodeParser, async function(req, res) {
             //     console.log('Access file...');
             //     return fsChmodPathFolder(path.join(appRoot, 'public', 'project', pKeyFolder));
             // })
-            // .then(function() {
-            //     process.chdir(path.join(appRoot, 'public', 'project', pKeyFolder));
-            //     console.log('Access file...');
-            //     return commandLine('chmod', ['-R', '777', './']);
-            // })
+            .then(function() {
+                process.chdir(path.join(appRoot, 'public', 'project', pKeyFolder));
+                console.log('Access file...');
+                return commandLine('chmod', ['-R', '777', './']);
+            })
             .then(function() {
                 process.chdir(path.join(appRoot, 'public', 'project', pKeyFolder));
                 console.log('Start rebuild...');

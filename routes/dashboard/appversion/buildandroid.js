@@ -390,17 +390,17 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
             return deferred.promise;
         }
 
-        let zipAlignApp = (pathBackupAPK, fVersionApp, fKeyFolder, App) => {
+        let zipAlignApp = (pathBackupAPK, fKeyFolder, fVersionApp, App) => {
 
             var deferred = Q.defer();
             console.log(path.join(pathBackupAPK, fKeyFolder, fVersionApp, 'signed', 'android-release-unsigned.apk'));
-            console.log(path.join(pathBackupAPK, fKeyFolder, 'signed', App + '.apk'));
+            console.log(path.join(pathBackupAPK, fKeyFolder, fVersionApp, 'signed', App + '.apk'));
 
-            var pathFileZip = path.join(pathBackupAPK, fKeyFolder, 'signed', App + '.apk');
+            var pathFileZip = path.join(pathBackupAPK, fKeyFolder, fVersionApp, 'signed', App + '.apk');
             if (fs.existsSync(pathFileZip)) {
                 fs.unlinkSync(pathFileZip)
             }
-            const zipalign = spawn('zipalign ', ['-v', '4', path.join(pathBackupAPK, fKeyFolder, 'signed', 'android-release-unsigned.apk'), '"' + pathFileZip + '"'], { stdio: 'inherit', shell: true, silent: true });
+            const zipalign = spawn('zipalign ', ['-v', '4', path.join(pathBackupAPK, fKeyFolder, fVersionApp, 'signed', 'android-release-unsigned.apk'), '"' + pathFileZip + '"'], { stdio: 'inherit', shell: true, silent: true });
 
             zipalign.on('data', function(data) {
                 console.log('data zip align app out: ' + data.toString());

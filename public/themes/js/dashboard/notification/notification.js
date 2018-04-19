@@ -699,7 +699,7 @@ $(document).ready(() => {
                         }
                     })
                 })()
-            ).always(() => {
+            ).then(() => {
                 $('#loading').hide();
                 $('#successPopup').show(500);
                 $(".contenemail").text("");

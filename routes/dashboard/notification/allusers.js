@@ -57,10 +57,23 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
             APIuserAll.viewDevices('', function (err, httpResponse, data) {
                 if (err) {
                     console.log("err:" + err)
+                    res.render("error", {
+                        title: "Error",
+                        error: err + ""
+                    })
                 }
-                if (data) {
-                    console.log(data);
-                    let getdata = JSON.parse(data);
+
+                let getdata = JSON.parse(data);
+
+                console.log(getdata)
+                console.log(getdata.errors)
+                if (getdata.errors) {
+
+                    res.render("error", {
+                        title: "Error",
+                        error: getdata.errors + ""
+                    })
+                } else {
                     let play_user = getdata.players;
                     let get_device_tes = [];
                     // get all player to Onesignal
@@ -206,8 +219,6 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                             }
                         })
                     })
-                } else {
-                    res.redirect("/dashboard/404")
                 }
             });
         })

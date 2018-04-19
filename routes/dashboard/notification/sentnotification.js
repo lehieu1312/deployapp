@@ -65,56 +65,66 @@ router.get("/notification/sentnotification/:idApp", checkAdmin, (req, res) => {
                 }, {
                     idNotification: 1
                 }).then((id_noti) => {
-                    var myNoti = new OneSignal.Client({
-                        userAuthKey: setting.oneSignalUserID,
-                        app: {
-                            appAuthKey: setting.oneSignalAPIKey,
-                            appId: setting.oneSignalID
-                        }
-                    });
-                    (async () => {
-                        for (let i = 0; i < id_noti.length; i++) {
-                            await new Promise(function (resolve, reject) {
-                                myNoti.viewNotification(id_noti[i].idNotification, function (err, httpResponse, data) {
-                                    if (httpResponse.statusCode === 200 && !err) {
-                                        let datanoti = JSON.parse(data);
-                                        // console.log(datanoti)
-                                        notification.update({
-                                            idApp: setting.idApp,
-                                            status: true,
-                                            idNotification: id_noti[i].idNotification
-                                        }, {
-                                            successful: datanoti.successful,
-                                            failed: datanoti.failed,
-                                            // failed: 77,
-                                            converted: datanoti.converted,
-                                            remaining: datanoti.remaining
-                                        }).then((datax) => {
-                                            resolve(data);
-                                        })
-                                    }
+                    if (id_noti) {
+                        var myNoti = new OneSignal.Client({
+                            userAuthKey: setting.oneSignalUserID,
+                            app: {
+                                appAuthKey: setting.oneSignalAPIKey,
+                                appId: setting.oneSignalID
+                            }
+                        });
+                        (async () => {
+                            for (let i = 0; i < id_noti.length; i++) {
+                                await new Promise(function (resolve, reject) {
+                                    myNoti.viewNotification(id_noti[i].idNotification, function (err, httpResponse, data) {
+                                        if (httpResponse.statusCode === 200 && !err) {
+                                            let datanoti = JSON.parse(data);
+                                            // console.log(datanoti)
+                                            notification.update({
+                                                idApp: setting.idApp,
+                                                status: true,
+                                                idNotification: id_noti[i].idNotification
+                                            }, {
+                                                successful: datanoti.successful,
+                                                failed: datanoti.failed,
+                                                // failed: 77,
+                                                converted: datanoti.converted,
+                                                remaining: datanoti.remaining
+                                            }).then((datax) => {
+                                                resolve(data);
+                                            })
+                                        }
+                                    })
                                 })
-                            })
 
-                        }
-                        let data_noti = await notification.find({
-                            idApp: req.params.idApp,
-                            status: true
-                        }).sort({
-                            dateCreate: -1
-                        }).exec()
+                            }
+                            let data_noti = await notification.find({
+                                idApp: req.params.idApp,
+                                status: true
+                            }).sort({
+                                dateCreate: -1
+                            }).exec()
+                            res.render("./dashboard/notification/sentnotification", {
+                                title: "Sent Notification",
+                                appuse: {
+                                    idApp: setting.idApp,
+                                    nameApp: setting.nameApp
+                                },
+                                data: data_noti
+                            })
+                        })()
+                    } else {
                         res.render("./dashboard/notification/sentnotification", {
                             title: "Sent Notification",
                             appuse: {
                                 idApp: setting.idApp,
                                 nameApp: setting.nameApp
                             },
-                            data: data_noti
+                            data: ""
                         })
-                    })()
-                })
-            } else {
+                    }
 
+                })
             }
         })
     } catch (error) {

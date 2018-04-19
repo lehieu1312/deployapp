@@ -58,8 +58,6 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                 let getdata = JSON.parse(data);
                 let play_user = getdata.players;
                 let get_device_tes = [];
-
-
                 // get all player to Onesignal
                 function get_all_player() {
                     return new Promise((resolve, reject) => {
@@ -133,48 +131,79 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                     userplayers.find({
                         idApp
                     }).then((users_deploy) => {
-                        (() => {
-                            return new Promise((resolve, reject) => {
-                                if (users_deploy.length > 0) {
+                        if (users_deploy.length < 0 || users_deploy == undefined) {
+                            console.log("not User :");
+                            userplayers.insertMany(players).then(() => {
+                                userplayers.find({
+                                    idApp
+                                }).sort({
+                                    created_at: -1
+                                }).then((user_playser) => {
+                                    var language_device = [];
+                                    for (var j = 0; j < language.length; j++) {
+                                        for (var i = 0; i < user_playser.length; i++) {
+                                            if (language[j].code == user_playser[i].language) {
+                                                language_device.push(language[j])
+                                            }
+                                        }
+                                    }
+                                    // console.log(language_device);
+                                    // console.log(language_device.length);
+                                    res.render("./dashboard/notification/allusers", {
+                                        title: "All Users",
+                                        appuse: {
+                                            idApp,
+                                            nameApp: setting.nameApp
+                                        },
+                                        data: user_playser,
+                                        language: language_device
+                                    })
+                                })
+                            })
+
+                        } else {
+                            console.log("User :");
+                            (() => {
+                                return new Promise((resolve, reject) => {
                                     updatePlayer(users_deploy);
                                     get_user_new(players, users_deploy).then((user_new) => {
                                         userplayers.insertMany(user_new)
                                         resolve(user_new);
                                     })
-                                } else {
-                                    userplayers.insertMany(players)
-                                    resolve(players);
-                                }
-                            })
-                        })().then(() => {
-                            userplayers.find({
-                                idApp
-                            }).sort({
-                                created_at: -1
-                            }).then((user_playser) => {
-                                var language_device = [];
-                                for (var j = 0; j < language.length; j++) {
-                                    for (var i = 0; i < user_playser.length; i++) {
-                                        if (language[j].code == user_playser[i].language) {
-                                            language_device.push(language[j])
+                                })
+                            })().then(() => {
+                                userplayers.find({
+                                    idApp
+                                }).sort({
+                                    created_at: -1
+                                }).then((user_playser) => {
+                                    var language_device = [];
+                                    for (var j = 0; j < language.length; j++) {
+                                        for (var i = 0; i < user_playser.length; i++) {
+                                            if (language[j].code == user_playser[i].language) {
+                                                language_device.push(language[j])
+                                            }
                                         }
                                     }
-                                }
-                                // console.log(language_device);
-                                // console.log(language_device.length);
-                                res.render("./dashboard/notification/allusers", {
-                                    title: "All Users",
-                                    appuse: {
-                                        idApp,
-                                        nameApp: setting.nameApp
-                                    },
-                                    data: user_playser,
-                                    language: language_device
+                                    // console.log(language_device);
+                                    // console.log(language_device.length);
+                                    res.render("./dashboard/notification/allusers", {
+                                        title: "All Users",
+                                        appuse: {
+                                            idApp,
+                                            nameApp: setting.nameApp
+                                        },
+                                        data: user_playser,
+                                        language: language_device
+                                    })
                                 })
                             })
-                        })
+
+
+                        }
 
                     })
+
                 })
 
             });

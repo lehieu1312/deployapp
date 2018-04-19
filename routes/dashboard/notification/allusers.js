@@ -55,157 +55,160 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                 }
             });
             APIuserAll.viewDevices('', function (err, httpResponse, data) {
-                let getdata = JSON.parse(data);
-                let play_user = getdata.players;
-                let get_device_tes = [];
-                // get all player to Onesignal
-                function get_all_player() {
-                    return new Promise((resolve, reject) => {
-                        for (let i = 0; i < play_user.length; i++) {
-                            get_device_tes.push({
-                                idApp,
-                                id: play_user[i].id,
-                                identifier: play_user[i].identifier,
-                                session_count: play_user[i].session_count,
-                                language: play_user[i].language,
-                                timezone: play_user[i].timezone,
-                                game_version: play_user[i].game_version,
-                                device_os: play_user[i].device_os,
-                                device_type: play_user[i].device_type,
-                                device_model: play_user[i].device_model,
-                                ad_id: play_user[i].ad_id,
-                                tags: play_user[i].tags,
-                                last_active: play_user[i].last_active,
-                                playtime: play_user[i].playtime,
-                                amount_spent: play_user[i].amount_spent,
-                                created_at: play_user[i].created_at,
-                                invalid_identifier: play_user[i].invalid_identifier,
-                                badge_count: play_user[i].badge_count,
-                                sdk: play_user[i].sdk,
-                                test_type: play_user[i].test_type,
-                                ip: play_user[i].ip,
-                                status: true,
-                            })
-                        }
-                        resolve(get_device_tes)
-                    })
+                if (err) {
+                    console.log("err:" + err)
                 }
-                // update information for old player
-                async function updatePlayer(a) {
-                    var APIuser = new OneSignal.Client({
-                        app: {
-                            appAuthKey: setting.oneSignalAPIKey,
-                            appId: setting.oneSignalID
-                        }
-                    });
-
-                    for (let i = 0; i < a.length; i++) {
-                        APIuser.viewDevice(a[i].id, function (err, httpResponse, data) {
-                            let getdataxx = JSON.parse(data)
-                            userplayers.update({
-                                id: a[i].id
-                            }, {
-                                session_count: getdataxx.session_count,
-                                playtime: getdataxx.playtime,
-                                amount_spent: getdataxx.amount_spent,
-                                badge_count: getdataxx.badge_count
-                            });
+                if (data) {
+                    console.log(data);
+                    let getdata = JSON.parse(data);
+                    let play_user = getdata.players;
+                    let get_device_tes = [];
+                    // get all player to Onesignal
+                    function get_all_player() {
+                        return new Promise((resolve, reject) => {
+                            for (let i = 0; i < play_user.length; i++) {
+                                get_device_tes.push({
+                                    idApp,
+                                    id: play_user[i].id,
+                                    identifier: play_user[i].identifier,
+                                    session_count: play_user[i].session_count,
+                                    language: play_user[i].language,
+                                    timezone: play_user[i].timezone,
+                                    game_version: play_user[i].game_version,
+                                    device_os: play_user[i].device_os,
+                                    device_type: play_user[i].device_type,
+                                    device_model: play_user[i].device_model,
+                                    ad_id: play_user[i].ad_id,
+                                    tags: play_user[i].tags,
+                                    last_active: play_user[i].last_active,
+                                    playtime: play_user[i].playtime,
+                                    amount_spent: play_user[i].amount_spent,
+                                    created_at: play_user[i].created_at,
+                                    invalid_identifier: play_user[i].invalid_identifier,
+                                    badge_count: play_user[i].badge_count,
+                                    sdk: play_user[i].sdk,
+                                    test_type: play_user[i].test_type,
+                                    ip: play_user[i].ip,
+                                    status: true,
+                                })
+                            }
+                            resolve(get_device_tes)
                         })
                     }
-                }
-                // get users don't save to database
-                function get_user_new(a, b) {
-                    return new Promise((resolve, reject) => {
-                        for (var j = 0; j < a.length; j++) {
-                            for (var i = 0; i < b.length; i++) {
-                                if (a[j].id == b[i].id) {
-                                    a.splice(j, 1);
+                    // update information for old player
+                    async function updatePlayer(a) {
+                        var APIuser = new OneSignal.Client({
+                            app: {
+                                appAuthKey: setting.oneSignalAPIKey,
+                                appId: setting.oneSignalID
+                            }
+                        });
+
+                        for (let i = 0; i < a.length; i++) {
+                            APIuser.viewDevice(a[i].id, function (err, httpResponse, data) {
+                                let getdataxx = JSON.parse(data)
+                                userplayers.update({
+                                    id: a[i].id
+                                }, {
+                                    session_count: getdataxx.session_count,
+                                    playtime: getdataxx.playtime,
+                                    amount_spent: getdataxx.amount_spent,
+                                    badge_count: getdataxx.badge_count
+                                });
+                            })
+                        }
+                    }
+                    // get users don't save to database
+                    function get_user_new(a, b) {
+                        return new Promise((resolve, reject) => {
+                            for (var j = 0; j < a.length; j++) {
+                                for (var i = 0; i < b.length; i++) {
+                                    if (a[j].id == b[i].id) {
+                                        a.splice(j, 1);
+                                    }
                                 }
                             }
-                        }
-                        resolve(a)
+                            resolve(a)
+                        })
+                    }
+
+                    get_all_player().then((players) => {
+                        userplayers.find({
+                            idApp
+                        }).then((users_deploy) => {
+                            if (users_deploy.length < 0 || users_deploy == undefined) {
+                                console.log("not User :");
+                                userplayers.insertMany(players).then(() => {
+                                    userplayers.find({
+                                        idApp
+                                    }).sort({
+                                        created_at: -1
+                                    }).then((user_playser) => {
+                                        var language_device = [];
+                                        for (var j = 0; j < language.length; j++) {
+                                            for (var i = 0; i < user_playser.length; i++) {
+                                                if (language[j].code == user_playser[i].language) {
+                                                    language_device.push(language[j])
+                                                }
+                                            }
+                                        }
+                                        // console.log(language_device);
+                                        // console.log(language_device.length);
+                                        res.render("./dashboard/notification/allusers", {
+                                            title: "All Users",
+                                            appuse: {
+                                                idApp,
+                                                nameApp: setting.nameApp
+                                            },
+                                            data: user_playser,
+                                            language: language_device
+                                        })
+                                    })
+                                })
+
+                            } else {
+                                console.log("User :");
+                                (() => {
+                                    return new Promise((resolve, reject) => {
+                                        updatePlayer(users_deploy);
+                                        get_user_new(players, users_deploy).then((user_new) => {
+                                            userplayers.insertMany(user_new)
+                                            resolve(user_new);
+                                        })
+                                    })
+                                })().then(() => {
+                                    userplayers.find({
+                                        idApp
+                                    }).sort({
+                                        created_at: -1
+                                    }).then((user_playser) => {
+                                        var language_device = [];
+                                        for (var j = 0; j < language.length; j++) {
+                                            for (var i = 0; i < user_playser.length; i++) {
+                                                if (language[j].code == user_playser[i].language) {
+                                                    language_device.push(language[j])
+                                                }
+                                            }
+                                        }
+                                        // console.log(language_device);
+                                        // console.log(language_device.length);
+                                        res.render("./dashboard/notification/allusers", {
+                                            title: "All Users",
+                                            appuse: {
+                                                idApp,
+                                                nameApp: setting.nameApp
+                                            },
+                                            data: user_playser,
+                                            language: language_device
+                                        })
+                                    })
+                                })
+                            }
+                        })
                     })
+                } else {
+                    res.redirect("/dashboard/404")
                 }
-
-                get_all_player().then((players) => {
-                    userplayers.find({
-                        idApp
-                    }).then((users_deploy) => {
-                        if (users_deploy.length < 0 || users_deploy == undefined) {
-                            console.log("not User :");
-                            userplayers.insertMany(players).then(() => {
-                                userplayers.find({
-                                    idApp
-                                }).sort({
-                                    created_at: -1
-                                }).then((user_playser) => {
-                                    var language_device = [];
-                                    for (var j = 0; j < language.length; j++) {
-                                        for (var i = 0; i < user_playser.length; i++) {
-                                            if (language[j].code == user_playser[i].language) {
-                                                language_device.push(language[j])
-                                            }
-                                        }
-                                    }
-                                    // console.log(language_device);
-                                    // console.log(language_device.length);
-                                    res.render("./dashboard/notification/allusers", {
-                                        title: "All Users",
-                                        appuse: {
-                                            idApp,
-                                            nameApp: setting.nameApp
-                                        },
-                                        data: user_playser,
-                                        language: language_device
-                                    })
-                                })
-                            })
-
-                        } else {
-                            console.log("User :");
-                            (() => {
-                                return new Promise((resolve, reject) => {
-                                    updatePlayer(users_deploy);
-                                    get_user_new(players, users_deploy).then((user_new) => {
-                                        userplayers.insertMany(user_new)
-                                        resolve(user_new);
-                                    })
-                                })
-                            })().then(() => {
-                                userplayers.find({
-                                    idApp
-                                }).sort({
-                                    created_at: -1
-                                }).then((user_playser) => {
-                                    var language_device = [];
-                                    for (var j = 0; j < language.length; j++) {
-                                        for (var i = 0; i < user_playser.length; i++) {
-                                            if (language[j].code == user_playser[i].language) {
-                                                language_device.push(language[j])
-                                            }
-                                        }
-                                    }
-                                    // console.log(language_device);
-                                    // console.log(language_device.length);
-                                    res.render("./dashboard/notification/allusers", {
-                                        title: "All Users",
-                                        appuse: {
-                                            idApp,
-                                            nameApp: setting.nameApp
-                                        },
-                                        data: user_playser,
-                                        language: language_device
-                                    })
-                                })
-                            })
-
-
-                        }
-
-                    })
-
-                })
-
             });
         })
 

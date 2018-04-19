@@ -232,6 +232,10 @@
     border-radius: 3px;
 }
 
+.btn-close-infobuild:hover {
+    background-color: #909292;
+}
+
 .btn-infobuild:hover,
 .btn-infobuild:focus {
     color: #fff;

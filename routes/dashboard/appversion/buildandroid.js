@@ -442,7 +442,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                 }
             })
         }
-        let sendLinkMail = (emailReceive, linkAppDebug, linkAppSigned, fLinkKeyStore, App, fVersionApp, dateApp) => {
+        let sendLinkMail = (emailReceive, linkAppDebug, linkAppSigned, fLinkKeyStore, App, fVersionApp, sDate) => {
                 return new Promise((resolve, reject) => {
                     var transporter = nodemailer.createTransport({ // config mail server
                         host: 'smtp.gmail.com',
@@ -468,7 +468,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                             linkAppSigned,
                             fLinkKeyStore,
                             fVersionApp,
-                            dateApp
+                            sDate
                         }
                     }
                     transporter.sendMail(mainOptions, function(err, info) {

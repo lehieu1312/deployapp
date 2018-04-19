@@ -203,8 +203,9 @@ $(document).ready(function() {
                 },
                 success: function(result) {
                     if (result.status == 1) {
-                        $('.errSuccess').show();
-                        $('.alert-upload').html(result.content[0]['msg']);
+                        $("#dialog-build-android-dashboard").fadeOut();
+                        $('.successPopup').show();
+                        $('.contenemail').html(result.content[0]['msg']);
                     } else if (result.status == 2) {
                         // alert(result.content[0]['msg']);
                         console.log(JSON.stringify(result.content));

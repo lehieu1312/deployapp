@@ -118,5 +118,10 @@ function clickdeployapp(idApp, version, idAppUser) {
         platform = "";
         $('#dialog-build-android-dashboard').hide();
     });
+    $('#btn-close-deploy-ios-dash').click(function() {
+        platform = "";
+        $('#dialog-build-ios-dashboard').hide();
+    });
+
 
 }

@@ -318,19 +318,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="form-group has-feedback">
-                                <div class="infor-mobile-using">
-                                    <span>
-                                        Iphone 7.1 10.1.1
-                                        <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
-                                    </span>
-                                </div>
-                                <div class="infor-mobile-using set-infor-mobile-using">
-                                    <span>
-                                        Iphone 7.1 10.1.1
-                                        <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
-                                    </span>
-                                </div>
+                            <div id="use-sent-to-player" class="form-group has-feedback">
                             </div>
                 </div>
                 <div class="right-content-notification set-position-relative col-md-4">
@@ -488,14 +476,19 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 content-modal-noti">
-                                        <%for(let i=0; i < 5;i++){%>
-                                            <div class="col-sm-6">
+                                        <%for(let i=0; i < device.length;i++){%>
+                                            <input class="value-device-id" hidden value="<%=device[i].id%>">
+                                            <input class="value-device" hidden value="<%=device[i].device_model +' '+device[i].device_os%>">
+                                            <div class="col-sm-6 item-device-add-test">
                                                 <div class="form-group-12" id="remember1">
                                                     <div class="checkboxFive">
                                                         <div class="checkbox-custom-noti">
                                                             <input type="checkbox" name="sub-user-test" hidden value="faile" id="checkbox-custom-user-<%=i%>">
                                                             <label for="checkbox-custom-user-<%=i%>"></label>
-                                                            <span class="spanremember">&nbsp Iphone7,2 11.3.0</span>
+                                                            <span class="spanremember ">&nbsp
+                                                                <%=device[i].device_model%>
+                                                                    <%=device[i].device_os%>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>

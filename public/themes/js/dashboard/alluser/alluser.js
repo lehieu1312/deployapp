@@ -9,12 +9,8 @@ $(document).ready(() => {
             } else {
                 istest = true
             }
-            console.log({
-                isTest: istest,
-                id: idUser[i].value
-            })
             $.ajax({
-                url: "/dashboard/sentnotification/edituser",
+                url: "/dashboard/notification/alluser/edituser",
                 data: {
                     isTest: istest,
                     id: idUser[i].value

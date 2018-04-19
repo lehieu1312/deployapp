@@ -72,7 +72,11 @@ router.get("/traffic/:idApp", checkAdmin, (req, res) => {
             })
         })
     } catch (error) {
-        console.log(error + "")
+        console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
 
 });
@@ -112,6 +116,10 @@ router.post("/orderstatistic/:idApp", (req, res) => {
         })
     } catch (error) {
         console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
 })
 
@@ -162,7 +170,11 @@ router.post("/rightnow/:idApp", (req, res) => {
             });
         })
     } catch (error) {
-        console.log(error + "")
+        console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
 
 })
@@ -233,6 +245,10 @@ router.post("/pageuser/:idApp", (req, res) => {
         })
     } catch (error) {
         console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
 
 })
@@ -331,7 +347,11 @@ router.post("/productstatistic/:idApp", (req, res) => {
             })()
         })
     } catch (error) {
-        console.log(error + "")
+        console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
 
 })
@@ -408,6 +428,10 @@ router.post("/useractive/:idApp", (req, res) => {
         })()
     } catch (error) {
         console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
 
 })
@@ -497,7 +521,11 @@ router.post("/userbytime/:idApp", (req, res) => {
             })()
         }
     } catch (error) {
-        console.log(error + "")
+        console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
 })
 
@@ -532,6 +560,10 @@ router.get("/sessioncountry/:idApp", (req, res) => {
         })
     } catch (error) {
         console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
 
 })
@@ -685,7 +717,10 @@ router.post("/statisticstracking/:idApp", (req, res) => {
         });
     } catch (error) {
         console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
-
 })
 module.exports = router;

@@ -160,8 +160,8 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                                         }
                                     }
                                 }
-                                console.log(language_device);
-                                console.log(language_device.length);
+                                // console.log(language_device);
+                                // console.log(language_device.length);
                                 res.render("./dashboard/notification/allusers", {
                                     title: "All Users",
                                     appuse: {
@@ -182,13 +182,17 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
 
     } catch (error) {
         console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
 
 
 })
 
 
-router.put("/sentnotification/edituser", (req, res) => {
+router.put("/notification/alluser/edituser", (req, res) => {
     try {
         userplayers.update({
             id: req.body.id
@@ -201,7 +205,11 @@ router.put("/sentnotification/edituser", (req, res) => {
 
         })
     } catch (error) {
-        console.log(error + "")
+        console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
 })
 module.exports = router;

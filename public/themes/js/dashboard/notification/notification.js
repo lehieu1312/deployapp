@@ -547,26 +547,82 @@ $(document).ready(() => {
 
         }
         if ($('[name="notiradio"]:checked').val() == "3") {
-            sendToUser = "All"
+            sendToUser = []
+            exclude = [];
         }
     })
     //-----------------------------------------------------------
     // cholse devices test
-    $('#checkbox-allusser').change(()=>{
-        if($('#checkbox-allusser').is(":checked")){
-            $('[name="sub-user-test"]').each(function(i){
+    var devices_test = [];
+    let id_devices = document.getElementsByClassName("value-device-id");
+    $('#checkbox-allusser').change(() => {
+        devices_test = [];
+        if ($('#checkbox-allusser').is(":checked")) {
+            $('[name="sub-user-test"]').each(function (i) {
                 $(this).prop('checked', true);
+                devices_test.push(id_devices[i].value)
             })
-        }else{
-            $('[name="sub-user-test"]').each(function(i){
+        } else {
+            $('[name="sub-user-test"]').each(function (i) {
                 $(this).prop('checked', false);
+                devices_test = [];
             })
         }
+        console.log(devices_test);
+    })
+    $('[name="sub-user-test"]').each(function (i) {
+        $(this).click(() => {
+            devices_test = [];
+            $('[name="sub-user-test"]').each(function (i) {
+                if ($(this).is(":checked")) {
+                    devices_test.push(id_devices[i].value);
+                }
+            })
+            console.log(devices_test);
+        })
+    })
+    var value_device = document.getElementsByClassName('value-device');
+    $("#ok-user").click(() => {
+        $("#use-sent-to-player").html('');
+        $('[name="sub-user-test"]').each(function (i) {
+            if ($(this).is(":checked")) {
+                let device_model = value_device[i].value;
+                if (i == 0) {
+                    $("#use-sent-to-player").append(
+                        `  
+                        <div class="infor-mobile-using ">
+                            <span>
+                            ${device_model}
+                                <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
+                            </span>
+                        </div>
+                        `
+                    )
+                } else {
+                    $("#use-sent-to-player").append(
+                        `  
+                        <div class="infor-mobile-using set-infor-mobile-using">
+                            <span>
+                            ${device_model}
+                                <img class="cancel-mobile-using" src="/themes/img/notification/icondelete.png">
+                            </span>
+                        </div>
+                        `
+                    )
+                }
+
+            }
+        })
+        $('#myModal-chooleUser').modal('hide');
     })
 
-
+    $("#seach-device").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $(".item-device-add-test").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    })
     //-----------------------------------------------------------
-
 
 
 
@@ -797,7 +853,9 @@ $(document).ready(() => {
                             url
                         }],
                         sendToUser,
-                        exclude
+                        exclude,
+                        devices_test
+
                     }),
                     dataType: "json",
                     async: false,

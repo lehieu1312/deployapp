@@ -13,6 +13,7 @@ $(document).ready(() => {
     $(".number-items").text($('.tr-content-appversion').length + " item(s)")
     $('.thispage').text(xnumber)
     page = Math.ceil($('.tr-content-appversion').length / 9);
+    console.log(page)
     numberpage = page;
     $('.numberpage').text("of " + page);
     checkpaginnation($('.tr-content-appversion').length, setamount)
@@ -69,6 +70,7 @@ $(document).ready(() => {
         }
         $(".backpage").show();
         $(".limitback").hide();
+        console.log(xnumber);
     })
     $(".supernext").click(() => {
         $(".superback").show();
@@ -98,6 +100,7 @@ $(document).ready(() => {
                 $('#version' + manguse[i]).hide();
             }
         }
+        console.log(xnumber);
     })
     $(".backpage").click(() => {
         $(".nextpage").show();
@@ -132,6 +135,7 @@ $(document).ready(() => {
                 $('#version' + manguse[i]).show();
             }
         }
+        console.log(xnumber);
     })
     $('.superback').click(() => {
         $(".superback").hide();
@@ -157,6 +161,7 @@ $(document).ready(() => {
             $(".backpage").hide();
             $(".limitback").show();
         }
+        console.log(xnumber);
     })
     //filter status
     $("#slect-status-1").click(() => {

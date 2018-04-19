@@ -52,88 +52,102 @@ var storage = multer.diskStorage({
 var uploading = multer({
     storage: storage
 });
-router.get("/sentnotification/:idApp", checkAdmin, (req, res) => {
+router.get("/notification/sentnotification/:idApp", checkAdmin, (req, res) => {
 
     try {
         appsetting.findOne({
             idApp: req.params.idApp
         }).then((setting) => {
-            notification.find({
-                idApp: req.params.idApp,
-                status: true
-            }, {
-                idNotification: 1
-            }).then((id_noti) => {
-                var myNoti = new OneSignal.Client({
-                    userAuthKey: setting.oneSignalUserID,
-                    app: {
-                        appAuthKey: setting.oneSignalAPIKey,
-                        appId: setting.oneSignalID
-                    }
-                });
-                (async () => {
-                    for (let i = 0; i < id_noti.length; i++) {
-                        await new Promise(function (resolve, reject) {
-                            myNoti.viewNotification(id_noti[i].idNotification, function (err, httpResponse, data) {
-                                if (httpResponse.statusCode === 200 && !err) {
-                                    let datanoti = JSON.parse(data);
-                                    // console.log(datanoti)
-                                    notification.update({
-                                        idApp: setting.idApp,
-                                        status: true,
-                                        idNotification: id_noti[i].idNotification
-                                    }, {
-                                        successful: datanoti.successful,
-                                        failed: datanoti.failed,
-                                        // failed: 77,
-                                        converted: datanoti.converted,
-                                        remaining: datanoti.remaining
-                                    }).then((datax) => {
-                                        resolve(data);
-                                    })
-                                }
+            if (setting) {
+                notification.find({
+                    idApp: req.params.idApp,
+                    status: true
+                }, {
+                    idNotification: 1
+                }).then((id_noti) => {
+                    var myNoti = new OneSignal.Client({
+                        userAuthKey: setting.oneSignalUserID,
+                        app: {
+                            appAuthKey: setting.oneSignalAPIKey,
+                            appId: setting.oneSignalID
+                        }
+                    });
+                    (async () => {
+                        for (let i = 0; i < id_noti.length; i++) {
+                            await new Promise(function (resolve, reject) {
+                                myNoti.viewNotification(id_noti[i].idNotification, function (err, httpResponse, data) {
+                                    if (httpResponse.statusCode === 200 && !err) {
+                                        let datanoti = JSON.parse(data);
+                                        // console.log(datanoti)
+                                        notification.update({
+                                            idApp: setting.idApp,
+                                            status: true,
+                                            idNotification: id_noti[i].idNotification
+                                        }, {
+                                            successful: datanoti.successful,
+                                            failed: datanoti.failed,
+                                            // failed: 77,
+                                            converted: datanoti.converted,
+                                            remaining: datanoti.remaining
+                                        }).then((datax) => {
+                                            resolve(data);
+                                        })
+                                    }
+                                })
                             })
-                        })
 
-                    }
-                    let data_noti = await notification.find({
-                        idApp: req.params.idApp,
-                        status: true
-                    }).sort({
-                        dateCreate: -1
-                    }).exec()
-                    res.render("./dashboard/notification/sentnotification", {
-                        title: "Sent Notification",
-                        appuse: {
-                            idApp: setting.idApp,
-                            nameApp: setting.nameApp
-                        },
-                        data: data_noti
-                    })
-                })()
-            })
+                        }
+                        let data_noti = await notification.find({
+                            idApp: req.params.idApp,
+                            status: true
+                        }).sort({
+                            dateCreate: -1
+                        }).exec()
+                        res.render("./dashboard/notification/sentnotification", {
+                            title: "Sent Notification",
+                            appuse: {
+                                idApp: setting.idApp,
+                                nameApp: setting.nameApp
+                            },
+                            data: data_noti
+                        })
+                    })()
+                })
+            } else {
+
+            }
         })
     } catch (error) {
-        console.log(error + '')
+        console.log(error + '');
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
 
 })
-router.post("/sentnotification/delete/:idApp", (req, res) => {
+router.post("/notifiction/sentnotification/delete/:idApp", (req, res) => {
     try {
         appsetting.findOne({
             idApp: req.params.idApp
         }).then((setting) => {
-            notification.remove({
-                idNotification
-            }).then(() => {
-                res.json({
-                    status: 1,
-                    message: "ok"
+            if (setting) {
+                notification.remove({
+                    idNotification: req.body.id
+                }).then(() => {
+                    res.json({
+                        status: 1,
+                        message: "ok"
+                    })
                 })
-            })
+            }
         })
     } catch (error) {
-        console.log(error + "")
+        console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
 
 })

@@ -22,6 +22,7 @@ $(document).ready(() => {
         $(this).click(() => {
             id_noti_del = id_noti[i].value
             setNumberNoti = i;
+            console.log(id_noti_del)
         })
     })
     var tr_noti = document.getElementsByClassName("tr-content-appversion");
@@ -29,7 +30,7 @@ $(document).ready(() => {
         tr_noti[setNumberNoti].style.display = "none";
         $('#loading').show();
         $.ajax({
-            url: "/dashboard/sentnotification/delete/" + idApp,
+            url: "/dashboard/notifiction/sentnotification/delete/" + idApp,
             data: {
                 id: id_noti_del
             },

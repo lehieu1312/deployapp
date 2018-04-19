@@ -230,7 +230,7 @@
 /* fixed-div-plateform{} */
 
 .infor-mobile-using {
-    display: none;
+    /* display: none; */
     padding: 5px;
     float: left;
     width: auto;
@@ -641,4 +641,8 @@
     border-radius: 2px;
     width: 150px;
     height: auto;
+}
+
+#filter-sent-noti {
+    display: none;
 }

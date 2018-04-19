@@ -34,7 +34,7 @@ $(document).ready(() => {
             },
             success: (data) => {
                 if (data.status == "1") {
-                    window.location.href = "/History/" + data.message;
+                    window.location.href = "/dashboard/history/" + data.message;
                 }
             }
         }).always(function (data) {

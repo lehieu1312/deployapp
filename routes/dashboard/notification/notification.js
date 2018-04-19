@@ -41,64 +41,6 @@ function checkAdmin(req, res, next) {
     }
 }
 
-// get data device onesignal app
-function setDataDevices(idApp) {
-    try {
-        appsetting.findOne({
-            idApp
-        }).then((setting) => {
-            var myClient = new OneSignal.Client({
-                app: {
-                    appAuthKey: setting.oneSignalAPIKey,
-                    appId: setting.oneSignalID
-                }
-            });
-            // you can set limit and offset (optional) or you can leave it empty
-            myClient.viewDevices('test_users=true', function (err, httpResponse, data) {
-                let getdata = JSON.parse(data);
-                // console.log(getdata);
-                let play_user = getdata.players;
-                (async () => {
-                    for (let i = 0; i < play_user.length; i++) {
-                        play_user[i] = await {
-                            idApp,
-                            id: play_user[i].id,
-                            identifier: play_user[i].identifier,
-                            session_count: play_user[i].session_count,
-                            language: play_user[i].language,
-                            timezone: play_user[i].timezone,
-                            game_version: play_user[i].game_version,
-                            device_os: play_user[i].device_os,
-                            device_type: play_user[i].device_type,
-                            device_model: play_user[i].device_model,
-                            ad_id: play_user[i].ad_id,
-                            tags: play_user[i].tags,
-                            last_active: play_user[i].last_active,
-                            playtime: play_user[i].playtime,
-                            amount_spent: play_user[i].amount_spent,
-                            created_at: play_user[i].created_at,
-                            invalid_identifier: play_user[i].invalid_identifier,
-                            badge_count: play_user[i].badge_count,
-                            sdk: play_user[i].sdk,
-                            test_type: play_user[i].test_type,
-                            isTest: play_user[i].isTest,
-                            ip: play_user[i].ip,
-                        }
-                    }
-                    userOnesignal.remove({
-                        idApp
-                    }).then(() => {
-                        userOnesignal.insertMany(play_user);
-                    })
-                })()
-
-            });
-        })
-    } catch (error) {
-        console.log(error + "")
-    }
-}
-
 // setup save file
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -115,7 +57,6 @@ var uploading = multer({
 // get notification
 router.get("/notification/:idApp", checkAdmin, (req, res) => {
     try {
-        setDataDevices(req.params.idApp)
         notification.findOne({
             idApp: req.params.idApp,
             status: false
@@ -164,6 +105,8 @@ router.get("/notification/:idApp", checkAdmin, (req, res) => {
                                 device_model: 1,
                                 device_os: 1
                             }).then((devide_test) => {
+                                console.log("devide_test:");
+                                console.log(devide_test);
                                 res.render("./dashboard/notification/notification", {
                                     title: "Notification",
                                     appuse,
@@ -190,6 +133,8 @@ router.get("/notification/:idApp", checkAdmin, (req, res) => {
                         device_model: 1,
                         device_os: 1
                     }).then((devide_test) => {
+                        console.log("devide_test:");
+                        console.log(devide_test);
                         res.render("./dashboard/notification/notification", {
                             title: "Notification",
                             appuse,
@@ -202,162 +147,226 @@ router.get("/notification/:idApp", checkAdmin, (req, res) => {
         })
 
     } catch (error) {
-        console.log(error + "")
+        console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
 
 })
 // save icon small notification
 router.post("/iconnotification/:idApp", uploading.single('iconnotification'), (req, res) => {
-    notification.findOne({
-        idApp: req.params.idApp,
-        status: false
-    }).then((data) => {
-        if (!data.smallIcon) {
-            data.smallIcon = req.file.filename
-        } else {
-            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.smallIcon))) {
-                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.smallIcon));
+    try {
+        notification.findOne({
+            idApp: req.params.idApp,
+            status: false
+        }).then((data) => {
+            if (!data.smallIcon) {
+                data.smallIcon = req.file.filename
+            } else {
+                if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.smallIcon))) {
+                    fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.smallIcon));
+                }
+                data.smallIcon = req.file.filename
             }
-            data.smallIcon = req.file.filename
-        }
-        data.save();
-        return res.json({
-            status: 1,
-            message: req.file.filename
+            data.save();
+            return res.json({
+                status: 1,
+                message: req.file.filename
+            })
         })
-    })
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
+
 })
 // save icon large notification
 router.post("/iconlargenotification/:idApp", uploading.single('imglarge'), (req, res) => {
-    notification.findOne({
-        idApp: req.params.idApp,
-        status: false
-    }).then((data) => {
-        if (!data.iconNotification) {
-            data.iconNotification = req.file.filename
-        } else {
-            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.iconNotification))) {
-                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.iconNotification));
+    try {
+        notification.findOne({
+            idApp: req.params.idApp,
+            status: false
+        }).then((data) => {
+            if (!data.iconNotification) {
+                data.iconNotification = req.file.filename
+            } else {
+                if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.iconNotification))) {
+                    fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.iconNotification));
+                }
+                data.iconNotification = req.file.filename
             }
-            data.iconNotification = req.file.filename
-        }
-        data.save();
-        return res.json({
-            status: 1,
-            message: req.file.filename
+            data.save();
+            return res.json({
+                status: 1,
+                message: req.file.filename
+            })
         })
-    })
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
 })
 // save icon big notification
 router.post("/iconbigimagesnotification/:idApp", uploading.single('bigimages'), (req, res) => {
-    notification.findOne({
-        idApp: req.params.idApp,
-        status: false
-    }).then((data) => {
-        if (!data.bigimagesNotification) {
-            data.bigimagesNotification = req.file.filename
-        } else {
-            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.bigimagesNotification))) {
-                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.bigimagesNotification));
+    try {
+        notification.findOne({
+            idApp: req.params.idApp,
+            status: false
+        }).then((data) => {
+            if (!data.bigimagesNotification) {
+                data.bigimagesNotification = req.file.filename
+            } else {
+                if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.bigimagesNotification))) {
+                    fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.bigimagesNotification));
+                }
+                data.bigimagesNotification = req.file.filename
             }
-            data.bigimagesNotification = req.file.filename
-        }
-        data.save();
-        return res.json({
-            status: 1,
-            message: req.file.filename
+            data.save();
+            return res.json({
+                status: 1,
+                message: req.file.filename
+            })
         })
-    })
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
 })
 // save icon background notification
 router.post("/iconbackgroundnotification/:idApp", uploading.single('background'), (req, res) => {
-    notification.findOne({
-        idApp: req.params.idApp,
-        status: false
-    }).then((data) => {
-        if (!data.backgroundNotification) {
-            data.backgroundNotification = req.file.filename
-        } else {
-            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.backgroundNotification))) {
-                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.backgroundNotification));
+    try {
+        notification.findOne({
+            idApp: req.params.idApp,
+            status: false
+        }).then((data) => {
+            if (!data.backgroundNotification) {
+                data.backgroundNotification = req.file.filename
+            } else {
+                if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.backgroundNotification))) {
+                    fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.backgroundNotification));
+                }
+                data.backgroundNotification = req.file.filename
             }
-            data.backgroundNotification = req.file.filename
-        }
-        data.save();
-        return res.json({
-            status: 1,
-            message: req.file.filename
+            data.save();
+            return res.json({
+                status: 1,
+                message: req.file.filename
+            })
         })
-    })
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
+
+
 })
 
 router.post("/canceliconnotification/:idApp", (req, res) => {
-    // console.log(req)
-    notification.update({
-        idApp: req.params.idApp,
-        status: false
-    }, {
-        smallIcon: ""
-    }).then((data) => {
-        if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelSmall))) {
-            fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelSmall));
-        }
-        return res.json({
-            status: 1,
-            message: "ok"
+    try {
+        notification.update({
+            idApp: req.params.idApp,
+            status: false
+        }, {
+            smallIcon: ""
+        }).then((data) => {
+            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelSmall))) {
+                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelSmall));
+            }
+            return res.json({
+                status: 1,
+                message: "ok"
+            })
         })
-    })
+
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
+    // console.log(req)
 
 })
 router.post("/canceliconlargenotification/:idApp", (req, res) => {
-    notification.update({
-        idApp: req.params.idApp,
-        status: false
-    }, {
-        iconNotification: ""
-    }).then((data) => {
-        if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelIcon))) {
-            fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelIcon));
-        }
-        return res.json({
-            status: 1,
-            message: "ok"
+    try {
+        notification.update({
+            idApp: req.params.idApp,
+            status: false
+        }, {
+            iconNotification: ""
+        }).then((data) => {
+            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelIcon))) {
+                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelIcon));
+            }
+            return res.json({
+                status: 1,
+                message: "ok"
+            })
         })
-    })
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
+
 
 })
 router.post("/canceliconbigimagesnotification/:idApp", (req, res) => {
-    notification.update({
-        idApp: req.params.idApp,
-        status: false
-    }, {
-        bigimagesNotification: ""
-    }).then((data) => {
-        if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBig))) {
-            fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBig));
-        }
-        return res.json({
-            status: 1,
-            message: "ok"
+    try {
+        notification.update({
+            idApp: req.params.idApp,
+            status: false
+        }, {
+            bigimagesNotification: ""
+        }).then((data) => {
+            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBig))) {
+                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBig));
+            }
+            return res.json({
+                status: 1,
+                message: "ok"
+            })
         })
-    })
-
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
 })
 router.post("/canceliconbackgroundnotification/:idApp", (req, res) => {
-    notification.update({
-        idApp: req.params.idApp,
-        status: false
-    }, {
-        backgroundNotification: ""
-    }).then((data) => {
-        if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBackground))) {
-            fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBackground));
-        }
-        return res.json({
-            status: 1,
-            message: "ok"
+    try {
+        notification.update({
+            idApp: req.params.idApp,
+            status: false
+        }, {
+            backgroundNotification: ""
+        }).then((data) => {
+            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBackground))) {
+                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBackground));
+            }
+            return res.json({
+                status: 1,
+                message: "ok"
+            })
         })
-    })
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
 })
 
 
@@ -380,7 +389,8 @@ router.post('/save-data-notification/:idApp', (req, res) => {
             accentColor: data.colorAccent,
             internalLink: data.internalLink[0],
             sendToUser: data.sendToUser,
-            excludesendToUser: data.exclude
+            excludesendToUser: data.exclude,
+            include_player_ids: data.devices_test
         }
         notification.update({
             idApp: req.params.idApp,
@@ -392,7 +402,11 @@ router.post('/save-data-notification/:idApp', (req, res) => {
             })
         })
     } catch (error) {
-        console.log(error + "")
+        console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
 
 })
@@ -469,6 +483,10 @@ router.post('/send-notification/:idApp', (req, res) => {
 
                     } catch (error) {
                         console.log(error + "");
+                        res.render("error", {
+                            title: "Error",
+                            error: error + ""
+                        })
                     }
                 };
 
@@ -492,9 +510,9 @@ router.post('/send-notification/:idApp', (req, res) => {
 
                     android_led_color: "#ededed",
                     android_accent_color: "#ededed",
+                    include_player_ids: result.include_player_ids,
                     included_segments: result.sendToUser,
-                    excluded_segments: result.excludesendToUser,
-
+                    excluded_segments: result.excludesendToUser
                 };
 
                 sendNotification(message).then(() => {
@@ -516,6 +534,10 @@ router.post('/send-notification/:idApp', (req, res) => {
         })
     } catch (error) {
         console.log(error + "")
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
     }
 
 })

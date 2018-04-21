@@ -202,6 +202,7 @@ router.post('/save-info-ios', multipartMiddleware, function(req, res) {
             }
         })
     }
+
     let updateLinkInstalliOS = (fKeyFolder) => {
         return new Promise((resolve, reject) => {
             try {
@@ -303,81 +304,82 @@ router.post('/save-info-ios', multipartMiddleware, function(req, res) {
         })
     }
     let sendLinkMail = (emailReceive, linkAppUnsigned, linkAppSigned, App, sDate, fCaseFileiOS) => {
-            return new Promise((resolve, reject) => {
-                var transporter = nodemailer.createTransport({ // config mail server
-                    host: 'smtp.gmail.com',
-                    // port:'465',
-                    auth: {
-                        user: 'no-reply@taydotech.com',
-                        pass: 'taydotech!@#deployapp'
-                    }
-                });
-                transporter.use('compile', hbs({
-                    viewPath: path.join(appRoot, 'views'),
-                    extName: '.ejs'
-                }));
-                var mainOptions;
-                console.log(typeof fCaseFileiOS);
-                console.log(fCaseFileiOS);
-                if (fCaseFileiOS == 1) {
-                    console.log('loai 1');
-                    mainOptions = { // thiết lập đối tượng, nội dung gửi mail
-                        from: 'Deploy App <no-reply@taydotech.com>',
-                        to: emailReceive,
-                        subject: 'Notification from DeployApp: ' + App + ' is now ready for download',
-                        template: 'mail-ios-adhoc',
-                        context: {
-                            App,
-                            linkAppUnsigned,
-                            linkAppSigned,
-                            sDate,
-                            fCaseFileiOS
-                        }
-                    }
-                } else if (fCaseFileiOS == 2) {
-                    console.log('loai 2');
-                    mainOptions = { // thiết lập đối tượng, nội dung gửi mail
-                        from: 'Deploy App <no-reply@taydotech.com>',
-                        to: emailReceive,
-                        subject: 'Notification from DeployApp: ' + App + ' is now ready for download',
-                        template: 'mail-ios-appstore',
-                        context: {
-                            App,
-                            linkAppUnsigned,
-                            linkAppSigned,
-                            sDate,
-                            fCaseFileiOS
-                        }
-                    }
-                } else {
-                    console.log('loai 3');
-                    mainOptions = { // thiết lập đối tượng, nội dung gửi mail
-                        from: 'Deploy App <no-reply@taydotech.com>',
-                        to: emailReceive,
-                        subject: 'Notification from DeployApp: ' + App + ' is now ready for download',
-                        template: 'mail-ios',
-                        context: {
-                            App,
-                            linkAppUnsigned,
-                            linkAppSigned,
-                            sDate,
-                            fCaseFileiOS
-                        }
+        return new Promise((resolve, reject) => {
+            var transporter = nodemailer.createTransport({ // config mail server
+                host: 'smtp.gmail.com',
+                // port:'465',
+                auth: {
+                    user: 'no-reply@taydotech.com',
+                    pass: 'taydotech!@#deployapp'
+                }
+            });
+            transporter.use('compile', hbs({
+                viewPath: path.join(appRoot, 'views'),
+                extName: '.ejs'
+            }));
+            var mainOptions;
+            console.log(typeof fCaseFileiOS);
+            console.log(fCaseFileiOS);
+            if (fCaseFileiOS == 1) {
+                console.log('loai 1');
+                mainOptions = { // thiết lập đối tượng, nội dung gửi mail
+                    from: 'Deploy App <no-reply@taydotech.com>',
+                    to: emailReceive,
+                    subject: 'Notification from DeployApp: ' + App + ' is now ready for download',
+                    template: 'mail-ios-adhoc',
+                    context: {
+                        App,
+                        linkAppUnsigned,
+                        linkAppSigned,
+                        sDate,
+                        fCaseFileiOS
                     }
                 }
-
-                transporter.sendMail(mainOptions, function(err, info) {
-                    if (err) {
-                        return reject(err);
+            } else if (fCaseFileiOS == 2) {
+                console.log('loai 2');
+                mainOptions = { // thiết lập đối tượng, nội dung gửi mail
+                    from: 'Deploy App <no-reply@taydotech.com>',
+                    to: emailReceive,
+                    subject: 'Notification from DeployApp: ' + App + ' is now ready for download',
+                    template: 'mail-ios-appstore',
+                    context: {
+                        App,
+                        linkAppUnsigned,
+                        linkAppSigned,
+                        sDate,
+                        fCaseFileiOS
                     }
-                    console.log('info mail: ' + info);
-                    console.log('info mail 2: ' + JSON.stringify(info));
-                    resolve('Message sent: ' + info.response);
+                }
+            } else {
+                console.log('loai 3');
+                mainOptions = { // thiết lập đối tượng, nội dung gửi mail
+                    from: 'Deploy App <no-reply@taydotech.com>',
+                    to: emailReceive,
+                    subject: 'Notification from DeployApp: ' + App + ' is now ready for download',
+                    template: 'mail-ios',
+                    context: {
+                        App,
+                        linkAppUnsigned,
+                        linkAppSigned,
+                        sDate,
+                        fCaseFileiOS
+                    }
+                }
+            }
 
-                });
+            transporter.sendMail(mainOptions, function(err, info) {
+                if (err) {
+                    return reject(err);
+                }
+                console.log('info mail: ' + info);
+                console.log('info mail 2: ' + JSON.stringify(info));
+                resolve('Message sent: ' + info.response);
+
             });
-        }
-        // console.log(req.body);
+        });
+    }
+
+    // console.log(req.body);
     try {
         var sKeyFolder, sEmail;
         var sTypeApp, sPathRootApp, sAppName, cLinkFileZip;

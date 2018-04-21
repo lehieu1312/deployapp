@@ -13,6 +13,7 @@ var extract = require('extract-zip');
 var provisioning = require('provisioning');
 var browserDetect = require('browser-detect');
 var libSetting = require('../lib/setting');
+var tempBuildAppModels = require('../models/tempbuildapp');
 var hostServer = libSetting.hostServer;
 // var plist = require('simple-plist');
 // var convert = require('xml-js');
@@ -189,6 +190,51 @@ router.get('/getfile-zip/:project', function(req, res) {
                 } else {
                     if (fs.existsSync(path.join(appRoot, 'public', 'project', project + '.zip'))) {
                         return res.sendFile(path.join(appRoot, 'public', 'project', project + '.zip'));
+                    } else {
+                        return res.json({
+                            status: '3',
+                            content: 'Not exist file zip'
+                        });
+                    }
+
+                }
+
+            })
+            // var pathFile = path.join(appRoot, 'public', 'project', project, 'outputs', 'unsigned', app);
+    } catch (error) {
+        return res.json({
+            status: '3',
+            content: error
+        });
+    }
+});
+router.get('/getfilezipproject-dash/:iduser/:version', function(req, res) {
+    try {
+        var pIDUser = req.params.iduser;
+        var pVersion = req.params.version;
+        // var app = req.params.app;
+        console.log(pIDUser);
+        // console.log(app);
+        tempBuildAppModels.find({
+                idUser: pIDUser,
+                platform: 'ios',
+                version: pVersion
+            }).exec((err, result) => {
+                if (err) {
+                    console.log('Static file:' + err);
+                    return res.json({
+                        status: '3',
+                        content: 'Error get file zip'
+                    });
+                }
+                if (result.length <= 0) {
+                    return res.json({
+                        status: '1',
+                        content: 'Not find collection in DB'
+                    });
+                } else {
+                    if (fs.existsSync(path.join(appRoot, 'public', 'project', iduser + '.zip'))) {
+                        return res.sendFile(path.join(appRoot, 'public', 'project', iduser + '.zip'));
                     } else {
                         return res.json({
                             status: '3',

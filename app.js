@@ -603,6 +603,7 @@ var platform = require('./routes/platform');
 var track = require('./routes/admin/track');
 var checkBuildiOS = require('./routes/admin/checkbuildios');
 var buildandroiddash = require("./routes/dashboard/appversion/buildandroid");
+var buildiosdash = require("./routes/dashboard/appversion/buildios");
 // var buildiosdiawi = require('./routes/buildiosdiawi');
 
 //login
@@ -643,7 +644,9 @@ app.use('/', test);
 app.use('/', appstatic);
 app.use('/admin', track);
 app.use('/admin', checkBuildiOS);
-app.use('/', buildandroiddash);
+app.use('/dashboard', buildandroiddash);
+app.use('/dashboard', buildiosdash);
+
 
 ///////////////////////////
 app.use('/', login);

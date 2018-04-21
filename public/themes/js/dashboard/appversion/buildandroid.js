@@ -179,11 +179,10 @@ $(document).ready(function() {
     }
     $('#btn-deploy-android-dash').click(function() {
         // alert(idApp);
-
         if (validateForm_build_android() == true) {
             $('#loading').show();
             $.ajax({
-                url: "/build-android-dash",
+                url: "/dashboard/build-android-dash",
                 type: "POST",
                 data: {
                     // email: $('#email').val(),

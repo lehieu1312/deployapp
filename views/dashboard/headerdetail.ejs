@@ -109,6 +109,30 @@
             <span class="alert-upload"></span>
         </div>
     </div>
+    <div class="container ">
+        <div class="modal fade" id="modal-cart" role="dialog">
+            <div class="content-cart">
+                <div class="header-modal-cart">
+                    <span>Shopping Cart</span>
+                    <img data-dismiss="modal" aria-label="Close" src="/themes/img/dashboard/iconclose.png">
+                </div>
+                <div class="content-modal-cart">
+                    <div class="item-product-in-cart">
+                        <div class="left-content-product-in-cart">
+                            <img src="/themes/img/product/test.png">
+                        </div>
+                        <div class="right-content-product-in-cart">
+                            <span>Pretashop Import Product with</span>
+                            <br>
+                            <span>$58.00</span>
+                            <span class="set-text-olde-price"> $81.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
     <div id="deploy-detail-content">
         <% include ./menuleft %>
             <div id="content-detail" class="clsmenu">
@@ -167,6 +191,14 @@
                                     2
                                 </span>
                                 <img src="/themes/img/dashboard/ringnotifications.png">
+                            </a>
+                        </div>
+                        <div id="cart-myapp" data-toggle="modal" data-target="#modal-cart">
+                            <a href="#">
+                                <span id="number-notifications">
+                                    2
+                                </span>
+                                <img src="/themes/img/dashboard/iconcart.png">
                             </a>
                         </div>
                     </div>

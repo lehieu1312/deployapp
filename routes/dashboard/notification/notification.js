@@ -158,214 +158,263 @@ router.get("/notification/:idApp", checkAdmin, (req, res) => {
 })
 // save icon small notification
 router.post("/iconnotification/:idApp", uploading.single('iconnotification'), (req, res) => {
-
-    notification.findOne({
-        idApp: req.params.idApp,
-        status: false
-    }).then((data) => {
-        if (!data.smallIcon) {
-            data.smallIcon = req.file.filename
-        } else {
-            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.smallIcon))) {
-                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.smallIcon));
+    try {
+        notification.findOne({
+            idApp: req.params.idApp,
+            status: false
+        }).then((data) => {
+            if (!data.smallIcon) {
+                data.smallIcon = req.file.filename
+            } else {
+                if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.smallIcon))) {
+                    fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.smallIcon));
+                }
+                data.smallIcon = req.file.filename
             }
-            data.smallIcon = req.file.filename
-        }
-        data.save();
-        return res.json({
-            status: 1,
-            message: req.file.filename
+            data.save();
+            return res.json({
+                status: 1,
+                message: req.file.filename
+            })
         })
-    })
-
-
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
 })
 // save icon large notification
 router.post("/iconlargenotification/:idApp", uploading.single('imglarge'), (req, res) => {
-
-    notification.findOne({
-        idApp: req.params.idApp,
-        status: false
-    }).then((data) => {
-        if (!data.iconNotification) {
-            data.iconNotification = req.file.filename
-        } else {
-            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.iconNotification))) {
-                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.iconNotification));
+    try {
+        notification.findOne({
+            idApp: req.params.idApp,
+            status: false
+        }).then((data) => {
+            if (!data.iconNotification) {
+                data.iconNotification = req.file.filename
+            } else {
+                if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.iconNotification))) {
+                    fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.iconNotification));
+                }
+                data.iconNotification = req.file.filename
             }
-            data.iconNotification = req.file.filename
-        }
-        data.save();
-        return res.json({
-            status: 1,
-            message: req.file.filename
+            data.save();
+            return res.json({
+                status: 1,
+                message: req.file.filename
+            })
         })
-    })
-
-    res.render("error", {
-        title: "Error",
-        error: error + ""
-    })
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
 
 })
 // save icon big notification
 router.post("/iconbigimagesnotification/:idApp", uploading.single('bigimages'), (req, res) => {
-
-    notification.findOne({
-        idApp: req.params.idApp,
-        status: false
-    }).then((data) => {
-        if (!data.bigimagesNotification) {
-            data.bigimagesNotification = req.file.filename
-        } else {
-            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.bigimagesNotification))) {
-                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.bigimagesNotification));
+    try {
+        notification.findOne({
+            idApp: req.params.idApp,
+            status: false
+        }).then((data) => {
+            if (!data.bigimagesNotification) {
+                data.bigimagesNotification = req.file.filename
+            } else {
+                if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.bigimagesNotification))) {
+                    fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.bigimagesNotification));
+                }
+                data.bigimagesNotification = req.file.filename
             }
-            data.bigimagesNotification = req.file.filename
-        }
-        data.save();
-        return res.json({
-            status: 1,
-            message: req.file.filename
+            data.save();
+            return res.json({
+                status: 1,
+                message: req.file.filename
+            })
         })
-    })
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
 
 })
 // save icon background notification
 router.post("/iconbackgroundnotification/:idApp", uploading.single('background'), (req, res) => {
-
-    notification.findOne({
-        idApp: req.params.idApp,
-        status: false
-    }).then((data) => {
-        if (!data.backgroundNotification) {
-            data.backgroundNotification = req.file.filename
-        } else {
-            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.backgroundNotification))) {
-                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.backgroundNotification));
+    try {
+        notification.findOne({
+            idApp: req.params.idApp,
+            status: false
+        }).then((data) => {
+            if (!data.backgroundNotification) {
+                data.backgroundNotification = req.file.filename
+            } else {
+                if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.backgroundNotification))) {
+                    fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + data.backgroundNotification));
+                }
+                data.backgroundNotification = req.file.filename
             }
-            data.backgroundNotification = req.file.filename
-        }
-        data.save();
-        return res.json({
-            status: 1,
-            message: req.file.filename
+            data.save();
+            return res.json({
+                status: 1,
+                message: req.file.filename
+            })
         })
-    })
 
-
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
 
 })
 
 router.post("/canceliconnotification/:idApp", (req, res) => {
-
-    notification.update({
-        idApp: req.params.idApp,
-        status: false
-    }, {
-        smallIcon: ""
-    }).then((data) => {
-        if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelSmall))) {
-            fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelSmall));
-        }
-        return res.json({
-            status: 1,
-            message: "ok"
+    try {
+        notification.update({
+            idApp: req.params.idApp,
+            status: false
+        }, {
+            smallIcon: ""
+        }).then((data) => {
+            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelSmall))) {
+                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelSmall));
+            }
+            return res.json({
+                status: 1,
+                message: "ok"
+            })
         })
-    })
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
+
 
 
     // console.log(req)
 
 })
 router.post("/canceliconlargenotification/:idApp", (req, res) => {
-
-    notification.update({
-        idApp: req.params.idApp,
-        status: false
-    }, {
-        iconNotification: ""
-    }).then((data) => {
-        if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelIcon))) {
-            fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelIcon));
-        }
-        return res.json({
-            status: 1,
-            message: "ok"
+    try {
+        notification.update({
+            idApp: req.params.idApp,
+            status: false
+        }, {
+            iconNotification: ""
+        }).then((data) => {
+            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelIcon))) {
+                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelIcon));
+            }
+            return res.json({
+                status: 1,
+                message: "ok"
+            })
         })
-    })
+    } catch (error) {
+
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
+
 
 
 })
 router.post("/canceliconbigimagesnotification/:idApp", (req, res) => {
-
-    notification.update({
-        idApp: req.params.idApp,
-        status: false
-    }, {
-        bigimagesNotification: ""
-    }).then((data) => {
-        if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBig))) {
-            fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBig));
-        }
-        return res.json({
-            status: 1,
-            message: "ok"
+    try {
+        notification.update({
+            idApp: req.params.idApp,
+            status: false
+        }, {
+            bigimagesNotification: ""
+        }).then((data) => {
+            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBig))) {
+                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBig));
+            }
+            return res.json({
+                status: 1,
+                message: "ok"
+            })
         })
-    })
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
 
 })
 router.post("/canceliconbackgroundnotification/:idApp", (req, res) => {
-
-    notification.update({
-        idApp: req.params.idApp,
-        status: false
-    }, {
-        backgroundNotification: ""
-    }).then((data) => {
-        if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBackground))) {
-            fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBackground));
-        }
-        return res.json({
-            status: 1,
-            message: "ok"
+    try {
+        notification.update({
+            idApp: req.params.idApp,
+            status: false
+        }, {
+            backgroundNotification: ""
+        }).then((data) => {
+            if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBackground))) {
+                fs.unlinkSync(path.join(appRoot, 'public', 'themes/img/settingnotification/' + req.body.cancelBackground));
+            }
+            return res.json({
+                status: 1,
+                message: "ok"
+            })
         })
-    })
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
 
 })
 
 
 router.post('/save-data-notification/:idApp', (req, res) => {
-
-    var data = JSON.parse(Object.getOwnPropertyNames(req.body)[0]);
-    // console.log(data)
-    var nametitle = data.title['country'];
-    var namecontent = data.content['country'];
-    let query = {
-        titleNotification: {
-            [nametitle]: data.title['value']
-        },
-        contentNotification: {
-            [namecontent]: data.content['value']
-        },
-        titleColor: data.colorTitle,
-        contentColor: data.colorContent,
-        ledColor: data.colorLed,
-        accentColor: data.colorAccent,
-        internalLink: data.internalLink[0],
-        sendToUser: data.sendToUser,
-        excludesendToUser: data.exclude,
-        include_player_ids: data.devices_test
-    }
-    notification.update({
-        idApp: req.params.idApp,
-        status: false
-    }, query).then(() => {
-        return res.json({
-            status: 1,
-            message: "ok"
+    try {
+        var data = JSON.parse(Object.getOwnPropertyNames(req.body)[0]);
+        // console.log(data)
+        var nametitle = data.title['country'];
+        var namecontent = data.content['country'];
+        let query = {
+            titleNotification: {
+                [nametitle]: data.title['value']
+            },
+            contentNotification: {
+                [namecontent]: data.content['value']
+            },
+            titleColor: data.colorTitle,
+            contentColor: data.colorContent,
+            ledColor: data.colorLed,
+            accentColor: data.colorAccent,
+            internalLink: data.internalLink[0],
+            sendToUser: data.sendToUser,
+            excludesendToUser: data.exclude,
+            include_player_ids: data.devices_test
+        }
+        notification.update({
+            idApp: req.params.idApp,
+            status: false
+        }, query).then(() => {
+            return res.json({
+                status: 1,
+                message: "ok"
+            })
         })
-    })
+    } catch (error) {
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
 
 
 })

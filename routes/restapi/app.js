@@ -33,7 +33,7 @@ router.get('/inserttrafficapp', (req, res) => {
         var country = req.query.country;
 
         if (!idApp || !platform || !sessionIdUser || !pageAccess || !country) {
-            res.json({ status: 3, msg: 'Lỗi: Điều kiện biến không đủ' });
+            res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
         } else {
             InforAppModel.findOne({ idApp: idApp }).then((data) => {
                 console.log(data);

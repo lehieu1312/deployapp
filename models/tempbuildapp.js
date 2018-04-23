@@ -8,6 +8,11 @@ let tempBuildAppSchema = mongoose.Schema({
     platform: String,
     linkFileZipProject: String,
     linkZipIPA: String,
+    provisionFileAdHoc: String,
+    provisionFileAppStore: String,
+    certificateFileAdHoc: String,
+    certificateFileAppStore: String,
+    logError: String,
     dateCreate: Date,
     status: Boolean
 });

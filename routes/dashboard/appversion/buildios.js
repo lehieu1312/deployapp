@@ -289,6 +289,10 @@ router.post('/deployapp-ios-dash', multipartMiddleware, async(req, res) => {
                             version: versionApp,
                             platform: 'ios',
                             linkFileZipProject: dLinkFileZipProject,
+                            provisionAdHocName: provisionAdHocName,
+                            provisionFileAppStore: provisionFileAppStore,
+                            certificateFileAdHoc: certificateFileAdHoc,
+                            certificateFileAppStore: certificateFileAppStore,
                             dateCreate: Date.now(),
                             status: true
                         });
@@ -418,16 +422,620 @@ router.post('/deployapp-ios-dash', multipartMiddleware, async(req, res) => {
 
 router.post('/build-ios-macsv-dash', async(req, res) => {
     try {
-        var idAppUser, versionApp, appName, sProvisionAdHocFileName, sProvisionAppStoreFileName, sCertificateAdHocFileName,
-            sCertificateAppStoreFileName, sAppName, linkFileZip, sCaseFileiOs;
+        var sIDAppUser, sVersionApp, sAppName, sProvisionAdHocFileName, sProvisionAppStoreFileName, sCertificateAdHocFileName,
+            sCertificateAppStoreFileName, linkFileZip, sCaseFileiOs;
         var nameAdHoc, nameAppStore, nameCertificate, UUIDAdHoc, UUIDAppStore, TeamIDAdHoc, TeamIDAppStore, mailCustomer;
-        idAppUser = req.body.idappuser;
-        versionApp = req.body.version;
-        appName = req.body.nameapp;
-        console.log('vao roi');
-        return res.json({ status: "1", content: 'success' });
+        sIDAppUser = req.body.idappuser;
+        sVersionApp = req.body.version;
+        sAppName = req.body.nameapp;
+        console.log('Bắt đầu build iOS');
+
+        let result = await tempBuildAppModels.find({ idApp: sIDAppUser, version: sVersionApp, appName: sAppName }).exec();
+        if (result) {
+            if (result.length > 0) {
+                async.each(result, function(kq) {
+                    linkFileZip = kq.linkFileZipProject;
+                    console.log('linkFileZip: ' + linkFileZip);
+                    sProvisionAdHocFileName = kq.provisionFileAdHoc;
+                    console.log('sProvisionAdHocFileName: ' + sProvisionAdHocFileName);
+                    sProvisionAppStoreFileName = kq.provisionFileAppStore;
+                    console.log('sProvisionAppStoreFileName: ' + sProvisionAppStoreFileName);
+                    sCertificateAdHocFileName = kq.certificateFileAdHoc;
+                    console.log('sCertificateAdHocFileName: ' + sCertificateAdHocFileName);
+                    sCertificateAppStoreFileName = kq.certificateFileAppStore;
+                    console.log('sCertificateAppStoreFileName: ' + sCertificateAppStoreFileName);
+                });
+            } else {
+                return res.json({ status: '3', content: 'Not Find Project' });
+            }
+        } else {
+            return res.json({ status: '3', content: 'Not Find Project' });
+        }
+
+        /////////////////////////////////////////FUNCTION///////////////////////////////
+
+        /////////////////COMMAND LINE////////////////
+        let commandLine = (cmd, optionList) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    var commandLine = crossSpawn.spawn(cmd, optionList);
+                    commandLine.stdout.on('data', function(data) {
+                        console.log('data out: ' + data.toString());
+                        if (data instanceof Error) {
+                            //console.log(chalk.bold(data.toString()));
+                            reject(data);
+                        }
+                    });
+                    commandLine.stderr.on('data', function(data) {
+                        console.log('data error: ' + data.toString());
+                        if (data instanceof Error) {
+                            //console.log(chalk.bold(data.toString()));
+                            reject(data);
+                        }
+                        if (data.toString().toLowerCase().indexOf('error') >= 0) {
+                            // console.log(chalk.bold(data.toString()));
+                            reject(data);
+                        }
+                    });
+                    commandLine.on('close', function(code) {
+                        if (code > 0) {
+                            reject(new Error(code));
+                        }
+                        resolve('Success commandline.');
+                    });
+                } catch (error) {
+                    reject(error);
+                }
+            })
+        }
+
+        ///////////////////////////generatesBuildJSONAdHoc/////////////
+        let generatesBuildJSONAdHoc = (fUUID, fTeamID, fIDAppUser, fVersionApp) => {
+
+            return new Promise((resolve, reject) => {
+                try {
+                    if (fs.existsSync(path.join(appRoot, 'public', 'projectios', fIDAppUser, fVersionApp, 'build.json'))) {
+                        fse.removeSync(path.join(appRoot, 'public', 'projectios', fIDAppUser, fVersionApp, 'build.json'));
+                    }
+                    var content = {
+                        "ios": {
+                            "debug": {
+                                "codeSignIdentity": "iPhone Development",
+                                "provisioningProfile": fUUID,
+                                "developmentTeam": fTeamID,
+                                "packageType": "development"
+                            },
+                            "release": {
+                                "codeSignIdentity": "iPhone Distribution",
+                                "provisioningProfile": fUUID,
+                                "developmentTeam": fTeamID,
+                                "packageType": "ad-hoc"
+                            }
+                        }
+                    };
+                    jsonfile.writeFileSync(path.join(appRoot, 'public', 'projectios', fIDAppUser, fVersionApp, 'build.json'), content);
+                    resolve('generate build success.');
+                } catch (e) {
+                    console.log("Cannot write file ", e + '');
+                    reject(e);
+                }
+            })
+        }
+
+        ////////////////////////////BUILD IOS TO TEST////////////////////
+        let buildiOSToTest = (fIDAppUser, fVersion, fProvisionFileAdHoc, fCertificateFileAdHoc, fAppName) => {
+            return new Promise((resolve, reject) => {
+
+                console.log('===============Security import certificate===============');
+                var cmd = 'security';
+                var argv = ['import', fCertificateFileAdHoc, '-P', ''];
+                // var pathCertificateFile = path.join(appRoot, 'public', 'projectios', sKeyFolder, 'inputprovision', certificateFileName)
+                process.chdir(path.join(appRoot, 'public', 'projectios', fIDAppUser, fVersion, 'inputprovision'));
+                return commandLine(cmd, argv).then(() => {
+                        console.log('===============Open Provision Ad-Hoc ===============');
+                        console.log(fProvisionFileAdHoc);
+                        console.log(fIDAppUser);
+                        // var pathCertificateFile = path.join(appRoot, 'public', 'projectios', sKeyFolder, 'inputprovision', adHocFileName)
+                        var pathFileProvision = path.join(appRoot, 'public', 'projectios', fIDAppUser, fVersion, 'inputprovision', fProvisionFileAdHoc);
+                        process.chdir(path.join(appRoot, 'public', 'projectios', fIDAppUser, fVersion, 'inputprovision'));
+                        return commandLine('open', [pathFileProvision]);
+                    })
+                    .then(() => {
+                        console.log('======Generate Plist File Ad-Hoc=========');
+                        nameProvisionAdHoc = fProvisionFileAdHoc.split('.').shift();
+                        console.log('nameProvisionAdHoc: ' + nameProvisionAdHoc);
+                        //security cms -D -i sunbri.mobileprovision -o sunbri.plist
+                        process.chdir(path.join(appRoot, 'public', 'projectios', fIDAppUser, fVersion, 'inputprovision'));
+                        return commandLine('security', ['cms', '-D', '-i', fProvisionFileAdHoc, '-o', nameProvisionAdHoc + '.plist']);
+                    }).then(() => {
+                        console.log('====== Read File Plist Ad-Hoc =========');
+                        console.log('nameProvisionAdHoc 2: ' + nameProvisionAdHoc);
+                        var pathPlistAdHoc = path.join(appRoot, 'public', 'projectios', fIDAppUser, fVersion, 'inputprovision', nameProvisionAdHoc + '.plist');
+                        return readPlistFileAdHoc(pathPlistAdHoc);
+                    }).then((result) => {
+                        console.log('======Generate Build JSON File=========');
+                        console.log(result);
+                        return generatesBuildJSONAdHoc(result.UUID, result.teamID, fIDAppUser, fVersion);
+                    }).then(() => {
+                        console.log('=========Building IPA to Test==========');
+                        // var cmd = 'ionic';
+                        var cmd = 'cordova';
+                        var argvBuild = ['build', 'ios', '--device', '--release', '--buildConfig'];
+                        process.chdir(path.join(appRoot, 'public', 'projectios', fIDAppUser, fVersion));
+                        return commandLine(cmd, argvBuild);
+                    }).then(() => {
+                        console.log('=========Copy File IPA to Test==========');
+                        var pathDirIPA = path.join(appRoot, 'public', 'projectios', fIDAppUser, fVersion);
+                        var pathCopyIPA = path.join(appRoot, 'public', 'backupipa');
+                        return copyFileIPATest(pathDirIPA, pathCopyIPA, fIDAppUser, fVersion, fAppName);
+                    }).then(() => {
+                        console.log('log: Generate File Build Ad-Hoc Success...');
+                        return resolve('Generate File Build Ad-Hoc Success...');
+                    })
+                    .catch((ex) => {
+                        console.log(ex);
+                        reject(ex);
+                    })
+            })
+        }
+
+
+        ////////////////////CHECK BUILDING IOS//////////////
+        let checkBuildingiOS = (totalBuild, fIDAppUser) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    let listBuild = new listBuildingModels({
+                        keyFolder: fIDAppUser,
+                        platforms: 'ios',
+                        dateStartBuild: Date.now()
+                    });
+                    listBuildingModels.save((err, result) => {
+                        if (err) {
+                            console.log('err save list build: ' + err);
+                            reject(err);
+                        }
+                        // resolve('Insert building success.');
+                        listBuildingModels.find({ platforms: 'ios' }).sort({ dateStartBuild: 1 }).limit(totalBuild).exec((err, result) => {
+                            if (err) {
+                                console.log('Error find building: ' + err);
+                                reject(err);
+                            }
+                            async.each(result, function(key) {
+                                console.log('Check key: ' + key.keyFolder);
+                                if (fIDAppUser == key.keyFolder) {
+                                    return resolve('Key success ');
+                                }
+                            });
+                            var CheckKeyFolderInterval = setInterval(function() {
+                                listBuildingModels.find({ platforms: 'ios' }).sort({ dateStartBuild: 1 }).limit(totalBuild).exec((err, result) => {
+                                    if (err) {
+                                        console.log('Error find building: ' + err);
+                                        reject(err);
+                                    }
+                                    async.each(result, function(key) {
+                                        console.log('Check key interval: ' + key.keyFolder);
+                                        if (fIDAppUser == key.keyFolder) {
+                                            clearInterval(CheckKeyFolderInterval);
+                                            return resolve('Key success');
+                                        }
+                                    });
+                                });
+                            }, 3000)
+                        });
+                    });
+                } catch (error) {
+                    console.log('Error total check build: ' + error);
+                    reject(error);
+                }
+            })
+        }
+
+        //////
+
+        let extractFile = (pathFileZip, fIDAppUser) => {
+                return new Promise((resolve, reject) => {
+                    try {
+                        console.log('start extract');
+                        console.log('pathFileZip: ' + pathFileZip);
+                        console.log(path.join(appRoot, 'public', 'projectios', fIDAppUser));
+                        if (fs.existsSync(path.join(appRoot, 'public', 'projectios', fIDAppUser))) {
+                            fse.removeSync(path.join(appRoot, 'public', 'projectios', fIDAppUser));
+                        }
+                        extract(pathFileZip, { dir: path.join(appRoot, 'public', 'projectios', fIDAppUser) }, function(err) {
+                            // extraction is complete. make sure to handle the err 
+                            if (err) {
+                                console.log('Extract fail: ' + err);
+                                reject(err);
+                            } else {
+                                console.log('success');
+                                resolve('success');
+                            }
+                        })
+                    } catch (error) {
+                        console.log(error);
+                        reject(error);
+                    }
+                })
+            }
+            ///////      
+        let getFileZipProject = (fileZip, fIDAppUser) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    console.log('1');
+                    if (fs.exists(path.join(appRoot, 'public', 'projectios', fIDAppUser + '.zip'))) {
+                        fse.removeSync(path.join(appRoot, 'public', 'projectios', fIDAppUser + '.zip'));
+                    }
+                    console.log(fileZip);
+                    var linkPipe = path.join(appRoot, 'public', 'projectios', fIDAppUser + '.zip');
+                    var file = fs.createWriteStream(linkPipe);
+                    var request = https.get(fileZip, function(response) {
+                        response.pipe(file);
+                        file.on('finish', function() {
+                            file.close();
+                            console.log('success get file');
+                            resolve(linkPipe);
+                        });
+
+                    }).on('error', function(err) { // Handle errors
+                        fse.unlinkSync(linkPipe); // Delete the file async. (But we don't check the result)
+                        console.log('unlink: ' + err);
+                        reject(err);
+                    });
+
+                } catch (error) {
+                    console.log('error get file: ' + error);
+                    reject(error);
+                }
+            })
+        }
+
+        /////////////////////////////
+        let updateDB = (fIDAppUser, fVersionApp, listArgv) => {
+                return new Promise((resolve, reject) => {
+                    try {
+                        // Infomation.findOneAndUpdate({ keyFolder: dbNameFolder }, { $set: { isParams: false } }, { upsert: false }, function(err, result) 
+                        AppVersionUserModels.findOneAndUpdate({ idApp: fIDAppUser, version: fVersionApp }, { $set: listArgv }, function(err, result) {
+                            if (err) {
+                                reject(err);
+                            }
+                            listBuildingModels.remove({ keyFolder: fIDAppUser }, function(err, kq) {
+                                if (err) {
+                                    console.log('Error remove key building: ' + err);
+                                    reject(err);
+                                }
+                                resolve('Update db success.');
+                            })
+                        });
+                    } catch (error) {
+                        reject(error);
+                    }
+                })
+            }
+            ///////////////////
+        let zipIPAAndUpdate = (fIDAppUser) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    zipFolder(path.join(appRoot, 'public', 'backupipa', fIDAppUser), path.join(appRoot, 'public', 'backupipa', fIDAppUser + '.zip'), function(err) {
+                        if (err) {
+                            console.log('oh no!', err);
+                            reject(err);
+                        }
+                        // var hostName = req.headers.host;
+                        var cLinkZipIpa = hostIOS + '/' + 'send-zipipa/' + fIDAppUser;
+
+                        tempBuildAppModels.findOneAndUpdate({ idUser: fIDAppUser }, { $set: { linkZipIPA: cLinkZipIpa } }, function(err, result) {
+                            if (err) {
+                                console.log(err);
+                                reject(err);
+                            }
+                            if (fs.existsSync(path.join(appRoot, 'public', 'projectios', fIDAppUser))) {
+                                fse.removeSync(path.join(appRoot, 'public', 'projectios', fIDAppUser));
+                            }
+                            if (fs.existsSync(path.join(appRoot, 'public', 'projectios', fIDAppUser + '.zip'))) {
+                                fse.removeSync(path.join(appRoot, 'public', 'projectios', fIDAppUser + '.zip'));
+                            }
+                            resolve('Zip success.');
+                        });
+                    });
+                } catch (error) {
+                    console.log(error);
+                    reject(error);
+                }
+            })
+        }
+
+        ///////////////////
+        let readPlistFileAdHoc = (plistFile) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    var obj = plist.parse(fs.readFileSync(plistFile, "utf8"));
+                    // console.log(JSON.stringify(obj));
+                    console.log(obj.UUID);
+                    console.log(obj.TeamIdentifier[0]);
+                    UUIDAdHoc = obj.UUID;
+                    TeamIDAdHoc = obj.TeamIdentifier[0];
+                    resolve({ teamID: TeamIDAdHoc, UUID: UUIDAdHoc });
+                } catch (error) {
+                    console.log(error);
+                    reject(error + '');
+                }
+            })
+        }
+
+        ////////////////////////
+        let copyFileIPATest = (pathProjectApp, pathBackupIPA, fIDAppUser, fVersion, fAppName) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    var pathFolder = path.join(pathBackupIPA, fIDAppUser);
+                    if (!fs.existsSync(pathFolder)) {
+                        fs.mkdirSync(pathFolder);
+                    }
+                    var pathFolderVerSion = path.join(pathBackupIPA, fIDAppUser, fVersion);
+                    if (!fs.existsSync(pathFolderVerSion)) {
+                        fs.mkdirSync(pathFolderVerSion);
+                    }
+                    var pathUnsigned = path.join(pathBackupIPA, fIDAppUser, fVersion, 'unsigned');
+                    if (!fs.existsSync(pathUnsigned)) {
+                        fs.mkdirSync(pathUnsigned);
+                    }
+                    var rFile = path.join(pathProjectApp, 'platforms', 'ios', 'build', 'device', fAppName + '.ipa');
+                    console.log('r: ' + rFile);
+                    var wFile = path.join(pathUnsigned, fAppName + '-test.ipa');
+                    console.log('w: ' + wFile);
+                    fse.copy(rFile, wFile, { replace: true }, (err) => {
+                        if (err) return reject(err + '');
+                        resolve('Copy file apk unsign success.');
+                    });
+                    // const outAplication = fs.createWriteStream(path.join(path_signed, 'android-release-unsigned.apk'));
+                    // fs.createReadStream(path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-release-unsigned.apk'))
+                    //     .pipe(outAplication);
+                    // outAplication.on("end", resolve("copy success."));
+                    // outAplication.on("error", reject('Error copy file apk.'));
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
+
+        ///////////////
+        let buildiOSToAppStore = (fIDAppUser, fVerionApp, fProvisionFileAppStore, fCertificateFileAppStore, fAppName) => {
+            return new Promise((resolve, reject) => {
+                console.log('===============Security import certificate===============');
+                var cmd = 'security';
+                var argv = ['import', fCertificateFileAppStore, '-P', ''];
+                // var pathCertificateFile = path.join(appRoot, 'public', 'projectios', sKeyFolder, 'inputprovision', certificateFileName)
+                process.chdir(path.join(appRoot, 'public', 'projectios', fIDAppUser, fVerionApp, 'inputprovision'));
+                return commandLine(cmd, argv).then(() => {
+                        console.log('===============Open Provision App-Store ===============');
+                        console.log(fProvisionFileAppStore);
+                        console.log(fKeyFolder);
+                        // var pathCertificateFile = path.join(appRoot, 'public', 'projectios', sKeyFolder, 'inputprovision', adHocFileName)
+                        var pathFileProvision = path.join(appRoot, 'public', 'projectios', fIDAppUser, fVerionApp, 'inputprovision', fProvisionFileAppStore);
+                        process.chdir(path.join(appRoot, 'public', 'projectios', fIDAppUser, fVerionApp, 'inputprovision'));
+                        return commandLine('open', [pathFileProvision]);
+                    }).then(() => {
+                        console.log('======Generate Plist File App-Store=========');
+                        nameProvisionAppStore = fProvisionFileAppStore.split('.').shift();
+                        console.log('nameProvisionAppStore: ' + nameProvisionAppStore);
+                        //security cms -D -i sunbri.mobileprovision -o sunbri.plist
+                        process.chdir(path.join(appRoot, 'public', 'projectios', fIDAppUser, fVerionApp, 'inputprovision'));
+                        return commandLine('security', ['cms', '-D', '-i', fProvisionFileAppStore, '-o', nameProvisionAppStore + '.plist']);
+                    }).then(() => {
+                        console.log('====== Read File Plist App-Store =========');
+                        console.log('nameProvisionAppStore 2: ' + nameProvisionAppStore);
+                        process.chdir(path.join(appRoot, 'public', 'projectios', fIDAppUser));
+                        var pathPlistAdHoc = path.join(appRoot, 'public', 'projectios', fIDAppUser, fVerionApp, 'inputprovision', nameProvisionAppStore + '.plist');
+                        return readPlistFileAppStore(pathPlistAdHoc);
+                    }).then((result) => {
+                        console.log('======Generate Build JSON File=========');
+                        console.log('result: ' + result);
+                        process.chdir(path.join(appRoot, 'public', 'projectios', fIDAppUser, fVerionApp));
+                        return generatesBuildJSONAppStore(result.UUID, result.teamID, fIDAppUser, fVerionApp);
+                    }).then(() => {
+                        console.log('=========Building IPA to App Store==========');
+                        // var cmd = 'ionic';
+                        var cmd = 'cordova';
+                        var argvBuild = ['build', 'ios', '--device', '--release', '--buildConfig'];
+                        process.chdir(path.join(appRoot, 'public', 'projectios', fIDAppUser, fVerionApp));
+                        return commandLine(cmd, argvBuild);
+                    }).then(() => {
+                        console.log('=========Copy File IPA to App Store==========');
+                        var pathDirIPA = path.join(appRoot, 'public', 'projectios', fIDAppUser, fVerionApp);
+                        var pathCopyIPA = path.join(appRoot, 'public', 'backupipa');
+                        return copyFileIPAAppStore(pathDirIPA, pathCopyIPA, fIDAppUser, fVerionApp, fAppName);
+                    }).then(() => {
+                        console.log('log: Generate File Build App Store Success...');
+                        return resolve('Generate File Build App Store Success...');
+                    })
+                    .catch((ex) => {
+                        console.log(ex);
+                        reject(ex);
+                    })
+            })
+
+        }
+
+        /////////////////////////
+        let readPlistFileAppStore = (plistFile) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    var obj = plist.parse(fs.readFileSync(plistFile, "utf8"));
+                    console.log(JSON.stringify(obj));
+                    console.log(obj.UUID);
+                    console.log(obj.TeamIdentifier[0]);
+                    UUIDAppStore = obj.UUID;
+                    TeamIDAppStore = obj.TeamIdentifier[0];
+                    resolve({ teamID: TeamIDAppStore, UUID: UUIDAppStore });
+                } catch (error) {
+                    console.log(error);
+                    reject(error + '');
+                }
+            })
+        }
+
+        //////////////////////////
+        let generatesBuildJSONAppStore = (fUUID, fTeamID, fIDAppUser, fVersion) => {
+
+            return new Promise((resolve, reject) => {
+                if (fs.existsSync(path.join(appRoot, 'public', 'projectios', fIDAppUser, fVersion, 'build.json'))) {
+                    fse.removeSync(path.join(appRoot, 'public', 'projectios', fIDAppUser, fVersion, 'build.json'));
+                }
+                var content = {
+                    "ios": {
+                        "debug": {
+                            "codeSignIdentity": "iPhone Development",
+                            "provisioningProfile": fUUID,
+                            "developmentTeam": fTeamID,
+                            "packageType": "development"
+                        },
+                        "release": {
+                            "codeSignIdentity": "iPhone Distribution",
+                            "provisioningProfile": fUUID,
+                            "developmentTeam": fTeamID,
+                            "packageType": "app-store"
+                        }
+                    }
+                };
+
+                try {
+                    jsonfile.writeFile(path.join(appRoot, 'public', 'projectios', fIDAppUser, fVersion, 'build.json'), content, (err) => {
+                        if (err) {
+                            console.log(err + '');
+                            reject(err);
+                        } else resolve('generate build success.');
+                    });
+                } catch (e) {
+                    console.log("Cannot write file ", e + '');
+                    reject(e);
+                }
+            })
+        }
+
+        ///////////////////////////////////////
+        let copyFileIPAAppStore = (pathProjectApp, pathBackupIPA, fIDAppUser, fVersion, fAppName) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    var pathFolder = path.join(pathBackupIPA, fIDAppUser);
+                    if (!fs.existsSync(pathFolder)) {
+                        fs.mkdirSync(pathFolder);
+                    }
+                    var pathFolderVersion = path.join(pathBackupIPA, fIDAppUser, fVersion);
+                    if (!fs.existsSync(pathFolderVersion)) {
+                        fs.mkdirSync(pathFolderVersion);
+                    }
+                    var pathSigned = path.join(pathBackupIPA, fIDAppUser, fVersion, 'signed');
+                    if (!fs.existsSync(pathSigned)) {
+                        fs.mkdirSync(pathSigned);
+                    }
+                    var rFile = path.join(pathProjectApp, 'platforms', 'ios', 'build', 'device', fAppName + '.ipa');
+                    console.log('r: ' + rFile);
+                    var wFile = path.join(pathSigned, fAppName + '.ipa');
+                    console.log('w: ' + wFile);
+                    fse.copy(rFile, wFile, { replace: true }, (err) => {
+                        if (err) return reject(err + '');
+                        resolve('Copy file apk unsign success.');
+                    });
+                    // const outAplication = fs.createWriteStream(path.join(path_signed, 'android-release-unsigned.apk'));
+                    // fs.createReadStream(path.join(pathProjectApp, 'platforms', 'android', 'build', 'outputs', 'apk', 'android-release-unsigned.apk'))
+                    //     .pipe(outAplication);
+                    // outAplication.on("end", resolve("copy success."));
+                    // outAplication.on("error", reject('Error copy file apk.'));
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
+
+        /////////////////////////////////////////////////////BUILD IOS COMMAND LINE IN SERVER MACOS///////////////////////
+
+        console.log('======================= Check list building =======================');
+        return checkBuildingiOS(sumBuild, sIDAppUser).then(() => {
+                console.log('======================= Start get url =======================');
+                return getFileZipProject(linkFileZip, sIDAppUser);
+            }).then((result) => {
+                console.log('================== Extract file =========================');
+                return extractFile(result, sIDAppUser);
+            })
+            .then(() => {
+                console.log('Access file...');
+                process.chdir(path.join(appRoot, 'public', 'projectios', sIDAppUser, sVersionApp));
+                return commandLine('chmod', ['-R', '777', './']);
+            })
+            .then(() => {
+                console.log('==================NPM install package================');
+                process.chdir(path.join(appRoot, 'public', 'projectios', sIDAppUser, sVersionApp));
+                return commandLine('npm', ['install']);
+            })
+            .then(() => {
+                console.log('=======ReBuild Node-Sass========');
+                process.chdir(path.join(appRoot, 'public', 'projectios', sIDAppUser, sVersionApp));
+                return commandLine('npm', ['rebuild', 'node-sass']);
+            })
+            .then(() => {
+                //    console.log('kq: ' + result);
+                console.log('=======Add Platform========');
+                // var cmdRelease = 'ionic';
+                var cmdRelease = 'cordova';
+                var argv;
+                // console.log(sPlatform);
+                argv = ['platform', 'add', 'ios'];
+                process.chdir(path.join(appRoot, 'public', 'projectios', sIDAppUser, sVersionApp));
+                return commandLine(cmdRelease, argv);
+            }).then(() => {
+                console.log('=====Build test=====');
+                process.chdir(path.join(appRoot, 'public', 'projectios', sIDAppUser, sVersionApp));
+                return buildiOSToTest(sIDAppUser, sVersionApp, sProvisionAdHocFileName, sCertificateAdHocFileName, sAppName);
+            })
+            .then(() => {
+                console.log('=====Start build ios app store=====');
+                process.chdir(path.join(appRoot, 'public', 'projectios', sIDAppUser));
+                return buildiOSToAppStore(sIDAppUser, sVersionApp, sProvisionAppStoreFileName, sCertificateAppStoreFileName, sAppName);
+            })
+            .then(() => {
+                console.log('================== Update Database ===================');
+                var hostName = req.headers.host;
+                console.log('hostName:' + hostName);
+                slinkDebug = path.join('static', 'debug', sIDAppUser, sVersionApp, sAppName + '-test.ipa');
+                slinkSigned = path.join('static', 'signed', sIDAppUser, sVersionApp, sAppName + '.ipa');
+                slinkDebug = slinkDebug.replace(/ /g, '%20');
+                slinkDebug = slinkDebug.replace("\\", "/");
+
+                slinkSigned = slinkSigned.replace(/ /g, '%20');
+                slinkSigned = slinkSigned.replace("\\", "/");
+                console.log(slinkDebug);
+                console.log(slinkSigned);
+                slinkDebug = hostServer + '/' + slinkDebug;
+                slinkSigned = hostServer + '/' + slinkSigned;
+                // slinkDebug = path.join(hostServer, slinkDebug);
+                // slinkSigned = path.join(hostServer, slinkSigned);
+                console.log(slinkDebug);
+                console.log(slinkSigned);
+
+                var cond = sIDAppUser;
+                var value = { linkIPADebug: slinkDebug, linkIPAAppStore: slinkSigned };
+                return updateDB(sIDAppUser, sVersionApp, value);
+            }).then((kq) => {
+                console.log(kq);
+                console.log('================== Zip folder outputs ===================');
+                return zipIPAAndUpdate(sIDAppUser);
+            })
+            .then(() => {
+                console.log('================== Finish Process ===================');
+                return res.json({ status: "1", content: 'success' });
+            }).catch((ex) => {
+                console.log('ex: ' + ex);
+                if (fs.existsSync(path.join(appRoot, 'public', 'projectios', sIDAppUser))) {
+                    fse.removeSync(path.join(appRoot, 'public', 'projectios', sIDAppUser));
+                }
+                if (fs.existsSync(path.join(appRoot, 'public', 'projectios', sIDAppUser + '.zip'))) {
+                    fse.removeSync(path.join(appRoot, 'public', 'projectios', sIDAppUser + '.zip'));
+                }
+                return res.json({ status: "3", content: ex + '' });
+
+            });
+        // return res.json({ status: "1", content: 'success' });
     } catch (error) {
-        console.log(error);
+        console.log('ERROR: ' + error);
         return res.json({ status: '3', content: error + '' });
     }
 });

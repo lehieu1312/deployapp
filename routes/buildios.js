@@ -871,81 +871,78 @@ router.post('/build-ios-macsv', async(req, res) => {
         }
         let buildiOSToAppStore = (fKeyFolder, fProvisionFileAppStore, fCertificateFileAppStore, fAppName) => {
             return new Promise((resolve, reject) => {
-                    console.log('===============Security import certificate===============');
-                    var cmd = 'security';
-                    var argv = ['import', fCertificateFileAppStore, '-P', ''];
-                    // var pathCertificateFile = path.join(appRoot, 'public', 'projectios', sKeyFolder, 'inputprovision', certificateFileName)
-                    process.chdir(path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision'));
-                    return commandLine(cmd, argv).then(() => {
-                            console.log('===============Open Provision App-Store ===============');
-                            console.log(fProvisionFileAppStore);
-                            console.log(fKeyFolder);
-                            // var pathCertificateFile = path.join(appRoot, 'public', 'projectios', sKeyFolder, 'inputprovision', adHocFileName)
-                            var pathFileProvision = path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision', fProvisionFileAppStore);
-                            process.chdir(path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision'));
-                            return commandLine('open', [pathFileProvision]);
-                        }).then(() => {
-                            console.log('======Generate Plist File App-Store=========');
-                            nameProvisionAppStore = fProvisionFileAppStore.split('.').shift();
-                            console.log('nameProvisionAppStore: ' + nameProvisionAppStore);
-                            //security cms -D -i sunbri.mobileprovision -o sunbri.plist
-                            process.chdir(path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision'));
-                            return commandLine('security', ['cms', '-D', '-i', fProvisionFileAppStore, '-o', nameProvisionAppStore + '.plist']);
-                        }).then(() => {
-                            console.log('====== Read File Plist App-Store =========');
-                            console.log('nameProvisionAppStore 2: ' + nameProvisionAppStore);
-                            process.chdir(path.join(appRoot, 'public', 'projectios', sKeyFolder));
-                            var pathPlistAdHoc = path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision', nameProvisionAppStore + '.plist');
-                            return readPlistFileAppStore(pathPlistAdHoc);
-                        }).then((result) => {
-                            console.log('======Generate Build JSON File=========');
-                            console.log('result: ' + result);
-                            process.chdir(path.join(appRoot, 'public', 'projectios', sKeyFolder));
-                            return generatesBuildJSONAppStore(result.UUID, result.teamID, fKeyFolder);
-                        }).then(() => {
-                            console.log('=========Building IPA to App Store==========');
-                            // var cmd = 'ionic';
-                            var cmd = 'cordova';
-                            var argvBuild = ['build', 'ios', '--device', '--release', '--buildConfig'];
-                            process.chdir(path.join(appRoot, 'public', 'projectios', fKeyFolder));
-                            return commandLine(cmd, argvBuild);
-                        }).then(() => {
-                            console.log('=========Copy File IPA to App Store==========');
-                            var pathDirIPA = path.join(appRoot, 'public', 'projectios', fKeyFolder);
-                            var pathCopyIPA = path.join(appRoot, 'public', 'backupipa');
-                            return copyFileIPAAppStore(pathDirIPA, pathCopyIPA, fKeyFolder, fAppName);
-                        }).then(() => {
-                            console.log('log: Generate File Build App Store Success...');
-                            return resolve('Generate File Build App Store Success...');
-                        })
-                        .catch((ex) => {
-                            console.log(ex);
-                            reject(ex);
-                        })
-                        // console.log('================ Create File plist adHoc============');
-                        // // var pathCertificateFile = path.join(appRoot, 'public', 'projectios', sKeyFolder, 'inputprovision', certificateFileName)
-                        // nameAdHoc = adHocFileName.split('.').shift();
-                        // console.log('nameAdHoc: ' + nameAdHoc);
-                        // //security cms -D -i sunbri.mobileprovision -o sunbri.plist
-                        // process.chdir(path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision'));
-                        // return commandLine('security', ['cms', '-D', '-i', adHocFileName, '-o', nameAdHoc + '.plist'])
-                        //     .then(() => {
-                        //         var pathPlistAdHoc = path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision', nameAdHoc + '.plist')
-                        //         return readPlistFileAdHoc(pathPlistAdHoc);
-                        //     }).then(() => {
-                        //         return generatesBuildJSONAdHoc(UUIDAdHoc, TeamIDAdHoc, fKeyFolder);
-                        //     }).then(() => {
-                        //         console.log('log: Generate File Build Ad-Hoc Success...');
-                        //         return resolve('Generate File Build Ad-Hoc Success...');
-                        //     }).catch((er) => {
-                        //         console.log(er);
-                        //         reject(er);
-                        //     })
-                })
-                // .catch((ex) => {
-                //     console.log('ex: ' + ex);
-                //     reject(ex);
-                // })
+                console.log('===============Security import certificate===============');
+                var cmd = 'security';
+                var argv = ['import', fCertificateFileAppStore, '-P', ''];
+                // var pathCertificateFile = path.join(appRoot, 'public', 'projectios', sKeyFolder, 'inputprovision', certificateFileName)
+                process.chdir(path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision'));
+                return commandLine(cmd, argv).then(() => {
+                        console.log('===============Open Provision App-Store ===============');
+                        console.log(fProvisionFileAppStore);
+                        console.log(fKeyFolder);
+                        // var pathCertificateFile = path.join(appRoot, 'public', 'projectios', sKeyFolder, 'inputprovision', adHocFileName)
+                        var pathFileProvision = path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision', fProvisionFileAppStore);
+                        process.chdir(path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision'));
+                        return commandLine('open', [pathFileProvision]);
+                    }).then(() => {
+                        console.log('======Generate Plist File App-Store=========');
+                        nameProvisionAppStore = fProvisionFileAppStore.split('.').shift();
+                        console.log('nameProvisionAppStore: ' + nameProvisionAppStore);
+                        //security cms -D -i sunbri.mobileprovision -o sunbri.plist
+                        process.chdir(path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision'));
+                        return commandLine('security', ['cms', '-D', '-i', fProvisionFileAppStore, '-o', nameProvisionAppStore + '.plist']);
+                    }).then(() => {
+                        console.log('====== Read File Plist App-Store =========');
+                        console.log('nameProvisionAppStore 2: ' + nameProvisionAppStore);
+                        process.chdir(path.join(appRoot, 'public', 'projectios', sKeyFolder));
+                        var pathPlistAdHoc = path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision', nameProvisionAppStore + '.plist');
+                        return readPlistFileAppStore(pathPlistAdHoc);
+                    }).then((result) => {
+                        console.log('======Generate Build JSON File=========');
+                        console.log('result: ' + result);
+                        process.chdir(path.join(appRoot, 'public', 'projectios', sKeyFolder));
+                        return generatesBuildJSONAppStore(result.UUID, result.teamID, fKeyFolder);
+                    }).then(() => {
+                        console.log('=========Building IPA to App Store==========');
+                        // var cmd = 'ionic';
+                        var cmd = 'cordova';
+                        var argvBuild = ['build', 'ios', '--device', '--release', '--buildConfig'];
+                        process.chdir(path.join(appRoot, 'public', 'projectios', fKeyFolder));
+                        return commandLine(cmd, argvBuild);
+                    }).then(() => {
+                        console.log('=========Copy File IPA to App Store==========');
+                        var pathDirIPA = path.join(appRoot, 'public', 'projectios', fKeyFolder);
+                        var pathCopyIPA = path.join(appRoot, 'public', 'backupipa');
+                        return copyFileIPAAppStore(pathDirIPA, pathCopyIPA, fKeyFolder, fAppName);
+                    }).then(() => {
+                        console.log('log: Generate File Build App Store Success...');
+                        return resolve('Generate File Build App Store Success...');
+                    })
+                    .catch((ex) => {
+                        console.log(ex);
+                        reject(ex);
+                    })
+                    // console.log('================ Create File plist adHoc============');
+                    // // var pathCertificateFile = path.join(appRoot, 'public', 'projectios', sKeyFolder, 'inputprovision', certificateFileName)
+                    // nameAdHoc = adHocFileName.split('.').shift();
+                    // console.log('nameAdHoc: ' + nameAdHoc);
+                    // //security cms -D -i sunbri.mobileprovision -o sunbri.plist
+                    // process.chdir(path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision'));
+                    // return commandLine('security', ['cms', '-D', '-i', adHocFileName, '-o', nameAdHoc + '.plist'])
+                    //     .then(() => {
+                    //         var pathPlistAdHoc = path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision', nameAdHoc + '.plist')
+                    //         return readPlistFileAdHoc(pathPlistAdHoc);
+                    //     }).then(() => {
+                    //         return generatesBuildJSONAdHoc(UUIDAdHoc, TeamIDAdHoc, fKeyFolder);
+                    //     }).then(() => {
+                    //         console.log('log: Generate File Build Ad-Hoc Success...');
+                    //         return resolve('Generate File Build Ad-Hoc Success...');
+                    //     }).catch((er) => {
+                    //         console.log(er);
+                    //         reject(er);
+                    //     })
+            })
+
         }
 
         let generatesBuildJSONAdHoc = (fUUID, fTeamID, fKeyFolder) => {

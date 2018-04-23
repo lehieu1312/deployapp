@@ -14,6 +14,7 @@ var provisioning = require('provisioning');
 var browserDetect = require('browser-detect');
 var libSetting = require('../lib/setting');
 var tempBuildAppModels = require('../models/tempbuildapp');
+var appVersionUserModels = require('../models/appversionuser');
 var hostServer = libSetting.hostServer;
 // var plist = require('simple-plist');
 // var convert = require('xml-js');
@@ -75,6 +76,84 @@ router.get('/static/signed/:project/:app', function(req, res) {
     else {
         Infomation.find({
             keyFolder: project
+        }).exec((err, result) => {
+            if (err) {
+                console.log('Static file:' + err);
+                return res.render('404', {
+                    title: 'Page Not Found'
+                });
+            }
+            if (result.length > 0) {
+                return res.render('not-folder-app', {
+                    title: 'App Not Found'
+                });
+            } else
+                return res.render('404', {
+                    title: 'Page Not Found'
+                });
+        })
+    }
+    // res.render('404', { title: '404' });
+});
+router.get('/static/debug/:project/:version/:app', function(req, res) {
+    var project = req.params.project;
+    var app = req.params.app;
+    var sVersion = req.params.version;
+    console.log(project);
+    console.log(app);
+
+    var pathFile = path.join(appRoot, 'public', 'project', project, 'outputs', 'unsigned', app);
+    var pathFileBackupApk = path.join(appRoot, 'public', 'backupapk', project, sVersion, 'unsigned', app);
+    var pathFileBackupIpa = path.join(appRoot, 'public', 'backupipa', project, sVersion, 'unsigned', app);
+    console.log(pathFile);
+    console.log(pathFileBackupApk);
+    console.log(pathFileBackupIpa);
+    if (fs.existsSync(pathFile)) res.download(pathFile);
+    else if (fs.existsSync(pathFileBackupApk)) res.download(pathFileBackupApk);
+    else if (fs.existsSync(pathFileBackupIpa)) res.download(pathFileBackupIpa);
+    else {
+        appVersionUserModels.find({
+                idApp: project,
+                version: sVersion
+            }).exec((err, result) => {
+                if (err) {
+                    console.log('Static file:' + err);
+                    return res.render('404', {
+                        title: 'Page Not Found'
+                    });
+                }
+                if (result.length > 0) {
+                    return res.render('not-folder-app', {
+                        title: 'App Not Found'
+                    });
+                } else
+                    return res.render('404', {
+                        title: 'Page Not Found'
+                    });
+            })
+            // if (!fs.existsSync(path.join(appRoot, 'public', 'temporary', fKeyFolder))) {
+            //     return res.render('not-folder-app', { title: 'App Not Found' });
+            // }
+            // res.render('404', { title: '404' });
+    }
+});
+router.get('/static/signed/:project/:version/:app', function(req, res) {
+    var project = req.params.project;
+    var app = req.params.app;
+    var sVersion = req.params.version;
+    console.log(project);
+    console.log(app);
+    var pathFile = path.join(appRoot, 'public', 'project', project, 'outputs', 'signed', app);
+    var pathFileBackup = path.join(appRoot, 'public', 'backupapk', project, sVersion, 'signed', app);
+    var pathFileBackupIpa = path.join(appRoot, 'public', 'backupipa', project, sVersion, 'signed', app);
+    console.log(pathFile);
+    if (fs.existsSync(pathFile)) res.download(pathFile);
+    else if (fs.existsSync(pathFileBackup)) res.download(pathFileBackup);
+    else if (fs.existsSync(pathFileBackupIpa)) res.download(pathFileBackupIpa);
+    else {
+        appVersionUserModels.find({
+            idApp: project,
+            version: sVersion,
         }).exec((err, result) => {
             if (err) {
                 console.log('Static file:' + err);

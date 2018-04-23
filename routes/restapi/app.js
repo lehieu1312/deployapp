@@ -33,9 +33,14 @@ router.get('/inserttrafficapp', (req, res) => {
         var country = req.query.country;
 
         if (!idApp || !platform || !sessionIdUser || !pageAccess || !country) {
-            res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
+            res.json({
+                status: 3,
+                msg: 'Lỗi: Điều kiện không đủ'
+            });
         } else {
-            InforAppModel.findOne({ idApp: idApp }).then((data) => {
+            InforAppModel.findOne({
+                idApp: idApp
+            }).then((data) => {
                 console.log(data);
                 if (data) {
                     var trafficData = new TrafficModel({
@@ -51,29 +56,52 @@ router.get('/inserttrafficapp', (req, res) => {
                     trafficData.save((err, kq) => {
                         if (err) {
                             console.log('loi: ' + err);
-                            return res.json({ status: "3", msg: err + '' });
+                            return res.json({
+                                status: "3",
+                                msg: err + ''
+                            });
                         }
                         var sDateNow = Date.now();
-                        TrafficModel.find({ $and: [{ dateAccess: { $gt: sDateNow - (1000 * 60 * 15) } }, { idApp: idApp }] }).count().exec((err, data) => {
+                        TrafficModel.find({
+                            $and: [{
+                                dateAccess: {
+                                    $gt: sDateNow - (1000 * 60 * 15)
+                                }
+                            }, {
+                                idApp: idApp
+                            }]
+                        }).count().exec((err, data) => {
                             if (err) {
                                 return console.log(err);
                                 // return res.render('error', { error: err, title: 'Error Data' });
                             }
                             console.log('data: ' + data);
-                            req.io.sockets.emit('server-send-user-online', { idApp: idApp, userOnline: data });
+                            req.io.sockets.emit('server-send-user-online', {
+                                idApp: idApp,
+                                userOnline: data
+                            });
                         });
                         // console.log('đã connect socketio');
-                        res.json({ status: 1, msg: 'Thêm thành công bản ghi' });
+                        res.json({
+                            status: 1,
+                            msg: 'Thêm thành công bản ghi'
+                        });
                     });
                 } else {
-                    res.json({ status: 2, msg: 'Không tồn tại app trên server.' });
+                    res.json({
+                        status: 2,
+                        msg: 'Không tồn tại app trên server.'
+                    });
                 }
             })
         }
         // currentonline
     } catch (error) {
         console.log(error);
-        res.json({ status: 3, msg: 'Lỗi: ' + error + '' });
+        res.json({
+            status: 3,
+            msg: 'Lỗi: ' + error + ''
+        });
     }
 });
 
@@ -84,13 +112,26 @@ router.post('/insertorderapp', multipartMiddleware, (req, res) => {
         var idProduct, nameProduct, productCode, size, color, image, price, quantity;
 
         idApp = req.body.idapp;
+        nameApp = req.body.nameapp;
         idOrder = req.body.idorder;
+        codeOrder = req.body.codeorder;
+        nameCustomer = req.body.namecustomer;
+        email = req.body.email;
+
+
+
         console.log(idOrder);
-        res.json({ status: 1, msg: 'idApp: ' + idApp + ' ,idOrder: ' + idOrder });
+        res.json({
+            status: 1,
+            msg: 'idApp: ' + idApp + ' ,idOrder: ' + idOrder
+        });
 
     } catch (error) {
         console.log(error);
-        res.json({ status: 3, msg: 'Lỗi: ' + error + '' });
+        res.json({
+            status: 3,
+            msg: 'Lỗi: ' + error + ''
+        });
     }
 
 });

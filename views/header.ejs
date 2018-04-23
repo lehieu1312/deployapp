@@ -79,13 +79,13 @@
     </script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             $.post(
                 "/getaccount", {},
-                function(data) {
+                function (data) {
                     $('.imgavatarsmall').attr('src', data.picture)
                     $('.setspanfullname').text(data.fullname)
-                        // console.log(data)
+                    // console.log(data)
                 }
                 // $('img.avatar').attr('src', 'upload/' + data.img);
                 // $('.name').html(data.fullname);
@@ -158,7 +158,7 @@
                                 <span class="setspanfullname showmenuuser showmenuaccount">
                                 </span>
                                 <img class="showmenuuser showmenuaccount imgavatarsmall" src="/themes/img/dashboard/Avatar.png">
-                                <img class="setarrow showmenuuser showmenuaccount" src="/themes/img/login/IconArrow.png" alt="deployapp">
+                                <img class="setarrow showmenuuser showmenuaccount" src="/themes/img/login/iconArrow.png" alt="deployapp">
                             </div>
                             <div id="menuaccount">
                                 <div class="arrowmenuuserheader">
@@ -168,21 +168,21 @@
                                 <div id="menuuser1">
                                     <a href="/dashboard">
                                         <div class="selectmenu divhover showmenuaccount">
-                                            <img class="imgfirst" src="/themes/img/dashboard/Iconacountt.png">
+                                            <img class="imgfirst" src="/themes/img/dashboard/iconacountt.png">
                                             <img class="imglast" src="/themes/img/dashboard/iconaccountactive.png">
                                             <span class="spanmenuaccount">Dashboard</span>
                                         </div>
                                     </a>
                                     <a href="/editprofile">
                                         <div class="selectmenu divhover showmenuaccount">
-                                            <img class="imgfirst" src="/themes/img/dashboard/Iconacountt.png">
+                                            <img class="imgfirst" src="/themes/img/dashboard/iconacountt.png">
                                             <img class="imglast" src="/themes/img/dashboard/iconaccountactive.png">
                                             <span class="spanmenuaccount">Edit profile</span>
                                         </div>
                                     </a>
                                     <a href="/logout">
                                         <div class="selectmenu divhover showmenuaccount">
-                                            <img class="imgfirst" src="/themes/img/dashboard/Iconlogout.png">
+                                            <img class="imgfirst" src="/themes/img/dashboard/iconlogout.png">
                                             <img class="imglast" src="/themes/img/dashboard/Iconlogoutative.png">
                                             <span class="spanmenuaccount">Log Out</span>
                                         </div>

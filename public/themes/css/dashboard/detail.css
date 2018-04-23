@@ -1359,6 +1359,10 @@ a:hover .menumore-listmyapp {
     height: 19px;
 }
 
+.set-btn-cart:hover {
+    color: #00afee;
+}
+
 .border-add-product {
     margin-top: 10px;
 }

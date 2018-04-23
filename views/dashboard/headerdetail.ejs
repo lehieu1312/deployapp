@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="/themes/css/main.css" />
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/detail.css">
     <link rel="stylesheet" type="text/css" href="/themes/css/login/login.css">
+    <link rel="stylesheet" type="text/css" href="/themes/css/checkout/checkout.css">
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/editprofile.css">
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/homeapp/homeapp.css">
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/notification/notification.css">
@@ -117,17 +118,35 @@
                     <img data-dismiss="modal" aria-label="Close" src="/themes/img/dashboard/iconclose.png">
                 </div>
                 <div class="content-modal-cart">
-                    <div class="item-product-in-cart">
-                        <div class="left-content-product-in-cart">
-                            <img src="/themes/img/product/test.png">
+                    <%for(let i =0; i< 5;i++){%>
+                        <div class="item-product-in-cart">
+                            <div class="left-content-product-in-cart">
+                                <img src="/themes/img/product/test.png">
+                            </div>
+                            <div class="right-content-product-in-cart">
+                                <span>Pretashop Import Product with</span>
+                                <span>$58.00</span>
+                                <span class="set-text-olde-price"> $81.00</span>
+                                <div class="border-add-product">
+                                    <div class="set-btn-cart float-left">-</div>
+                                    <div class="set-input-add-product float-left">1</div>
+                                    <div class="set-btn-cart float-left">+</div>
+                                    <div class="float-right">
+                                        <span>$58.00</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="right-content-product-in-cart">
-                            <span>Pretashop Import Product with</span>
-                            <br>
-                            <span>$58.00</span>
-                            <span class="set-text-olde-price"> $81.00</span>
-                        </div>
-                    </div>
+                        <%}%>
+
+                </div>
+                <div class="footer-modal-cart">
+                    <span>Total</span>
+                    <span class="float-right">$58.00</span>
+                    <br>
+                    <a href="/checkout">
+                        <button class="btn-blue-checkout">CHECK OUT</button>
+                    </a>
                 </div>
             </div>
 

@@ -63,7 +63,26 @@ $(document).ready(function () {
     var hoverarrow = document.getElementsByClassName('set-span-arrow-right')
     var hovertext = document.getElementsByClassName('subspantextmenu1')
     var pathArray = window.location.pathname.split('/');
-    console.log(pathArray)
+    // console.log(pathArray)
+
+    if (pathArray[1] == "dashboard" && pathArray[2] == null) {
+        $('#navigate-text').append(
+            `<a class="colora" href="/dashboard"><span>Home</span><a>
+        <span class="setarrownavigate">
+            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
+        </span>
+        <span id="text-href">My app</span>`)
+
+    }
+    if (pathArray[1] == "checkout" && pathArray[2] == null) {
+        $('#navigate-text').append(
+            `<a class="colora" href="/Membership"><span>Membership</span><a>
+        <span class="setarrownavigate">
+            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
+        </span>
+        <span id="text-href">Checkout</span>`)
+
+    }
     if (pathArray[2] == "appversion") {
         // hoversubmenu[0].style.display = "none"
         hoverarrow[0].style.color = "#00afee"

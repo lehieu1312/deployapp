@@ -343,7 +343,7 @@
                         <div class="interface-mobi ">
                             <img src="/themes/img/notification/mobi.png">
                         </div>
-                        <div class="interface-mobile-js ">
+                        <div class="interface-mobile-js android-ok display-none">
                             <div class="boder-img-small-circle float-left">
                                 <% 
                             let smallIcon = "testicon.png";
@@ -374,14 +374,23 @@
                                     </div>
                             </div>
                         </div>
+                        <div class="interface-mobile-js ios-ok">
+                            <div class="boder-img-small-circle float-left">
+                                <img id="img-small-circle" class="img-small-circle" src="/themes/img/settingnotification/<%=smallIcon%>">
+                            </div>
+                            <div class="float-left content-mobile set-position-relative">
+                                <div>
+                                    <span id="title-mobile" class="title-mobile">ModernShop</span>
+                                    <span class="float-right">now</span>
+                                </div>
+                                <span id="content-mobile">Sensitive content Hidden</span>
+                            </div>
+                        </div>
                     </div>
-
-                </div>
-            </div>
-            <div id="border-btn-notification">
-                <button type="submit" id="save-notification" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Save</button>
-                <button id="send-notification" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification set-infor-mobile-using">Save And Send</button>
-            </div>
+                    <div id="border-btn-notification">
+                        <button type="submit" id="save-notification" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification">Save</button>
+                        <button id="send-notification" class="setcolorfontinput setcolorloginbackround btn btn-lg-notification set-infor-mobile-using">Save And Send</button>
+                    </div>
         </form>
         <div id="select-country-notification" class="select-country-notification">
             <div class="select-country-notificationx">
@@ -506,6 +515,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
+        </div>
+        </div>
     </div>

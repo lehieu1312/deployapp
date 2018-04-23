@@ -31,12 +31,19 @@ $(document).ready(() => {
         $('.platform-ios-active').show();
         $('.platform-android').show();
         $('.platform-android-active').hide();
+        $(".ios-ok").show();
+        $(".android-ok").hide();
+
+
     });
     $('.select-platform-android').click(() => {
         $('.platform-android').hide();
         $('.platform-android-active').show();
         $('.platform-ios').show();
         $('.platform-ios-active').hide();
+        $(".ios-ok").hide();
+        $(".android-ok").show();
+
     });
     $('body').click(() => {
         $(".select-country-notification").hide();

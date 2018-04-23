@@ -51,37 +51,6 @@ $(document).ready(function() {
             $('#icon-err-email').removeClass('display-none').addClass('display-inline');
             check = false;
         }
-        // if ($('#teamID').val() == "") {
-        //     $('#teamID').attr('placeholder', 'TeamID must be longer 12 characters,Number and Capital letter ');
-        //     $('#teamID').addClass('input-holder').addClass('border-bottom-red');
-        //     $('#icon-err-teamid').removeClass('display-none').addClass('display-inline');
-        //     check = false;
-        // } else if (checkTeamID($('#teamID').val()) == false) {
-        //     $('#teamID').val('');
-        //     $('#teamID').attr('placeholder', 'TeamID must be longer 12 characters,Number and Capital letter');
-        //     $('#teamID').addClass('input-holder').addClass('border-bottom-red');
-        //     $('#icon-err-teamid').removeClass('display-none').addClass('display-inline');
-        //     check = false;
-        // } else {
-        //     $('#teamID').removeClass('input-holder').removeClass('border-bottom-red');
-        //     $('#icon-err-teamid').removeClass('display-inline').addClass('display-none');
-        // }
-
-        // if ($('#UUID').val() == "") {
-        //     $('#UUID').attr('placeholder', 'Enter valid UUID, like: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
-        //     $('#UUID').addClass('input-holder').addClass('border-bottom-red');
-        //     $('#icon-err-uuid').removeClass('display-none').addClass('display-inline');
-        //     check = false;
-        // } else if (validateIdentifier($('#UUID').val()) == false) {
-        //     $('#UUID').val('');
-        //     $('#UUID').attr('placeholder', 'Enter valid UUID, like: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
-        //     $('#UUID').addClass('input-holder').addClass('border-bottom-red');
-        //     $('#icon-err-uuid').removeClass('display-none').addClass('display-inline');
-        //     check = false;
-        // } else {
-        //     $('#UUID').removeClass('input-holder').removeClass('border-bottom-red');
-        //     $('#icon-err-uuid').removeClass('display-inline').addClass('display-none');
-        // }
 
         if (check == false) {
             return false

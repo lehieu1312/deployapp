@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 
-let inforappChema = mongoose.Schema({
+let inforAppAdminChema = mongoose.Schema({
     idApp: String,
     idUser: [{
         idUser: String,
@@ -10,14 +10,12 @@ let inforappChema = mongoose.Schema({
         role: Number,
         status: Boolean
     }],
-    idAppAdmin: String,
     nameApp: String,
-    onlineCurrent: Number,
+    picture: String,
+    nameFile: String,
+    price: Number,
     dateCreate: Date,
-    useToday: String,
-    useIos: String,
-    useAndroid: String,
     status: Boolean
 });
 
-let Inforapp = module.exports = mongoose.model('inforapps', inforappChema);
+let Inforapp = module.exports = mongoose.model('inforappadmins', inforAppAdminChema);

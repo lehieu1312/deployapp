@@ -678,7 +678,7 @@ app.use('/', checkout);
 
 /////////////////////
 app.use('/deploy-api', API);
-app.use('/deploy-api', APIOrderI);
+app.use('/deploy-api', APIOrder);
 // app.use('/', stripe);
 // app.use('/', paypal);
 

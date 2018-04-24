@@ -246,17 +246,31 @@ router.get('/outapp', (req, res) => {
                                 timeAccess: sTimeAccess,
                                 dateOutSession: sDateOut
                             }
-                        }, {
-                            safe: true,
-                            upsert: true
+                        }).then(() => {
+                            TrafficModel.find({
+                                $and: [{
+                                    dateOutSession: null
+                                }, {
+                                    idApp: idApp
+                                }]
+                            }).count().exec((err, data) => {
+                                if (err) {
+                                    return console.log(err);
+                                    // return res.render('error', { error: err, title: 'Error Data' });
+                                }
+                                console.log('data: ' + data);
+                                req.io.sockets.emit('server-send-user-online', {
+                                    idApp: idApp,
+                                    userOnline: data
+                                });
+                            });
+                            // console.log('đã connect socketio');
+                            res.json({
+                                status: 1,
+                                msg: 'Thêm thành công bản ghi'
+                            });
                         })
-                    }).then(() => {
-                        res.json({
-                            status: 1,
-                            msg: 'Cập nhật bản ghi thành công'
-                        });
-                    });;
-
+                    })
                 } else {
                     res.json({
                         status: 2,
@@ -282,7 +296,7 @@ router.get('/outpage', (req, res) => {
         // var platform = req.query.platform;
         var sSessionIdUser = req.query.sessionid;
         // var dateAccess = Date.now();
-        var pageAccess = req.query.page;
+        // var pageAccess = req.query.page;
         var sessionAccessPage = req.query.sessionpage;
         // var country = req.query.country;
         // var checkIsHome = req.body.ishome;
@@ -294,32 +308,31 @@ router.get('/outpage', (req, res) => {
             InforAppModel.findOne({
                 idApp: idApp
             }).then(async(data) => {
-                console.log(data);
+                // console.log(data);
                 var sDateOut = Date.now();
-
                 if (data) {
                     TrafficModel.findOne({
                         idApp: idApp,
                         sessionIdUser: sSessionIdUser
                     }).then((dataOne) => {
+                        console.log('dataOne: ' + dataOne)
                         var sTimeAccess = sDateOut - dataOne.dateAccess;
-                        TrafficModel.findOneAndUpdate({
+                        TrafficModel.update({
                             idApp: idApp,
                             sessionIdUser: sSessionIdUser,
-                            pageAccess: { $elemMatch: { sessionAccess: sessionAccessPage } }
+                            pageAccess: { $elemMatch: { sessionAccess: { $eq: sessionAccessPage } } }
                         }, {
                             "$set": {
-                                timeAccess: sTimeAccess,
-                                dateOutSession: sDateOut
+                                "pageAccess.$.timeAccess": sTimeAccess,
+                                "pageAccess.$.dateOutSession": sDateOut
                             }
+                        }).then(() => {
+                            res.json({
+                                status: 1,
+                                msg: 'Cập nhật bản ghi thành công'
+                            });
                         })
-                    }).then(() => {
-                        res.json({
-                            status: 1,
-                            msg: 'Cập nhật bản ghi thành công'
-                        });
-                    });;
-
+                    })
                 } else {
                     res.json({
                         status: 2,
@@ -343,34 +356,34 @@ router.get('/outpage', (req, res) => {
 
 
 
-router.post('/insertorderapp', multipartMiddleware, (req, res) => {
-    try {
-        var idApp, nameApp, idOrder, codeOrder, nameCustomer, email, address, phoneNumber, addressShip, dateCreate, note;
-        var discount, feeShip, feeVat, totalMonney, methodPayment, methodOrder, curency, statusOrder, status;
-        var idProduct, nameProduct, productCode, size, color, image, price, quantity;
+// router.post('/insertorderapp', multipartMiddleware, (req, res) => {
+//     try {
+//         var idApp, nameApp, idOrder, codeOrder, nameCustomer, email, address, phoneNumber, addressShip, dateCreate, note;
+//         var discount, feeShip, feeVat, totalMonney, methodPayment, methodOrder, curency, statusOrder, status;
+//         var idProduct, nameProduct, productCode, size, color, image, price, quantity;
 
-        idApp = req.body.idapp;
-        nameApp = req.body.nameapp;
-        idOrder = req.body.idorder;
-        codeOrder = req.body.codeorder;
-        nameCustomer = req.body.namecustomer;
-        email = req.body.email;
+//         idApp = req.body.idapp;
+//         nameApp = req.body.nameapp;
+//         idOrder = req.body.idorder;
+//         codeOrder = req.body.codeorder;
+//         nameCustomer = req.body.namecustomer;
+//         email = req.body.email;
 
 
 
-        console.log(idOrder);
-        res.json({
-            status: 1,
-            msg: 'idApp: ' + idApp + ' ,idOrder: ' + idOrder
-        });
+//         console.log(idOrder);
+//         res.json({
+//             status: 1,
+//             msg: 'idApp: ' + idApp + ' ,idOrder: ' + idOrder
+//         });
 
-    } catch (error) {
-        console.log(error);
-        res.json({
-            status: 3,
-            msg: 'Lỗi: ' + error + ''
-        });
-    }
+//     } catch (error) {
+//         console.log(error);
+//         res.json({
+//             status: 3,
+//             msg: 'Lỗi: ' + error + ''
+//         });
+//     }
 
-});
+// });
 module.exports = router;

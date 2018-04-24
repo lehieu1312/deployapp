@@ -12,4 +12,30 @@ $(document).ready(() => {
             number_product[i].innerHTML = Number(number_product[i].textContent) + 1;
         })
     })
+    $("#click-test").click(() => {
+        $.ajax({
+            type: "POST",
+            url: "/test/data",
+            dataType: "json",
+            data: {
+                id: "abc",
+                medthod: "paypal",
+                product: [{
+                    id: "1",
+                    name: "nam"
+                }, {
+                    id: "2",
+                    name: "bắc"
+                }, {
+                    id: "3",
+                    name: "trung"
+                }, {
+                    id: "4",
+                    name: "đông"
+                }]
+            },
+            success: (data) => {}
+        })
+    })
+
 })

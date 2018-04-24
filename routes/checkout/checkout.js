@@ -34,4 +34,8 @@ router.get('/checkout', (req, res) => {
     });
 
 });
+router.post('/test/data', (req, res) => {
+    console.log("product:");
+    console.log(req.body);
+});
 module.exports = router;

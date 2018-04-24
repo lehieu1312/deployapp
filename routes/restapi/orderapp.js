@@ -8,6 +8,7 @@ var multipartMiddleware = multipart();
 
 router.post('/insertorderapp', multipartMiddleware, (req, res) => {
     try {
+        console.log(req.body)
         var idApp, nameApp, idOrder, codeOrder, nameCustomer, email, address, phoneNumber, addressShip, dateCreate, note;
         var discount, feeShip, feeVat, totalMonney, methodPayment, methodOrder, curency, statusOrder, status;
         var product, idProduct, nameProduct, productCode, size, color, image, price, quantity;

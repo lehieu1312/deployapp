@@ -39,19 +39,19 @@ function checkAdmin(req, res, next) {
 function filtercustom(a) {
     var b = [];
     while (a.length > 0) {
-        let c = a.filter(function(el) {
+        let c = a.filter(function (el) {
             return el.pageAccess == a[0].pageAccess
         });
         b.push(c);
-        a = a.filter(function(el) {
+        a = a.filter(function (el) {
             return el.pageAccess != a[0].pageAccess
         });
     }
     return b;
 }
 
-Array.prototype.sortBy = function(p) {
-    return this.slice(0).sort(function(a, b) {
+Array.prototype.sortBy = function (p) {
+    return this.slice(0).sort(function (a, b) {
         return (a[p] > b[p]) ? 1 : (a[p] < b[p]) ? -1 : 0;
     });
 }
@@ -89,11 +89,11 @@ function setday(data, numberdate) {
     var datenow = new Date();
     datenow = datenow.setHours(0, 0, 0, 0);
     for (let i = 1; i <= numberdate; i++) {
-        let getdatax = data.filter(function(el) {
+        let getdatax = data.filter(function (el) {
             return el.dateCreate < datenow - 86400000 * (i - 1) &&
                 el.dateCreate > datenow - 86400000 * i;
         })
-        let getdatay = data.filter(function(el) {
+        let getdatay = data.filter(function (el) {
             return el.dateCreate < datenow - 86400000 * (i - 1) &&
                 el.dateCreate > datenow - 86400000 * i &&
                 el.nameCustomer != "";
@@ -131,13 +131,13 @@ router.post("/rightnow/:idApp", (req, res) => {
         }).sort({
             pageAccess: 1
         }).then((data) => {
-            let getdata = data.filter(function(el) {
+            let getdata = data.filter(function (el) {
                 return !el.dateOutSession;
             });
-            let android = getdata.filter(function(el) {
+            let android = getdata.filter(function (el) {
                 return el.platform == "android"
             });
-            let ios = getdata.filter(function(el) {
+            let ios = getdata.filter(function (el) {
                 return el.platform == "ios"
             });
             let arraypagex = [];
@@ -154,7 +154,7 @@ router.post("/rightnow/:idApp", (req, res) => {
             var setpage = filtercustom(arraypagex);
             var arraypage = [];
             for (let i = 0; i < setpage.length; i++) {
-                let page = arraypagex.filter(function(el) {
+                let page = arraypagex.filter(function (el) {
                     return el.pageAccess == setpage[i][0].pageAccess
                 });
                 arraypage.push({
@@ -191,7 +191,7 @@ router.post("/pageuser/:idApp", (req, res) => {
             console.log(moment(datenow).format());
             var setdatenow = datenow.setHours(0, 0, 0, 0);
             console.log(moment(setdatenow).format());
-            // datenow = datenow.setHours(0, 0, 0, 0)
+            datenow = datenow.setHours(0, 0, 0, 0)
             var getdata;
 
             let timepont = 0;
@@ -201,12 +201,12 @@ router.post("/pageuser/:idApp", (req, res) => {
                 timepont = req.query.numberend;
             }
             if (req.query.numberdate == 0) {
-                getdata = arraytraffic.filter(function(el) {
-                    return el.dateAccess < datenow &&
+                getdata = arraytraffic.filter(function (el) {
+                    return el.dateAccess < new Date() &&
                         el.dateAccess > setdatenow;
                 });
             } else {
-                getdata = arraytraffic.filter(function(el) {
+                getdata = arraytraffic.filter(function (el) {
                     return el.dateAccess < timepont &&
                         el.dateAccess > timepont - 86400000 * req.query.numberdate;
                 });
@@ -226,7 +226,7 @@ router.post("/pageuser/:idApp", (req, res) => {
             // console.log(setpage)
             var arraypage = [];
             for (let i = 0; i < setpage.length; i++) {
-                let page = arraypagex.filter(function(el) {
+                let page = arraypagex.filter(function (el) {
                     return el.pageAccess == setpage[i][0].pageAccess
                 });
                 let accessTime = 0;
@@ -259,11 +259,11 @@ router.post("/pageuser/:idApp", (req, res) => {
 function filterproduc(a) {
     var b = [];
     while (a.length > 0) {
-        let c = a.filter(function(el) {
+        let c = a.filter(function (el) {
             return el.idProduct == a[0].idProduct
         });
         b.push(c);
-        a = a.filter(function(el) {
+        a = a.filter(function (el) {
             return el.idProduct != a[0].idProduct
         });
     }
@@ -301,7 +301,7 @@ router.post("/productstatistic/:idApp", (req, res) => {
             var getproduct = new Array();
             var getproductall = new Array();
             let setdata = filterproduc(product);
-            (async function() {
+            (async function () {
                 for (let i = 0; i < setdata.length; i++) {
                     let datahihi = await orderofapp.find({
                         idApp: req.params.idApp,
@@ -371,7 +371,7 @@ router.post("/useractive/:idApp", (req, res) => {
         } else {
             timepont = req.query.numberend;
         }
-        (async function() {
+        (async function () {
             for (let i = 0; i < req.query.numberdate; i++) {
                 var timestart1 = timepont;
                 timestart1 = timestart1 - i * 86400000;
@@ -467,7 +467,7 @@ router.post("/userbytime/:idApp", (req, res) => {
         }
         let getdata = [];
         if (req.query.numberdate <= 7) {
-            (async function() {
+            (async function () {
                 for (let i = 0; i < 7; i++) {
                     getdata.push([]);
                     if (i >= req.query.numberdate) {
@@ -499,7 +499,7 @@ router.post("/userbytime/:idApp", (req, res) => {
                 return res.json(getdata);
             })()
         } else {
-            (async function() {
+            (async function () {
                 for (let i = 0; i < 7; i++) {
                     let datestart = dateend - 86400000 * i;
                     getdata.push([]);
@@ -535,7 +535,7 @@ router.post("/userbytime/:idApp", (req, res) => {
 function filtertraffic(a) {
     var b = [];
     while (a.length > 0) {
-        let c = a.filter(function(el) {
+        let c = a.filter(function (el) {
             return el.country == a[0].country
         });
         b.push({
@@ -543,7 +543,7 @@ function filtertraffic(a) {
             name: c[0].country,
             user: c.length
         });
-        a = a.filter(function(el) {
+        a = a.filter(function (el) {
             return el.country != a[0].country
         });
     }
@@ -614,7 +614,7 @@ router.post("/statisticstracking/:idApp", (req, res) => {
             let androidall = 0;
             let ios = 0;
             let iosall = 0;
-            (async() => {
+            (async () => {
                 for (let i = 0; i < length; i++) {
                     // console.log(moment(datestart));
                     let getdata = await traffic.find({

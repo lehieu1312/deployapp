@@ -356,34 +356,30 @@ router.get('/outpage', (req, res) => {
 
 
 
-// router.post('/insertorderapp', multipartMiddleware, (req, res) => {
-//     try {
-//         var idApp, nameApp, idOrder, codeOrder, nameCustomer, email, address, phoneNumber, addressShip, dateCreate, note;
-//         var discount, feeShip, feeVat, totalMonney, methodPayment, methodOrder, curency, statusOrder, status;
-//         var idProduct, nameProduct, productCode, size, color, image, price, quantity;
+router.post('/inserarray', multipartMiddleware, (req, res) => {
+    try {
+        var idApp, nameApp, idOrder, codeOrder, nameCustomer, email, address, phoneNumber, addressShip, dateCreate, note;
+        var discount, feeShip, feeVat, totalMonney, methodPayment, methodOrder, curency, statusOrder, status;
+        var idProduct, nameProduct, productCode, size, color, image, price, quantity;
 
-//         idApp = req.body.idapp;
-//         nameApp = req.body.nameapp;
-//         idOrder = req.body.idorder;
-//         codeOrder = req.body.codeorder;
-//         nameCustomer = req.body.namecustomer;
-//         email = req.body.email;
+        idApp = req.body.ten;
+        console.log(idApp);
+        console.log('clmm');
+        idapp = Object(idApp);
+        console.log(typeof idapp);
+        console.log(idapp);
+        res.json({
+            status: 1,
+            msg: 'idApp: ' + idApp
+        });
 
+    } catch (error) {
+        console.log(error);
+        res.json({
+            status: 3,
+            msg: 'Lỗi: ' + error + ''
+        });
+    }
 
-
-//         console.log(idOrder);
-//         res.json({
-//             status: 1,
-//             msg: 'idApp: ' + idApp + ' ,idOrder: ' + idOrder
-//         });
-
-//     } catch (error) {
-//         console.log(error);
-//         res.json({
-//             status: 3,
-//             msg: 'Lỗi: ' + error + ''
-//         });
-//     }
-
-// });
+});
 module.exports = router;

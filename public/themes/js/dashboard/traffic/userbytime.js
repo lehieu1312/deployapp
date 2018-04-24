@@ -154,7 +154,6 @@ function ajaxuserbytime(numberdate, numberend) {
             setdate[i] = setdate[i].toDateString().split(" ");
             setdate[i] = setdate[i][0];
         }
-        console.log(setdate);
         return setdate;
     };
     $.post(linkstatistic, {},

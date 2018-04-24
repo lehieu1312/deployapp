@@ -80,11 +80,14 @@
 //     }
 // }
 
-var Base642 = require('js-base64').Base64;
+// var Base642 = require('js-base64').Base64;
 // var id = 'com.taydotech.app';
 // var mahoa = Base64.encode(id);
 // console.log(mahoa);
 // var demahoa = Base642.decode(mahoa)
 // console.log("'" + demahoa + "'");
-console.log(Base64.encode(Date.now()))
-console.log(Base64.encode(Date.now()))
+// console.log(Base64.encode(Date.now()))
+// console.log(Base64.encode(Date.now()))
+
+var md5 = require("md5");
+console.log(md5(Date.now()));

@@ -18,7 +18,7 @@ router.get('/accessapp', (req, res) => {
         var pageAccess = req.query.page;
         var sessionAccessPage = req.query.sessionpage;
         var country = req.query.country;
-        var checkIsHome = req.body.ishome;
+        var checkIsHome = req.query.ishome;
         ///////////////////////
         var sIDCustomer, sNameCustomer, sEmailCustomer,
             sPhoneCustomer, sAddCustomer, sTimeAccess, sDateOutAccess, sPageTimeAccess, sPageDateOutAccess;
@@ -51,8 +51,16 @@ router.get('/accessapp', (req, res) => {
         //     sDateOutAccess = req.query.dateoutaccess;
         // else
         //     sDateOutAccess = null;
+        console.log(idApp);
+        console.log(platform);
+        console.log(sessionIdUser);
+        console.log(pageAccess);
+        console.log(sessionAccessPage);
+        console.log(country);
+        console.log(checkIsHome);
 
-        if (!idApp || !nameApp || !platform || !sessionIdUser || !pageAccess || !sessionAccessPage || !country || !ishome) {
+
+        if (!idApp || !nameApp || !platform || !sessionIdUser || !pageAccess || !sessionAccessPage || !country || !checkIsHome) {
             res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
         } else {
             InforAppModel.findOne({
@@ -81,7 +89,7 @@ router.get('/accessapp', (req, res) => {
                             sessionAccess: sessionAccessPage,
                             isHome: checkIsHome
                         }],
-                        country: country,
+                        codeCountry: country,
                         status: true
                     });
                     trafficData.save((err, kq) => {
@@ -139,19 +147,19 @@ router.get('/accesspage', (req, res) => {
     try {
 
         var idApp = req.query.idapp;
-        var nameApp = req.query.nameapp;
+        // var nameApp = req.query.nameapp;
         // var platform = req.query.platform;
         var sSessionIdUser = req.query.sessionid;
         // var dateAccess = Date.now();
         var pageAccess = req.query.page;
         var sessionAccessPage = req.query.sessionpage;
         // var country = req.query.country;
-        var checkIsHome = req.body.ishome;
+        var checkIsHome = req.query.ishome;
         ///////////////////////
         var sIDCustomer, sNameCustomer, sEmailCustomer, sPlatforms,
             sPhoneCustomer, sAddCustomer, sTimeAccess, sDateOutAccess, sPageTimeAccess, sPageDateOutAccess;
 
-        if (!idApp || !sSessionIdUser || !pageAccess || !sessionAccessPage || !ishome) {
+        if (!idApp || !sSessionIdUser || !pageAccess || !sessionAccessPage || !checkIsHome) {
             res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
         } else {
             InforAppModel.findOne({
@@ -170,7 +178,7 @@ router.get('/accesspage', (req, res) => {
                                 timeAccess: null,
                                 dateOutSession: null,
                                 sessionAccess: sessionAccessPage,
-                                isHome: ishome
+                                isHome: checkIsHome
                             }
                         }
                     }, {

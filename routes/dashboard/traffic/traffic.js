@@ -191,7 +191,7 @@ router.post("/pageuser/:idApp", (req, res) => {
             console.log(moment(datenow).format());
             var setdatenow = datenow.setHours(0, 0, 0, 0);
             console.log(moment(setdatenow).format());
-            datenow = datenow.setHours(0, 0, 0, 0)
+            datenow = datenow.setHours(0, 0, 0, 0);
             var getdata;
 
             let timepont = 0;

@@ -5,38 +5,55 @@ var InforAppModel = require('../../models/inforapp');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 
-router.get('/inserttrafficapp', (req, res) => {
+
+//////////////Lần đầu truy cập app/////////////
+router.get('/accessapp', (req, res) => {
     try {
-        // idApp: String,
-        // nameApp: String,
-        // idCustomer: String,
-        // nameCustomer: String,
-        // emailCustomer: String,
-        // phoneNumerCustomer: String,
-        // addCustomer: String,
-        // sessionIdUser: String,
-        // platform: String,
-        // dateAccess: Date,
-        // timeAccess: Number,
-        // dateUpdate: Date,
-        // dateOutSession: Date,
-        // pageAccess: String,
-        // country: String,
-        // status: Boolean
+
         var idApp = req.query.idapp;
         var nameApp = req.query.nameapp;
-        var idCustomer = req.query.idcustomer;
         var platform = req.query.platform;
         var sessionIdUser = req.query.sessionid;
         var dateAccess = Date.now();
         var pageAccess = req.query.page;
+        var sessionAccessPage = req.query.sessionpage;
         var country = req.query.country;
+        var checkIsHome = req.body.ishome;
+        ///////////////////////
+        var sIDCustomer, sNameCustomer, sEmailCustomer,
+            sPhoneCustomer, sAddCustomer, sTimeAccess, sDateOutAccess, sPageTimeAccess, sPageDateOutAccess;
+        if (req.query.idcustomer)
+            sIDCustomer = req.query.idcustomer;
+        else
+            sIDCustomer = null;
 
-        if (!idApp || !platform || !sessionIdUser || !pageAccess || !country) {
-            res.json({
-                status: 3,
-                msg: 'Lỗi: Điều kiện không đủ'
-            });
+        if (req.query.namecustomer)
+            sNameCustomer = req.query.namecustomer;
+        else
+            sEmailCustomer = null;
+
+        if (req.query.emailcustomer)
+            sEmailCustomer = req.query.emailcustomer;
+        else
+            sEmailCustomer = null;
+
+        if (req.query.phonecustomer)
+            sPhoneCustomer = req.query.phonecustomer;
+        else
+            sPhoneCustomer = null;
+
+        if (req.query.addresscustomer)
+            sAddCustomer = req.query.addresscustomer;
+        else
+            sAddCustomer = null;
+
+        // if (req.query.dateoutaccess)
+        //     sDateOutAccess = req.query.dateoutaccess;
+        // else
+        //     sDateOutAccess = null;
+
+        if (!idApp || !nameApp || !platform || !sessionIdUser || !pageAccess || !sessionAccessPage || !country || !ishome) {
+            res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
         } else {
             InforAppModel.findOne({
                 idApp: idApp
@@ -46,10 +63,24 @@ router.get('/inserttrafficapp', (req, res) => {
                     var trafficData = new TrafficModel({
                         idApp: idApp,
                         nameApp: data.nameApp,
+                        idCustomer: sIDCustomer,
+                        nameCustomer: sNameCustomer,
+                        emailCustomer: sEmailCustomer,
+                        phoneNumerCustomer: sPhoneCustomer,
+                        addCustomer: sAddCustomer,
                         sessionIdUser: sessionIdUser,
                         platform: platform,
                         dateAccess: dateAccess,
-                        pageAccess: pageAccess,
+                        timeAccess: null,
+                        dateOutSession: null,
+                        pageAccess: [{
+                            page: pageAccess,
+                            dateAccess: Date.now(),
+                            timeAccess: null,
+                            dateOutSession: null,
+                            sessionAccess: sessionAccessPage,
+                            isHome: checkIsHome
+                        }],
                         country: country,
                         status: true
                     });
@@ -61,12 +92,11 @@ router.get('/inserttrafficapp', (req, res) => {
                                 msg: err + ''
                             });
                         }
+
                         var sDateNow = Date.now();
                         TrafficModel.find({
                             $and: [{
-                                dateAccess: {
-                                    $gt: sDateNow - (1000 * 60 * 15)
-                                }
+                                dateOutSession: null
                             }, {
                                 idApp: idApp
                             }]
@@ -104,6 +134,206 @@ router.get('/inserttrafficapp', (req, res) => {
         });
     }
 });
+
+router.get('/accesspage', (req, res) => {
+    try {
+
+        var idApp = req.query.idapp;
+        var nameApp = req.query.nameapp;
+        // var platform = req.query.platform;
+        var sSessionIdUser = req.query.sessionid;
+        // var dateAccess = Date.now();
+        var pageAccess = req.query.page;
+        var sessionAccessPage = req.query.sessionpage;
+        // var country = req.query.country;
+        var checkIsHome = req.body.ishome;
+        ///////////////////////
+        var sIDCustomer, sNameCustomer, sEmailCustomer, sPlatforms,
+            sPhoneCustomer, sAddCustomer, sTimeAccess, sDateOutAccess, sPageTimeAccess, sPageDateOutAccess;
+
+        if (!idApp || !sSessionIdUser || !pageAccess || !sessionAccessPage || !ishome) {
+            res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
+        } else {
+            InforAppModel.findOne({
+                idApp: idApp
+            }).then((data) => {
+                console.log(data);
+                if (data) {
+                    TrafficModel.update({
+                        idApp: idApp,
+                        sessionIdUser: sSessionIdUser
+                    }, {
+                        "$push": {
+                            pageAccess: {
+                                page: pageAccess,
+                                dateAccess: Date.now(),
+                                timeAccess: null,
+                                dateOutSession: null,
+                                sessionAccess: sessionAccessPage,
+                                isHome: ishome
+                            }
+                        }
+                    }, {
+                        safe: true,
+                        upsert: true
+                    }).then(() => {
+                        res.json({
+                            status: 1,
+                            msg: 'Cập nhật bản ghi thành công'
+                        });
+                    });
+
+                } else {
+                    res.json({
+                        status: 2,
+                        msg: 'Không tồn tại app trên server.'
+                    });
+                }
+            })
+        }
+        // currentonline
+    } catch (error) {
+        console.log(error);
+        res.json({
+            status: 3,
+            msg: 'Lỗi: ' + error + ''
+        });
+    }
+});
+
+router.get('/outapp', (req, res) => {
+    try {
+
+        var idApp = req.query.idapp;
+        // var nameApp = req.query.nameapp;
+        // var platform = req.query.platform;
+        var sSessionIdUser = req.query.sessionid;
+        // var dateAccess = Date.now();
+
+        // var pageAccess = req.query.page;
+        // var country = req.query.country;
+        // var checkIsHome = req.body.ishome;
+        ///////////////////////
+
+        if (!idApp || !sSessionIdUser) {
+            res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
+        } else {
+            InforAppModel.findOne({
+                idApp: idApp
+            }).then(async(data) => {
+                console.log(data);
+                var sDateOut = Date.now();
+
+                if (data) {
+                    TrafficModel.findOne({
+                        idApp: idApp,
+                        sessionIdUser: sSessionIdUser
+                    }).then((dataOne) => {
+                        var sTimeAccess = sDateOut - dataOne.dateAccess;
+                        TrafficModel.update({
+                            idApp: idApp,
+                            sessionIdUser: sSessionIdUser
+                        }, {
+                            "$set": {
+                                timeAccess: sTimeAccess,
+                                dateOutSession: sDateOut
+                            }
+                        }, {
+                            safe: true,
+                            upsert: true
+                        })
+                    }).then(() => {
+                        res.json({
+                            status: 1,
+                            msg: 'Cập nhật bản ghi thành công'
+                        });
+                    });;
+
+                } else {
+                    res.json({
+                        status: 2,
+                        msg: 'Không tồn tại app trên server.'
+                    });
+                }
+            })
+        }
+        // currentonline
+    } catch (error) {
+        console.log(error);
+        res.json({
+            status: 3,
+            msg: 'Lỗi: ' + error + ''
+        });
+    }
+});
+router.get('/outpage', (req, res) => {
+    try {
+
+        var idApp = req.query.idapp;
+        // var nameApp = req.query.nameapp;
+        // var platform = req.query.platform;
+        var sSessionIdUser = req.query.sessionid;
+        // var dateAccess = Date.now();
+        var pageAccess = req.query.page;
+        var sessionAccessPage = req.query.sessionpage;
+        // var country = req.query.country;
+        // var checkIsHome = req.body.ishome;
+        ///////////////////////
+
+        if (!idApp || !sSessionIdUser || !sessionAccessPage) {
+            res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
+        } else {
+            InforAppModel.findOne({
+                idApp: idApp
+            }).then(async(data) => {
+                console.log(data);
+                var sDateOut = Date.now();
+
+                if (data) {
+                    TrafficModel.findOne({
+                        idApp: idApp,
+                        sessionIdUser: sSessionIdUser
+                    }).then((dataOne) => {
+                        var sTimeAccess = sDateOut - dataOne.dateAccess;
+                        TrafficModel.findOneAndUpdate({
+                            idApp: idApp,
+                            sessionIdUser: sSessionIdUser,
+                            pageAccess: { $elemMatch: { sessionAccess: sessionAccessPage } }
+                        }, {
+                            "$set": {
+                                timeAccess: sTimeAccess,
+                                dateOutSession: sDateOut
+                            }
+                        })
+                    }).then(() => {
+                        res.json({
+                            status: 1,
+                            msg: 'Cập nhật bản ghi thành công'
+                        });
+                    });;
+
+                } else {
+                    res.json({
+                        status: 2,
+                        msg: 'Không tồn tại app trên server.'
+                    });
+                }
+            })
+        }
+        // currentonline
+    } catch (error) {
+        console.log(error);
+        res.json({
+            status: 3,
+            msg: 'Lỗi: ' + error + ''
+        });
+    }
+});
+
+
+
+
+
 
 router.post('/insertorderapp', multipartMiddleware, (req, res) => {
     try {

@@ -4,11 +4,20 @@ var TrafficModel = require('../../models/traffic');
 var InforAppModel = require('../../models/inforapp');
 var OrderOfApp = require('../../models/userofapp')
 var multipart = require('connect-multiparty');
+var async = require('async');
+
 var multipartMiddleware = multipart();
 
-router.post('/insertorderapp', multipartMiddleware, (req, res) => {
+router.post('/addneworder', (req, res) => {
     try {
         console.log(req.body)
+        console.log(typeof req.body.ten)
+        var arrProd = Array(req.body.ten);
+        console.log(typeof arrProd);
+        console.log(arrProd[0]);
+        // async.each(arrProd[0], (item) => {
+        //     console.log(item);
+        // })
         var idApp, nameApp, idOrder, codeOrder, nameCustomer, email, address, phoneNumber, addressShip, dateCreate, note;
         var discount, feeShip, feeVat, totalMonney, methodPayment, methodOrder, curency, statusOrder, status;
         var product, idProduct, nameProduct, productCode, size, color, image, price, quantity;
@@ -163,16 +172,8 @@ router.post('/insertorderapp', multipartMiddleware, (req, res) => {
                     });
                 }
 
-            })
-
-
-
+            });
         }
-        res.json({
-            status: 1,
-            msg: 'idApp: ' + idApp + ' ,idOrder: ' + idOrder
-        });
-
     } catch (error) {
         console.log(error);
         res.json({

@@ -1,14 +1,16 @@
 let mongoose = require('mongoose');
 
 let ProductStatisticChema = mongoose.Schema({
-    idProduct: String,
     idApp: String,
+    nameApp: String,
+    idProduct: String,
     name: String,
     image: String,
-    dateCreate: Date,
+    sessionProduct: String,
     dateAccess: Date,
     timeAccess: Number,
     dateOutSession: Date,
+    dateCreate: Date,
     status: Boolean
 });
 

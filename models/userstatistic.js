@@ -2,8 +2,8 @@ let mongoose = require("mongoose");
 
 let userStatisticSchema = mongoose.Schema({
     idApp: String,
-    idUser: String,
     nameApp: String,
+    idUser: String,
     email: String,
     firstName: String,
     lastName: String,
@@ -13,6 +13,7 @@ let userStatisticSchema = mongoose.Schema({
     zipCode: String,
     company: String,
     phoneNumber: String,
+    sessionUser: String,
     dateAccess: Date,
     timeAccess: Number,
     dateOutSession: Date,

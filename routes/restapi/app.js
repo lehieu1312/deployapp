@@ -2,15 +2,18 @@ var express = require('express');
 var router = express.Router();
 var TrafficModel = require('../../models/traffic');
 var InforAppModel = require('../../models/inforapp');
+var libBase64 = require('../../lib/base64');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
-
+var Base64js = require('js-base64').Base64;
 
 //////////////Lần đầu truy cập app/////////////
-router.get('/accessapp', (req, res) => {
+router.get('/appaccess', (req, res) => {
     try {
 
-        var idApp = req.query.idapp;
+        var reqIDApp = req.query.idapp;
+        console.log('reqIDApp: ' + reqIDApp);
+
         var nameApp = req.query.nameapp;
         var platform = req.query.platform;
         var sessionIdUser = req.query.sessionid;
@@ -20,6 +23,7 @@ router.get('/accessapp', (req, res) => {
         var country = req.query.country;
         var checkIsHome = req.query.ishome;
         ///////////////////////
+        console.log('idapp: ' + idApp);
         var sIDCustomer, sNameCustomer, sEmailCustomer,
             sPhoneCustomer, sAddCustomer, sTimeAccess, sDateOutAccess, sPageTimeAccess, sPageDateOutAccess;
         if (req.query.idcustomer)
@@ -51,7 +55,7 @@ router.get('/accessapp', (req, res) => {
         //     sDateOutAccess = req.query.dateoutaccess;
         // else
         //     sDateOutAccess = null;
-        console.log(idApp);
+        console.log("'" + idApp + "'");
         console.log(platform);
         console.log(sessionIdUser);
         console.log(pageAccess);
@@ -60,9 +64,10 @@ router.get('/accessapp', (req, res) => {
         console.log(checkIsHome);
 
 
-        if (!idApp || !nameApp || !platform || !sessionIdUser || !pageAccess || !sessionAccessPage || !country || !checkIsHome) {
+        if (!reqIDApp || !nameApp || !platform || !sessionIdUser || !pageAccess || !sessionAccessPage || !country || !checkIsHome) {
             res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
         } else {
+            var idApp = libBase64.Base64.encode(reqIDApp);
             InforAppModel.findOne({
                 idApp: idApp
             }).then((data) => {
@@ -126,8 +131,8 @@ router.get('/accessapp', (req, res) => {
                         });
                     });
                 } else {
-                    res.json({
-                        status: 2,
+                    return res.json({
+                        status: 3,
                         msg: 'Không tồn tại app trên server.'
                     });
                 }
@@ -143,10 +148,12 @@ router.get('/accessapp', (req, res) => {
     }
 });
 
-router.get('/accesspage', (req, res) => {
+router.get('/pageaccess', (req, res) => {
     try {
 
-        var idApp = req.query.idapp;
+        var reqIDApp = req.query.idapp;
+        console.log('reqIDApp: ' + reqIDApp);
+        var idApp = libBase64.Base64.encode(reqIDApp);
         // var nameApp = req.query.nameapp;
         // var platform = req.query.platform;
         var sSessionIdUser = req.query.sessionid;
@@ -212,7 +219,9 @@ router.get('/accesspage', (req, res) => {
 router.get('/outapp', (req, res) => {
     try {
 
-        var idApp = req.query.idapp;
+        var reqIDApp = req.query.idapp;
+        console.log('reqIDApp: ' + reqIDApp);
+        var idApp = libBase64.Base64.encode(reqIDApp);
         // var nameApp = req.query.nameapp;
         // var platform = req.query.platform;
         var sSessionIdUser = req.query.sessionid;
@@ -237,39 +246,46 @@ router.get('/outapp', (req, res) => {
                         idApp: idApp,
                         sessionIdUser: sSessionIdUser
                     }).then((dataOne) => {
-                        var sTimeAccess = sDateOut - dataOne.dateAccess;
-                        TrafficModel.update({
-                            idApp: idApp,
-                            sessionIdUser: sSessionIdUser
-                        }, {
-                            "$set": {
-                                timeAccess: sTimeAccess,
-                                dateOutSession: sDateOut
-                            }
-                        }).then(() => {
-                            TrafficModel.find({
-                                $and: [{
-                                    dateOutSession: null
-                                }, {
-                                    idApp: idApp
-                                }]
-                            }).count().exec((err, data) => {
-                                if (err) {
-                                    return console.log(err);
-                                    // return res.render('error', { error: err, title: 'Error Data' });
+                        if (dataOne) {
+                            var sTimeAccess = sDateOut - dataOne.dateAccess;
+                            TrafficModel.update({
+                                idApp: idApp,
+                                sessionIdUser: sSessionIdUser
+                            }, {
+                                "$set": {
+                                    timeAccess: sTimeAccess,
+                                    dateOutSession: sDateOut
                                 }
-                                console.log('data: ' + data);
-                                req.io.sockets.emit('server-send-user-online', {
-                                    idApp: idApp,
-                                    userOnline: data
+                            }).then(() => {
+                                TrafficModel.find({
+                                    $and: [{
+                                        dateOutSession: null
+                                    }, {
+                                        idApp: idApp
+                                    }]
+                                }).count().exec((err, data) => {
+                                    if (err) {
+                                        return console.log(err);
+                                        // return res.render('error', { error: err, title: 'Error Data' });
+                                    }
+                                    console.log('data: ' + data);
+                                    req.io.sockets.emit('server-send-user-online', {
+                                        idApp: idApp,
+                                        userOnline: data
+                                    });
                                 });
+                                // console.log('đã connect socketio');
+                                return res.json({
+                                    status: 1,
+                                    msg: 'Cập nhật phiên làm việc thành công'
+                                });
+                            })
+                        } else {
+                            return res.json({
+                                status: 3,
+                                msg: 'Phiên làm việc không tồn tại.'
                             });
-                            // console.log('đã connect socketio');
-                            res.json({
-                                status: 1,
-                                msg: 'Thêm thành công bản ghi'
-                            });
-                        })
+                        }
                     })
                 } else {
                     res.json({
@@ -291,7 +307,9 @@ router.get('/outapp', (req, res) => {
 router.get('/outpage', (req, res) => {
     try {
 
-        var idApp = req.query.idapp;
+        var reqIDApp = req.query.idapp;
+        console.log('reqIDApp: ' + reqIDApp);
+        var idApp = libBase64.Base64.encode(reqIDApp);
         // var nameApp = req.query.nameapp;
         // var platform = req.query.platform;
         var sSessionIdUser = req.query.sessionid;
@@ -315,24 +333,31 @@ router.get('/outpage', (req, res) => {
                         idApp: idApp,
                         sessionIdUser: sSessionIdUser
                     }).then((dataOne) => {
-                        console.log('dataOne: ' + dataOne)
-                        var sTimeAccess = sDateOut - dataOne.dateAccess;
-                        TrafficModel.update({
-                            idApp: idApp,
-                            sessionIdUser: sSessionIdUser,
-                            pageAccess: { $elemMatch: { sessionAccess: { $eq: sessionAccessPage } } }
-                        }, {
-                            "$set": {
-                                "pageAccess.$.timeAccess": sTimeAccess,
-                                "pageAccess.$.dateOutSession": sDateOut
-                            }
-                        }).then(() => {
-                            res.json({
-                                status: 1,
-                                msg: 'Cập nhật bản ghi thành công'
+                        if (dataOne) {
+                            console.log('dataOne: ' + dataOne)
+                            var sTimeAccess = sDateOut - dataOne.dateAccess;
+                            TrafficModel.update({
+                                idApp: idApp,
+                                sessionIdUser: sSessionIdUser,
+                                pageAccess: { $elemMatch: { sessionAccess: { $eq: sessionAccessPage } } }
+                            }, {
+                                "$set": {
+                                    "pageAccess.$.timeAccess": sTimeAccess,
+                                    "pageAccess.$.dateOutSession": sDateOut
+                                }
+                            }).then(() => {
+                                return res.json({
+                                    status: 1,
+                                    msg: 'Cập nhật phiên làm việc của page thành công.'
+                                });
+                            })
+                        } else {
+                            return res.json({
+                                status: 3,
+                                msg: 'Không tồn tại phiên làm việc của app.'
                             });
-                        })
-                    })
+                        }
+                    });
                 } else {
                     res.json({
                         status: 2,

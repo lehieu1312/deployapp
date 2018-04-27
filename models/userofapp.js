@@ -3,6 +3,7 @@ let mongoose = require("mongoose");
 let userofappschema = mongoose.Schema({
     idApp: String,
     nameApp: String,
+    idUserApp: String,
     email: String,
     firstName: String,
     lastName: String,

@@ -18,4 +18,4 @@ let inforAppAdminChema = mongoose.Schema({
     status: Boolean
 });
 
-let Inforapp = module.exports = mongoose.model('inforappadmins', inforAppAdminChema);
+let InforappAdmin = module.exports = mongoose.model('inforappadmins', inforAppAdminChema);

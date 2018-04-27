@@ -4,10 +4,9 @@
 }
 
 .left-content-checkout {
-    min-height: 500px;
-    border: solid 1px #ececec;
+    min-height: 800px;
     margin: 0 0px 0 10px;
-    background: white;
+    /* background: white; */
     border-radius: 2px;
 }
 
@@ -17,4 +16,56 @@
     margin: 0 10px 0 0px;
     background: white;
     border-radius: 2px;
+}
+
+#billing {
+    min-height: 450px;
+    background: white;
+    border: solid 1px #ececec;
+    border-radius: 2px;
+}
+
+#billing .form-group {
+    padding-left: 0;
+}
+
+#payment {
+    margin-top: 15px;
+    min-height: 60px;
+    background: white;
+    border: solid 1px #ececec;
+    border-radius: 2px;
+}
+
+.set-title-billing {
+    padding: 23px;
+    height: 61px;
+    font-size: 16px;
+    color: #444459;
+    font-family: 'OpenSans-Regular';
+}
+
+.set-title-payment {
+    padding: 18px;
+    height: 61px;
+    font-size: 16px;
+    color: #444459;
+    font-family: 'OpenSans-Regular';
+}
+
+.status-tast-1 {
+    margin-right: 6px;
+    padding: 1px 7px;
+    color: white;
+    border-radius: 50%;
+    font-size: 13px;
+    background-color: #00afee;
+}
+
+.left-content-checkout label {
+    margin-bottom: 12px;
+}
+
+.btn-complate-checkout {
+    margin-top: 15px;
 }

@@ -47,7 +47,13 @@ function ajaxstatistic(numberdate, numberend) {
                 centrate = ((data.bouncerate.bouncerate * 100 / data.session.getsession) - (data.bouncerate.bouncerateall * 100 / data.session.getsessionall)).toFixed(1);
             }
 
-            let centsessiontime = ((data.sessiontime.sessiontime / numberdate) / (data.sessiontime.sessiontimeall / data.date) - 1).toFixed(1);
+            let centsessiontime;
+
+            if (data.sessiontime.sessiontime == 0) {
+                centsessiontime = -1
+            } else {
+                centsessiontime = ((data.sessiontime.sessiontime / numberdate) / (data.sessiontime.sessiontimeall / data.date) - 1).toFixed(1);
+            }
 
             let coloruser = setstatus(centuser);
 

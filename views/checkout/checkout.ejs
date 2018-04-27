@@ -343,6 +343,91 @@
                             <span>
                                 <span class="status-tast-1">2</span> Payment Method</span>
                         </div>
+                        <div class="item-select-payment">
+                            <div class="col-sm-10">
+                                <label class="container-radio-custom">Paypal
+                                    <br>
+                                    <span>Safe payment online. Credit card needed. Paypal account is not necessary</span>
+                                    <input id="send-to-everyone" type="radio" name="notiradio" value="1">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                        <div class="item-select-payment">
+                            <div class="col-sm-10">
+                                <label class="container-radio-custom">Credit Card
+                                    <br>
+                                    <span>Safe money stransfer using your bank account.
+                                        <br> Visa, maestro, discover, american express.</span>
+                                    <input id="send-to-everyone" type="radio" name="notiradio" value="1">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                        <div class="col-sm-12">CARD DETAILS:</div>
+                        <div id="paypal-detail">
+                            <div class="col-sm-6">
+                                <div class="form-group has-feedback">
+                                    <label class="control-label" for="inputSuccess2">Username *</label>
+                                    <input type="text" class="resetinputlogin" id="checkout-zipcode" name="zipcode" aria-describedby="inputSuccess2Status">
+                                    <span class="form-control-feedback" aria-hidden="true">
+                                        <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group has-feedback">
+                                    <label class="control-label" for="inputSuccess2">Password *</label>
+                                    <input type="text" class="resetinputlogin" id="checkout-zipcode" name="zipcode" aria-describedby="inputSuccess2Status">
+                                    <span class="form-control-feedback" aria-hidden="true">
+                                        <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="credit-card-detail">
+                            <div class="col-sm-6">
+                                <div class="form-group has-feedback">
+                                    <label class="control-label" for="inputSuccess2">Card type *</label>
+                                    <input type="text" class="resetinputlogin" id="checkout-zipcode" name="zipcode" aria-describedby="inputSuccess2Status">
+                                    <span class="form-control-feedback" aria-hidden="true">
+                                        <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
+                                    </span>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label class="control-label" for="inputSuccess2">Name on Card *</label>
+                                    <input type="text" class="resetinputlogin" id="checkout-zipcode" name="zipcode" aria-describedby="inputSuccess2Status">
+                                    <span class="form-control-feedback" aria-hidden="true">
+                                        <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group has-feedback">
+                                    <label class="control-label" for="inputSuccess2">Card Number *</label>
+                                    <input type="text" class="resetinputlogin" id="checkout-zipcode" name="zipcode" aria-describedby="inputSuccess2Status">
+                                    <span class="form-control-feedback" aria-hidden="true">
+                                        <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
+                                    </span>
+                                </div>
+                                <div class="form-group has-feedback col-sm-6">
+                                    <label class="control-label" for="inputSuccess2">Expery Date *</label>
+                                    <input type="text" class="resetinputlogin" id="checkout-zipcode" name="zipcode" aria-describedby="inputSuccess2Status">
+                                    <span class="form-control-feedback" aria-hidden="true">
+                                        <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
+                                    </span>
+                                </div>
+                                <div class="form-group has-feedback col-sm-6">
+                                    <label class="control-label" for="inputSuccess2">CVV *</label>
+                                    <input type="text" class="resetinputlogin" id="checkout-zipcode" name="zipcode" aria-describedby="inputSuccess2Status">
+                                    <span class="form-control-feedback" aria-hidden="true">
+                                        <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <button class="btn-blue-deploy btn-complate-checkout">Complate Checkout</button>
                 </div>
@@ -380,6 +465,16 @@
                         <span class="float-right">$58.00</span>
                     </div>
 
+                </div>
+                <div class="promo-code">
+                    <div class="col-sm-12">PROMO CODE</div>
+                    <div class="form-group has-feedback col-sm-8 div-input-promo-code">
+                        <input type="text" class="resetinputlogin" id="checkout-zipcode" name="zipcode" aria-describedby="inputSuccess2Status">
+                        <span class="form-control-feedback" aria-hidden="true">
+                            <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
+                        </span>
+                    </div>
+                    <button class="btn-blue-deploy btn-complate-checkout col-sm-3">APPLY</button>
                 </div>
             </div>
         </div>

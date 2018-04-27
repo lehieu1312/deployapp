@@ -27,21 +27,36 @@ function ajaxstatistic(numberdate, numberend) {
     // console.log(linkstatistic);
     $.post(linkstatistic, {},
         (data) => {
+            console.log(data)
             if (numberdate > data.date) {
                 numberdate = data.date;
             }
             $(".statistic-tracking").html("");
-            let centuser = ((data.user.getuser / numberdate) / (data.user.getuserall / data.date) - 1).toFixed(1);
+            let centuser;
+            if (data.user.getuser == 0) {
+                centuser = -1;
+            } else {
+                let centuser = ((data.user.getuser / numberdate) / (data.user.getuserall / data.date) - 1).toFixed(1);
+            }
+            let centsession;
 
-            let centsession = ((data.session.getsession / numberdate) / (data.session.getsessionall / data.date) - 1).toFixed(1);
+            if (data.session.getsession == 0) {
+                centsession = -1;
+            } else {
+                centsession = ((data.session.getsession / numberdate) / (data.session.getsessionall / data.date) - 1).toFixed(1);
+            }
 
             let centrate = 0;
 
             let getrate = 0;
 
             if (data.bouncerate.bouncerate == 0) {
+                if (data.bouncerate.bouncerateall == 0) {
+                    centrate = (0 - 0).toFixed(1);
+                } else {
+                    centrate = (0 - (data.bouncerate.bouncerateall * 100 / data.session.getsessionall)).toFixed(1);
+                }
                 getrate = 0;
-                centrate = (0 - (data.bouncerate.bouncerateall * 100 / data.session.getsessionall)).toFixed(1);
             } else {
                 getrate = (data.bouncerate.bouncerate * 100 / data.session.getsession).toFixed(1);
                 centrate = ((data.bouncerate.bouncerate * 100 / data.session.getsession) - (data.bouncerate.bouncerateall * 100 / data.session.getsessionall)).toFixed(1);
@@ -61,8 +76,8 @@ function ajaxstatistic(numberdate, numberend) {
 
             let colorrate = setstatus(centrate);
 
-
             let colorsessiontime = setstatus(centsessiontime);
+
             $(".statistic-tracking").append(`
             <div class="footer-content-statistics">
             <span class="regular-medium-gray">Users</span>

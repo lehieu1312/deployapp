@@ -585,10 +585,6 @@ router.post("/statisticstracking/:idApp", (req, res) => {
             var dateend = new Date();
             dateend = dateend.setHours(0, 0, 0, 0);
             let length = (dateend - datestart) / 86400000;
-            // if (req.query.numberend) {
-            //     console.log(moment(req.query.numberdate));
-            //     console.log(moment(req.query.numberend))
-            // }
             if (req.query.numberdate > length) {
                 req.query.numberdate = length
             }

@@ -10,7 +10,7 @@ function ajaxsss(numberdate, numberend) {
     }
     $.post(linkstatistic, {},
         (data) => {
-            // console.log(data)
+            console.log(data)
             $(".system-session").html("");
             let numberandroi = 0;
             let numberios = 0;

@@ -3,6 +3,9 @@ var router = express.Router();
 var TrafficModel = require('../../models/traffic');
 var InforAppModel = require('../../models/inforapp');
 var libBase64 = require('../../lib/base64');
+var libCountry = require('../../lib/country');
+var libCountryJson = libCountry.country;
+var async = require('async');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 var Base64js = require('js-base64').Base64;
@@ -20,10 +23,10 @@ router.get('/appaccess', (req, res) => {
         var dateAccess = Date.now();
         var pageAccess = req.query.page;
         var sessionAccessPage = req.query.sessionpage;
-        var country = req.query.country;
+        var sCountry = req.query.country;
         var checkIsHome = req.query.ishome;
         ///////////////////////
-        console.log('idapp: ' + idApp);
+
         var sIDCustomer, sNameCustomer, sEmailCustomer,
             sPhoneCustomer, sAddCustomer, sTimeAccess, sDateOutAccess, sPageTimeAccess, sPageDateOutAccess;
         if (req.query.idcustomer)
@@ -55,18 +58,29 @@ router.get('/appaccess', (req, res) => {
         //     sDateOutAccess = req.query.dateoutaccess;
         // else
         //     sDateOutAccess = null;
-        console.log("'" + idApp + "'");
+
         console.log(platform);
         console.log(sessionIdUser);
         console.log(pageAccess);
         console.log(sessionAccessPage);
-        console.log(country);
+        console.log(sCountry);
         console.log(checkIsHome);
 
 
-        if (!reqIDApp || !nameApp || !platform || !sessionIdUser || !pageAccess || !sessionAccessPage || !country || !checkIsHome) {
+        if (!reqIDApp || !nameApp || !platform || !sessionIdUser || !pageAccess || !sessionAccessPage || !sCountry || !checkIsHome) {
             res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
         } else {
+            var arrCountry = '';
+            console.log(libCountryJson);
+            async.each(libCountryJson, (item) => {
+                console.log('item: ' + item);
+                if (item.code == sCountry) {
+                    arrCountry = item;
+                }
+            });
+            if (arrCountry == "")
+                return res.json({ status: 3, msg: 'Country không xác định' });
+            console.log('arrCountry: ' + arrCountry);
             var idApp = libBase64.Base64.encode(reqIDApp);
             InforAppModel.findOne({
                 idApp: idApp
@@ -94,8 +108,8 @@ router.get('/appaccess', (req, res) => {
                             sessionAccess: sessionAccessPage,
                             isHome: checkIsHome
                         }],
-                        codeCountry: country,
-                        country: country,
+                        codeCountry: arrCountry.code,
+                        country: arrCountry.name,
                         status: true
                     });
                     trafficData.save((err, kq) => {

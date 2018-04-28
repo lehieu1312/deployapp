@@ -95,6 +95,7 @@ router.get('/appaccess', (req, res) => {
                             isHome: checkIsHome
                         }],
                         codeCountry: country,
+                        country: country,
                         status: true
                     });
                     trafficData.save((err, kq) => {

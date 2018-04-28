@@ -31,8 +31,8 @@ function ajaxsss(numberdate, numberend) {
             <br>
             <span class="light-large-gray">${ numberios.toFixed(1) + "%"}</span>
             <br>
-            <span class="${colorandroid.color}">
-                <img class="settihg-arrow" src="/themes/img/traffic/${colorandroid.arrow}">${Math.abs(centandroid)+"%"}
+            <span class="${colorios.color}">
+                <img class="settihg-arrow" src="/themes/img/traffic/${colorios.arrow}">${Math.abs(centios)+"%"}
             </span>
         </div>
         <div class="sub-session-system">
@@ -43,8 +43,8 @@ function ajaxsss(numberdate, numberend) {
             <br>
             <span class="light-large-gray">${numberandroi.toFixed(1) + "%"}</span>
             <br>
-            <span class="${colorios.color}">
-                <img class="settihg-arrow" src="/themes/img/traffic/${colorios.arrow}">${Math.abs(centios) + "%"}
+            <span class="${colorandroid.color}">
+                <img class="settihg-arrow" src="/themes/img/traffic/${colorandroid.arrow}">${Math.abs(centandroid) + "%"}
             </span>
         </div>`)
 

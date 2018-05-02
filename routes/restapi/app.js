@@ -71,9 +71,9 @@ router.get('/appaccess', (req, res) => {
             res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
         } else {
             var arrCountry = '';
-            console.log(libCountryJson);
+            // console.log(libCountryJson);
             async.each(libCountryJson, (item) => {
-                console.log('item: ' + item);
+                // console.log('item: ' + item);
                 if (item.code == sCountry) {
                     arrCountry = item;
                 }

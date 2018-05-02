@@ -26,6 +26,7 @@ let userChema = mongoose.Schema({
         nameApp: String,
         status: String
     }],
+    blocked: Boolean,
     status: Boolean
 });
 

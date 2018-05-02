@@ -11,8 +11,9 @@ let inforAppAdminChema = mongoose.Schema({
         status: Boolean
     }],
     nameApp: String,
-    picture: String,
-    nameFile: String,
+    image: String,
+    installed: Number,
+    cost: Number,
     price: Number,
     dateCreate: Date,
     status: Boolean

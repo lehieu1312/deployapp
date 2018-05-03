@@ -590,6 +590,7 @@ app.use(function(req, res, next) {
     }
 });
 
+/// HOME
 var index = require('./routes/index');
 var uploads = require('./routes/uploads');
 var buildandroid = require('./routes/buildandroid');
@@ -634,6 +635,8 @@ var APIOrder = require("./routes/restapi/orderapp");
 var APIUserApp = require("./routes/restapi/userapp");
 var APIProductStatistic = require("./routes/restapi/productapp");
 
+/// Administrator
+var homeAdmin = require('./routes/admin/index');
 //checkout
 var checkout = require("./routes/checkout/checkout");
 
@@ -676,6 +679,8 @@ app.use('/dashboard', sentnotification);
 app.use('/dashboard', allusernoti);
 // app.use('/dashboard', appsetting);
 
+//Administrator 
+app.use('/admin', homeAdmin);
 //checkout
 app.use('/', checkout);
 

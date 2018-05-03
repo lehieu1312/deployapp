@@ -97,72 +97,48 @@
 
         </div>
         <div id="advertise-app" class="row row1">
-            <div class="group-advertise" id="app-order">
-                <div class="top-opacity">
-                </div>
-                <div class="head-advertise">
-                </div>
-                <button class="orderit">ADD TO CART</button>
-                <div class="foot-advertise">
-                    <div class="name-app-foot-advertise">
-                        <span class="name-app-advertise">Modern Shop</span>
-                        <span class="price-app">$328.00</span>
+            <%for(let i =0; i < appAdmin.length; i++){%>
+                <div class="group-advertise">
+                    <div class="top-opacity">
                     </div>
-                    <div>
-                        <img class="img-installed" src="/themes/img/dashboard/iconinstalled.png">
-                        <span class="number-installed">320k Installed</span>
-                        <span class="price-app-old">$458.5</span>
+                    <div class="head-advertise" style="background-image: url(/themes/img/app-dashboard/<%=appAdmin[i].image%>);">
                     </div>
-                </div>
-            </div>
-            <div class="group-advertise" id="app-order">
-                <div class="top-opacity">
-                </div>
-                <div class="head-advertise">
-                </div>
-                <button class="orderit">ADD TO CART</button>
-                <div class="foot-advertise">
-                    <div class="name-app-foot-advertise">
-                        <span class="name-app-advertise">Modern Shop</span>
-                        <span class="price-app">$328.00</span>
-                    </div>
-                    <div>
-                        <img class="img-installed" src="/themes/img/dashboard/iconinstalled.png">
-                        <span class="number-installed">320k Installed</span>
-                        <span class="price-app-old">$458.5</span>
+                    <input class="id-app-admin" hidden value="<%=appAdmin[i].idApp%>">
+                    <button class="orderit add-to-cart">ADD TO CART</button>
+                    <div class="foot-advertise">
+                        <div class="name-app-foot-advertise">
+                            <span class="name-app-advertise">
+                                <%=appAdmin[i].nameApp%>
+                            </span>
+                            <span class="price-app">
+                                <%="$" + appAdmin[i].price%>
+                            </span>
+                        </div>
+                        <div>
+                            <img class="img-installed" src="/themes/img/dashboard/iconinstalled.png">
+                            <span class="number-installed">
+                                <%=appAdmin[i].installed + " Installed"%>
+                            </span>
+                            <span class="price-app-old">
+                                <%= "$" + appAdmin[i].cost%>
+                            </span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="group-advertise" id="app-order">
-                <div class="top-opacity">
-                </div>
-                <div class="head-advertise">
-                </div>
-                <button class="orderit">ADD TO CART</button>
-                <div class="foot-advertise">
-                    <div class="name-app-foot-advertise">
-                        <span class="name-app-advertise">Modern Shop</span>
-                        <span class="price-app">$328.00</span>
-                    </div>
-                    <div>
-                        <img class="img-installed" src="/themes/img/dashboard/iconinstalled.png">
-                        <span class="number-installed">320k Installed</span>
-                        <span class="price-app-old">$458.5</span>
-                    </div>
-                </div>
-            </div>
-            <div class="container ">
-                <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog  ">
-                        <div class="modal-content1">
-                            <div class="dialogdeleteapp">
-                                <div class="dialogdeleteapp-head">
-                                    Are you sure to DELETE This app
-                                </div>
-                                <div class="dialogdeleteapp-foot">
-                                    <button id="delete-ok">Delete</button>
-                                    <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                </div>
+                <%}%>
+        </div>
+
+        <div class="container ">
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog  ">
+                    <div class="modal-content1">
+                        <div class="dialogdeleteapp">
+                            <div class="dialogdeleteapp-head">
+                                Are you sure to DELETE This app
+                            </div>
+                            <div class="dialogdeleteapp-foot">
+                                <button id="delete-ok">Delete</button>
+                                <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
                             </div>
                         </div>
                     </div>

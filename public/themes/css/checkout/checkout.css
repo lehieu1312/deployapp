@@ -11,7 +11,7 @@
 }
 
 .right-content-checkout {
-    min-height: 500px;
+    min-height: 300px;
     border: solid 1px #ececec;
     margin: 0 10px 0 0px;
     background: white;
@@ -97,3 +97,28 @@
 }
 
 #paypal-detail {}
+
+.set-text-promo-code {
+    font-family: 'OpenSans-Regular';
+    font-size: 13px;
+    color: #666666;
+}
+
+.div-title-payment {
+    height: 35px;
+}
+
+.set-text-title-payment {
+    font-family: 'OpenSans-Regular';
+    font-size: 13px;
+    color: #00afee;
+}
+
+.header-you-order {
+    font-size: 16px;
+    color: #444459;
+    font-family: 'OpenSans-Regular';
+    padding: 15px;
+    height: 35px;
+    border: none;
+}

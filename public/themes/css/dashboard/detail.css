@@ -1268,6 +1268,9 @@ a:hover .menumore-listmyapp {
 }
 
 .header-modal-cart {
+    font-size: 16px;
+    color: #444459;
+    font-family: 'OpenSans-Regular';
     width: 100%;
     height: 60px;
     border-bottom: solid 1px #ededed;

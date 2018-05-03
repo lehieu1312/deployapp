@@ -7,7 +7,7 @@ var appRoot = require('app-root-path');
 appRoot = appRoot.toString();
 var request = require('request');
 var multer = require('multer')
-// var upload = multer({ dest: 'uploads/' })
+// var upload = multer({ dest: 'uploads/' });
 var app = express();
 var md5 = require('md5');
 var User = require('../../models/user');
@@ -16,11 +16,13 @@ var devMode = libSetting.devMode;
 var Country = require('../../models/country');
 var Inforapp = require('../../models/inforapp');
 var TrafficModel = require('../../models/traffic');
+var infor_app_admin = require('../../models/inforappadmin');
+var order = require("../../models/order")
 var hostServer = libSetting.hostServer;
 var fs = require('fs');
 var server = require('http').Server(app);
 var io = require("socket.io")(server);
-var moment = require("moment")
+var moment = require("moment");
 // server.listen(3000)
 
 
@@ -136,12 +138,17 @@ router.get('/dashboard', checkAdmin, (req, res) => {
                 } catch (error) {
                     res.redirect("/dashboard/404")
                 }
-                // console.log(myapps)
-                return res.render("./dashboard/detail", {
-                    title: "Dashboard",
-                    myapps,
-                    appuse: ""
-                });
+                infor_app_admin.find({
+                    status: true
+                }).then((apps_admin) => {
+                    return res.render("./dashboard/detail", {
+                        title: "Dashboard",
+                        myapps,
+                        appAdmin: apps_admin,
+                        appuse: ""
+                    });
+                })
+
             }
             getmyapp();
         })
@@ -163,17 +170,13 @@ router.get('/dashboard', checkAdmin, (req, res) => {
 
 router.post("/getamountapp", (req, res) => {
     try {
-        Inforapp.find({
-            idUser: {
-                $elemMatch: {
-                    idUser: req.session.iduser
-                }
-            }
+        User.findOne({
+            id: req.session.iduser
         }, (err, data) => {
             if (err) throw err;
             console.log("myapp:" + data.length)
             return res.json({
-                amount: data.length
+                amount: data.myapp.length
             });
         })
     } catch (error) {
@@ -250,5 +253,51 @@ router.post("/dashboard/deleteapp", (req, res) => {
 
 })
 
+function filtercart(a) {
+    var b = [];
+    while (a.length > 0) {
+        let c = a.filter(function (el) {
+            return el == a[0]
+        });
+        b.push({
+            id: c[0],
+            count: c.length
+        });
+        a = a.filter(function (el) {
+            return el != a[0]
+        });
+    }
+    return b;
+}
+router.post("/dashboard/add-to-cart", (req, res) => {
+    try {
+        req.session.cart.push(req.body.idApp);
+        data_session_cart = filtercart(req.session.cart);
+        async function get_data_car() {
+            var cart = [];
+            for (let i = 0; i < data_session_cart.length; i++) {
+                let getdata = await infor_app_admin.findOne({
+                    idApp: data_session_cart[i].id
+                }).exec();
+                cart.push({
+                    cart: getdata,
+                    count: data_session_cart[i].count
+                })
+            }
+            res.json({
+                status: "1",
+                cart
+            })
+        }
+        get_data_car();
+    } catch (error) {
+        console.log(error + "")
+    }
+})
+
+
+router.post("/get-cart", (req, res) => {
+
+})
 
 module.exports = router;

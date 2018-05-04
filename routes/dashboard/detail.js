@@ -17,7 +17,7 @@ var Country = require('../../models/country');
 var Inforapp = require('../../models/inforapp');
 var TrafficModel = require('../../models/traffic');
 var infor_app_admin = require('../../models/inforappadmin');
-var order = require("../../models/order")
+var order = require("../../models/order");
 var hostServer = libSetting.hostServer;
 var fs = require('fs');
 var server = require('http').Server(app);
@@ -284,7 +284,8 @@ router.post("/dashboard/add-to-cart", (req, res) => {
                     count: data_session_cart[i].count
                 })
             }
-            res.json({
+            console.log(cart)
+            return res.json({
                 status: "1",
                 cart
             })
@@ -297,7 +298,24 @@ router.post("/dashboard/add-to-cart", (req, res) => {
 
 
 router.post("/get-cart", (req, res) => {
-
+    data_session_cart = filtercart(req.session.cart);
+    async function get_data_car() {
+        var cart = [];
+        for (let i = 0; i < data_session_cart.length; i++) {
+            let getdata = await infor_app_admin.findOne({
+                idApp: data_session_cart[i].id
+            }).exec();
+            cart.push({
+                cart: getdata,
+                count: data_session_cart[i].count
+            })
+        }
+        console.log(cart)
+        return res.json({
+            cart
+        })
+    }
+    get_data_car();
 })
 
 module.exports = router;

@@ -20,6 +20,7 @@ let userChema = mongoose.Schema({
     country: String,
     zipcode: String,
     verifycode: String,
+    codeShare: String,
     myapp: [{
         id: String,
         idApp: String,

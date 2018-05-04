@@ -7,8 +7,9 @@
             </span>
                 <button type="submit" class="btn-blue" id="adduser" data-toggle="modal" data-target="#myModa-adduser">
                 <img class="seticonadd" src="/themes/img/admin/add.png"> Add User</button>
+
                 <span class="setsearch">
-                <input type="text" onkeyup="searchappversion()" id="inputsearchapp1" name="search" placeholder="Search...">
+                <input type="text" onkeyup="searchFunc()" id="inputsearch-customer" name="search" placeholder="Search...">
                 <span class="form-control-feedback2" aria-hidden="true">
                     <img src="/themes/img/admin/search.png">
                 </span>
@@ -16,10 +17,13 @@
             </div>
         </div>
         <div class="showall row row1">
-            <span>All() |</span>
-            <a href="#"><span class="colora">Affiliate</span>()</a> |
-            <a href="#"> <span class="colora">Deactive</span>()</a> |
-            <a href="#"><span class="colora">Blocked</span>()</a>
+            <span>All (<%=dataUser.length%>) |</span>
+            <a href="#"><span class="colora">Affiliate</span></a> (
+            <%=dataUser.length%>) |
+                <a href="#"> <span class="colora">Deactive</span></a>(
+                <%=userDeactive.length%>) |
+                    <a href="#"><span class="colora">Blocked</span></a> (
+                    <%=userBocked.length%>)
         </div>
         <div id="filter-table-appversion" class="row row1">
             <span class="table-show">Show</span>
@@ -129,71 +133,119 @@
         </div>
 
         <div class="row row1">
+
             <div id="content-appversion">
+                <div class="multi-option">
+                    <div class="input-group ">
+                        <button data-toggle="dropdown" class="btn btn-white dropmenu-multi-option" type="button" aria-expanded="true">Bulk actions <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#"><img src="/themes/img/admin/blockmultioption.png" class="img-option-multi" alt="Block selected"> &nbsp;<span>Block selected</span></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="/themes/img/admin/deletemultioption.png" class="img-option-multi" alt="Delete selected"> &nbsp;<span>Delete selected</span></a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
 
                 <table id="table-appversion">
                     <tr id="title-table-header">
+                        <th width="5.8%"><input type="checkbox" id="checkboxall"></th>
                         <th width="7.8%">#</th>
                         <th width="13%">Avatar
                             <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
                         </th>
-                        <th width="22.2%">Name
+                        <th width="12.2%">First name
                             <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
                         </th>
-                        <th width="28.2%">Email
+                        <th width="12.2%">Last name
+                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                        </th>
+                        <th width="25.2%">Email
                             <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
                         </th>
                         <th width="15%">Date added
                             <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
                         </th>
-                        <th width="13.8%">
+                        <th width="10%">Login
+                        </th>
+                        <th width="15.8%">
                         </th>
                     </tr>
                     <tbody>
-                        <tr class="tr-content-appversion">
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td class="set-position-relative">
-                                <img class="setimg-head-myapp deleteuser" src="/themes/img/dashboard/iconmenumore.png">
-                                <div class="delete-user" style="display:none">
-                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal-deleteuser">
-                                        <div class="element-delete">
-                                            <img class="imgicondelete" src="/themes/img/dashboard/icondelete.png">
-                                            <span>Delete</span>
+                        <%var dem=1;%>
+                            <% dataUser.forEach(function(item){%>
+                                <tr id="" class="tr-content-appversion">
+                                    <td><input type="checkbox" id="<%=item.id%>"></td>
+                                    <td class="">
+                                        <%=dem%>
+                                    </td>
+                                    <td class="table-nameapp ">
+                                        <%if(!item.picture){%>
+                                            <img class="imgavatarsmall1" src="/themes/img/admin/avatar.png" alt="avatar">
+                                            <%}else{%>
+                                                <img class="imgavatarsmall1" src="/themes/img/profile/<%=item.picture%>" alt="avatar">
+                                                <%}%>
+                                    </td>
+                                    <td class="table-version ">
+                                        <span><%=item.firstname%></span>
+                                    </td>
+                                    <td class="table-version ">
+                                        <span><%=item.firstname%></span>
+                                    </td>
+                                    <td class="table-changelog ">
+                                        <span><%=item.email%></span>
+                                    </td>
+                                    <td class="table-time-appversion finddate">
+                                        <span><%=moment(item.dateCreate).format('DD/MM/YYYY HH:mm:ss')%></span>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="btn-login-customer">
+                                            <img class="login-first" src="/themes/img/admin/login.png" alt="login customer">
+                                            <img class="login-second" src="/themes/img/admin/loginactive.png" alt="login customer">
+                                        </a>
+                                    </td>
+                                    <td class="set-position-relative">
+                                        <img class="setimg-head-myapp deleteuser" src="/themes/img/admin/moreoption.png">
+                                        <div class="delete-user" style="display:none">
+                                            <a href="#" data-toggle="modal" data-target="#mymodal-deleteuser">
+                                                <div class="element-delete">
+                                                    <div class="box-edit-customer box-option-customer">
+                                                        <div class="left-box-item">
+                                                            <img class="imgicondelete" src="/themes/img/admin/edit.png">
+                                                            <span>Edit</span>
+                                                        </div>
+                                                    </div>
+                                            </a>
+                                            <a href="#" data-toggle="modal" data-target="#mymodal-deleteuser">
+                                                <div class="box-edit-customer box-option-customer">
+                                                    <div class="left-box-item">
+                                                        <img class="imgicondelete" src="/themes/img/admin/block.png">
+                                                        <span>Block</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="#" data-toggle="modal" data-target="#mymodal-deleteuser">
+                                                <div class="box-edit-customer box-option-customer">
+                                                    <div class="left-box-item">
+                                                        <img class="imgicondelete" src="/themes/img/admin/delete.png">
+                                                        <span>Delete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            </div>
+
+                                            <div class="arrowmenuuser-left">
+                                            </div>
+                                            <div class="arrowmenuuser-left1">
+                                            </div>
                                         </div>
-                                    </a>
-                                    <div class="arrowmenuuser-left">
-                                    </div>
-                                    <div class="arrowmenuuser-left1">
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td class="set-position-relative">
-                                <img class="setimg-head-myapp deleteuser" src="/themes/img/dashboard/iconmenumore.png">
-                                <div class="delete-user" style="display:none">
-                                    <a href="#" data-toggle="modal" data-target="#myModal-deleteuser">
-                                        <div class="element-delete">
-                                            <img class="imgicondelete" src="/themes/img/dashboard/icondelete.png">
-                                            <span>Delete</span>
-                                        </div>
-                                    </a>
-                                    <div class="arrowmenuuser-left">
-                                    </div>
-                                    <div class="arrowmenuuser-left1">
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                                    </td>
+                                </tr>
+                                <% dem++;})%>
                     </tbody>
                 </table>
 
@@ -279,6 +331,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="container ">
                 <div class="modal fade" id="myModa-adduser" role="dialog">
                     <div class="modal-dialog  ">
@@ -288,7 +341,7 @@
                                     Add a User
                                 </div>
                                 <form id="form-adduser" onsubmit="return false">
-                                    <textarea placeholder="Email address" rows="1" class="textarea-adduser"></textarea>
+                                    <textarea placeholder="Email address" rows="1" class="textarea-adduser" id="input-add-customer"></textarea>
                                     <div class="dialogdeleteapp-foot-history">
                                         <button id="cancel-adduser" class="float-right btn-gray margin-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
                                         <button type="submit" class="float-right btn-blue" id="adduser">Add user</button>

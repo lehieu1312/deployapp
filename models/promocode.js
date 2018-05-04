@@ -3,8 +3,10 @@ let mongoose = require('mongoose');
 let promocodeSchema = mongoose.Schema({
     idApp: String,
     promoCode: String,
+    percentSale: Number,
     dateCreate: Date,
+    dateExpiration: Date,
     status: Boolean
 });
 
-let InforappAdmin = module.exports = mongoose.model('promocodes', promocodeSchema);
+let PromoCodes = module.exports = mongoose.model('promocodes', promocodeSchema);

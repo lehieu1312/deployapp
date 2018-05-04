@@ -1,5 +1,8 @@
 $(document).ready(() => {
 
+
+
+    add_and_removeProduct();
     $('#deploy-detail-content').click(() => {
         $('#country1').hide();
     })

@@ -89,6 +89,27 @@ router.get('/checkout', checkAdmin, checkcart, (req, res) => {
         get_data_car();
     })
 });
+
+router.put("/add-product-cart", checkAdmin, checkcart, (req, res) => {
+    req.session.cart.push(req.body.idApp);
+    console.log(req.session.cart)
+    res.json({
+        Status: "1",
+        message: "ok"
+    })
+})
+router.delete("/remove-product-cart", checkAdmin, checkcart, (req, res) => {
+    var i = req.session.cart.indexOf(req.body.idApp);
+    if (i != -1) {
+        req.session.cart.splice(i, 1);
+    }
+    console.log(req.session.cart)
+    res.json({
+        Status: "1",
+        message: "ok"
+    })
+})
+
 router.post('/test/data', (req, res) => {
     console.log("product:");
     console.log(req.body);

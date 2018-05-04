@@ -16,36 +16,35 @@
                         <div class="col-sm-6 ">
                             <div class="form-group has-feedback">
                                 <label class="control-label" for="inputSuccess2">First Name *</label>
-                                <input type="text" class="resetinputlogin" id="checkout-firstname" name="firstname" aria-describedby="inputSuccess2Status">
+                                <input type="text" class="resetinputlogin" id="checkout-firstname" name="firstname" value="<%=user.firstname%>">
                                 <span class="form-control-feedback" aria-hidden="true">
                                     <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
                                 </span>
                             </div>
                             <div class="form-group has-feedback">
                                 <label class="control-label" for="inputSuccess2">Last Name *</label>
-                                <input type="text" class="resetinputlogin" id="checkout-lastname" name="lastname" aria-describedby="inputSuccess2Status">
+                                <input type="text" class="resetinputlogin" id="checkout-lastname" name="lastname" value="<%=user.lastname%>">
                                 <span class="form-control-feedback" aria-hidden="true">
                                     <img class="seticoneye iconerr icon" id="iconerr2" src="" alt="">
                                 </span>
                             </div>
                             <div class="form-group has-feedback">
                                 <label class="control-label" for="inputSuccess2">Company *</label>
-                                <input type="text" class="resetinputlogin" id="checkout-username" name="username" aria-describedby="inputSuccess2Status">
+                                <input type="text" class="resetinputlogin" id="checkout-company" name="company">
                                 <span class="form-control-feedback" aria-hidden="true">
                                     <img class="seticoneye iconerr icon" id="iconerr3" src="" alt="">
                                 </span>
                             </div>
                             <div class="form-group has-feedback">
                                 <label class="control-label" for="inputSuccess2">Address *</label>
-                                <input type="text" class="resetinputlogin" id="checkout-email" name="email" aria-describedby="inputSuccess2Status">
+                                <input type="text" class="resetinputlogin" id="checkout-address" name="email" value="<%=user.address%>">
                                 <span class="form-control-feedback" aria-hidden="true">
                                     <img class="seticoneye iconerr icon" id="iconerr4" src="" alt="">
                                 </span>
                             </div>
                             <div class="form-group has-feedback">
                                 <label class="control-label" for="inputSuccess2">City *</label>
-                                <input type="text" name="checkout-city" id="checkout-city" class="resetinputlogin" aria-describedby="inputSuccess2Status"
-                                    placeholder="Please enter at least 6 characters">
+                                <input type="text" name="checkout-city" id="checkout-city" class="resetinputlogin" placeholder="Please enter at least 6 characters">
                                 <span class="form-control-feedback" aria-hidden="true">
                                     <img class="seticoneye iconerr icon" id="iconerr4" src="" alt="">
                                 </span>
@@ -54,14 +53,14 @@
                         <div class="col-sm-6">
                             <div class="form-group has-feedback">
                                 <label class="control-label" for="inputSuccess2">State *</label>
-                                <input type="text" class="resetinputlogin" name="address" aria-describedby="inputSuccess2Status">
+                                <input type="text" class="resetinputlogin" name="state">
                                 <span class="form-control-feedback" aria-hidden="true">
                                     <img class="seticoneye iconerr icon" id="iconerr7" src="" alt="">
                                 </span>
                             </div>
                             <div class="form-group has-feedback">
                                 <label class="control-label" for="inputSuccess2">Zip/Postal *</label>
-                                <input type="text" class="resetinputlogin" name="address" aria-describedby="inputSuccess2Status">
+                                <input type="text" class="resetinputlogin" name="zipcode" value="<%=user.zipcode%>">
                                 <span class="form-control-feedback" aria-hidden="true">
                                     <img class="seticoneye iconerr icon" id="iconerr7" src="" alt="">
                                 </span>
@@ -322,14 +321,14 @@
                             </div>
                             <div class="form-group has-feedback">
                                 <label class="control-label" for="inputSuccess2">Mobiphone *</label>
-                                <input type="text" class="resetinputlogin" name="zipcode" aria-describedby="inputSuccess2Status">
+                                <input type="text" class="resetinputlogin" name="zipcode">
                                 <span class="form-control-feedback" aria-hidden="true">
                                     <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
                                 </span>
                             </div>
                             <div class="form-group has-feedback">
                                 <label class="control-label" for="inputSuccess2">Email Address *</label>
-                                <input type="text" class="resetinputlogin" name="zipcode" aria-describedby="inputSuccess2Status">
+                                <input type="text" class="resetinputlogin" name="zipcode">
                                 <span class="form-control-feedback" aria-hidden="true">
                                     <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
                                 </span>
@@ -380,7 +379,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group has-feedback">
                                     <label class="control-label" for="inputSuccess2">Username *</label>
-                                    <input type="text" class="resetinputlogin" name="zipcode" aria-describedby="inputSuccess2Status">
+                                    <input type="text" class="resetinputlogin" name="zipcode" >
                                     <span class="form-control-feedback" aria-hidden="true">
                                         <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
                                     </span>
@@ -389,7 +388,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group has-feedback">
                                     <label class="control-label" for="inputSuccess2">Password *</label>
-                                    <input type="password" class="resetinputlogin" name="zipcode" aria-describedby="inputSuccess2Status">
+                                    <input type="password" class="resetinputlogin" name="zipcode" >
                                     <span class="form-control-feedback" aria-hidden="true">
                                         <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
                                     </span>
@@ -400,14 +399,14 @@
                             <div class="col-sm-6">
                                 <div class="form-group has-feedback">
                                     <label class="control-label" for="inputSuccess2">Card type *</label>
-                                    <input type="text" class="resetinputlogin" name="zipcode" aria-describedby="inputSuccess2Status">
+                                    <input type="text" class="resetinputlogin" name="zipcode" >
                                     <span class="form-control-feedback" aria-hidden="true">
                                         <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
                                     </span>
                                 </div>
                                 <div class="form-group has-feedback">
                                     <label class="control-label" for="inputSuccess2">Name on Card *</label>
-                                    <input type="text" class="resetinputlogin" name="zipcode" aria-describedby="inputSuccess2Status">
+                                    <input type="text" class="resetinputlogin" name="zipcode" >
                                     <span class="form-control-feedback" aria-hidden="true">
                                         <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
                                     </span>
@@ -416,21 +415,21 @@
                             <div class="col-sm-6">
                                 <div class="form-group has-feedback">
                                     <label class="control-label" for="inputSuccess2">Card Number *</label>
-                                    <input type="text" class="resetinputlogin" name="zipcode" aria-describedby="inputSuccess2Status">
+                                    <input type="text" class="resetinputlogin" name="zipcode" >
                                     <span class="form-control-feedback" aria-hidden="true">
                                         <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
                                     </span>
                                 </div>
                                 <div class="form-group has-feedback col-sm-6">
                                     <label class="control-label" for="inputSuccess2">Expery Date *</label>
-                                    <input type="text" class="resetinputlogin" name="zipcode" aria-describedby="inputSuccess2Status">
+                                    <input type="text" class="resetinputlogin" name="zipcode" >
                                     <span class="form-control-feedback" aria-hidden="true">
                                         <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
                                     </span>
                                 </div>
                                 <div class="form-group has-feedback col-sm-6">
                                     <label class="control-label" for="inputSuccess2">CVV *</label>
-                                    <input type="text" class="resetinputlogin" name="zipcode" aria-describedby="inputSuccess2Status">
+                                    <input type="text" class="resetinputlogin" name="zipcode" >
                                     <span class="form-control-feedback" aria-hidden="true">
                                         <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
                                     </span>
@@ -447,40 +446,46 @@
                         <span>Your Cart</span>
                     </div>
                     <div class="content-modal-cart">
-                        <%for(let i =0; i< cart.length;i++){%>
-                            <div class="item-product-in-cart">
-                                <div class="left-content-product-in-cart">
-                                    <img src="/themes/img/product/test.png">
-                                </div>
-                                <div class="right-content-product-in-cart">
-                                    <span>Pretashop Import Product with</span>
-                                    <br>
-                                    <span>
-                                        <%="$" + cart[i].cart.price%>
-                                    </span>
-                                    <span class="set-text-olde-price">
-                                        <%="$" + cart[i].cart.cost%>
-                                    </span>
-                                    <div class="border-add-product">
-                                        <div class="set-btn-cart float-left reduce-product">-</div>
-                                        <div class="set-input-add-product float-left number-product">
-                                            <%=cart[i].count%>
+                        <% var tong = 0; %>
+                            <%for(let i =0; i< cart.length;i++){%>
+                                <% tong = tong + cart[i].cart.price*cart[i].count%>
+                                    <div class="item-product-in-cart">
+                                        <div class="left-content-product-in-cart">
+                                            <img src="/themes/img/product/test.png">
                                         </div>
-                                        <div class="set-btn-cart float-left add-product">+</div>
-                                        <div class="float-right">
+                                        <div class="right-content-product-in-cart">
+                                            <span>Pretashop Import Product with</span>
+                                            <br>
                                             <span>
-                                                <%="$" + cart[i].cart.price*cart[i].count%>
+                                                <input hidden class="idApp-hidden" value="<%=cart[i].cart.idApp%>">
+                                                <input hidden class="price-hidden" value="<%=cart[i].cart.price%>">
+                                                <%="$" + cart[i].cart.price%>
                                             </span>
+                                            <span class="set-text-olde-price">
+                                                <%="$" + cart[i].cart.cost%>
+                                            </span>
+                                            <div class="border-add-product">
+                                                <div class="set-btn-cart float-left reduce-product">-</div>
+                                                <div class="set-input-add-product float-left number-product">
+                                                    <%=cart[i].count%>
+                                                </div>
+                                                <div class="set-btn-cart float-left add-product">+</div>
+                                                <div class="float-right">
+                                                    <span class="price-product">
+                                                        <%="$" + cart[i].cart.price*cart[i].count%>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <%}%>
+                                    <%}%>
 
                     </div>
                     <div class="footer-modal-cart">
                         <span>Total</span>
-                        <span class="float-right">$58.00</span>
+                        <span id="total-price-product" class="float-right">
+                            <%="$" + tong%>
+                        </span>
                     </div>
 
                 </div>
@@ -492,7 +497,7 @@
                         </span>
                     </div>
                     <div class="form-group has-feedback col-sm-8 div-input-promo-code">
-                        <input type="text" class="resetinputlogin" name="zipcode" aria-describedby="inputSuccess2Status">
+                        <input type="text" class="resetinputlogin" name="zipcode">
                         <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
                         </span>

@@ -348,7 +348,7 @@
                                 <label class="container-radio-custom">Paypal
                                     <br>
                                     <span>Safe payment online. Credit card needed. Paypal account is not necessary</span>
-                                    <input id="send-to-everyone" type="radio" name="notiradio" value="1">
+                                    <input type="radio" name="notiradio" value="1">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
@@ -357,12 +357,12 @@
                             </div>
                         </div>
                         <div class="item-select-payment">
-                            <div class="col-sm-9">
+                            <div id="payment-credit-card" class="col-sm-9">
                                 <label class="container-radio-custom">Credit Card
                                     <br>
                                     <span>Safe money stransfer using your bank account.
                                         <br> Visa, maestro, discover, american express.</span>
-                                    <input id="send-to-everyone" type="radio" name="notiradio" value="1">
+                                    <input type="radio" name="notiradio" value="1">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
@@ -373,7 +373,7 @@
                                 <img src="/themes/img/checkout/iconcard3.png" alt="icon card">
                             </div>
                         </div>
-                        <div class="col-sm-12 div-title-payment">
+                        <!-- <div class="col-sm-12 div-title-payment">
                             <span class="set-text-title-payment"> CARD DETAILS:</span>
                         </div>
                         <div id="paypal-detail">
@@ -436,7 +436,7 @@
                                     </span>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <button class="btn-blue-deploy btn-complate-checkout">Complate Checkout</button>
                 </div>
@@ -447,21 +447,30 @@
                         <span>Your Cart</span>
                     </div>
                     <div class="content-modal-cart">
-                        <%for(let i =0; i< 5;i++){%>
+                        <%for(let i =0; i< cart.length;i++){%>
                             <div class="item-product-in-cart">
                                 <div class="left-content-product-in-cart">
                                     <img src="/themes/img/product/test.png">
                                 </div>
                                 <div class="right-content-product-in-cart">
                                     <span>Pretashop Import Product with</span>
-                                    <span>$58.00</span>
-                                    <span class="set-text-olde-price"> $81.00</span>
+                                    <br>
+                                    <span>
+                                        <%="$" + cart[i].cart.price%>
+                                    </span>
+                                    <span class="set-text-olde-price">
+                                        <%="$" + cart[i].cart.cost%>
+                                    </span>
                                     <div class="border-add-product">
                                         <div class="set-btn-cart float-left reduce-product">-</div>
-                                        <div class="set-input-add-product float-left number-product">1</div>
+                                        <div class="set-input-add-product float-left number-product">
+                                            <%=cart[i].count%>
+                                        </div>
                                         <div class="set-btn-cart float-left add-product">+</div>
                                         <div class="float-right">
-                                            <span>$58.00</span>
+                                            <span>
+                                                <%="$" + cart[i].cart.price*cart[i].count%>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -490,6 +499,18 @@
                     </div>
                     <button class="btn-blue-deploy btn-complate-checkout col-sm-3">APPLY</button>
                 </div>
+                <div class="billing-address-complate display-none">
+                    <div class="col-sm-12">
+                        <span class="set-text-promo-code">
+                            BILLING ADDRESS
+                        </span>
+                        <!-- <img src="/themes/img/checkout/iconpromocode.png"> -->
+                    </div>
+                    <div class="form-group has-feedback col-sm-8 div-input-promo-code">
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/checkout/checkout.js"></script>

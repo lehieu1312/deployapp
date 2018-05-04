@@ -352,6 +352,19 @@ button {
     color: #ffffff;
 }
 
+#number-product-to-cart {
+    font-family: 'OpenSans-Semibold';
+    font-size: 11px;
+    border-radius: 3px;
+    position: absolute;
+    background: red;
+    padding: 0 4.5px 0 4.5px;
+    margin-top: 1px;
+    margin-left: 10px;
+    top: 0px;
+    color: #ffffff;
+}
+
 #user-deploy {
     cursor: pointer;
     padding-left: 20px;

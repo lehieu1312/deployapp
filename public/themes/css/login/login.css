@@ -436,6 +436,7 @@ input[type=checkbox]:checked+label {
     border-bottom: 1px solid #dedede;
     width: 100%;
     text-indent: 5px;
+    height: 23px;
 }
 
 #register-country {

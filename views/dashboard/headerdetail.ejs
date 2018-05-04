@@ -58,7 +58,6 @@
     <script type="text/javascript " charset="utf-8 " src="/themes/js/dashboard/chartjs/anychart/world.js"></script>
     <script type="text/javascript " charset="utf-8 " src="/themes/js/dashboard/chartjs/anychart/proj4.js"></script>
 
-    <script type="text/javascript " charset="utf-8 " src="/themes/js/checkout/checkout.js"></script>
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/anychart-ui.min.css">
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/anychart-font.min.css">
     <!-- new 21-11 -->
@@ -77,6 +76,33 @@
                     $('.textamountapp').text("MyApp(" + data.amount + ")");
                 }
             )
+            $.post("/get-cart", {},
+                function (data) {
+                    $("#content-modal-cart").html();
+                    $("#number-product-to-cart").text(data.cart.length);
+                    for (let i = 0; i < data.cart.length; i++) {
+                        $("#content-modal-cart").append(
+                            `<div class="item-product-in-cart">
+                            <div class="left-content-product-in-cart">
+                                <img src="/themes/img/product/test.png">
+                            </div>
+                            <div class="right-content-product-in-cart">
+                                <span>Pretashop Import Product with</span>
+                                <span>${"$" + data.cart[i].cart.price}</span>
+                                <span class="set-text-olde-price">${"$" + data.cart[i].cart.cost}</span>
+                                <div class="border-add-product">
+                                    <div class="set-btn-cart float-left reduce-product">-</div>
+                                    <div class="set-input-add-product float-left number-product">${data.cart[i].count}</div>
+                                    <div class="set-btn-cart float-left add-product">+</div>
+                                    <div class="float-right">
+                                        <span>${"$" + data.cart[i].cart.price*data.cart[i].count}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
+                        )
+                    }
+                })
         });
     </script>
 </head>
@@ -119,32 +145,11 @@
                     <span>Shopping Cart</span>
                     <img data-dismiss="modal" aria-label="Close" src="/themes/img/dashboard/iconclose.png">
                 </div>
-                <div class="content-modal-cart">
-                    <%for(let i =0; i< 5;i++){%>
-                        <div class="item-product-in-cart">
-                            <div class="left-content-product-in-cart">
-                                <img src="/themes/img/product/test.png">
-                            </div>
-                            <div class="right-content-product-in-cart">
-                                <span>Pretashop Import Product with</span>
-                                <span>$58.00</span>
-                                <span class="set-text-olde-price"> $81.00</span>
-                                <div class="border-add-product">
-                                    <div class="set-btn-cart float-left reduce-product">-</div>
-                                    <div class="set-input-add-product float-left number-product">1</div>
-                                    <div class="set-btn-cart float-left add-product">+</div>
-                                    <div class="float-right">
-                                        <span>$58.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <%}%>
-
+                <div id="content-modal-cart" class="content-modal-cart">
                 </div>
                 <div class="footer-modal-cart">
                     <span>Total</span>
-                    <span class="float-right">$58.00</span>
+                    <span id="total-price" class="float-right">$58.00</span>
                     <br>
                     <a id="click-test" href="/checkout">
                         <button class="btn-blue-checkout">CHECK OUT</button>
@@ -216,7 +221,7 @@
                         </div>
                         <div id="cart-myapp" data-toggle="modal" data-target="#modal-cart">
                             <a href="#">
-                                <span id="number-notifications">
+                                <span id="number-product-to-cart">
                                     2
                                 </span>
                                 <img src="/themes/img/dashboard/iconcart.png">

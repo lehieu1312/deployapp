@@ -1,7 +1,7 @@
 function addProduct(idApp) {
     $.ajax({
         url: "/add-product-cart",
-        type: "PUT",
+        type: "POST",
         dataType: "json",
         data: {
             idApp
@@ -15,7 +15,7 @@ function addProduct(idApp) {
 function removeProduct(idApp) {
     $.ajax({
         url: "/remove-product-cart",
-        type: "DELETE",
+        type: "POST",
         dataType: "json",
         data: {
             idApp

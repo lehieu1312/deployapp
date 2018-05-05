@@ -247,8 +247,6 @@ $(document).ready(function () {
     })
     // ajax editprofile
 
-
-
     $('#form-editprofile').submit(function () {
         if (tap1 == true) {
             if (formeditprofile() == true) {

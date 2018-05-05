@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 let orderShema = mongoose.Schema({
     idOrder: String,
+    idUser: String,
     firstName: String,
     lastName: String,
     company: String,

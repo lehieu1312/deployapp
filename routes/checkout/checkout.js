@@ -90,7 +90,7 @@ router.get('/checkout', checkAdmin, checkcart, (req, res) => {
     })
 });
 
-router.put("/add-product-cart", checkAdmin, checkcart, (req, res) => {
+router.post("/add-product-cart", checkAdmin, checkcart, (req, res) => {
     req.session.cart.push(req.body.idApp);
     console.log(req.session.cart)
     res.json({
@@ -98,7 +98,7 @@ router.put("/add-product-cart", checkAdmin, checkcart, (req, res) => {
         message: "ok"
     })
 })
-router.delete("/remove-product-cart", checkAdmin, checkcart, (req, res) => {
+router.post("/remove-product-cart", checkAdmin, checkcart, (req, res) => {
     var i = req.session.cart.indexOf(req.body.idApp);
     if (i != -1) {
         req.session.cart.splice(i, 1);

@@ -36,13 +36,39 @@ function genderCodeShare() {
 
 router.get('/customer', (req, res) => {
     try {
-        userModels.find().then((dataUser) => {
-            userModels.find({ blocked: true }).then((userBocked) => {
-                userModels.find({ blocked: true }).then((userDeactive) => {
-                    res.render('admin/customer', { dataUser, userDeactive, userBocked, moment, title: "Customer" });
+        var condition = req.query.con;
+        if (condition == "deactive") {
+            userModels.find({ status: false }).then((dataUser) => {
+                userModels.find().then((dataAll) => {
+                    userModels.find({ blocked: true }).then((userBocked) => {
+                        userModels.find({ status: false }).then((userDeactive) => {
+                            res.render('admin/customer', { dataUser, dataAll, userDeactive, userBocked, moment, title: "Customer" });
+                        });
+                    });
                 });
             });
-        });
+        } else if (condition == "blocked") {
+            userModels.find({ blocked: true }).then((dataUser) => {
+                userModels.find().then((dataAll) => {
+                    userModels.find({ blocked: true }).then((userBocked) => {
+                        userModels.find({ status: false }).then((userDeactive) => {
+                            res.render('admin/customer', { dataUser, dataAll, userDeactive, userBocked, moment, title: "Customer" });
+                        });
+                    });
+                });
+            });
+        } else {
+            userModels.find().then((dataUser) => {
+                userModels.find().then((dataAll) => {
+                    userModels.find({ blocked: true }).then((userBocked) => {
+                        userModels.find({ status: false }).then((userDeactive) => {
+                            res.render('admin/customer', { dataUser, dataAll, userDeactive, userBocked, moment, title: "Customer" });
+                        });
+                    });
+                });
+            });
+        }
+
     } catch (error) {
         return res.render('error', { error, title: "Page Error" });
     }

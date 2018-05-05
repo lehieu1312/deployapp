@@ -22,7 +22,7 @@ $(document).ready(() => {
         })
         elementdelete[i].addEventListener('click', () => {
             // $('#mymodal-deleteuser').modal('show');
-            email = emaildelete[i].innerHTML;
+            // email = emaildelete[i].innerHTML;
             // console.log(email);
         })
     }
@@ -69,10 +69,10 @@ $(document).ready(() => {
                     } else if (data.status == 2) {
                         $('#errPopup').show();
                         $('.alert-upload').text(data.msg[0].msg);
-                        $("#errPopup").fadeTo(5000, 1000).slideUp(1000, function() {
-                            // $("#errPopup").slideUp(1000);
-                            // $('#errPopup').hide();
-                        });
+                        // $("#errPopup").fadeTo(5000, 1000).slideUp(1000, function() {
+                        // $("#errPopup").slideUp(1000);
+                        // $('#errPopup').hide();
+                        // });
                     } else {
                         $('#errPopup').show();
                         $('.alert-upload').text(data.msg);
@@ -90,6 +90,43 @@ $(document).ready(() => {
     $(".button-close-notification").click(() => {
         $(".errPopup").fadeOut();
     })
+
+    $("#checkboxall").change(() => {
+        var checkboxes = document.getElementsByName('name[]');
+        var checkboxall = document.getElementById('checkboxall');
+        var chkBox = checkboxall.checked;
+        // alert(chkBox);
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = chkBox;
+        }
+    });
+    $('#btn-block-multi').click(() => {
+        var arrUser = [];
+        $('#table-appversion input[type=checkbox]').each(function() {
+            if ($(this).is(":checked")) {
+                var id = $(this).attr("id");
+                // console.log(id);
+                arrUser.push(id);
+            }
+        });
+        if (arrUser.length < 1) {
+            $('#mymodal-warring').modal('show');
+        } else {
+            $('#mymodal-blockuser').modal('show');
+        }
+    });
+    $('#block-ok').click(() => {
+        var arrUser = [];
+        $('#table-appversion input[type=checkbox]').each(function() {
+            if ($(this).is(":checked")) {
+                var id = $(this).attr("id");
+                // console.log(id);
+                arrUser.push(id);
+            }
+        });
+
+        console.log(arrUser.length);
+    });
 
 });
 

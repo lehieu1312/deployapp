@@ -269,53 +269,6 @@ function filtercart(a) {
     }
     return b;
 }
-router.post("/dashboard/add-to-cart", (req, res) => {
-    try {
-        req.session.cart.push(req.body.idApp);
-        data_session_cart = filtercart(req.session.cart);
-        async function get_data_car() {
-            var cart = [];
-            for (let i = 0; i < data_session_cart.length; i++) {
-                let getdata = await infor_app_admin.findOne({
-                    idApp: data_session_cart[i].id
-                }).exec();
-                cart.push({
-                    cart: getdata,
-                    count: data_session_cart[i].count
-                })
-            }
-            console.log(cart)
-            return res.json({
-                status: "1",
-                cart
-            })
-        }
-        get_data_car();
-    } catch (error) {
-        console.log(error + "")
-    }
-})
 
-
-router.post("/get-cart", (req, res) => {
-    data_session_cart = filtercart(req.session.cart);
-    async function get_data_car() {
-        var cart = [];
-        for (let i = 0; i < data_session_cart.length; i++) {
-            let getdata = await infor_app_admin.findOne({
-                idApp: data_session_cart[i].id
-            }).exec();
-            cart.push({
-                cart: getdata,
-                count: data_session_cart[i].count
-            })
-        }
-        console.log(cart)
-        return res.json({
-            cart
-        })
-    }
-    get_data_car();
-})
 
 module.exports = router;

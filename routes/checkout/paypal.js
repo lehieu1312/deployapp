@@ -20,7 +20,6 @@ router.post('/paymentpaypal', function (req, res) {
         redirect_urls: {
             return_url: hostServer + '/process',
             cancel_url: hostServer + '/cancel',
-
         },
         transactions: [{
             amount: {
@@ -51,7 +50,9 @@ router.post('/paymentpaypal', function (req, res) {
 router.get('/process', (req, res) => {
     // console.log(req.query)
     var paymentId = req.query.paymentId;
-    var payerId = { payer_id: req.query.PayerID };
+    var payerId = {
+        payer_id: req.query.PayerID
+    };
 
     paypal.payment.execute(paymentId, payerId, function (error, payment) {
         // console.log(payment)

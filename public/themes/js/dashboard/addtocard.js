@@ -33,7 +33,7 @@ function add_and_removeProduct() {
     var number_product = document.getElementsByClassName("number-product");
     var price_product = document.getElementsByClassName("price-product");
     var price_hidden = document.getElementsByClassName('price-hidden');
-    var total_price_product = document.getElementById("total-price-product");
+    var total_price_product = document.getElementsByClassName("total-price-product");
     var idApp_hidden = document.getElementsByClassName(' idApp-hidden');
 
     $('.reduce-product').each(function (i) {
@@ -41,17 +41,16 @@ function add_and_removeProduct() {
             if (Number(number_product[i].textContent) > 1) {
                 number_product[i].innerHTML = Number(number_product[i].textContent) - 1;
                 price_product[i].innerHTML = "$" + (price_hidden[i].value) * (Number(number_product[i].textContent));
-                total_price_product.innerHTML = "$" + (Number(trimSpace(total_price_product.textContent).split("$")[1]) - Number(price_hidden[i].value))
+                $(".total-price-product").text("$" + (Number(trimSpace(total_price_product[0].textContent).split("$")[1]) - Number(price_hidden[i].value)))
                 removeProduct(idApp_hidden[i].value)
             }
         })
     })
     $('.add-product').each(function (i) {
         $(this).click(() => {
-            console.log(trimSpace(total_price_product.textContent).split("$")[1])
             number_product[i].innerHTML = Number(number_product[i].textContent) + 1;
             price_product[i].innerHTML = "$" + (price_hidden[i].value) * (Number(number_product[i].textContent));
-            total_price_product.innerHTML = "$" + (Number(trimSpace(total_price_product.textContent).split("$")[1]) + Number(price_hidden[i].value))
+            $(".total-price-product").text("$" + (Number(trimSpace(total_price_product[0].textContent).split("$")[1]) + Number(price_hidden[i].value)))
             addProduct(idApp_hidden[i].value)
         })
     })
@@ -73,10 +72,10 @@ $(document).ready(() => {
                 success: function (data) {
                     if (data.status == "1") {
                         let tong = 0;
-                        console.log(data.cart)
+                        $("#content-modal-cart-id").html("");
                         $("#number-product-to-cart").text(data.cart.length);
                         for (let i = 0; i < data.cart.length; i++) {
-                            $("#content-modal-cart").append(
+                            $("#content-modal-cart-id").append(
                                 `<div class="item-product-in-cart">
                             <div class="left-content-product-in-cart">
                                 <img src="/themes/img/product/test.png">
@@ -101,7 +100,7 @@ $(document).ready(() => {
                         </div>`)
                             tong = tong + data.cart[i].cart.price * data.cart[i].count;
                         }
-                        $("#total-price-product").text("$" + tong);
+                        $(".total-price-product").text("$" + tong);
                     }
                 }
             }).always(() => {

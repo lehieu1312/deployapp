@@ -1,15 +1,6 @@
 $(document).ready(() => {
-    $("#apply-promo-code").click(() => {
-        var array = ["a", "a", "a", "a", "b", "a", "c"];
-        var i = array.indexOf("a");
-        if (i != -1) {
-            array.splice(i, 1);
-        }
-        console.log(array)
 
-    })
-
-    add_and_removeProduct();
+    // add_and_removeProduct();
 
     $('#deploy-detail-content').click(() => {
         $('#country1').hide();
@@ -32,7 +23,7 @@ $(document).ready(() => {
     var state = $('#checkout-state');
     var zipcode = $('#checkout-zipcode');
     var mobiphone = $('#checkout-mobiphone');
-    var mail = $('#checkout-mail');
+    var email = $('#checkout-email');
 
     // regex
     function trimSpace(str) {
@@ -141,7 +132,7 @@ $(document).ready(() => {
         if (trimSpace(company.val()) == "") {
             fnerrempty(company, $('#iconerr3'));
             return false;
-        } else if (name1Reg.test(company.val()) == false) {
+        } else if (addressReg.test(company.val()) == true) {
             fnerrname(company, $('#iconerr3'));
             return false;
         } else {
@@ -161,7 +152,7 @@ $(document).ready(() => {
         if (trimSpace(city.val()) == "") {
             fnerrempty(city, $('#iconerr5'));
             return false;
-        } else if (addressReg.test(city.val()) == false) {
+        } else if (addressReg.test(city.val()) == true) {
             fnerrzipcode(city, $('#iconerr5'));
             return false;
         } else {
@@ -171,7 +162,7 @@ $(document).ready(() => {
         if (trimSpace(state.val()) == "") {
             fnerrempty(state, $('#iconerr6'));
             return false;
-        } else if (addressReg.test(state.val()) == false) {
+        } else if (addressReg.test(state.val()) == true) {
             fnerrzipcode(state, $('#iconerr6'));
             return false;
         } else {
@@ -211,10 +202,11 @@ $(document).ready(() => {
     };
 
     $('#form-checkout').submit(function () {
+        let total_price_product = document.getElementsByClassName("total-price-product");
         if (form_checkout() == true) {
             $("#loading").show();
             $.ajax({
-                url: "/checkout/billing",
+                url: "/checkout/ok",
                 type: "POST",
                 dataType: "json",
                 data: {
@@ -226,14 +218,14 @@ $(document).ready(() => {
                     state: state.val(),
                     zipcode: zipcode.val(),
                     mobiphone: mobiphone.val(),
-                    mail: mail.val(),
-
+                    email: email.val(),
+                    total: Number(trimSpace(total_price_product[0].textContent).split("$")[1])
                 },
                 succsess: function () {
 
                 }
             }).always(() => {
-
+                $("#loading").hide();
             })
         }
     })

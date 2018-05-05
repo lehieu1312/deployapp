@@ -7,8 +7,8 @@
         </div>
         <div id="content-checkout">
             <div class="col-sm-8">
-                <div class="left-content-checkout">
-                    <form id="form-checkout" onsubmit="return false">
+                <form id="form-checkout" onsubmit="return false">
+                    <div class="left-content-checkout">
                         <div id="billing">
                             <div class="col-sm-12 set-title-billing">
                                 <span>
@@ -329,7 +329,7 @@
                                 </div>
                                 <div class="form-group has-feedback">
                                     <label class="control-label" for="inputSuccess2">Email Address *</label>
-                                    <input type="text" class="resetinputlogin" id="checkout-mail" name="mail">
+                                    <input type="text" class="resetinputlogin" id="checkout-email" name="mail">
                                     <span class="form-control-feedback" aria-hidden="true">
                                         <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
                                     </span>
@@ -337,26 +337,26 @@
 
                             </div>
                         </div>
-                    </form>
-                    <div id="payment">
-                        <div class="col-sm-12 set-title-payment">
-                            <span>
-                                <span class="status-tast-1">2</span> Payment Method</span>
-                        </div>
-                        <div class="item-select-payment">
-                            <div class="col-sm-10">
-                                <label class="container-radio-custom">Paypal
-                                    <br>
-                                    <span>Safe payment online. Credit card needed. Paypal account is not necessary</span>
-                                    <input type="radio" name="notiradio" value="1">
-                                    <span class="checkmark"></span>
-                                </label>
+
+                        <div id="payment">
+                            <div class="col-sm-12 set-title-payment">
+                                <span>
+                                    <span class="status-tast-1">2</span> Payment Method</span>
                             </div>
-                            <div class="col-sm-2">
-                                <img src="/themes/img/checkout/iconpaypal.png">
+                            <div class="item-select-payment">
+                                <div class="col-sm-10">
+                                    <label class="container-radio-custom">Paypal
+                                        <br>
+                                        <span>Safe payment online. Credit card needed. Paypal account is not necessary</span>
+                                        <input checked type="radio" name="notiradio" value="1">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="/themes/img/checkout/iconpaypal.png">
+                                </div>
                             </div>
-                        </div>
-                        <div class="item-select-payment">
+                            <!-- <div class="item-select-payment">
                             <div id="payment-credit-card" class="col-sm-9">
                                 <label class="container-radio-custom">Credit Card
                                     <br>
@@ -372,8 +372,8 @@
                                 <img src="/themes/img/checkout/iconcard2.png" alt="icon card">
                                 <img src="/themes/img/checkout/iconcard3.png" alt="icon card">
                             </div>
-                        </div>
-                        <!-- <div class="col-sm-12 div-title-payment">
+                        </div> -->
+                            <!-- <div class="col-sm-12 div-title-payment">
                             <span class="set-text-title-payment"> CARD DETAILS:</span>
                         </div>
                         <div id="paypal-detail">
@@ -437,9 +437,10 @@
                                 </div>
                             </div>
                         </div> -->
+                        </div>
+                        <button type="submit" class="btn-blue-deploy btn-complate-checkout">Complate Checkout</button>
                     </div>
-                    <button class="btn-blue-deploy btn-complate-checkout">Complate Checkout</button>
-                </div>
+                </form>
             </div>
             <div class="col-sm-4">
                 <div class="right-content-checkout">
@@ -483,7 +484,7 @@
                     </div>
                     <div class="footer-modal-cart">
                         <span>Total</span>
-                        <span id="total-price-product" class="float-right">
+                        <span class="float-right total-price-product">
                             <%="$" + tong%>
                         </span>
                     </div>

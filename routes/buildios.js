@@ -788,7 +788,7 @@ router.post('/build-ios-macsv', async(req, res) => {
                     console.log(error);
                     reject(error + '');
                 }
-            })
+            });
         }
 
         let buildiOSToTest = (fKeyFolder, fProvisionFileAdHoc, fCertificateFileAdHoc, fAppName) => {

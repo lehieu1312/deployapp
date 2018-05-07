@@ -331,7 +331,7 @@ textarea {
     right: 16px;
 }
 
-#block-ok {
+.btn-block-ok {
     margin-right: 15px;
     font-family: 'OpenSans-Regular';
     color: white;
@@ -342,7 +342,25 @@ textarea {
     border: none;
 }
 
-#block-ok:hover {
+.btn-block-ok:hover {
+    background: #1fb6ec;
+}
+
+
+/* unblock-ok */
+
+#unblock-ok {
+    margin-right: 15px;
+    font-family: 'OpenSans-Regular';
+    color: white;
+    float: right;
+    border-radius: 2px;
+    padding: 7px 21px 7px 21px;
+    background: #00afee;
+    border: none;
+}
+
+#unblock-ok:hover {
     background: #1fb6ec;
 }
 
@@ -355,6 +373,17 @@ textarea {
 }
 
 #ok-empty {
+    margin-right: 15px;
+    font-family: 'OpenSans-Regular';
+    color: white;
+    float: right;
+    border-radius: 2px;
+    padding: 7px 18px 7px 18px;
+    background: #ef5350;
+    border: none;
+}
+
+.btn-delete-ok {
     margin-right: 15px;
     font-family: 'OpenSans-Regular';
     color: white;

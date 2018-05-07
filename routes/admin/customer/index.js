@@ -34,34 +34,34 @@ function genderCodeShare() {
     return text;
 }
 
-router.get('/customer', (req, res) => {
+router.get('/', (req, res) => {
     try {
         var condition = req.query.con;
         if (condition == "deactive") {
-            userModels.find({ status: false }).then((dataUser) => {
-                userModels.find().then((dataAll) => {
-                    userModels.find({ blocked: true }).then((userBocked) => {
-                        userModels.find({ status: false }).then((userDeactive) => {
+            userModels.find({ status: false }).sort({ dateCreate: -1 }).then((dataUser) => {
+                userModels.find().sort({ dateCreate: -1 }).then((dataAll) => {
+                    userModels.find({ blocked: true }).sort({ dateCreate: -1 }).then((userBocked) => {
+                        userModels.find({ status: false }).sort({ dateCreate: -1 }).then((userDeactive) => {
                             res.render('admin/customer', { dataUser, dataAll, userDeactive, userBocked, moment, title: "Customer" });
                         });
                     });
                 });
             });
         } else if (condition == "blocked") {
-            userModels.find({ blocked: true }).then((dataUser) => {
-                userModels.find().then((dataAll) => {
-                    userModels.find({ blocked: true }).then((userBocked) => {
-                        userModels.find({ status: false }).then((userDeactive) => {
+            userModels.find({ blocked: true }).sort({ dateCreate: -1 }).then((dataUser) => {
+                userModels.find().sort({ dateCreate: -1 }).then((dataAll) => {
+                    userModels.find({ blocked: true }).sort({ dateCreate: -1 }).then((userBocked) => {
+                        userModels.find({ status: false }).sort({ dateCreate: -1 }).then((userDeactive) => {
                             res.render('admin/customer', { dataUser, dataAll, userDeactive, userBocked, moment, title: "Customer" });
                         });
                     });
                 });
             });
         } else {
-            userModels.find().then((dataUser) => {
-                userModels.find().then((dataAll) => {
-                    userModels.find({ blocked: true }).then((userBocked) => {
-                        userModels.find({ status: false }).then((userDeactive) => {
+            userModels.find().sort({ dateCreate: -1 }).then((dataUser) => {
+                userModels.find().sort({ dateCreate: -1 }).then((dataAll) => {
+                    userModels.find({ blocked: true }).sort({ dateCreate: -1 }).then((userBocked) => {
+                        userModels.find({ status: false }).sort({ dateCreate: -1 }).then((userDeactive) => {
                             res.render('admin/customer', { dataUser, dataAll, userDeactive, userBocked, moment, title: "Customer" });
                         });
                     });
@@ -167,6 +167,113 @@ router.post('/addcustomer', multipartMiddleware, async(req, res) => {
         return res.json({ status: 3, msg: error + '' });
     }
 });
+router.post('/blockmulti', async(req, res) => {
+    try {
+        console.log(req.body);
+        var arrUser = req.body.arruser;
+        if (arrUser) {
+            async.forEach(arrUser, (item) => {
+                console.log(item);
+                userModels.update({ id: item }, { $set: { blocked: true } }).then(() => {
+                    console.log(item);
+                });
+            });
+            return res.json({ status: 1, msg: 'Success' });
+            // userModels.update({})
+        } else {
+            return res.json({ status: 3, msg: 'Not item selected' });
+        }
+    } catch (error) {
+        return res.json({ status: 3, msg: error + '' });
+    }
+});
+router.post('/delmulti', async(req, res) => {
+    try {
+        console.log(req.body);
+        var arrUser = req.body.arruser;
+        if (arrUser) {
+            async.forEach(arrUser, (item) => {
+                console.log(item);
+                userModels.remove({ id: item }).then(() => {
+                    console.log(item);
+                });
+            });
+            return res.json({ status: 1, msg: 'Success' });
+            // userModels.update({})
+        } else {
+            return res.json({ status: 3, msg: 'Not item selected' });
+        }
+    } catch (error) {
+        return res.json({ status: 3, msg: error + '' });
+    }
+});
+router.post('/blockuser', async(req, res) => {
+    try {
+        console.log(req.body);
+        var idUser = req.body.iduser;
+        if (idUser) {
+            return userModels.findOne({ id: idUser }).then((dataFindUser) => {
+                console.log('dataFindUser: ' + dataFindUser);
+                if (dataFindUser) {
+                    return userModels.update({ id: idUser }, { $set: { blocked: true } }).then(() => {
+                        return res.json({ status: 1, msg: 'Success' });
+                    })
+                } else {
+                    return res.json({ status: 3, msg: 'Not find user to unblock.' });
+                }
+            });
+        } else {
+            return res.json({ status: 3, msg: 'Not item selected' });
+        }
+    } catch (error) {
+        return res.json({ status: 3, msg: error + '' });
+    }
+});
+router.post('/unblockuser', async(req, res) => {
+    try {
+        console.log(req.body);
+        var idUser = req.body.iduser;
+        if (idUser) {
+            return userModels.findOne({ id: idUser }).then((dataFindUser) => {
+                console.log('dataFindUser: ' + dataFindUser);
+                if (dataFindUser) {
+                    return userModels.update({ id: idUser }, { $set: { blocked: false } }).then(() => {
+                        return res.json({ status: 1, msg: 'Success' });
+                    })
+                } else {
+                    return res.json({ status: 3, msg: 'Not find user to unblock.' });
+                }
+            });
+        } else {
+            return res.json({ status: 3, msg: 'Not item selected' });
+        }
+    } catch (error) {
+        return res.json({ status: 3, msg: error + '' });
+    }
+});
 
+router.post('/deleteuser', async(req, res) => {
+    try {
+        console.log(req.body);
+        var idUser = req.body.iduser;
+        if (idUser) {
+            return userModels.findOne({ id: idUser }).then((dataFindUser) => {
+                console.log('dataFindUser: ' + dataFindUser);
+                if (dataFindUser) {
+                    return userModels.remove({ id: idUser }).then(() => {
+                        return res.json({ status: 1, msg: 'Success' });
+                    })
+                } else {
+                    return res.json({ status: 3, msg: 'Not find user to delete.' });
+                }
+            });
+
+        } else {
+            return res.json({ status: 3, msg: 'Not item selected' });
+        }
+    } catch (error) {
+        return res.json({ status: 3, msg: error + '' });
+    }
+});
 
 module.exports = router;

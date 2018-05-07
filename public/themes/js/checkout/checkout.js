@@ -9,9 +9,10 @@ $(document).ready(() => {
         $('#country1').toggle();
         event.stopPropagation();
     });
+    var country_checkout = $("#checkout-country").val();
     $('#country1>li').click(function () {
         $("#checkout-country").text($(this).text());
-        $("#checkout-country").val($(this).val());
+        country_checkout = $("#checkout-country").val($(this).val());
         $('#country1').hide();
     });
 
@@ -201,6 +202,37 @@ $(document).ready(() => {
         return true;
     };
 
+    var promoCode = "";
+
+    $("#apply-promo-code").click(() => {
+        $.ajax({
+            url: "/checkout/check-promo-code",
+            dataType: "json",
+            type: "POST",
+            data: {
+                promoCode: $("#promo-code").val()
+            },
+            success: function (data) {
+                if (data.status == "1") {
+                    $('#successPopup').show(500);
+                    $(".contenemail").text("");
+                    $(".contenemail").text("successful");
+                    $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                        $("#success-alert").slideUp(1000);
+                        $('.successPopup').hide();
+                    });
+                } else if (data.status == "2") {
+                    $('#errPopup').show();
+                    $('.alert-upload').text(data.message);
+                    $("#errPopup").fadeTo(5000, 1000).slideUp(1000, function () {
+                        $("#errPopup").slideUp(1000);
+                        $('#errPopup').hide();
+                    });
+                }
+            }
+        })
+    })
+
     $('#form-checkout').submit(function () {
         let total_price_product = document.getElementsByClassName("total-price-product");
         if (form_checkout() == true) {
@@ -209,20 +241,29 @@ $(document).ready(() => {
                 url: "/checkout/ok",
                 type: "POST",
                 dataType: "json",
+                crossDomain: "true",
                 data: {
                     firstname: firstname.val(),
                     lastname: lastname.val(),
                     company: company.val(),
                     address: address.val(),
                     city: city.val(),
+                    country: country_checkout,
                     state: state.val(),
                     zipcode: zipcode.val(),
                     mobiphone: mobiphone.val(),
                     email: email.val(),
-                    total: Number(trimSpace(total_price_product[0].textContent).split("$")[1])
+                    promoCode
                 },
-                succsess: function () {
-
+                success: function (data) {
+                    // console.log(data)
+                    if (data.status == "1") {
+                        window.location.replace(data.message);
+                    }
+                },
+                error: function (msg) {
+                    alert('error' + msg);
+                    return false;
                 }
             }).always(() => {
                 $("#loading").hide();

@@ -26,9 +26,12 @@ var app = express();
 var User = require('../../models/user');
 var infor_app_admin = require('../../models/inforappadmin');
 var order = require("../../models/order");
+var promo_code = require("../../models/promocode")
 var http = require('http');
 var server = http.Server(app);
 var paypal = require("paypal-rest-sdk");
+var country = require("../../lib/country");
+
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
@@ -73,7 +76,7 @@ router.get('/checkout', checkAdmin, checkcart, (req, res) => {
     User.findOne({
         id: req.session.iduser
     }).then((user_using) => {
-        data_session_cart = filtercart(req.session.cart);
+        var data_session_cart = filtercart(req.session.cart);
         async function get_data_car() {
             var cart = [];
             for (let i = 0; i < data_session_cart.length; i++) {
@@ -99,7 +102,7 @@ router.get('/checkout', checkAdmin, checkcart, (req, res) => {
 router.post("/dashboard/add-to-cart", (req, res) => {
     try {
         req.session.cart.push(req.body.idApp);
-        data_session_cart = filtercart(req.session.cart);
+        var data_session_cart = filtercart(req.session.cart);
         async function get_data_car() {
             var cart = [];
             for (let i = 0; i < data_session_cart.length; i++) {
@@ -125,7 +128,7 @@ router.post("/dashboard/add-to-cart", (req, res) => {
 
 
 router.post("/get-cart", (req, res) => {
-    data_session_cart = filtercart(req.session.cart);
+    var data_session_cart = filtercart(req.session.cart);
     async function get_data_car() {
         var cart = [];
         for (let i = 0; i < data_session_cart.length; i++) {
@@ -164,42 +167,100 @@ router.post("/remove-product-cart", checkAdmin, checkcart, (req, res) => {
         message: "ok"
     })
 })
-router.post("/checkout/ok", (req, res) => {
-    console.log("Checkout ok!")
-    console.log(req.body);
-    try {
-        var create_payment_json = JSON.stringify({
-            intent: 'sale',
-            payer: {
-                payment_method: 'paypal'
-            },
-            redirect_urls: {
-                return_url: hostServer + '/checkout/ok/process',
-                cancel_url: hostServer + '/checkout/ok/cancel',
-            },
-            transactions: [{
-                amount: {
-                    total: req.body.total,
-                    currency: 'USD'
-                },
-                description: 'This is the payment transaction description.'
-            }]
-        });
-        paypal.payment.create(create_payment_json, function (error, payment) {
-            if (error) {
-                console.log('loi:' + error.response);
-                throw error;
-            } else {
-                for (var index = 0; index < payment.links.length; index++) {
-                    //Redirect user to this endpoint for redirect url
-                    if (payment.links[index].rel == 'approval_url') {
-                        // console.log(payment.links[index].href);
-                        res.redirect(payment.links[index].href)
-                    }
-                }
 
-            }
-        });
+router.post("/checkout/check-promo-code", (req, res) => {
+    promo_code.findOne({
+        promoCode: req.body.promoCode,
+        status: true,
+        dateCreate: {
+            $lt: new Date()
+        },
+        dateExpiration: {
+            $gt: new Date()
+        },
+    }).then((data) => {
+        console.log("data:" + JSON.stringify(data))
+        if (data != null) {
+            req.session.percentSale = data.percentSale;
+            res.json({
+                status: "1",
+                message: data.percentSale
+            })
+        } else {
+            req.session.percentSale = null;
+            res.json({
+                status: "2",
+                message: "invalid promotional code or used expires"
+            })
+        }
+    })
+})
+
+router.post("/checkout/ok", (req, res) => {
+    try {
+        console.log(req.body)
+        req.session.inforCheckout = req.body;
+
+        function get_total_price() {
+            return new Promise((resolve, reject) => {
+                let data_session_cart = filtercart(req.session.cart);
+                (async () => {
+                    let total = 0;
+                    for (let i = 0; i < data_session_cart.length; i++) {
+                        let getdata = await infor_app_admin.findOne({
+                            idApp: data_session_cart[i].id
+                        }).exec();
+                        total = total + Number(getdata.price) * data_session_cart[i].count;
+                    }
+                    if (req.session.percentSale != null) {
+                        resolve(Math.round(total - total * Number(req.session.percentSale) / 100));
+                    } else {
+                        resolve(Math.round(total));
+                    }
+                })()
+            })
+
+        }
+
+        get_total_price()
+            .then((amount_total) => {
+                console.log("amount:" + amount_total);
+                var create_payment_json = JSON.stringify({
+                    intent: 'sale',
+                    payer: {
+                        payment_method: 'paypal'
+                    },
+                    redirect_urls: {
+                        return_url: hostServer + '/checkout/ok/process',
+                        cancel_url: hostServer + '/checkout',
+                    },
+                    transactions: [{
+                        amount: {
+                            total: amount_total,
+                            currency: 'USD'
+                        },
+                        description: 'Payments from deployapp.net.'
+                    }]
+                });
+                paypal.payment.create(create_payment_json, function (error, payment) {
+                    if (error) {
+                        console.log('loi:' + JSON.stringify(error.response));
+                        throw error;
+                    } else {
+                        for (var index = 0; index < payment.links.length; index++) {
+                            //Redirect user to this endpoint for redirect url
+                            if (payment.links[index].rel == 'approval_url') {
+                                // console.log(payment.links[index].href);
+                                return res.json({
+                                    status: "1",
+                                    message: payment.links[index].href
+                                })
+                            }
+                        }
+
+                    }
+                });
+            })
     } catch (error) {
         console.log(error + "");
         res.render("error", {
@@ -231,26 +292,24 @@ router.get('/checkout/ok/process', (req, res) => {
                     if (error) {
                         console.error(JSON.stringify(error));
                     } else {
-                        console.log('--------------------+--------------------');
+                        // console.log('--------------------+--------------------');
                         if (data.state == "completed") {
                             res.end("ban da mua duoc roi nhe.hihi :)");
                         } else {
-                            res.redirect('/checkout/ok/cancel')
+                            res.redirect("/checkout")
                         }
-                        console.log(data);
+                        // console.log(data);
                     }
                 })
 
             } else {
-                res.redirect('/cancel');
+                res.redirect("/checkout")
             }
         }
     })
 
 
 })
-router.get('/checkout/ok/cancel', (req, res) => {
-    res.end("ban chua mua duoc nhe !");
-});
+
 
 module.exports = router;

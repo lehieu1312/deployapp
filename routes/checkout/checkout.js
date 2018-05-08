@@ -55,6 +55,17 @@ function checkcart(req, res, next) {
     }
 }
 
+
+function makeid() {
+    var text = "";
+    var possible = "0123456789";
+
+    for (var i = 0; i < 7; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
 function filtercart(a) {
     var b = [];
     while (a.length > 0) {
@@ -250,7 +261,6 @@ router.post("/checkout/ok", (req, res) => {
                         for (var index = 0; index < payment.links.length; index++) {
                             //Redirect user to this endpoint for redirect url
                             if (payment.links[index].rel == 'approval_url') {
-                                // console.log(payment.links[index].href);
                                 return res.json({
                                     status: "1",
                                     message: payment.links[index].href
@@ -278,15 +288,11 @@ router.get('/checkout/ok/process', (req, res) => {
     var payerId = {
         payer_id: req.query.PayerID
     };
-
     paypal.payment.execute(paymentId, payerId, function (error, payment) {
         // console.log(payment)
         if (error) {
             console.error(JSON.stringify(error));
         } else {
-            // console.log(JSON.stringify(payment));
-            // console.log('-----------------------------------------');
-            // console.log(payment.transactions[0].related_resources[0].sale.id);
             if (payment.state == 'approved') {
                 paypal.sale.get(payment.transactions[0].related_resources[0].sale.id, (err, data) => {
                     if (error) {
@@ -294,21 +300,36 @@ router.get('/checkout/ok/process', (req, res) => {
                     } else {
                         // console.log('--------------------+--------------------');
                         if (data.state == "completed") {
-                            res.end("ban da mua duoc roi nhe.hihi :)");
+                            console.log("data checkout: " + JSON.stringify(data))
+                            req.session.cart = [];
+                            var queryCheckout = Object.assign({
+                                idOrder: makeid(),
+                                idUser: req.session.iduser
+                            }, req.session.inforCheckout);
+                            console.log('--------------------+--------------------');
+                            console.log(queryCheckout);
+                            res.redirect("/dashboard?checkout=ok")
                         } else {
                             res.redirect("/checkout")
                         }
                         // console.log(data);
                     }
                 })
-
             } else {
                 res.redirect("/checkout")
             }
         }
     })
+})
 
+router.post("/remove-product-all-in-cart", (req, res) => {
+    req.session.cart = req.session.cart.filter((el) => {
+        return el != req.body.idApp
+    })
 
+    res.json({
+        status: "1"
+    })
 })
 
 

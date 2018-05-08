@@ -104,6 +104,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <img class="set-icon-delte-app-checkout" src="/themes/img/checkout/icondeletesmallv2.png">
                         </div>`
                         )
                         tong = tong + data.cart[i].cart.price * data.cart[i].count;
@@ -111,6 +112,7 @@
                     $(".total-price-product").text("$" + tong);
                 }).always(() => {
                 add_and_removeProduct();
+                remove_all_product();
             })
         });
     </script>

@@ -18,6 +18,7 @@ let orderShema = mongoose.Schema({
     email: String,
     productInformation: [{
         idProduct: String,
+        countProduct: Number,
         nameProduct: String,
         imageProduct: String,
         price: Number,

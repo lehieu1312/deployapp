@@ -83,6 +83,35 @@ function add_and_removeProduct() {
 }
 
 $(document).ready(() => {
+
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+        // console.log(sPageURL);
+        // console.log(sURLVariables);
+        // console.log(sPageURL);
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+            // console.log(sParameterName);
+        }
+
+    };
+
+    var checkout = getUrlParameter("checkout");
+    // console.log(checkout)
+
+    if (checkout == "ok") {
+        $("#myModal-success").modal('show');
+    }
+
+
     let idappadmin = document.getElementsByClassName("id-app-admin");
     $('.add-to-cart').each(function (i) {
         $(this).click(() => {
@@ -104,10 +133,10 @@ $(document).ready(() => {
                             $("#content-modal-cart-id").append(
                                 `<div class="item-product-in-cart">
                             <div class="left-content-product-in-cart">
-                                <img src="/themes/img/product/test.png">
+                               <img src="/themes/img/app-dashboard/${data.cart[i].cart.image}">
                             </div>
                             <div class="right-content-product-in-cart">
-                                <span>Pretashop Import Product with</span></br>
+                                <span>${data.cart[i].cart.nameApp}</span></br>
                                 <span> 
                                 <input hidden class="idApp-hidden" value="${data.cart[i].cart.idApp}">
                                 <input hidden class="price-hidden" value="${data.cart[i].cart.price}">

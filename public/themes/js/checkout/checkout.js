@@ -1,15 +1,29 @@
 $(document).ready(() => {
+    $.ajax({
+        url: "/delete/promo-code",
+        dataType: "json",
+        type: "POST",
+        data: {
+            promoCode: $("#promo-code").val()
+        },
+        success: function (data) {
+            if (data.status == "1") {
+                $(".set-div-promo").hide();
+                $(".total-price-product").text("$" + data.message)
+            }
+        }
+    })
 
-    var testObject = {
-        a: 1,
-        b: 2
-    }
-    var testObject1 = {
-        c: 3,
-        d: 4
-    }
+    // var testObject = {
+    //     a: 1,
+    //     b: 2
+    // }
+    // var testObject1 = {
+    //     c: 3,
+    //     d: 4
+    // }
     // testObject.merge(testObject1);
-    console.log(Object.assign(testObject, testObject1))
+    // console.log(Object.assign(testObject, testObject1))
 
     // add_and_removeProduct();
 
@@ -21,9 +35,10 @@ $(document).ready(() => {
         event.stopPropagation();
     });
     var country_checkout = $("#checkout-country").val();
-    $('#country1>li').click(function () {
+    $('#country1').children("option").click(function () {
         $("#checkout-country").text($(this).text());
-        country_checkout = $("#checkout-country").val($(this).val());
+        $("#checkout-country").val($(this).val());
+        country_checkout = $(this).val();
         $('#country1').hide();
     });
 
@@ -225,6 +240,16 @@ $(document).ready(() => {
             },
             success: function (data) {
                 if (data.status == "1") {
+                    var total_price_product = document.getElementsByClassName("total-price-product");
+                    $(".set-div-promo").html("");
+                    $(".set-div-promo").append(
+                        `<span>Discount (PORMO${data.message}: -${data.message}%)
+                        <img class="set-icon-delte-promo" src="/themes/img/checkout/icondeletesmall.png"> </span>
+                        <span class="float-right price-promo">
+                        ${"-$" + Math.round(data.message*Number(trimSpace(total_price_product[0].textContent).split("$")[1])/100)}
+                        </span>`)
+                    $(".set-div-promo").show();
+                    $(".total-price-product").text("$" + (Number(trimSpace(total_price_product[0].textContent).split("$")[1]) - Math.round(data.message * Number(trimSpace(total_price_product[0].textContent).split("$")[1]) / 100)))
                     $('#successPopup').show(500);
                     $(".contenemail").text("");
                     $(".contenemail").text("successful");
@@ -232,8 +257,6 @@ $(document).ready(() => {
                         $("#success-alert").slideUp(1000);
                         $('.successPopup').hide();
                     });
-
-
                 } else if (data.status == "2") {
                     $('#errPopup').show();
                     $('.alert-upload').text(data.message);
@@ -243,6 +266,23 @@ $(document).ready(() => {
                     });
                 }
             }
+        }).always(() => {
+            $(".set-icon-delte-promo").click(() => {
+                $.ajax({
+                    url: "/delete/promo-code",
+                    dataType: "json",
+                    type: "POST",
+                    data: {
+                        promoCode: $("#promo-code").val()
+                    },
+                    success: function (data) {
+                        if (data.status == "1") {
+                            $(".set-div-promo").hide();
+                            $(".total-price-product").text("$" + data.message)
+                        }
+                    }
+                })
+            })
         })
     })
 

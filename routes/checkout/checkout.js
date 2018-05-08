@@ -25,7 +25,7 @@ var Base64 = require('js-base64').Base64;
 var app = express();
 var User = require('../../models/user');
 var infor_app_admin = require('../../models/inforappadmin');
-var order = require("../../models/order");
+var order_modal = require("../../models/order");
 var promo_code = require("../../models/promocode")
 var http = require('http');
 var server = http.Server(app);
@@ -299,19 +299,47 @@ router.get('/checkout/ok/process', (req, res) => {
                         console.error(JSON.stringify(error));
                     } else {
                         // console.log('--------------------+--------------------');
-                        if (data.state == "completed") {
-                            console.log("data checkout: " + JSON.stringify(data))
-                            req.session.cart = [];
-                            var queryCheckout = Object.assign({
+                        // if (data.state == "completed") {
+                        console.log("data checkout: " + JSON.stringify(data))
+                        async function get_data_car() {
+                            var product = [];
+                            let data_session_cart = await filtercart(req.session.cart);
+                            console.log()
+                            for (let i = 0; i < data_session_cart.length; i++) {
+                                let getdata = await infor_app_admin.findOne({
+                                    idApp: data_session_cart[i].id
+                                }).exec();
+                                product[i] = {
+                                    idProduct: getdata.idApp,
+                                    countProduct: data_session_cart[i].count,
+                                    nameProduct: getdata.nameApp,
+                                    imageProduct: getdata.image,
+                                    price: getdata.price
+                                }
+
+                            }
+                            console.log("product:" + JSON.stringify(product))
+                            var queryCheckout = await Object.assign({
                                 idOrder: makeid(),
-                                idUser: req.session.iduser
+                                idUser: req.session.iduser,
+                                productInformation: product,
+                                totalMoney: data.amount.total,
+                                paymentMethod: "paypal",
+                                statusOrder: data.state,
+                                status: true
                             }, req.session.inforCheckout);
                             console.log('--------------------+--------------------');
                             console.log(queryCheckout);
-                            res.redirect("/dashboard?checkout=ok")
-                        } else {
-                            res.redirect("/checkout")
+                            var new_order = new order_modal(queryCheckout);
+                            new_order.save().then(() => {
+                                req.session.cart = [];
+                                res.redirect("/dashboard?checkout=ok")
+                            })
                         }
+                        get_data_car();
+                        // } else {
+                        // res.redirect("/checkout")
+                        // }
                         // console.log(data);
                     }
                 })
@@ -330,6 +358,34 @@ router.post("/remove-product-all-in-cart", (req, res) => {
     res.json({
         status: "1"
     })
+})
+
+router.post("/delete/promo-code", (req, res) => {
+
+    function get_total_price() {
+        return new Promise((resolve, reject) => {
+            let data_session_cart = filtercart(req.session.cart);
+            (async () => {
+                let total = 0;
+                for (let i = 0; i < data_session_cart.length; i++) {
+                    let getdata = await infor_app_admin.findOne({
+                        idApp: data_session_cart[i].id
+                    }).exec();
+                    total = total + Number(getdata.price) * data_session_cart[i].count;
+                }
+                resolve(Math.round(total));
+            })()
+        })
+
+    }
+    get_total_price()
+        .then((data) => {
+            req.session.percentSale = null;
+            res.json({
+                status: "1",
+                message: data
+            })
+        })
 })
 
 

@@ -1302,7 +1302,7 @@ a:hover .menumore-listmyapp {
 }
 
 .content-modal-cart {
-    height: 350px;
+    height: 240px;
     width: 100%;
     overflow-x: scroll;
 }
@@ -1351,6 +1351,7 @@ a:hover .menumore-listmyapp {
 }
 
 .set-text-olde-price {
+    color: #90949c;
     margin-left: 8px;
     text-decoration: line-through;
 }

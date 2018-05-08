@@ -80,15 +80,16 @@
                 function (data) {
                     let tong = 0;
                     // console.log(data.cart[0].cart.idApp)
+                    $("#number-product-in-cart").text(data.cart.length);
                     $("#number-product-to-cart").text(data.cart.length);
                     for (let i = 0; i < data.cart.length; i++) {
                         $("#content-modal-cart-id").append(
                             `<div class="item-product-in-cart">
                             <div class="left-content-product-in-cart">
-                                <img src="/themes/img/product/test.png">
+                                <img src="/themes/img/app-dashboard/${data.cart[i].cart.image}">
                             </div>
                             <div class="right-content-product-in-cart">
-                                <span>Pretashop Import Product with</span></br>
+                                <span>${data.cart[i].cart.nameApp}</span></br>
                                 <span> 
                                 <input hidden class="idApp-hidden" value="${data.cart[i].cart.idApp}">
                                 <input hidden class="price-hidden" value="${data.cart[i].cart.price}">
@@ -170,6 +171,30 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+    <div class="container ">
+        <div class="modal fade" id="myModal-success" role="dialog">
+            <div class="modal-dialog  ">
+                <div class="modal-content1">
+                    <div class="dialogdeleteapp">
+                        <div class="modal-success-head">
+                            <div class="set-img-iconcheck">
+                                <img src="/themes/img/checkout/iconcheck.png" alt="Checkout">
+                            </div>
+                            <div class="text-thank-you">
+                                <span>Thank You</span>
+                            </div>
+                            <div class="content-success">
+                                <span>We have received your order and will be processing it shortly</span>
+                            </div>
+                        </div>
+                        <div class="modal-success-foot">
+                            <button aria-label="Close" data-dismiss="modal" class="btn-blue-deploy">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div id="deploy-detail-content">

@@ -11,7 +11,7 @@
 }
 
 .right-content-checkout {
-    min-height: 465px;
+    min-height: 325px;
     border: solid 1px #ececec;
     margin: 0 10px 0 0px;
     background: white;
@@ -145,13 +145,96 @@
 }
 
 .set-div-promo {
+    display: none;
     width: auto;
     border-bottom-style: dotted;
     border-width: 1px;
     height: 28px;
     border-color: #cecece;
+    padding-right: 10px;
+    margin: 0px 37px 0px 20px;
+}
+
+.set-icon-delte-promo {
+    cursor: pointer;
 }
 
 .div-total-price {
+    padding-right: 27px;
     padding-top: 10px;
+}
+
+.price-product {
+    font-family: 'OpenSans-Regular';
+    color: #444459;
+}
+
+.price-promo {
+    font-family: 'OpenSans-Regular';
+    color: #444459;
+}
+
+.set-text-description {
+    color: #90949c;
+}
+
+.total-price-product {
+    font-family: 'OpenSans-Regular';
+    color: #444459;
+}
+
+.set-img-iconcheck {
+    height: 90px;
+    text-align: center;
+}
+
+.set-img-iconcheck img {
+    margin-top: 20px;
+}
+
+.text-thank-you {
+    font-family: 'OpenSans-Semibold';
+    font-size: 24px;
+    color: #666666;
+    text-align: center;
+}
+
+.content-success {
+    font-family: 'OpenSans-Light';
+    font-size: 13px;
+    color: #666666;
+    text-align: center;
+}
+
+.modal-success-head {
+    top: 100px;
+    /* padding: 15px 0 0 20px; */
+    height: 175px;
+    font-size: 14px;
+    background: white;
+}
+
+.modal-success-foot button {
+    margin-bottom: 15px;
+}
+
+.modal-success-foot {
+    text-align: center;
+    padding-top: 20px;
+    height: 65px;
+    border-top: solid 1px #f5f5f5;
+    background: #fcfcfc;
+}
+
+#country1 option:hover {
+    background: #fafbfc;
+    color: #00afee;
+}
+
+#country1 option {
+    background: white;
+    font-size: 13px;
+    font-family: "Opensans-Light";
+    padding: 8px 8px;
+    list-style: none;
 }

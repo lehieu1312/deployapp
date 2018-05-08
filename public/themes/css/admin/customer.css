@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'OpenSans-Regular';
+    src: url('/themes/fonts/OpenSans-Regular_0.ttf') format('truetype');
+}
+
 .btn-blue {
     font-family: 'OpenSans-Regular';
     color: white;
@@ -392,4 +397,71 @@ textarea {
     padding: 7px 18px 7px 18px;
     background: #ef5350;
     border: none;
+}
+
+#content-editprofile {
+    width: 97%;
+    margin-left: 15px;
+    padding: 15px;
+    background-color: #fff;
+}
+
+.content-form-edit-customer {
+    margin: 15px;
+}
+
+label {
+    font-family: "OpenSans-Semibold";
+}
+
+.inputeditcustomer {
+    outline: none;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #dedede;
+    width: 100%;
+}
+
+.input-editcustomer {
+    font-family: "OpenSans-Light";
+    font-size: 13px;
+    text-indent: 7px;
+    padding-bottom: 3px;
+}
+
+.select-form-country {
+    outline: none;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #dedede;
+    width: 100%;
+}
+
+.btn-update-edit-customer {
+    padding-left: 13px;
+    padding-right: 20px;
+    font-size: 13px;
+    line-height: 1.33;
+    border-radius: 3px;
+    background: #00afee;
+    color: #fff;
+    font-family: "OpenSans-Semibold";
+}
+
+.box-btn-update-customer {
+    width: 100%;
+}
+
+.divbox-btn-update-customer {
+    text-align: center;
+}
+
+.imgavatarsmallcircle {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.has-feedback .form-control-feedback {
+    top: 18px;
 }

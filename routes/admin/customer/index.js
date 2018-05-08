@@ -14,6 +14,8 @@ var hbs = require('nodemailer-express-handlebars');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 
+var libApp = require('../../../lib/country');
+var libCountry = libApp.country;
 var userModels = require('../../../models/user');
 
 function genderPassword() {
@@ -217,7 +219,7 @@ router.post('/blockuser', async(req, res) => {
                 if (dataFindUser) {
                     return userModels.update({ id: idUser }, { $set: { blocked: true } }).then(() => {
                         return res.json({ status: 1, msg: 'Success' });
-                    })
+                    });
                 } else {
                     return res.json({ status: 3, msg: 'Not find user to unblock.' });
                 }
@@ -239,7 +241,7 @@ router.post('/unblockuser', async(req, res) => {
                 if (dataFindUser) {
                     return userModels.update({ id: idUser }, { $set: { blocked: false } }).then(() => {
                         return res.json({ status: 1, msg: 'Success' });
-                    })
+                    });
                 } else {
                     return res.json({ status: 3, msg: 'Not find user to unblock.' });
                 }
@@ -262,7 +264,7 @@ router.post('/deleteuser', async(req, res) => {
                 if (dataFindUser) {
                     return userModels.remove({ id: idUser }).then(() => {
                         return res.json({ status: 1, msg: 'Success' });
-                    })
+                    });
                 } else {
                     return res.json({ status: 3, msg: 'Not find user to delete.' });
                 }
@@ -273,6 +275,76 @@ router.post('/deleteuser', async(req, res) => {
         }
     } catch (error) {
         return res.json({ status: 3, msg: error + '' });
+    }
+});
+router.get('/login/:id', async(req, res) => {
+    try {
+        console.log(req.params);
+        var idUser = req.params.id;
+        console.log(idUser);
+        if (idUser) {
+            return userModels.findOne({ id: idUser }).then((dataFindUser) => {
+                console.log(dataFindUser);
+                if (dataFindUser) {
+                    req.session.fullname = dataFindUser.firstname + " " + dataFindUser.lastname;
+                    req.session.iduser = dataFindUser.id;
+                    req.session.cart = [];
+                    return res.redirect('/dashboard');
+                } else {
+                    return res.json({ status: 3, msg: 'Not find user' });
+                }
+            });
+        } else {
+            return res.json({ status: 3, msg: 'Not item selected' });
+        }
+    } catch (error) {
+        return res.json({ status: 3, msg: error + '' });
+    }
+});
+router.get('/edit/:id', async(req, res) => {
+    try {
+        console.log(req.params);
+        var idUser = req.params.id;
+        console.log(idUser);
+        if (idUser) {
+            return userModels.findOne({ id: idUser }).then((dataUserOne) => {
+                console.log(dataUserOne);
+                if (dataUserOne) {
+                    return res.render('admin/customer/edit', { libCountry, dataUserOne, title: 'Edit User' });
+
+                } else {
+                    return res.render('404', { title: 'Page Not Found' });
+                }
+            });
+        } else {
+            return res.render('404', { title: 'Page Not Found' });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.render('error', { error: error + '', title: 'Page Error' });
+    }
+});
+router.post('/edit', async(req, res) => {
+    try {
+        console.log(req.params);
+        var idUser = req.params.id;
+        console.log(idUser);
+        if (idUser) {
+            return userModels.findOne({ id: idUser }).then((dataUserOne) => {
+                console.log(dataUserOne);
+                if (dataUserOne) {
+                    return res.render('admin/customer/edit', { libCountry, dataUserOne, title: 'Edit User' });
+
+                } else {
+                    return res.render('404', { title: 'Page Not Found' });
+                }
+            });
+        } else {
+            return res.render('404', { title: 'Page Not Found' });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.render('error', { error: error + '', title: 'Page Error' });
     }
 });
 

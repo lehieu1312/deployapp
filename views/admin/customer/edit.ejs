@@ -1,0 +1,93 @@
+<% include ../layout/header %>
+    <div class="xcontent clsmenu">
+        <div id="title-detail" class="row row1">
+            <div id="title-appversion" class="content-title-detail has-feedback">
+                <span class="textmyapp">Edit Customer
+            </span>
+                <a href="/admin/customer" class="btn-blue" id="backuser">
+                    <i class="fa fa-arrow-circle-left"></i> Back</a>
+            </div>
+        </div>
+        <div class="row row1">
+            <div id="content-editprofile">
+                <form id="form" onsubmit="return false">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback">
+                                <label class="control-label">First Name *</label>
+                                <input class="inputeditcustomer input-editcustomer" placeholder="" type="text" id="firstname" name="firstname" value="<%=dataUserOne.firstname%>" />
+                                <span class="form-control-feedback" aria-hidden="true"></span>
+                                <span id="icon-err-firstname" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label class="control-label">Last Name *</label>
+                                <input class="inputeditcustomer input-editcustomer" placeholder="" type="text" id="lastname" name="lastname" value="<%=dataUserOne.lastname%>" />
+                                <span class="form-control-feedback" aria-hidden="true"></span>
+                                <span id="icon-err-lastname" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label class="control-label">Username *</label>
+                                <input class="inputeditcustomer input-editcustomer" placeholder="" type="text" id="username" name="username" value="<%=dataUserOne.username%>" />
+                                <span class="form-control-feedback" aria-hidden="true"></span>
+                                <span id="icon-err-username" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label class="control-label">Email *</label>
+                                <input class="inputeditcustomer input-editcustomer" placeholder="" type="text" id="email" name="email" value="<%=dataUserOne.email%>" />
+                                <span class="form-control-feedback" aria-hidden="true"></span>
+                                <span id="icon-err-email" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label class="control-label">Password *</label>
+                                <input class="inputeditcustomer input-editcustomer" placeholder="" type="password" id="password" name="password" value="<%=dataUserOne.password%>" />
+                                <span class="form-control-feedback" aria-hidden="true"></span>
+                                <span id="icon-err-password" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label class="control-label">Confirm Password *</label>
+                                <input class="inputeditcustomer input-editcustomer" placeholder="" type="password" id="confirmpassword" name="confirmpassword" value="<%=dataUserOne.password%>" />
+                                <span class="form-control-feedback" aria-hidden="true"></span>
+                                <span id="icon-err-confirmpassword" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback">
+                                <label class="control-label">Address *</label>
+                                <input class="inputeditcustomer input-editcustomer" placeholder="" type="text" id="address" name="address" value="<%=dataUserOne.address%>" />
+                                <span class="form-control-feedback" aria-hidden="true"></span>
+                                <span id="icon-err-address" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
+                            </div>
+                            <div class="form-group has-feedback" id="updateinf-country5">
+                                <label class="control-label" for="inputSuccess2">Country *</label>
+
+                                <select class="form-control select-form-country">
+                                    <%libCountry.forEach(function(item){%>
+                                        <option class="optioncountry" value="<%=item.code%>"  <%= (item.code == dataUserOne.country) ? 'selected=\"selected\"' : ''%> class="init"><%=item.name%></option>
+                                        <%})%>
+                                  
+                                </select>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label class="control-label">Zip Code *</label>
+                                <input class="inputeditcustomer input-editcustomer" placeholder="" type="text" id="zipcode" name="zipcode" value="<%=dataUserOne.zipcode%>" />
+                                <span class="form-control-feedback" aria-hidden="true"></span>
+                                <span id="icon-err-zipcode" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="box-btn-update-customer">
+                    <div class="divbox-btn-update-customer">
+                        <input type="button" id="btn-edit-customer" class="setcolorfontinput setcolorloginbackround btn btn-update-edit-customer" value="Update">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+    </div>
+
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/editcustomer.js "></script>

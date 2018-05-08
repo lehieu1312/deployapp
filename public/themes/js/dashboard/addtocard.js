@@ -26,6 +26,32 @@ function removeProduct(idApp) {
     })
 }
 
+function remove_all_product() {
+    var total_price_product = document.getElementsByClassName("total-price-product");
+    $(".content-modal-cart").find(".item-product-in-cart").each(function (i) {
+        $(this).find(".set-icon-delte-app-checkout").click(() => {
+            console.log($(this).find(".number-product").text())
+            $(this).hide();
+            $(".total-price-product").text("$" + (Number(trimSpace(total_price_product[0].textContent).split("$")[1]) - Number($(this).find(".price-hidden").val()) * Number($(this).find(".number-product").text())))
+            $.ajax({
+                url: "/remove-product-all-in-cart",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    idApp: $(this).find(".idApp-hidden").val()
+                },
+                success: function (data) {
+                    if (data.status == "1") {
+
+                    }
+                }
+            })
+        })
+    })
+}
+
+
+
 function add_and_removeProduct() {
     function trimSpace(str) {
         return str.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, "").replace(/\s+/g, " ");
@@ -97,6 +123,7 @@ $(document).ready(() => {
                                     </div>
                                 </div>
                             </div>
+                            <img class="set-icon-delte-app-checkout" src="/themes/img/checkout/icondeletesmallv2.png">
                         </div>`)
                             tong = tong + data.cart[i].cart.price * data.cart[i].count;
                         }
@@ -107,6 +134,7 @@ $(document).ready(() => {
                 $('#loading').hide();
                 $("#modal-cart").modal('show');
                 add_and_removeProduct();
+                remove_all_product();
             })
         })
     })

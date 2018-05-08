@@ -1,5 +1,16 @@
 $(document).ready(() => {
 
+    var testObject = {
+        a: 1,
+        b: 2
+    }
+    var testObject1 = {
+        c: 3,
+        d: 4
+    }
+    // testObject.merge(testObject1);
+    console.log(Object.assign(testObject, testObject1))
+
     // add_and_removeProduct();
 
     $('#deploy-detail-content').click(() => {
@@ -221,6 +232,8 @@ $(document).ready(() => {
                         $("#success-alert").slideUp(1000);
                         $('.successPopup').hide();
                     });
+
+
                 } else if (data.status == "2") {
                     $('#errPopup').show();
                     $('.alert-upload').text(data.message);
@@ -243,17 +256,16 @@ $(document).ready(() => {
                 dataType: "json",
                 crossDomain: "true",
                 data: {
-                    firstname: firstname.val(),
-                    lastname: lastname.val(),
+                    firstName: firstname.val(),
+                    lastName: lastname.val(),
                     company: company.val(),
                     address: address.val(),
                     city: city.val(),
-                    country: country_checkout,
+                    codeCountry: country_checkout,
                     state: state.val(),
-                    zipcode: zipcode.val(),
-                    mobiphone: mobiphone.val(),
+                    zipCode: zipcode.val(),
+                    phoneNumber: mobiphone.val(),
                     email: email.val(),
-                    promoCode
                 },
                 success: function (data) {
                     // console.log(data)

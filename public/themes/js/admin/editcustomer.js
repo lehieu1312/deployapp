@@ -7,6 +7,8 @@ $(document).ready(() => {
 
     function validateForm_edit_customer() {
         var check;
+        var checkMail = validateEmail($('#email').val());
+
         if ($('#firstname').val() == "") {
             $('#firstname').attr('placeholder', 'First name can not be empty ');
             $('#firstname').addClass('input-holder').addClass('border-bottom-red');
@@ -15,7 +17,6 @@ $(document).ready(() => {
         } else {
             $('#firstname').removeClass('input-holder').removeClass('border-bottom-red');
             $('#icon-err-firstname').removeClass('display-inline').addClass('display-none');
-            check = true;
         }
         if ($('#lastname').val() == "") {
             $('#lastname').attr('placeholder', 'Last name can not be empty ');
@@ -25,7 +26,6 @@ $(document).ready(() => {
         } else {
             $('#lastname').removeClass('input-holder').removeClass('border-bottom-red');
             $('#icon-err-lastname').removeClass('display-inline').addClass('display-none');
-            check = true;
         }
         if ($('#username').val() == "") {
             $('#username').attr('placeholder', 'Username can not be empty ');
@@ -35,23 +35,21 @@ $(document).ready(() => {
         } else {
             $('#username').removeClass('input-holder').removeClass('border-bottom-red');
             $('#icon-err-username').removeClass('display-inline').addClass('display-none');
-            check = true;
         }
         if ($('#email').val() == "") {
             $('#email').attr('placeholder', 'Email can not be empty ');
             $('#email').addClass('input-holder').addClass('border-bottom-red');
             $('#icon-err-email').removeClass('display-none').addClass('display-inline');
             check = false;
-        } else if (validateEmail($('#email').val()) == false) {
+        } else if (checkMail == false) {
+            check = false;
             $('#email').val('');
             $('#email').attr('placeholder', 'Email invalid');
             $('#email').addClass('input-holder').addClass('border-bottom-red');
             $('#icon-err-email').removeClass('display-none').addClass('display-inline');
-            check = false;
         } else {
             $('#email').removeClass('input-holder').removeClass('border-bottom-red');
             $('#icon-err-email').removeClass('display-inline').addClass('display-none');
-            check = true;
         }
         if ($('#password').val() == "") {
             $('#password').attr('placeholder', 'Password can not be empty ');
@@ -61,7 +59,6 @@ $(document).ready(() => {
         } else {
             $('#password').removeClass('input-holder').removeClass('border-bottom-red');
             $('#icon-err-password').removeClass('display-inline').addClass('display-none');
-            check = true;
         }
         if ($('#confirmpassword').val() == "") {
             $('#confirmpassword').attr('placeholder', 'Confirm password can not be empty ');
@@ -69,17 +66,16 @@ $(document).ready(() => {
             $('#icon-err-confirmpassword').removeClass('display-none').addClass('display-inline');
             check = false;
         } else if ($('#confirmpassword').val() != $('#password').val()) {
+            check = false;
             $('#confirmpassword').val('');
             $('#confirmpassword').attr('placeholder', 'Confirm Password not match Password ');
             $('#confirmpassword').addClass('input-holder').addClass('border-bottom-red');
             $('#icon-err-confirmpassword').removeClass('display-none').addClass('display-inline');
-            check = false;
         } else {
             $('#confirmpassword').removeClass('input-holder').removeClass('border-bottom-red');
             $('#icon-err-confirmpassword').removeClass('display-inline').addClass('display-none');
-            check = true;
         }
-        // email
+
         if ($('#address').val() == "") {
             $('#address').attr('placeholder', 'Address can not be empty ');
             $('#address').addClass('input-holder').addClass('border-bottom-red');
@@ -88,7 +84,6 @@ $(document).ready(() => {
         } else {
             $('#address').removeClass('input-holder').removeClass('border-bottom-red');
             $('#icon-err-address').removeClass('display-inline').addClass('display-none');
-            check = true;
         }
         if ($('#zipcode').val() == "") {
             $('#zipcode').attr('placeholder', 'zipcode can not be empty ');
@@ -98,19 +93,50 @@ $(document).ready(() => {
         } else {
             $('#zipcode').removeClass('input-holder').removeClass('border-bottom-red');
             $('#icon-err-zipcode').removeClass('display-inline').addClass('display-none');
-            check = true;
         }
+        // alert(checkMail);
         if (check == false) {
             return false
-        } else {
-            return true;
         }
-
+        return true;
     }
 
     $('#btn-edit-customer').click(() => {
+        // alert($('#slecountry').val());
         if (validateForm_edit_customer() == true) {
-            alert('1');
+            $('#loading').show();
+            $.ajax({
+                type: "POST",
+                url: "/admin/customer/edit",
+                dataType: "json",
+                data: {
+                    id: $('#idcustomer').val(),
+                    firstname: $('#firstname').val(),
+                    lastname: $('#lastname').val(),
+                    username: $('#username').val(),
+                    email: $('#email').val(),
+                    password: $('#password').val(),
+                    confirmpassword: $('#confirmpassword').val(),
+                    address: $('#address').val(),
+                    zipcode: $('#zipcode').val(),
+                    country: $('#slecountry').val(),
+                },
+                success: (data) => {
+                    if (data.status == 1) {
+                        $('#successPopup').show();
+                        $('.contenemail').text('Update success.');
+                        // window.location.href = "/admin/customer";
+                    } else if (data.status == 2) {
+                        $('#errPopup').show();
+                        $('.alert-upload').text(data.msg[0].msg);
+                    } else {
+                        $('#errPopup').show();
+                        $('.alert-upload').text(data.msg);
+                    }
+                }
+            }).always(function(data) {
+                $('#loading').hide();
+            });
         }
     })
 });

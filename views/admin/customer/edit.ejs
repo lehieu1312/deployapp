@@ -10,10 +10,11 @@
         </div>
         <div class="row row1">
             <div id="content-editprofile">
-                <form id="form" onsubmit="return false">
+                <form id="form" method="POST">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group has-feedback">
+                                <input type="hidden" name="idcustomer" id="idcustomer" value="<%=dataUserOne.id%>">
                                 <label class="control-label">First Name *</label>
                                 <input class="inputeditcustomer input-editcustomer" placeholder="" type="text" id="firstname" name="firstname" value="<%=dataUserOne.firstname%>" />
                                 <span class="form-control-feedback" aria-hidden="true"></span>
@@ -60,7 +61,7 @@
                             <div class="form-group has-feedback" id="updateinf-country5">
                                 <label class="control-label" for="inputSuccess2">Country *</label>
 
-                                <select class="form-control select-form-country">
+                                <select class="form-control select-form-country" name="select_country" id="slecountry">
                                     <%libCountry.forEach(function(item){%>
                                         <option class="optioncountry" value="<%=item.code%>"  <%= (item.code == dataUserOne.country) ? 'selected=\"selected\"' : ''%> class="init"><%=item.name%></option>
                                         <%})%>
@@ -75,13 +76,14 @@
                             </div>
                         </div>
                     </div>
-                </form>
-                <div class="box-btn-update-customer">
-                    <div class="divbox-btn-update-customer">
-                        <input type="button" id="btn-edit-customer" class="setcolorfontinput setcolorloginbackround btn btn-update-edit-customer" value="Update">
-                    </div>
+                    <div class="box-btn-update-customer">
+                        <div class="divbox-btn-update-customer">
+                            <input type="button" id="btn-edit-customer" class="setcolorfontinput setcolorloginbackround btn btn-update-edit-customer" value="Update">
+                        </div>
 
-                </div>
+                    </div>
+                </form>
+
 
             </div>
         </div>

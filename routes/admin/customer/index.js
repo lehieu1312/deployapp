@@ -14,8 +14,8 @@ var hbs = require('nodemailer-express-handlebars');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 
-var libApp = require('../../../lib/country');
-var libCountry = libApp.country;
+var libAppCountry = require('../../../lib/country');
+var libCountry = libAppCountry.country;
 var userModels = require('../../../models/user');
 
 function genderPassword() {
@@ -326,25 +326,52 @@ router.get('/edit/:id', async(req, res) => {
 });
 router.post('/edit', async(req, res) => {
     try {
-        console.log(req.params);
-        var idUser = req.params.id;
-        console.log(idUser);
-        if (idUser) {
-            return userModels.findOne({ id: idUser }).then((dataUserOne) => {
-                console.log(dataUserOne);
-                if (dataUserOne) {
-                    return res.render('admin/customer/edit', { libCountry, dataUserOne, title: 'Edit User' });
-
-                } else {
-                    return res.render('404', { title: 'Page Not Found' });
-                }
-            });
+        console.log('===========');
+        console.log(req.body);
+        req.checkBody('id', 'ID Not Defined').notEmpty();
+        req.checkBody('firstname', 'First name can not be empty').notEmpty();
+        req.checkBody('lastname', 'Last name can not be empty').notEmpty();
+        req.checkBody('username', 'Username can not be empty').notEmpty();
+        req.checkBody('email', 'Email can not be empty').notEmpty();
+        req.checkBody('email', 'Email is not valid').isEmail();
+        req.checkBody('password', 'Password can not be empty').notEmpty();
+        req.checkBody('country', 'Country can not be empty').notEmpty();
+        req.checkBody('confirmpassword', 'Confirm password can not be empty').notEmpty();
+        req.check('password', 'Confirm password does not match the password.').equals(req.body.password);
+        req.checkBody('address', 'Address can not be empty').notEmpty();
+        req.checkBody('zipcode', 'Zip code can not be empty').notEmpty();
+        var errors = req.validationErrors();
+        if (errors) {
+            return res.json({ status: 3, msg: errors });
         } else {
-            return res.render('404', { title: 'Page Not Found' });
+            var idUser = req.body.id;
+            console.log(idUser);
+            if (idUser) {
+                return userModels.findOne({ id: idUser }).then((dataUserOne) => {
+                    console.log(dataUserOne);
+                    if (dataUserOne) {
+                        dataUserOne.firstname = req.body.firstname;
+                        dataUserOne.lastname = req.body.lastname;
+                        dataUserOne.username = req.body.username;
+                        dataUserOne.email = req.body.email;
+                        dataUserOne.password = md5(req.body.password);
+                        dataUserOne.country = req.body.country;
+                        dataUserOne.address = req.body.address;
+                        dataUserOne.zipcode = req.body.zipcode;
+                        dataUserOne.save().then(() => {
+                            return res.json({ status: 1, msg: "Success" });
+                        });
+                    } else {
+                        return res.json({ status: 3, msg: 'ID Not Defined' });
+                    }
+                });
+            } else {
+                return res.json({ status: 3, msg: 'ID Not Defined' });
+            }
         }
     } catch (error) {
         console.log(error);
-        return res.render('error', { error: error + '', title: 'Page Error' });
+        return res.json({ status: 3, msg: error + '' });
     }
 });
 

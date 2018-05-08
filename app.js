@@ -646,7 +646,7 @@ var checkout = require("./routes/checkout/checkout");
 
 // affilicate
 
-var affilicate_report = require("./routes/afilicate/report");
+var affilicate_report = require("./routes/affilicate/report");
 
 //===================================================================
 

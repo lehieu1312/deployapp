@@ -2,6 +2,7 @@ let mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 let affiliateShema = mongoose.Schema({
+    id: String,
     idUser: String,
     codeShare: String,
     idOrder: String,

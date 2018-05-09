@@ -134,7 +134,7 @@ td {
 }
 
 .tr-content-appversion {
-    height: 105px;
+    height: 75px;
 }
 
 .dialogdeleteapp-head-history {
@@ -321,6 +321,11 @@ textarea {
 #table-appversion tr:nth-child(even) {
     background-color: #fafafa;
 }
+
+
+/* #table-appversion tr:first-child(even) {
+    background-color: #fafafa;
+} */
 
 .textarea-err::placeholder {
     color: #dc2a2a;

@@ -108,7 +108,7 @@ $(document).ready(() => {
                         //     });
                         // }
                     }
-                }).always(function (data) {
+                }).always(function(data) {
                     $('#loading').hide();
                 });
             });
@@ -134,7 +134,7 @@ $(document).ready(() => {
                     window.location.href = "/myorder/" + data.message;
                 }
             }
-        }).always(function (data) {
+        }).always(function(data) {
             // $(".textarea-history").val("")
             $('#loading').hide();
         });

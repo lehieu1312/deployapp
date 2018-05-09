@@ -1,7 +1,8 @@
 let mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
-let affiliateHistoryShema = mongoose.Schema({
+let withdrawSchema = mongoose.Schema({
+    id: String,
     idUser: String,
     codeShare: String,
     bankSend: String,
@@ -9,14 +10,14 @@ let affiliateHistoryShema = mongoose.Schema({
     blank: String,
     blankBranch: String,
     accountHolder: String,
-    Free: Number,
+    free: Number,
     amount: Number,
     blance: Number,
     content: String,
     note: String,
     method: String,
     dateCreate: Date,
-    statusWithdraw: String,
+    statusWithdraw: Number,
     status: Boolean
 });
-let AffiliateHistory = module.exports = mongoose.model("affiliatehistorys", affiliateHistoryShema);
+let withdrawsData = module.exports = mongoose.model("withdraws", withdrawSchema);

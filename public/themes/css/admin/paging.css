@@ -1,0 +1,27 @@
+.pagination-table-deploy {
+    margin-top: -50px;
+    position: absolute;
+    right: 37px;
+}
+
+.pagination>li>span {
+    background: no-repeat;
+    border: none;
+    color: #2D2A2A;
+    padding: 0px;
+    padding-left: 8px;
+    padding-top: 6px;
+}
+
+.pagination>li>span:hover {
+    background: no-repeat;
+    border: none;
+    color: #2D2A2A;
+}
+
+.pagination>li>a:hover,
+.pagination>li>a:focus,
+.pagination>li>span:focus {
+    background-color: #00afee;
+    color: #fff;
+}

@@ -5,16 +5,141 @@
                 <h3 class="textmyapp">Affilicate Report</h3>
             </div>
         </div>
-        <div class="row row1">
-
+        <div class="earning row row1">
+            <div class="earning-by-time">
+                <div class="content-head-statistics ">
+                    <span class="settext-h1-traffic ">Estimated earning</span>
+                </div>
+                <div class="item-earning-by-time">
+                    <span>Early day</span>
+                    <div class="text-money">$1.99</div>
+                </div>
+                <div class="item-earning-by-time">
+                    <span>Yesterday</span>
+                    <div class="text-money">$22.00</div>
+                    <div class="text-cent-money">+ $5.00</div>
+                    <div class="text-description">Compared to the same dat last week</div>
+                </div>
+                <div class="item-earning-by-time">
+                    <span>Last 7 days</span>
+                    <div class="text-money">$327.81</div>
+                    <div class="text-cent-money">+ $23.98</div>
+                    <div class="text-description">Compared to the previous 7 days</div>
+                </div>
+                <div class="item-earning-by-time">
+                    <span>This month</span>
+                    <div class="text-money">$1,263.99</div>
+                    <div class="text-cent-money">- $212.77</div>
+                    <div class="text-description">Compared with the same period last year</div>
+                </div>
+            </div>
+            <div class="total-earning">
+                <div class="set-icon-wallet">
+                    <img src="/themes/img/affilicate/iconwallet.png" alt="money">
+                </div>
+                <div class="money-total-earning">$1,263.99</div>
+                <div class="description-total-earning">Remaining balance in your account</div>
+            </div>
         </div>
-        <div class="row row1">
-
+        <div class="daily-traffic row row1">
+            <div class="content-daily-traffic">
+                <div class="content-head-statistics ">
+                    <span class="settext-h1-traffic ">Daily traffic</span>
+                    <span class="graytext-h3 floatright setcusor dropbtn-traffic showmenu">
+                        <div class="dropdown-custom">
+                            <span class="selected-date"> Last 7 days</span>
+                            <span class="caret"></span>
+                            <div class="dropdown-traffic myDropdown-traffic" style="display: none">
+                                <div class="head-dropdaw">
+                                    <span class="selected-date1">Today</span>
+                                    <br>
+                                    <span class="show-date">Sep 28,2017 - Sep 28,2017</span>
+                                </div>
+                                <a>Today</a>
+                                <a>Yesterday</a>
+                                <a>Last 7 days</a>
+                                <a>Last 30 days</a>
+                                <a>Last 90 days</a>
+                                <!-- <a>More preset ranges</a> -->
+                                <div id="selectime2" class="footer-dropdaw">
+                                    <a>Custom...</a>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="header-daily-traffic">
+                    <div class="item-earning-by-time">
+                        <div>User</div>
+                        <div class="light-large-gray">124</div>
+                    </div>
+                    <div class="item-earning-by-time">
+                        <div>Session</div>
+                        <div class="light-large-gray">224</div>
+                    </div>
+                    <div class="item-earning-by-time">
+                        <div>Bounce Rate</div>
+                        <div class="light-large-gray">59,24%</div>
+                    </div>
+                    <div class="item-earning-by-time">
+                        <div>Session Duration</div>
+                        <div class="light-large-gray">7m24s</div>
+                    </div>
+                </div>
+                <div class="content-chart-daily-traffic">
+                    <canvas id="chart-daily-traffic"></canvas>
+                </div>
+            </div>
         </div>
-        <div class="row row1">
-
+        <div class="sale-traffic row row1">
+            <div class="content-sale-traffic">
+                <div class="content-head-statistics ">
+                    <span class="settext-h1-traffic ">Sales traffic</span>
+                    <span class="graytext-h3 floatright setcusor dropbtn-traffic showmenu">
+                        <div class="dropdown-custom">
+                            <span class="selected-date"> Last 7 days</span>
+                            <span class="caret"></span>
+                            <div class="dropdown-traffic myDropdown-traffic" style="display: none">
+                                <div class="head-dropdaw">
+                                    <span class="selected-date1">Today</span>
+                                    <br>
+                                    <span class="show-date">Sep 28,2017 - Sep 28,2017</span>
+                                </div>
+                                <a>Today</a>
+                                <a>Yesterday</a>
+                                <a>Last 7 days</a>
+                                <a>Last 30 days</a>
+                                <a>Last 90 days</a>
+                                <!-- <a>More preset ranges</a> -->
+                                <div id="selectime2" class="footer-dropdaw">
+                                    <a>Custom...</a>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="header-daily-traffic">
+                    <div class="item-earning-by-time">
+                        <div>Orders weekly</div>
+                        <div class="light-large-gray">79.97</div>
+                    </div>
+                    <div class="item-earning-by-time">
+                        <div>Orders monthly</div>
+                        <div class="light-large-gray">325.68</div>
+                    </div>
+                    <div class="item-earning-by-time">
+                        <div>Average revenue</div>
+                        <div class="light-large-gray">$32,353.04</div>
+                    </div>
+                </div>
+                <div class="content-chart-daily-traffic">
+                    <canvas id="chart-sale-traffic"></canvas>
+                </div>
+            </div>
         </div>
     </div>
     </div>
     </div>
     </div>
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/affilicate/report/daily.js"></script>
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/affilicate/report/sale.js"></script>

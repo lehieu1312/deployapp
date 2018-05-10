@@ -603,10 +603,20 @@ app.get("*", (req, res, next) => {
         codeShare: req.query.codeshare,
         status: true
     }).then((count) => {
+        var path_codeshare = req.url.split("?")[0];
+        var id = md5(new Date());
         if (count > 0) {
+            if (!req.cookies.codesharedeployapp) {
+                res.cookie("codesharedeployapp", {
+                    id,
+                    code: req.query.codeshare
+                }, {
+                    expires: new Date() + 2592000000,
+                    maxAge: 2592000000
+                })
+            }
             if (req.query.codeshare && req.cookies.codesharedeployapp.code != req.query.codeshare) {
-                var path_codeshare = req.url.split("?")[0];
-                var id = md5(new Date());
+
 
                 res.cookie("codesharedeployapp", {
                     id,

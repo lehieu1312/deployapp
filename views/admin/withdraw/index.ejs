@@ -7,7 +7,8 @@
             </span>
 
                 <span class="setsearch">
-                <input type="text" onkeyup="searchFunc()" id="inputsearch-customer" name="search" placeholder="Search...">
+                        <!-- onkeyup="searchFunc()" -->
+                <input type="text"  id="inputsearch-customer" name="search" placeholder="Search...">
                 <span class="form-control-feedback2" aria-hidden="true">
                     <img src="/themes/img/admin/search.png">
                 </span>
@@ -16,82 +17,85 @@
         </div>
 
         <div id="filter-table-appversion" class="row row1">
-            <span class="table-show">Show</span>
-            <div id="filter-number" class="btn-group">
-                <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span id="span-show-number" class="span-button-select">18</span>
-            <span class="caret arow-button-select"></span>
-        </button>
-                <ul class="dropdown-menu ">
-                    <li id="show9">
-                        <a href="#">9 Per page</a>
-                    </li>
-                    <li id="show18">
-                        <a href="#">18 Per page</a>
-                    </li>
-                    <li id="show27">
-                        <a href="#">27 Per page</a>
-                    </li>
-                    <li id="show36">
-                        <a href="#">36 Per page</a>
-                    </li>
+            <div class="filter-left">
+                <span class="table-show">Show</span>
+                <div id="filter-number" class="btn-group">
+                    <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span id="span-show-number" class="span-button-select">18</span>
+                    <span class="caret arow-button-select"></span>
+                </button>
+                    <ul class="dropdown-menu ">
+                        <li id="show9">
+                            <a href="#">9 Per page</a>
+                        </li>
+                        <li id="show18">
+                            <a href="#">18 Per page</a>
+                        </li>
+                        <li id="show27">
+                            <a href="#">27 Per page</a>
+                        </li>
+                        <li id="show36">
+                            <a href="#">36 Per page</a>
+                        </li>
 
-                </ul>
+                    </ul>
+                </div>
+                <div id="filter-date" class="btn-group">
+                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span id="span-selcect-date" class="span-button-select">All Dates</span>
+                    <span class="caret arow-button-select"></span>
+                </button>
+                    <ul class="dropdown-menu">
+                        <li id="select-date-1">
+                            <a href="#">Hours Ago</a>
+                        </li>
+                        <li id="select-date-2">
+                            <a href="#">Yesterday</a>
+                        </li>
+                        <li id="select-date-3">
+                            <a href="#">Last Weed</a>
+                        </li>
+                        <li id="select-date-4">
+                            <a href="#">All Dates</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li id="select-date-5">
+                            <input hidden id="fillter-date-custom" value="">
+                            <a href="#">Custom...</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div id="filter-date" class="btn-group">
-                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span id="span-selcect-date" class="span-button-select">All Dates</span>
-            <span class="caret arow-button-select"></span>
-        </button>
-                <ul class="dropdown-menu">
-                    <li id="select-date-1">
-                        <a href="#">Hours Ago</a>
-                    </li>
-                    <li id="select-date-2">
-                        <a href="#">Yesterday</a>
-                    </li>
-                    <li id="select-date-3">
-                        <a href="#">Last Weed</a>
-                    </li>
-                    <li id="select-date-4">
-                        <a href="#">All Dates</a>
-                    </li>
-                    <li role="separator" class="divider"></li>
-                    <li id="select-date-5">
-                        <input hidden id="fillter-date-custom" value="">
-                        <a href="#">Custom...</a>
-                    </li>
-                </ul>
-            </div>
+
 
             <div class="pagination-table-deploy row">
                 <ul class="pagination">
                     <li class="edit-li-pagination">
                         <span id="totalitems" class="totalitems"></span>
                     </li>
-                    <li id="firstpage">
+                    <li class="btnfirstpage">
                         <a href="javascript:void(0)">
                             <i class="fa fa-angle-double-left" aria-hidden="true"></i>
                         </a>
                     </li>
-                    <li id="prevpage">
+                    <li class="btnprevpage">
                         <a href="javascript:void(0)">
                             <i class="fa fa-angle-left" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li>
-                        <a id="paging-currentpage" class="currentpage" href="javascript:void(0)">1</a>
+                        <a class="currentpage currentpagetext" href="javascript:void(0)">1</a>
                     </li>
                     <li class="edit-li-pagination">
-                        <span class="totalpage" id="totalpagetext" href="javascript:void(0)">
+                        <span class="totalpage totalpagetext" href="javascript:void(0)">
                         </span>
                     </li>
-                    <li class="nextpage" id="nextpage">
+                    <li class="btnnextpage">
                         <a href="javascript:void(0)">
                             <i class="fa fa-angle-right" aria-hidden="true"></i>
                         </a>
                     </li>
-                    <li class="lastpage">
+                    <li class="btnlastpage">
                         <a href="javascript:void(0)">
                             <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                         </a>
@@ -203,6 +207,40 @@
 
             </div>
 
+            <div class="pagination-table-deploy row">
+                <ul class="pagination">
+                    <li class="edit-li-pagination">
+                        <span id="totalitems" class="totalitems"></span>
+                    </li>
+                    <li class="btnfirstpage">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="btnprevpage">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="currentpage currentpagetext" href="javascript:void(0)">1</a>
+                    </li>
+                    <li class="edit-li-pagination">
+                        <span class="totalpage totalpagetext" href="javascript:void(0)">
+                        </span>
+                    </li>
+                    <li class="btnnextpage">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="btnlastpage">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
             <div class="container">
                 <div class="modal fade" id="mymodal-deleteuser" role="dialog">

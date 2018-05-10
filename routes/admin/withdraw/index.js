@@ -39,9 +39,11 @@ router.post('/changestatuswithdraw', (req, res) => {
             return res.json({ status: 2, msg: errors });
         } else {
             withDrawModels.findOne({ id: req.body.id }).then((dataWithdraw) => {
+                console.log(dataWithdraw);
                 if (dataWithdraw) {
                     dataWithdraw.statusWithdraw = req.body.status;
                     dataWithdraw.save().then(() => {
+                        console.log('changed');
                         return res.json({ status: 1, msg: "Success." });
                     })
                 } else {

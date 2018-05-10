@@ -32,7 +32,7 @@ var Infomation = require('./models/infomation');
 var listBuilding = require('./models/listbuilding');
 
 var User = require('./models/user');
-var affilicate_statistic_modal = require('./models/affiliatestatistics')
+var affiliate_statistic_modal = require('./models/affiliatestatistics')
 
 var libSetting = require('./lib/setting');
 var pathBackupDB = libSetting.pathBackupDB;
@@ -598,7 +598,6 @@ app.use(function (req, res, next) {
 
 
 app.get("*", (req, res, next) => {
-
     User.count({
         codeShare: req.query.codeshare,
         status: true
@@ -614,14 +613,14 @@ app.get("*", (req, res, next) => {
                     expires: new Date() + 2592000000,
                     maxAge: 2592000000
                 })
-                affilicate_statistic_modal.findOne({
+                affiliate_statistic_modal.findOne({
                     id,
                     codeShare: req.query.codeshare,
                     dateOut: null,
                     status: true
                 }).then((data) => {
                     if (data) {
-                        affilicate_statistic_modal.update({
+                        affiliate_statistic_modal.update({
                             id: data.id
                         }, {
                             "$push": {
@@ -638,7 +637,7 @@ app.get("*", (req, res, next) => {
                             next();
                         })
                     } else {
-                        var new_affilicate_statistic_modal = new affilicate_statistic_modal({
+                        var new_affiliate_statistic_modal = new affiliate_statistic_modal({
                             id,
                             idUser: id,
                             codeShare: req.query.codeshare,
@@ -651,14 +650,14 @@ app.get("*", (req, res, next) => {
                             }],
                             status: true
                         })
-                        new_affilicate_statistic_modal.save().then(() => {
+                        new_affiliate_statistic_modal.save().then(() => {
                             next();
                         });
                     }
                 })
 
                 setTimeout(function () {
-                    affilicate_statistic_modal.update({
+                    affiliate_statistic_modal.update({
                         id
                     }, {
                         dateOut: new Date(),
@@ -683,7 +682,7 @@ app.get("*", (req, res, next) => {
             } else if (req.cookies.codesharedeployapp) {
                 console.log(req.cookies)
                 var path_codeshare = req.url.split("?")[0];
-                affilicate_statistic_modal.findOne({
+                affiliate_statistic_modal.findOne({
                     id: req.cookies.codesharedeployapp.id,
                     codeShare: req.cookies.codesharedeployapp.code,
                     dateOut: null,
@@ -691,7 +690,7 @@ app.get("*", (req, res, next) => {
                 }).then((data) => {
                     console.log("data:" + JSON.stringify(data))
                     if (data) {
-                        affilicate_statistic_modal.update({
+                        affiliate_statistic_modal.update({
                             id: data.id
                         }, {
                             "$push": {
@@ -708,7 +707,7 @@ app.get("*", (req, res, next) => {
                             next();
                         })
                     } else {
-                        var new_affilicate_statistic_modal = new affilicate_statistic_modal({
+                        var new_affiliate_statistic_modal = new affiliate_statistic_modal({
                             id: req.cookies.codesharedeployapp.id,
                             idUser: req.cookies.codesharedeployapp.id,
                             codeShare: req.cookies.codesharedeployapp.code,
@@ -721,14 +720,14 @@ app.get("*", (req, res, next) => {
                             }],
                             status: true
                         })
-                        new_affilicate_statistic_modal.save().then(() => {
+                        new_affiliate_statistic_modal.save().then(() => {
                             next();
                         });
                     }
                 })
 
                 setTimeout(function () {
-                    affilicate_statistic_modal.update({
+                    affiliate_statistic_modal.update({
                         id
                     }, {
                         dateOut: new Date(),
@@ -811,10 +810,10 @@ var adminWithdraw = require('./routes/admin/withdraw/index');
 //checkout
 var checkout = require("./routes/checkout/checkout");
 
-// affilicate
+// affiliate
 
-var affilicate_report = require("./routes/affilicate/report");
-var affilicate_statement = require("./routes/affilicate/statement");
+var affiliate_report = require("./routes/affiliate/report");
+var affiliate_statement = require("./routes/affiliate/statement");
 //===================================================================
 
 app.use('/', index);
@@ -863,9 +862,9 @@ app.use('/admin/withdraw', adminWithdraw);
 //checkout
 app.use('/', checkout);
 
-//affilicate
-app.use('/', affilicate_report)
-app.use('/', affilicate_statement)
+//affiliate
+app.use('/', affiliate_report)
+app.use('/', affiliate_statement)
 
 /////////////////////
 app.use('/deploy-api', API);

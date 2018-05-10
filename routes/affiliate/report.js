@@ -21,7 +21,7 @@ var User = require('../../models/user');
 var infor_app_admin = require('../../models/inforappadmin');
 var order_modal = require("../../models/order");
 var promo_code = require("../../models/promocode");
-var affilicate_modal = require("../../models/affiliate");
+var affiliate_modal = require("../../models/affiliate");
 var withdraws_modal = require("../../models/withdraw");
 var http = require('http');
 var server = http.Server(app);
@@ -73,10 +73,10 @@ function filtercart(a) {
     return b;
 }
 
-router.get("/affilicate/report", checkAdmin, (req, res) => {
+router.get("/affiliate/report", checkAdmin, (req, res) => {
     // withdraws_modal.find();
 
-    affilicate_modal.find({
+    affiliate_modal.find({
         idUser: req.session.iduser,
         status: true
     }).then((data) => {
@@ -90,7 +90,7 @@ router.get("/affilicate/report", checkAdmin, (req, res) => {
             var this_month = [];
             var this_month_old = [];
             // ------------------------------------------------
-            async function affilicate_earning() {
+            async function affiliate_earning() {
                 early_day = await data.filter((el) => {
                     return data.dateCreate > date_now.setHours(0, 0, 0, 0)
                 })
@@ -127,13 +127,13 @@ router.get("/affilicate/report", checkAdmin, (req, res) => {
                 // ------------------------------------------------
             }
 
-        } else {
-            res.render('./affilicate/report', {
-                title: 'Report',
-                appuse: "",
-            });
         }
     })
+
+    res.render('./affiliate/report', {
+        title: 'Report',
+        appuse: "",
+    });
 
 })
 

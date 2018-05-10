@@ -78,8 +78,8 @@ function filtercart(a) {
     return b;
 }
 
-router.get("/affilicate/statements", (req, res) => {
-    res.render('./affilicate/statement', {
+router.get("/affiliate/statements", (req, res) => {
+    res.render('./affiliate/statement', {
         title: 'Statements',
         appuse: "",
     });

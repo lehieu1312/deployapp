@@ -25,6 +25,7 @@ var Base64 = require('js-base64').Base64;
 var app = express();
 var User = require('../../models/user');
 var infor_app_admin = require('../../models/inforappadmin');
+var affiliate_modal = require("../../models/affiliate")
 var order_modal = require("../../models/order");
 var promo_code = require("../../models/promocode")
 var http = require('http');
@@ -322,10 +323,12 @@ router.get('/checkout/ok/process', (req, res) => {
                                 }
 
                             }
+                            var id_order = md5(new Date());
+                            var code_order = makeid();
                             console.log("product:" + JSON.stringify(product))
                             var queryCheckout = await Object.assign({
-                                id: md5(new Date()),
-                                codeOrder: makeid(),
+                                id: id_order,
+                                codeOrder: code_order,
                                 idUser: req.session.iduser,
                                 productInformation: product,
                                 totalMoney: data.amount.total,
@@ -340,8 +343,37 @@ router.get('/checkout/ok/process', (req, res) => {
 
                             var new_order = new order_modal(queryCheckout);
                             new_order.save().then(() => {
-                                req.session.cart = [];
-                                res.redirect("/dashboard?checkout=ok")
+                                if (req.cookies.codesharedeployapp) {
+                                    User.findOne({
+                                        codeShare: req.cookies.codesharedeployapp.code,
+                                        status: true
+                                    }).then((user_share) => {
+                                        var new_affiliate = new affiliate_modal({
+                                            id: md5(new Date()),
+                                            idUser: user_share.id,
+                                            codeShare: req.cookies.codesharedeployapp.code,
+                                            idOrder: id_order,
+                                            codeOrder: code_order,
+                                            orderMoney: data.amount.total,
+                                            percentSale: 1,
+                                            money: (Number(data.amount.total) / 100).toFixed(2),
+                                            idUserOroder: req.session.iduser,
+                                            nameUserOrder: req.session.fullname,
+                                            paymentMethodOrder: String,
+                                            note: "note deploy",
+                                            dateCreate: new Date(),
+                                            status: true
+                                        })
+                                        new_affiliate.save().then(() => {
+                                            req.session.cart = [];
+                                            res.redirect("/dashboard?checkout=ok")
+                                        });
+
+                                    })
+                                } else {
+                                    req.session.cart = [];
+                                    res.redirect("/dashboard?checkout=ok")
+                                }
                             })
                         }
                         get_data_car();

@@ -79,7 +79,7 @@ function filtercart(a) {
 }
 
 router.get("/affilicate/statements", (req, res) => {
-    res.render('affilicate/statements', {
+    res.render('./affilicate/statement', {
         title: 'Statements',
         appuse: "",
     });

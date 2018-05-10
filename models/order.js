@@ -2,7 +2,8 @@ let mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 let orderShema = mongoose.Schema({
-    idOrder: String,
+    id: String,
+    codeOrder: String,
     idUser: String,
     firstName: String,
     lastName: String,

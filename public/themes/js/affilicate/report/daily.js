@@ -1,4 +1,26 @@
 $(document).ready(() => {
+    function set_money(a) {
+        a = Number(a.toFixed(2));
+        return "$" + a.toLocaleString('en');
+    }
+
+    var btnmenu = document.getElementsByClassName('showmenu');
+    var menu = document.getElementsByClassName('myDropdown-traffic');
+
+    for (let i = 0; i < btnmenu.length; i++) {
+        btnmenu[i].addEventListener("click", (e) => {
+            if (menu[i].style.display == "none") {
+                menu[i].style.display = "block";
+            } else {
+                menu[i].style.display = "none";
+            }
+            e.stopPropagation();
+        })
+    }
+    $("#deploy-detail-content").click(() => {
+        $(".myDropdown-traffic").hide();
+    });
+
     var numberdate = 7;
     var numberend = 0;
 

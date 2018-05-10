@@ -20,19 +20,14 @@ var app = express();
 var User = require('../../models/user');
 var infor_app_admin = require('../../models/inforappadmin');
 var order_modal = require("../../models/order");
-var promo_code = require("../../models/promocode")
+var promo_code = require("../../models/promocode");
+var affilicate_modal = require("../../models/affiliate");
+var withdraws_modal = require("../../models/withdraw");
 var http = require('http');
 var server = http.Server(app);
 var paypal = require("paypal-rest-sdk");
 var country = require("../../lib/country");
 
-
-
-paypal.configure({
-    'mode': 'sandbox', //sandbox or live
-    'client_id': 'Ac1YRFBQMzjwaB6QGsMxW_Z321sYjpE7l9ngSQBoaIiTfRWC-ZHH2NKvRxbqKNtNkUi08Xgz7u5IDH5X',
-    'client_secret': 'EHdNlc0ANRNjgyOOI3d-0QK5AOP-Y47W7ZqMS-Wvh3afOVHig5VsIlIUPumExqSbM4p5L8rIOMAiLZZB'
-});
 
 function checkAdmin(req, res, next) {
     if (req.session.iduser) {
@@ -78,13 +73,42 @@ function filtercart(a) {
     return b;
 }
 
-router.get("/affilicate/report", (req, res) => {
-    res.render('affilicate/report', {
-        title: 'Report',
-        appuse: "",
-    });
+router.get("/affilicate/report", checkAdmin, (req, res) => {
+    // withdraws_modal.find();
+
+    affilicate_modal.find({
+        idUser: req.session.iduser,
+        status: true
+    }).then((data) => {
+        if (data) {
+            var date_now = new Date();
+            var early_day = [];
+            var yesterday = [];
+            var last_7_days = [];
+            var this_month = [];
+            early_day = data.filter((el) => {
+                return data.dateCreate > date_now.setHours(0, 0, 0, 0)
+            })
+            yesterday = data.filter((el) => {
+                return data.dateCreate < date_now.setHours(0, 0, 0, 0) &&
+                    data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000
+            })
+            last_7_days = data.filter((el) => {
+                return data.dateCreate < date_now.setHours(0, 0, 0, 0) &&
+                    data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 7
+            })
+            this_month = data.filter((el) => {
+                return data.dateCreate < date_now.setHours(0, 0, 0, 0) &&
+                    data.dateCreate > date_now.setDate(1)
+            })
+        } else {
+            res.render('./affilicate/report', {
+                title: 'Report',
+                appuse: "",
+            });
+        }
+    })
+
 })
-
-
 
 module.exports = router;

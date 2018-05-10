@@ -1,6 +1,6 @@
 .earning {
     width: auto;
-    height: 185px;
+    height: 200px;
 }
 
 .earning-by-time {
@@ -186,4 +186,14 @@ text-cent-money {
     background: white;
     margin-left: 20px;
     border: solid 1px #f1f1f1;
+}
+
+.content-history-statements {
+    border-radius: 2px;
+    height: 100%;
+    width: 1040px;
+    background: white;
+    margin-left: 20px;
+    border: solid 1px #f1f1f1;
+    float: left;
 }

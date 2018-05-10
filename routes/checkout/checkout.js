@@ -207,6 +207,11 @@ router.post("/checkout/check-promo-code", (req, res) => {
     })
 })
 
+// res.cookie('codesharedeployapp', "abc", {
+//     expires: new Date() + 2592000000,
+//     maxAge: 2592000000
+// })
+
 router.post("/checkout/ok", (req, res) => {
     try {
         console.log(req.body)
@@ -283,7 +288,6 @@ router.post("/checkout/ok", (req, res) => {
 })
 
 router.get('/checkout/ok/process', (req, res) => {
-    // console.log(req.query)
     var paymentId = req.query.paymentId;
     var payerId = {
         payer_id: req.query.PayerID
@@ -320,7 +324,8 @@ router.get('/checkout/ok/process', (req, res) => {
                             }
                             console.log("product:" + JSON.stringify(product))
                             var queryCheckout = await Object.assign({
-                                idOrder: makeid(),
+                                id: md5(new Date()),
+                                codeOrder: makeid(),
                                 idUser: req.session.iduser,
                                 productInformation: product,
                                 totalMoney: data.amount.total,
@@ -330,6 +335,9 @@ router.get('/checkout/ok/process', (req, res) => {
                             }, req.session.inforCheckout);
                             console.log('--------------------+--------------------');
                             console.log(queryCheckout);
+
+                            // if(req.cookies.codesharedeployapp)
+
                             var new_order = new order_modal(queryCheckout);
                             new_order.save().then(() => {
                                 req.session.cart = [];

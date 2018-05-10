@@ -174,7 +174,7 @@ router.post("/getamountapp", (req, res) => {
             id: req.session.iduser
         }, (err, data) => {
             if (err) throw err;
-            console.log("myapp:" + data.length)
+            // console.log("myapp:" + data.length)
             return res.json({
                 amount: data.myapp.length
             });

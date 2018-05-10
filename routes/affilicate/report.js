@@ -99,7 +99,7 @@ router.get("/affilicate/report", checkAdmin, (req, res) => {
             })
             this_month = data.filter((el) => {
                 return data.dateCreate < date_now.setHours(0, 0, 0, 0) &&
-                    data.dateCreate > date_now.setDate(1)
+                    data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 30
             })
         } else {
             res.render('./affilicate/report', {

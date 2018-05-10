@@ -107,6 +107,19 @@ passport.deserializeUser((id, done) => {
 });
 //////////////////////////////////
 
+app.get("*", (req, res, next) => {
+    if (req.query.codeShare) {
+        res.cookie("codesharedeployapp", {
+            id: md5(new Date()),
+            code: req.query.codeShare
+        }, {
+            expires: new Date() + 2592000000,
+            maxAge: 2592000000
+        })
+    }
+    next();
+})
+
 let updateDataDBUploaded = async () => {
     var sUploaded, sDeployed, sRegister;
     try {

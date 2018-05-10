@@ -84,23 +84,49 @@ router.get("/affilicate/report", checkAdmin, (req, res) => {
             var date_now = new Date();
             var early_day = [];
             var yesterday = [];
+            var yesterday_old = [];
             var last_7_days = [];
+            var last_7_days_old = [];
             var this_month = [];
-            early_day = data.filter((el) => {
-                return data.dateCreate > date_now.setHours(0, 0, 0, 0)
-            })
-            yesterday = data.filter((el) => {
-                return data.dateCreate < date_now.setHours(0, 0, 0, 0) &&
-                    data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000
-            })
-            last_7_days = data.filter((el) => {
-                return data.dateCreate < date_now.setHours(0, 0, 0, 0) &&
-                    data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 7
-            })
-            this_month = data.filter((el) => {
-                return data.dateCreate < date_now.setHours(0, 0, 0, 0) &&
-                    data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 30
-            })
+            var this_month_old = [];
+            // ------------------------------------------------
+            async function affilicate_earning() {
+                early_day = await data.filter((el) => {
+                    return data.dateCreate > date_now.setHours(0, 0, 0, 0)
+                })
+                // ------------------------------------------------
+                yesterday = await data.filter((el) => {
+                    return data.dateCreate < date_now.setHours(0, 0, 0, 0) &&
+                        data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000
+                })
+                // ------------------------------------------------
+                yesterday_old = await data.filter((el) => {
+                    return data.dateCreate < date_now.setHours(0, 0, 0, 0) - 86400000 &&
+                        data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 2
+                })
+                // ------------------------------------------------
+                last_7_days = await data.filter((el) => {
+                    return data.dateCreate < date_now.setHours(0, 0, 0, 0) &&
+                        data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 7
+                })
+                // ------------------------------------------------
+                last_7_days_old = await data.filter((el) => {
+                    return data.dateCreate < date_now.setHours(0, 0, 0, 0) - 86400000 * 7 &&
+                        data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 14
+                })
+                // ------------------------------------------------
+                this_month = await data.filter((el) => {
+                    return data.dateCreate < date_now.setHours(0, 0, 0, 0) &&
+                        data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 30
+                })
+                // ------------------------------------------------
+                this_month_old = await data.filter((el) => {
+                    return data.dateCreate < date_now.setHours(0, 0, 0, 0) - 86400000 * 30 &&
+                        data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 30
+                })
+                // ------------------------------------------------
+            }
+
         } else {
             res.render('./affilicate/report', {
                 title: 'Report',

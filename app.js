@@ -32,6 +32,8 @@ var Infomation = require('./models/infomation');
 var listBuilding = require('./models/listbuilding');
 
 var User = require('./models/user');
+var affilicate_statistic_modal = require('./models/affiliatestatistics')
+
 var libSetting = require('./lib/setting');
 var pathBackupDB = libSetting.pathBackupDB;
 
@@ -107,18 +109,6 @@ passport.deserializeUser((id, done) => {
 });
 //////////////////////////////////
 
-app.get("*", (req, res, next) => {
-    if (req.query.codeShare) {
-        res.cookie("codesharedeployapp", {
-            id: md5(new Date()),
-            code: req.query.codeShare
-        }, {
-            expires: new Date() + 2592000000,
-            maxAge: 2592000000
-        })
-    }
-    next();
-})
 
 let updateDataDBUploaded = async () => {
     var sUploaded, sDeployed, sRegister;
@@ -201,6 +191,7 @@ let delKeyBuilding = () => {
 
 setInterval(delKeyBuilding, 60000);
 io.on('connection', function (socket) {
+
     console.log('co nguoi ket noi: ' + socket.id + ' ---> ' + moment(Date.now()).format('DD-MM-YYYY, HH:mm:ss'));
     var sUploaded, sDeployed, sRegister;
 
@@ -605,6 +596,169 @@ app.use(function (req, res, next) {
     }
 });
 
+
+app.get("*", (req, res, next) => {
+
+    User.count({
+        codeShare: req.query.codeshare,
+        status: true
+    }).then((count) => {
+        if (count > 0) {
+            if (req.query.codeshare && req.cookies.codesharedeployapp.code != req.query.codeshare) {
+                var path_codeshare = req.url.split("?")[0];
+                var id = md5(new Date());
+
+                res.cookie("codesharedeployapp", {
+                    id,
+                    code: req.query.codeshare
+                }, {
+                    expires: new Date() + 2592000000,
+                    maxAge: 2592000000
+                })
+                affilicate_statistic_modal.findOne({
+                    id,
+                    codeShare: req.query.codeshare,
+                    dateOut: null,
+                    status: true
+                }).then((data) => {
+                    if (data) {
+                        affilicate_statistic_modal.update({
+                            id: data.id
+                        }, {
+                            "$push": {
+                                page: {
+                                    pageText: path_codeshare,
+                                    dateCreate: new Date(),
+                                    dateOut: null
+                                }
+                            }
+                        }, {
+                            safe: true,
+                            upsert: true
+                        }).then(() => {
+                            next();
+                        })
+                    } else {
+                        var new_affilicate_statistic_modal = new affilicate_statistic_modal({
+                            id,
+                            idUser: id,
+                            codeShare: req.query.codeshare,
+                            dateCreate: new Date(),
+                            dateOut: null,
+                            page: [{
+                                pageText: path_codeshare,
+                                dateCreate: new Date(),
+                                dateOut: null
+                            }],
+                            status: true
+                        })
+                        new_affilicate_statistic_modal.save().then(() => {
+                            next();
+                        });
+                    }
+                })
+
+                setTimeout(function () {
+                    affilicate_statistic_modal.update({
+                        id
+                    }, {
+                        dateOut: new Date(),
+                    }, function (err, data) {
+                        if (err) {
+                            // console.log(err);
+                            if (devMode == true)
+                                return res.send({
+                                    status: "3",
+                                    message: err + ''
+                                });
+                            else
+                                return res.json({
+                                    status: "3",
+                                    message: 'Oops, something went wrong'
+                                });
+                        }
+                        // console.log(data);
+                    })
+                }, 360000)
+            } else if (req.cookies.codesharedeployapp) {
+                console.log(req.cookies)
+                var path_codeshare = req.url.split("?")[0];
+                affilicate_statistic_modal.findOne({
+                    id: req.cookies.codesharedeployapp.id,
+                    codeShare: req.cookies.codesharedeployapp.code,
+                    dateOut: null,
+                    status: true
+                }).then((data) => {
+                    console.log("data:" + JSON.stringify(data))
+                    if (data) {
+                        affilicate_statistic_modal.update({
+                            id: data.id
+                        }, {
+                            "$push": {
+                                page: {
+                                    pageText: path_codeshare,
+                                    dateCreate: new Date(),
+                                    dateOut: null
+                                }
+                            }
+                        }, {
+                            safe: true,
+                            upsert: true
+                        }).then(() => {
+                            next();
+                        })
+                    } else {
+                        var new_affilicate_statistic_modal = new affilicate_statistic_modal({
+                            id: req.cookies.codesharedeployapp.id,
+                            idUser: req.cookies.codesharedeployapp.id,
+                            codeShare: req.cookies.codesharedeployapp.code,
+                            dateCreate: new Date(),
+                            dateOut: null,
+                            page: [{
+                                pageText: path_codeshare,
+                                dateCreate: new Date(),
+                                dateOut: null
+                            }],
+                            status: true
+                        })
+                        new_affilicate_statistic_modal.save().then(() => {
+                            next();
+                        });
+                    }
+                })
+
+                setTimeout(function () {
+                    affilicate_statistic_modal.update({
+                        id
+                    }, {
+                        dateOut: new Date(),
+                    }, function (err, data) {
+                        if (err) {
+                            // console.log(err);
+                            if (devMode == true)
+                                return res.send({
+                                    status: "3",
+                                    message: err + ''
+                                });
+                            else
+                                return res.json({
+                                    status: "3",
+                                    message: 'Oops, something went wrong'
+                                });
+                        }
+                        // console.log(data);
+                    })
+                }, 360000)
+            } else {
+                next();
+            }
+        } else {
+            next();
+        }
+    })
+})
+
+
 /// HOME
 var index = require('./routes/index');
 var uploads = require('./routes/uploads');
@@ -746,6 +900,7 @@ app.use(function (err, req, res, next) {
         title: 'Page Not Found'
     });
 });
+
 
 
 function normalizePort(val) {

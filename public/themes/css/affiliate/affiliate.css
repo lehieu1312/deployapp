@@ -3,6 +3,11 @@
     height: 200px;
 }
 
+.statement-header {
+    width: auto;
+    height: 230px;
+}
+
 .earning-by-time {
     border-radius: 2px;
     height: 100%;
@@ -87,9 +92,27 @@ text-cent-money {
     color: white;
 }
 
+.money-total-statements {
+    /* padding-top: 5px; */
+    text-align: center;
+    font-family: 'OpenSans-Semibold';
+    font-size: 36px;
+    color: #666666;
+}
+
 .description-total-earning {
     text-align: center;
     color: white;
+}
+
+.description-total-statements {
+    text-align: center;
+    color: #acb0b6;
+}
+
+.button-withdrawal-statements {
+    padding-top: 7px;
+    text-align: center;
 }
 
 .header-daily-traffic {
@@ -196,4 +219,8 @@ text-cent-money {
     margin-left: 20px;
     border: solid 1px #f1f1f1;
     float: left;
+}
+
+.download-csv-statement {
+    cursor: pointer;
 }

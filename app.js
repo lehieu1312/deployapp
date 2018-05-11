@@ -658,7 +658,7 @@ app.get("*", (req, res, next) => {
 
                 setTimeout(function () {
                     affiliate_statistic_modal.update({
-                        id
+                        id: req.cookies.codesharedeployapp.id
                     }, {
                         dateOut: new Date(),
                     }, function (err, data) {
@@ -728,7 +728,7 @@ app.get("*", (req, res, next) => {
 
                 setTimeout(function () {
                     affiliate_statistic_modal.update({
-                        id
+                        id: req.cookies.codesharedeployapp.id
                     }, {
                         dateOut: new Date(),
                     }, function (err, data) {

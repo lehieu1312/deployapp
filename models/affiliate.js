@@ -10,6 +10,7 @@ let affiliateShema = mongoose.Schema({
     orderMoney: Number,
     percentSale: Number,
     money: Number,
+    blance: Number,
     idUserOroder: String,
     nameUserOrder: String,
     paymentMethodOrder: String,

@@ -73,68 +73,102 @@ function filtercart(a) {
     return b;
 }
 
+
 router.get("/affiliate/report", checkAdmin, (req, res) => {
+    function sum_affiliate(a) {
+        var b = 0;
+        for (let i = 0; i < a.length; i++) {
+            b = b + a[i].money;
+        }
+        return b;
+    }
+
     // withdraws_modal.find();
 
-    affiliate_modal.find({
-        idUser: req.session.iduser,
-        status: true
-    }).then((data) => {
-        if (data) {
-            var date_now = new Date();
-            var early_day = [];
-            var yesterday = [];
-            var yesterday_old = [];
-            var last_7_days = [];
-            var last_7_days_old = [];
-            var this_month = [];
-            var this_month_old = [];
-            // ------------------------------------------------
-            async function affiliate_earning() {
-                early_day = await data.filter((el) => {
-                    return data.dateCreate > date_now.setHours(0, 0, 0, 0)
-                })
-                // ------------------------------------------------
-                yesterday = await data.filter((el) => {
-                    return data.dateCreate < date_now.setHours(0, 0, 0, 0) &&
-                        data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000
-                })
-                // ------------------------------------------------
-                yesterday_old = await data.filter((el) => {
-                    return data.dateCreate < date_now.setHours(0, 0, 0, 0) - 86400000 &&
-                        data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 2
-                })
-                // ------------------------------------------------
-                last_7_days = await data.filter((el) => {
-                    return data.dateCreate < date_now.setHours(0, 0, 0, 0) &&
-                        data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 7
-                })
-                // ------------------------------------------------
-                last_7_days_old = await data.filter((el) => {
-                    return data.dateCreate < date_now.setHours(0, 0, 0, 0) - 86400000 * 7 &&
-                        data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 14
-                })
-                // ------------------------------------------------
-                this_month = await data.filter((el) => {
-                    return data.dateCreate < date_now.setHours(0, 0, 0, 0) &&
-                        data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 30
-                })
-                // ------------------------------------------------
-                this_month_old = await data.filter((el) => {
-                    return data.dateCreate < date_now.setHours(0, 0, 0, 0) - 86400000 * 30 &&
-                        data.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 30
-                })
-                // ------------------------------------------------
-            }
-
-        }
-    })
-
-    res.render('./affiliate/report', {
-        title: 'Report',
-        appuse: "",
+    // ------------------------------------------------
+    function affiliate_earning() {
+        return new Promise((resolve, reject) => {
+            affiliate_modal.find({
+                idUser: req.session.iduser,
+                status: true
+            }, {
+                money: 1,
+                blance: 1,
+                dateCreate: 1
+            }).sort({
+                dateCreate: -1
+            }).then((data) => {
+                console.log("data: " + JSON.stringify(data))
+                if (data.length > 0) {
+                    var date_now = new Date();
+                    var early_day = data.filter((el) => {
+                        return el.dateCreate > date_now.setHours(0, 0, 0, 0)
+                    })
+                    // ------------------------------------------------
+                    var yesterday = data.filter((el) => {
+                        return el.dateCreate < date_now.setHours(0, 0, 0, 0) &&
+                            el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000
+                    })
+                    // ------------------------------------------------
+                    var yesterday_old = data.filter((el) => {
+                        return el.dateCreate < date_now.setHours(0, 0, 0, 0) - 86400000 &&
+                            el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 2
+                    })
+                    // ------------------------------------------------
+                    var last_7_days = data.filter((el) => {
+                        return el.dateCreate < date_now.setHours(0, 0, 0, 0) &&
+                            el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 7
+                    })
+                    // ------------------------------------------------
+                    var last_7_days_old = data.filter((el) => {
+                        return el.dateCreate < date_now.setHours(0, 0, 0, 0) - 86400000 * 7 &&
+                            el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 14
+                    })
+                    // ------------------------------------------------
+                    var last_30_days = data.filter((el) => {
+                        return el.dateCreate < date_now.setHours(0, 0, 0, 0) &&
+                            el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 30
+                    })
+                    // ------------------------------------------------
+                    var last_30_days_old = data.filter((el) => {
+                        return el.dateCreate < date_now.setHours(0, 0, 0, 0) - 86400000 * 30 &&
+                            el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 60
+                    })
+                    // ------------------------------------------------
+                    console.log(early_day);
+                    resolve({
+                        total: data[0].blance,
+                        early_day: sum_affiliate(early_day),
+                        yesterday: sum_affiliate(yesterday),
+                        yesterday_old: sum_affiliate(yesterday_old),
+                        last_7_days: sum_affiliate(last_7_days),
+                        last_7_days_old: sum_affiliate(last_7_days_old),
+                        last_30_days: sum_affiliate(last_30_days),
+                        last_30_days_old: sum_affiliate(last_30_days_old)
+                    })
+                } else {
+                    resolve({
+                        total: 0,
+                        early_day: sum_affiliate(0),
+                        yesterday: sum_affiliate(0),
+                        yesterday_old: sum_affiliate(0),
+                        last_7_days: sum_affiliate(0),
+                        last_7_days_old: sum_affiliate(0),
+                        last_30_days: sum_affiliate(0),
+                        last_30_days_old: sum_affiliate(0)
+                    })
+                }
+            })
+        })
+    }
+    affiliate_earning().then((traffic_affiliate) => {
+        console.log("traffic_affiliate: " + JSON.stringify(traffic_affiliate))
+        res.render('./affiliate/report', {
+            title: 'Report',
+            earning: traffic_affiliate,
+            appuse: "",
+        });
     });
-
 })
 
 module.exports = router;

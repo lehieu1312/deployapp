@@ -29,6 +29,7 @@ let orderShema = mongoose.Schema({
     totalMoney: Number,
     paymentMethod: String,
     statusOrder: String,
+    dateCreate: Date,
     status: Boolean
 })
 let orders = module.exports = mongoose.model("orders", orderShema)

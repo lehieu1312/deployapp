@@ -191,7 +191,7 @@ router.post("/checkout/check-promo-code", (req, res) => {
             $gt: new Date()
         },
     }).then((data) => {
-        console.log("data:" + JSON.stringify(data))
+        // console.log("data:" + JSON.stringify(data))
         if (data != null) {
             req.session.percentSale = data.percentSale;
             res.json({
@@ -334,6 +334,7 @@ router.get('/checkout/ok/process', (req, res) => {
                                 totalMoney: data.amount.total,
                                 paymentMethod: "paypal",
                                 statusOrder: data.state,
+                                dateCreate: new Date(),
                                 status: true
                             }, req.session.inforCheckout);
                             console.log('--------------------+--------------------');
@@ -345,30 +346,64 @@ router.get('/checkout/ok/process', (req, res) => {
                             new_order.save().then(() => {
                                 if (req.cookies.codesharedeployapp) {
                                     User.findOne({
+                                        id: req.session.iduser,
                                         codeShare: req.cookies.codesharedeployapp.code,
                                         status: true
                                     }).then((user_share) => {
-                                        var new_affiliate = new affiliate_modal({
-                                            id: md5(new Date()),
-                                            idUser: user_share.id,
-                                            codeShare: req.cookies.codesharedeployapp.code,
-                                            idOrder: id_order,
-                                            codeOrder: code_order,
-                                            orderMoney: data.amount.total,
-                                            percentSale: 1,
-                                            money: (Number(data.amount.total) / 100).toFixed(2),
-                                            idUserOroder: req.session.iduser,
-                                            nameUserOrder: req.session.fullname,
-                                            paymentMethodOrder: String,
-                                            note: "note deploy",
-                                            dateCreate: new Date(),
-                                            status: true
-                                        })
-                                        new_affiliate.save().then(() => {
-                                            req.session.cart = [];
-                                            res.redirect("/dashboard?checkout=ok")
-                                        });
 
+                                        affiliate_modal.find({
+                                            codeShare: req.cookies.codesharedeployapp.code,
+                                            idUser: user_share.id
+                                        }).sort({
+                                            dateCreate: -1
+                                        }).then((affiliate_old) => {
+                                            if (affiliate_old.length > 0) {
+                                                var new_affiliate = new affiliate_modal({
+                                                    id: md5(new Date()),
+                                                    idUser: user_share.id,
+                                                    codeShare: req.cookies.codesharedeployapp.code,
+                                                    idOrder: id_order,
+                                                    codeOrder: code_order,
+                                                    orderMoney: data.amount.total,
+                                                    percentSale: 1,
+                                                    money: (data.amount.total / 100).toFixed(2),
+                                                    blance: Number(affiliate_old[0].blance) + Number((data.amount.total / 100).toFixed(2)),
+                                                    idUserOroder: req.session.iduser,
+                                                    nameUserOrder: req.session.fullname,
+                                                    paymentMethodOrder: "paypal",
+                                                    note: "note deploy",
+                                                    dateCreate: new Date(),
+                                                    status: true
+                                                })
+                                                new_affiliate.save().then(() => {
+                                                    req.session.cart = [];
+                                                    res.redirect("/dashboard?checkout=ok")
+                                                });
+                                            } else {
+                                                var new_affiliate = new affiliate_modal({
+                                                    id: md5(new Date()),
+                                                    idUser: user_share.id,
+                                                    codeShare: req.cookies.codesharedeployapp.code,
+                                                    idOrder: id_order,
+                                                    codeOrder: code_order,
+                                                    orderMoney: data.amount.total,
+                                                    percentSale: 1,
+                                                    money: Number((data.amount.total / 100).toFixed(2)),
+                                                    blance: Number((data.amount.total / 100).toFixed(2)),
+                                                    idUserOroder: req.session.iduser,
+                                                    nameUserOrder: req.session.fullname,
+                                                    paymentMethodOrder: "paypal",
+                                                    note: "note deploy",
+                                                    dateCreate: new Date(),
+                                                    status: true
+                                                })
+                                                new_affiliate.save().then(() => {
+                                                    req.session.cart = [];
+                                                    res.redirect("/dashboard?checkout=ok")
+                                                });
+                                            }
+
+                                        })
                                     })
                                 } else {
                                     req.session.cart = [];

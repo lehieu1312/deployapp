@@ -20,7 +20,8 @@ var app = express();
 var User = require('../../models/user');
 var infor_app_admin = require('../../models/inforappadmin');
 var order_modal = require("../../models/order");
-var promo_code = require("../../models/promocode")
+var promo_code = require("../../models/promocode");
+var affiliate_withdrawal_modal = require("../../models/withdraw")
 var http = require('http');
 var server = http.Server(app);
 var paypal = require("paypal-rest-sdk");
@@ -78,11 +79,25 @@ function filtercart(a) {
     return b;
 }
 
-router.get("/affiliate/statements", (req, res) => {
+
+router.get("/affiliate/statements", checkAdmin, (req, res) => {
     res.render('./affiliate/statement', {
         title: 'Statements',
         appuse: "",
     });
+})
+
+// 1 pendding  
+// 2 complate  
+// 3 cancel
+
+
+router.post("/getdata/withdrawal", (req, res) => {
+    affiliate_withdrawal_modal.find({
+        idUser: req.session.iduser
+    }).then((data) => {
+        return res.json(data)
+    })
 })
 
 

@@ -138,32 +138,32 @@ $(document).ready(() => {
         console.log(xnumber);
     })
     $('.superback').click(() => {
-        $(".superback").hide();
-        $(".limitsuperback").show();
-        $(".supernext").show();
-        $(".limitsupernext").hide();
-        $(".nextpage").show();
-        $(".limitnext").hide();
-        xnumber = 1;
-        $('.thispage').text(xnumber);
-        amount = setamount;
-        // console.log(amount);
-        for (let i = 0; i < manguse.length; i++) {
-            if (i < amount) {
-                $('#version' + manguse[i]).show();
-            } else {
-                $('#version' + manguse[i]).hide();
-            }
-        }
-        if (xnumber == 1) {
+            $(".superback").hide();
+            $(".limitsuperback").show();
+            $(".supernext").show();
+            $(".limitsupernext").hide();
             $(".nextpage").show();
             $(".limitnext").hide();
-            $(".backpage").hide();
-            $(".limitback").show();
-        }
-        console.log(xnumber);
-    })
-    //filter status
+            xnumber = 1;
+            $('.thispage').text(xnumber);
+            amount = setamount;
+            // console.log(amount);
+            for (let i = 0; i < manguse.length; i++) {
+                if (i < amount) {
+                    $('#version' + manguse[i]).show();
+                } else {
+                    $('#version' + manguse[i]).hide();
+                }
+            }
+            if (xnumber == 1) {
+                $(".nextpage").show();
+                $(".limitnext").hide();
+                $(".backpage").hide();
+                $(".limitback").show();
+            }
+            console.log(xnumber);
+        })
+        //filter status
     $("#slect-status-1").click(() => {
         $("#span-selcect-status").text("New");
         // console.log($('.tr-content-appversion>').find(".new-appversion").length)
@@ -200,31 +200,31 @@ $(document).ready(() => {
         checkpaginnation(dem, setamount);
     });
     $("#slect-status-3").click(() => {
-        $("#span-selcect-status").text("All")
-        var lenthmanguse = manguse.length;
-        manguse.splice(0, lenthmanguse);
-        xnumber = 1;
-        var dem = 0;
-        $('.thispage').text(xnumber);
-        $("#span-show-number").text(setamount);
-        // console.log($('.tr-content-appversion').length);
-        for (let i = 0; i < $('.tr-content-appversion').length; i++) {
-            dem++;
-            manguse.push(i);
-            if (i > setamount - 1) {
-                $('#version' + i).hide();
-            } else {
-                $('#version' + i).show();
+            $("#span-selcect-status").text("All")
+            var lenthmanguse = manguse.length;
+            manguse.splice(0, lenthmanguse);
+            xnumber = 1;
+            var dem = 0;
+            $('.thispage').text(xnumber);
+            $("#span-show-number").text(setamount);
+            // console.log($('.tr-content-appversion').length);
+            for (let i = 0; i < $('.tr-content-appversion').length; i++) {
+                dem++;
+                manguse.push(i);
+                if (i > setamount - 1) {
+                    $('#version' + i).hide();
+                } else {
+                    $('#version' + i).show();
+                }
             }
-        }
-        $(".number-items").text(manguse.length + " item(s)")
-        let page = Math.ceil($('.tr-content-appversion').length / setamount)
-        numberpage = page;
-        $('.numberpage').text("of " + page);
-        checkpaginnation(dem, setamount);
-        dem = 0;
-    })
-    // filter date
+            $(".number-items").text(manguse.length + " item(s)")
+            let page = Math.ceil($('.tr-content-appversion').length / setamount)
+            numberpage = page;
+            $('.numberpage').text("of " + page);
+            checkpaginnation(dem, setamount);
+            dem = 0;
+        })
+        // filter date
     $("#select-date-1").click(() => {
         $("#span-selcect-date").text("Hours Ago");
         var lenthmanguse = manguse.length;
@@ -336,7 +336,7 @@ $(document).ready(() => {
     $("#select-date-5").daterangepicker({
         drops: "up",
         opens: "left"
-    }, function (start, end) {
+    }, function(start, end) {
         var lenthmanguse = manguse.length;
         manguse.splice(0, lenthmanguse);
         var d1 = new Date();

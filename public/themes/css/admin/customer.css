@@ -16,6 +16,10 @@
     background: #0d89ed;
 }
 
+.icon-search-top {
+    top: 5px;
+}
+
 #inputsearch-customer {
     padding-bottom: 3px;
     padding-left: 20px;
@@ -23,7 +27,8 @@
     background: none;
     width: 300px;
     border-bottom: solid 1px #cdcdcd;
-    margin-right: 15px;
+    margin-right: 25px;
+    padding-top: 15px;
 }
 
 input:focus {

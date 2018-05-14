@@ -13,6 +13,8 @@ var md5 = require('md5');
 var async = require('async');
 var libSetting = require('../../lib/setting');
 var hostServer = libSetting.hostServer;
+var base64_custom = require('../../lib/base64');
+
 var devMode = libSetting.devMode;
 var passport = require('passport');
 var passportfb = require('passport-facebook').Strategy,
@@ -25,6 +27,9 @@ var Base64 = require('js-base64').Base64;
 var app = express();
 var User = require('../../models/user');
 var infor_app_admin = require('../../models/inforappadmin');
+var infor_app_user = require('../../models/inforapp');
+var app_setting = require('../../models/appsettings');
+
 var affiliate_modal = require("../../models/affiliate")
 var order_modal = require("../../models/order");
 var promo_code = require("../../models/promocode")
@@ -288,6 +293,10 @@ router.post("/checkout/ok", (req, res) => {
 
 })
 
+function save_infor_complate() {
+    User.save
+}
+
 router.get('/checkout/ok/process', (req, res) => {
     var paymentId = req.query.paymentId;
     var payerId = {
@@ -321,6 +330,47 @@ router.get('/checkout/ok/process', (req, res) => {
                                     imageProduct: getdata.image,
                                     price: getdata.price
                                 }
+                                let id_inforapp = "com.taydo." + Date.now();
+                                console.log(id_inforapp)
+
+                                await User.update({
+                                    id: req.session.iduser,
+                                    status: true
+                                }, {
+                                    "$push": {
+                                        myapp: {
+                                            idApp: base64_custom.Base64.encode(id_inforapp),
+                                            nameApp: getdata.nameApp,
+                                            status: true
+                                        }
+                                    }
+                                }, {
+                                    safe: true,
+                                    upsert: true
+                                }).exec()
+
+                                var new_infor_app_user = new infor_app_user({
+                                    idApp: base64_custom.Base64.encode(id_inforapp),
+                                    idUser: [{
+                                        idUser: req.session.iduser,
+                                        dateAdded: new Date(),
+                                        role: 1,
+                                        status: true
+                                    }],
+                                    idAppAdmin: getdata.idApp,
+                                    nameApp: getdata.nameApp,
+                                    dateCreate: new Date(),
+                                    status: true
+                                })
+                                await new_infor_app_user.save();
+
+                                var new_app_setting = new app_setting({
+                                    idApp: base64_custom.Base64.encode(id_inforapp),
+                                    idUser: req.session.iduser,
+                                    dateCreate: new Date(),
+                                    status: true
+                                })
+                                await new_app_setting.save()
 
                             }
                             var id_order = md5(new Date());
@@ -340,6 +390,10 @@ router.get('/checkout/ok/process', (req, res) => {
                             console.log('--------------------+--------------------');
                             console.log(queryCheckout);
 
+
+
+
+
                             // if(req.cookies.codesharedeployapp)
 
                             var new_order = new order_modal(queryCheckout);
@@ -350,7 +404,6 @@ router.get('/checkout/ok/process', (req, res) => {
                                         codeShare: req.cookies.codesharedeployapp.code,
                                         status: true
                                     }).then((user_share) => {
-
                                         affiliate_modal.find({
                                             codeShare: req.cookies.codesharedeployapp.code,
                                             idUser: user_share.id

@@ -16,135 +16,143 @@
             </div>
 
         </div>
-        <div id="content-myapp" class="row row1">
-            <% for(var i = 0 ; i < myapps.length ; i++){ 
+
+
+        <%
+            function set_money(a) {
+                a = Number(a.toFixed(2));
+                return "$" + a.toLocaleString('en');
+            }
+        %>
+            <div id="content-myapp" class="row row1">
+                <% for(var i = 0 ; i < myapps.length ; i++){ 
                 %>
-                <div class="div-list-myapp" id="app<%=i%>">
-                    <div class="head-content-myapp">
-                        <div class="form-group-head-myapp">
-                            <div id="<%=i%>" class="delete-menumore">
-                                <a href="#" data-toggle="modal" data-target="#myModal">
-                                    <div class="menumore-listmyapp">
-                                        <img class="imgicondelete" src="/themes/img/dashboard/icondelete.png">
-                                        <span>Delete</span>
+                    <div class="div-list-myapp" id="app<%=i%>">
+                        <div class="head-content-myapp">
+                            <div class="form-group-head-myapp">
+                                <div id="<%=i%>" class="delete-menumore">
+                                    <a href="#" data-toggle="modal" data-target="#myModal">
+                                        <div class="menumore-listmyapp">
+                                            <img class="imgicondelete" src="/themes/img/dashboard/icondelete.png">
+                                            <span>Delete</span>
+                                        </div>
+                                    </a>
+                                    <div class="arrowmenuuser-left">
                                     </div>
+                                    <div class="arrowmenuuser-left1">
+                                    </div>
+                                </div>
+                                <a href="/dashboard/appversion/<%=myapps[i].idApp%>">
+                                    <input hidden class="idapp-use<%=i%>" value="<%=myapps[i].idApp%>">
+                                    <span class="nameapp setfont-head setfonttitlehead">
+                                        <%=myapps[i].nameApp%>
+                                    </span>
                                 </a>
-                                <div class="arrowmenuuser-left">
+                                <img id="<%=i%>" class="setimg-head-myapp deleteapp" src="/themes/img/dashboard/iconmenumore.png">
+                            </div>
+                            <div class="form-group-head-myapp1">
+                                <div class="editnumberonline">
+                                    <span class="numberonlineboder setcolorspan userapponline<%=myapps[i].idApp%>">
+                                        <%=myapps[i].userOnline%>
+                                    </span>
+                                    <span class="group-span-head-myapp">Online</span>
                                 </div>
-                                <div class="arrowmenuuser-left1">
+                                <div class="editnumberonline">
+                                    <span class="numbertodayboder setcolorspan">
+                                        <%= myapps[i].useToday %>
+                                    </span>
+                                    <span class="group-span-head-myapp">Today</span>
                                 </div>
                             </div>
-                            <a href="/dashboard/appversion/<%=myapps[i].idApp%>">
-                                <input hidden class="idapp-use<%=i%>" value="<%=myapps[i].idApp%>">
-                                <span class="nameapp setfont-head setfonttitlehead">
-                                    <%=myapps[i].nameApp%>
-                                </span>
-                            </a>
-                            <img id="<%=i%>" class="setimg-head-myapp deleteapp" src="/themes/img/dashboard/iconmenumore.png">
                         </div>
-                        <div class="form-group-head-myapp1">
-                            <div class="editnumberonline">
-                                <span class="numberonlineboder setcolorspan userapponline<%=myapps[i].idApp%>">
-                                    <%=myapps[i].userOnline%>
+                        <div class="footer-content-myapp">
+                            <div class="editnfooter-content-myapp">
+                                <span>
+                                    <img class="seticonios" src="/themes/img/dashboard/iconios.png">
                                 </span>
-                                <span class="group-span-head-myapp">Online</span>
+                                <span class="group-span-head-myapp">
+                                    <%= myapps[i].useIos %>
+                                </span>
                             </div>
-                            <div class="editnumberonline">
-                                <span class="numbertodayboder setcolorspan">
-                                    <%= myapps[i].useToday %>
+                            <div class="editnfooter-content-myapp1">
+                                <span>
+                                    <img src="/themes/img/dashboard/iconandroid.png">
                                 </span>
-                                <span class="group-span-head-myapp">Today</span>
+                                <span class="group-span-head-myapp">
+                                    <%=myapps[i].useAndroid%>
+                                </span>
                             </div>
                         </div>
                     </div>
-                    <div class="footer-content-myapp">
-                        <div class="editnfooter-content-myapp">
-                            <span>
-                                <img class="seticonios" src="/themes/img/dashboard/iconios.png">
-                            </span>
-                            <span class="group-span-head-myapp">
-                                <%= myapps[i].useIos %>
-                            </span>
-                        </div>
-                        <div class="editnfooter-content-myapp1">
-                            <span>
-                                <img src="/themes/img/dashboard/iconandroid.png">
-                            </span>
-                            <span class="group-span-head-myapp">
-                                <%=myapps[i].useAndroid%>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <%}%>
-        </div>
-        <div class="iconloadmore row">
-            <button id="loadmore">
-                <span>Load more ...</span>
-                <img src="/themes/img/dashboard/iconloadmore.png">
-            </button>
-        </div>
-        <div id="title-detail" class="row row1">
-            <div class="content-title-detail has-feedback">
-                <span class="textmyapp">You may like it</span>
-                <span class="setsearch">
-                    <input type="text" id="inputsearchapp" name="search" placeholder="Search app...">
-                    <span class="form-control-feedback2" aria-hidden="true">
-                        <img src="/themes/img/dashboard/iconsearch.png">
+                    <%}%>
+            </div>
+            <div class="iconloadmore row">
+                <button id="loadmore">
+                    <span>Load more ...</span>
+                    <img src="/themes/img/dashboard/iconloadmore.png">
+                </button>
+            </div>
+            <div id="title-detail" class="row row1">
+                <div class="content-title-detail has-feedback">
+                    <span class="textmyapp">You may like it</span>
+                    <span class="setsearch">
+                        <input type="text" id="inputsearchapp" name="search" placeholder="Search app...">
+                        <span class="form-control-feedback2" aria-hidden="true">
+                            <img src="/themes/img/dashboard/iconsearch.png">
+                        </span>
                     </span>
-                </span>
-            </div>
-
-        </div>
-        <div id="advertise-app" class="row row1">
-            <%for(let i =0; i < appAdmin.length; i++){%>
-                <div class="group-advertise">
-                    <div class="top-opacity">
-                    </div>
-                    <div class="head-advertise" style="background-image: url(/themes/img/app-dashboard/<%=appAdmin[i].image%>);">
-                    </div>
-                    <input class="id-app-admin" hidden value="<%=appAdmin[i].idApp%>">
-                    <button class="orderit add-to-cart">ADD TO CART</button>
-                    <div class="foot-advertise">
-                        <div class="name-app-foot-advertise">
-                            <span class="name-app-advertise">
-                                <%=appAdmin[i].nameApp%>
-                            </span>
-                            <span class="price-app">
-                                <%="$" + appAdmin[i].price%>
-                            </span>
-                        </div>
-                        <div>
-                            <img class="img-installed" src="/themes/img/dashboard/iconinstalled.png">
-                            <span class="number-installed">
-                                <%=appAdmin[i].installed + " Installed"%>
-                            </span>
-                            <span class="price-app-old">
-                                <%= "$" + appAdmin[i].cost%>
-                            </span>
-                        </div>
-                    </div>
                 </div>
-                <%}%>
-        </div>
 
-        <div class="container ">
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog  ">
-                    <div class="modal-content1">
-                        <div class="dialogdeleteapp">
-                            <div class="dialogdeleteapp-head">
-                                Are you sure to DELETE This app
+            </div>
+            <div id="advertise-app" class="row row1">
+                <%for(let i =0; i < appAdmin.length; i++){%>
+                    <div class="group-advertise">
+                        <div class="top-opacity">
+                        </div>
+                        <div class="head-advertise" style="background-image: url(/themes/img/app-dashboard/<%=appAdmin[i].image%>);">
+                        </div>
+                        <input class="id-app-admin" hidden value="<%=appAdmin[i].idApp%>">
+                        <button class="orderit add-to-cart">ADD TO CART</button>
+                        <div class="foot-advertise">
+                            <div class="name-app-foot-advertise">
+                                <span class="name-app-advertise">
+                                    <%=appAdmin[i].nameApp%>
+                                </span>
+                                <span class="price-app">
+                                    <%=set_money(appAdmin[i].price)%>
+                                </span>
                             </div>
-                            <div class="dialogdeleteapp-foot">
-                                <button id="delete-ok">Delete</button>
-                                <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
+                            <div>
+                                <img class="img-installed" src="/themes/img/dashboard/iconinstalled.png">
+                                <span class="number-installed">
+                                    <%=appAdmin[i].installed + " Installed"%>
+                                </span>
+                                <span class="price-app-old">
+                                    <%=set_money(appAdmin[i].cost)%>
+                                </span>
                             </div>
                         </div>
                     </div>
+                    <%}%>
+            </div>
+
+            <div class="container ">
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog  ">
+                        <div class="modal-content1">
+                            <div class="dialogdeleteapp">
+                                <div class="dialogdeleteapp-head">
+                                    Are you sure to DELETE This app
+                                </div>
+                                <div class="dialogdeleteapp-foot">
+                                    <button id="delete-ok">Delete</button>
+                                    <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
     </div>
     </div>

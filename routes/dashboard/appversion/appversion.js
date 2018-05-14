@@ -49,51 +49,54 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
         appversionUser.find({
             idApp: req.params.idapp
         }).then((data) => {
-            for (let i = 0; i < data.length; i++) {
-                data[i].versionAdmin = setNumberVersion(data[i].versionAdmin);
-            }
-            data.sort(function (a, b) {
-                return b.versionAdmin - a.versionAdmin;
-            });
-            Inforapp.findOne({
-                idApp: req.params.idapp,
-                "idUser.idUser": req.session.iduser
-            }).then((data1) => {
-                if (data1) {
-                    Appversion.findOne({
-                        idApp: data[0].idAppAdmin
-                    }, (err, count) => {
-                        if (err) throw err;
-                        // console.log(count)
-                        try {
-                            var appuse = {
-                                idApp: req.params.idapp,
-                                nameApp: count.nameApp
-                            }
-                        } catch (error) {
-                            console.log(error)
-                            res.render("error", {
-                                title: "Error",
-                                error
-                            });
-                        }
-                        console.log({
-                            title: "App Version",
-                            appversions: count,
-                            appuse: appuse,
-                            countversion: data[0].versionAdmin
-                        })
-                        res.render('./dashboard/appversion/appversion', {
-                            title: "App Version",
-                            appversions: count,
-                            appuse: appuse,
-                            countversion: data[0].versionAdmin
-                        })
-                    });
-                } else {
-                    res.redirect("/dashboard/404")
+            if (data.length > 0) {
+                for (let i = 0; i < data.length; i++) {
+                    data[i].versionAdmin = setNumberVersion(data[i].versionAdmin);
                 }
-            })
+                data.sort(function (a, b) {
+                    return b.versionAdmin - a.versionAdmin;
+                });
+                Inforapp.findOne({
+                    idApp: req.params.idapp,
+                    "idUser.idUser": req.session.iduser
+                }).then((data1) => {
+                    if (data1) {
+                        Appversion.findOne({
+                            idApp: data[0].idAppAdmin
+                        }, (err, count) => {
+                            if (err) throw err;
+                            // console.log(count)
+                            try {
+                                var appuse = {
+                                    idApp: req.params.idapp,
+                                    nameApp: count.nameApp
+                                }
+                            } catch (error) {
+                                console.log(error)
+                                res.render("error", {
+                                    title: "Error",
+                                    error
+                                });
+                            }
+                            console.log({
+                                title: "App Version",
+                                appversions: count,
+                                appuse: appuse,
+                                countversion: data[0].versionAdmin
+                            })
+                            res.render('./dashboard/appversion/appversion', {
+                                title: "App Version",
+                                appversions: count,
+                                appuse: appuse,
+                                countversion: data[0].versionAdmin
+                            })
+                        });
+                    } else {
+                        res.redirect("/dashboard/404")
+                    }
+                })
+            }
+
         })
 
 

@@ -11,7 +11,7 @@ let membershipChema = mongoose.Schema({
     amount: Number,
     dateCreate: Date,
     dateUpdate: Date,
-    dateExpire: Date,
+    expireDay: Date,
     blocked: Boolean,
     status: Boolean
 });

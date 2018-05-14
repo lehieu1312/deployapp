@@ -129,12 +129,14 @@
                     <tbody>
                         <%var dem =1;%>
                             <%dataWithdraw.forEach((item)=>{%>
-                                <tr class="tr-content-appversion record">
-
+                                <tr class="tr-content-appversion trrecord">
                                     <td>
                                         <span class="numberorder"><%=dem%></span>
                                     </td>
-                                    <td> <span><%=moment(item.dateCreate).format('DD/MM/YYYY HH:mm:ss')%></span> </td>
+                                    <td>
+                                        <span><%=moment(item.dateCreate).format('DD/MM/YYYY HH:mm:ss')%></span>
+                                        <input type="hidden" class="daterecord" value="<%=item.dateCreate%>">
+                                    </td>
                                     <td>
                                         <span><%=item.accountHolder%></span>
                                     </td>

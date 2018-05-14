@@ -21,7 +21,7 @@ var membershipModels = require('../../../models/membership');
 router.get('/', (req, res) => {
     try {
         membershipModels.find().sort({ dateCreate: -1 }).then((dataMemberShipModels) => {
-            res.render('admin/withdraw/index', { dataMemberShipModels, moment, title: "Membership" });
+            res.render('admin/membership/index', { dataMemberShipModels, moment, title: "Membership" });
         });
 
     } catch (error) {

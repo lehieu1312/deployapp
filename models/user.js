@@ -27,6 +27,13 @@ let userChema = mongoose.Schema({
         nameApp: String,
         status: String
     }],
+    membership: [{
+        isMembership: Boolean,
+        amount: Number,
+        dateCreate: Date,
+        dateUpdate: Date,
+        expireDay: Date
+    }],
     blocked: Boolean,
     status: Boolean
 });

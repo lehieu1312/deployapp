@@ -42,7 +42,10 @@ router.get('/history/:idapp', checkAdmin, (req, res) => {
                 }, (err, count) => {
                     console.log(count)
                     var dateversion = [];
-                    var appuse = {};
+                    appuse = {
+                        idApp: data.idApp,
+                        nameApp: data.nameApp
+                    }
                     if (err) throw err;
                     async function renderhistory() {
                         for (let i = 0; i < count.length; i++) {
@@ -55,10 +58,7 @@ router.get('/history/:idapp', checkAdmin, (req, res) => {
                             if (getdatauser != null) {
                                 console.log("avx")
                                 dateversion[i] = count[i];
-                                appuse = {
-                                    idApp: req.params.idapp,
-                                    nameApp: getdatauser.nameApp
-                                }
+
                             }
                             // console.log(getdatauser)
                         }

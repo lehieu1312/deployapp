@@ -2,7 +2,7 @@
     <div class="xcontent clsmenu">
         <div id="title-detail" class="row row1">
             <div class="content-title-detail has-feedback">
-                <h3 class="textmyapp">affiliate Report</h3>
+                <h3 class="textmyapp">Affiliate Report</h3>
             </div>
         </div>
 
@@ -17,6 +17,7 @@
                 a = Number(a.toFixed(2));
                 return "+ $" + a.toLocaleString('en');
             }else{
+                a = Math.abs(a);
                 a = Number(a.toFixed(2));
                 return "- $" + a.toLocaleString('en');
             }

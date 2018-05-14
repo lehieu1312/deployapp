@@ -318,7 +318,6 @@ router.get('/checkout/ok/process', (req, res) => {
                         async function get_data_car() {
                             var product = [];
                             let data_session_cart = await filtercart(req.session.cart);
-                            console.log()
                             for (let i = 0; i < data_session_cart.length; i++) {
                                 let getdata = await infor_app_admin.findOne({
                                     idApp: data_session_cart[i].id
@@ -330,49 +329,46 @@ router.get('/checkout/ok/process', (req, res) => {
                                     imageProduct: getdata.image,
                                     price: getdata.price
                                 }
-                                let id_inforapp = "com.taydo." + Date.now();
-                                console.log(id_inforapp)
-
-                                await User.update({
-                                    id: req.session.iduser,
-                                    status: true
-                                }, {
-                                    "$push": {
-                                        myapp: {
-                                            idApp: base64_custom.Base64.encode(id_inforapp),
-                                            nameApp: getdata.nameApp,
-                                            status: true
-                                        }
-                                    }
-                                }, {
-                                    safe: true,
-                                    upsert: true
-                                }).exec()
-
-                                var new_infor_app_user = new infor_app_user({
-                                    idApp: base64_custom.Base64.encode(id_inforapp),
-                                    idUser: [{
-                                        idUser: req.session.iduser,
-                                        dateAdded: new Date(),
-                                        role: 1,
+                                for (let j = 0; j < data_session_cart[i].count; j++) {
+                                    let id_inforapp = "com.taydo." + Date.now();
+                                    await User.update({
+                                        id: req.session.iduser,
                                         status: true
-                                    }],
-                                    idAppAdmin: getdata.idApp,
-                                    nameApp: getdata.nameApp,
-                                    dateCreate: new Date(),
-                                    status: true
-                                })
-                                await new_infor_app_user.save();
+                                    }, {
+                                        "$push": {
+                                            myapp: {
+                                                idApp: base64_custom.Base64.encode(id_inforapp),
+                                                nameApp: getdata.nameApp,
+                                                status: true
+                                            }
+                                        }
+                                    }).exec();
 
-                                var new_app_setting = new app_setting({
-                                    idApp: base64_custom.Base64.encode(id_inforapp),
-                                    idUser: req.session.iduser,
-                                    dateCreate: new Date(),
-                                    status: true
-                                })
-                                await new_app_setting.save()
+                                    var new_infor_app_user = new infor_app_user({
+                                        idApp: base64_custom.Base64.encode(id_inforapp),
+                                        idUser: [{
+                                            idUser: req.session.iduser,
+                                            dateAdded: new Date(),
+                                            role: 1,
+                                            status: true
+                                        }],
+                                        idAppAdmin: getdata.idApp,
+                                        nameApp: getdata.nameApp,
+                                        dateCreate: new Date(),
+                                        status: true
+                                    })
+                                    await new_infor_app_user.save();
 
+                                    var new_app_setting = new app_setting({
+                                        idApp: base64_custom.Base64.encode(id_inforapp),
+                                        idUser: req.session.iduser,
+                                        dateCreate: new Date(),
+                                        status: true
+                                    })
+                                    await new_app_setting.save();
+                                }
                             }
+
                             var id_order = md5(new Date());
                             var code_order = makeid();
                             console.log("product:" + JSON.stringify(product))
@@ -387,17 +383,10 @@ router.get('/checkout/ok/process', (req, res) => {
                                 dateCreate: new Date(),
                                 status: true
                             }, req.session.inforCheckout);
-                            console.log('--------------------+--------------------');
-                            console.log(queryCheckout);
-
-
-
-
-
                             // if(req.cookies.codesharedeployapp)
 
                             var new_order = new order_modal(queryCheckout);
-                            new_order.save().then(() => {
+                            await new_order.save().then(() => {
                                 if (req.cookies.codesharedeployapp) {
                                     User.findOne({
                                         id: req.session.iduser,

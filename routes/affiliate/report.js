@@ -22,6 +22,7 @@ var infor_app_admin = require('../../models/inforappadmin');
 var order_modal = require("../../models/order");
 var promo_code = require("../../models/promocode");
 var affiliate_modal = require("../../models/affiliate");
+var affiliate_statictis_modal = require("../../models/affiliatestatistics");
 var withdraws_modal = require("../../models/withdraw");
 var http = require('http');
 var server = http.Server(app);
@@ -169,6 +170,70 @@ router.get("/affiliate/report", checkAdmin, (req, res) => {
             appuse: "",
         });
     });
+})
+
+function filter_user_traffic(a) {
+    var b = [];
+    while (a.length > 0) {
+        let c = a.filter(function (el) {
+            return el.idUser == a[0].idUser
+        });
+        b.push(c[0]);
+        a = a.filter(function (el) {
+            return el.idUser != a[0].idUser
+        });
+    }
+    return b;
+}
+
+router.get("/affiliate/report/user-traffic", (req, res) => {
+    var time_start = 0;
+    var time_end = 7;
+    var time_now = new Date();
+    var date_now = time_now.setHours(0, 0, 0, 0);
+    User.findOne({
+        id: "06517fb6f210355bd73620f38b4d5469",
+        status: true
+    }).then((user_session) => {
+        console.log("user:" + JSON.stringify(user_session));
+        var data_use = [];
+        async function data_daily_traffic() {
+            for (let i = 0; i < time_end; i++) {
+                let getdata = await affiliate_statictis_modal.find({
+                    idUser: user_session.codeShare,
+                    dateCreate: {
+                        $gte: date_now - (i + 1) * 86400000,
+                        $lt: date_now - (i) * 86400000
+                    },
+                    status: true
+                }, {
+                    idUser: 1,
+                    dateCreate: 1,
+                    dateOut: 1,
+                    page: 1
+                }).exec();
+                data_use[i] = await {
+                    user: filter_user_traffic(getdata).length,
+                    session: getdata.length,
+                    bounce_rate: function () {
+                        var c = getdata.filter((e) => {
+                            return e.dateOut != null &&
+                                e.page.length < 2
+                        })
+                        return c.length
+                    },
+                    time_session: function () {
+                        var c = getdata.filter((e) => {
+                            return e.dateOut != null
+                        })
+                        return c
+                    }
+                }
+            }
+            return res.json(data_use)
+        }
+        data_daily_traffic();
+    })
 })
 
 module.exports = router;

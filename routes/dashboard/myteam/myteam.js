@@ -180,9 +180,6 @@ router.post("/adduser", checkAdmin, (req, res) => {
                                 safe: true,
                                 upsert: true
                             }).then(() => {
-                                // console.log("---1---")
-                                // console.log(data)
-                                // console.log("---1---")
                                 Inforapp.findOneAndUpdate({
                                     idApp: req.body.idApp
                                 }, {

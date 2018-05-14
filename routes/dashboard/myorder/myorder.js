@@ -44,8 +44,8 @@ router.get("/myorder/:idapp", checkAdmin, (req, res) => {
                         }
                     }
                     appuse = {
-                        idApp: req.params.idapp,
-                        nameApp: order[0].nameApp
+                        idApp: data.idApp,
+                        nameApp: data.nameApp
                     }
                     // console.log(orderx)
                     res.render("./dashboard/myorder/myorder", {

@@ -78,17 +78,47 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
                                     error
                                 });
                             }
-                            console.log({
-                                title: "App Version",
-                                appversions: count,
-                                appuse: appuse,
-                                countversion: data[0].versionAdmin
-                            })
+
                             res.render('./dashboard/appversion/appversion', {
                                 title: "App Version",
                                 appversions: count,
                                 appuse: appuse,
                                 countversion: data[0].versionAdmin
+                            })
+                        });
+                    } else {
+                        res.redirect("/dashboard/404")
+                    }
+                })
+            } else {
+                Inforapp.findOne({
+                    idApp: req.params.idapp,
+                    "idUser.idUser": req.session.iduser
+                }).then((data1) => {
+                    if (data1) {
+                        Appversion.findOne({
+                            idApp: data1.idAppAdmin
+                        }, (err, count) => {
+                            if (err) throw err;
+                            // console.log(count)
+                            try {
+                                var appuse = {
+                                    idApp: req.params.idapp,
+                                    nameApp: count.nameApp
+                                }
+                            } catch (error) {
+                                console.log(error)
+                                res.render("error", {
+                                    title: "Error",
+                                    error
+                                });
+                            }
+
+                            res.render('./dashboard/appversion/appversion', {
+                                title: "App Version",
+                                appversions: count,
+                                appuse: appuse,
+                                countversion: ""
                             })
                         });
                     } else {

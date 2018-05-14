@@ -188,7 +188,7 @@ function filter_user_traffic(a) {
 
 router.get("/affiliate/report/user-traffic", (req, res) => {
     var time_start = 0;
-    var time_end = 7;
+    var time_end = 1;
     var time_now = new Date();
     var date_now = time_now.setHours(0, 0, 0, 0);
     User.findOne({
@@ -200,7 +200,7 @@ router.get("/affiliate/report/user-traffic", (req, res) => {
         async function data_daily_traffic() {
             for (let i = 0; i < time_end; i++) {
                 let getdata = await affiliate_statictis_modal.find({
-                    idUser: user_session.codeShare,
+                    codeShare: user_session.codeShare,
                     dateCreate: {
                         $gte: date_now - (i + 1) * 86400000,
                         $lt: date_now - (i) * 86400000
@@ -212,22 +212,31 @@ router.get("/affiliate/report/user-traffic", (req, res) => {
                     dateOut: 1,
                     page: 1
                 }).exec();
-                data_use[i] = await {
+                let bounce_rate = function () {
+                    var c = getdata.filter((e) => {
+                        return e.dateOut != null &&
+                            e.page.length < 2
+                    })
+                    return c.length;
+                }
+                let time_session = function () {
+                    var c = getdata.filter((e) => {
+                        return e.dateOut != null
+                    })
+                    var x = [];
+                    for (let i = 0; i < c.length; i++) {
+                        x[i] = {
+                            dateCreate: c[i].dateCreate,
+                            dateOut: c[i].dateOut
+                        }
+                    }
+                    return x;
+                }
+                data_use[i] = {
                     user: filter_user_traffic(getdata).length,
                     session: getdata.length,
-                    bounce_rate: function () {
-                        var c = getdata.filter((e) => {
-                            return e.dateOut != null &&
-                                e.page.length < 2
-                        })
-                        return c.length
-                    },
-                    time_session: function () {
-                        var c = getdata.filter((e) => {
-                            return e.dateOut != null
-                        })
-                        return c
-                    }
+                    bounceRate: bounce_rate(),
+                    timeSession: time_session()
                 }
             }
             return res.json(data_use)

@@ -17,6 +17,7 @@ var multipartMiddleware = multipart();
 var libAppCountry = require('../../../lib/country');
 var libCountry = libAppCountry.country;
 var membershipModels = require('../../../models/membership');
+var sendNotiUserModels = require('../../../models/notificationuser');
 
 router.get('/', (req, res) => {
     try {
@@ -30,28 +31,32 @@ router.get('/', (req, res) => {
     }
 });
 
-router.post('/sendnotifiuser', (req, res) => {
+router.post('/send-noti-to-user', (req, res) => {
     try {
         console.log(req.body);
-        req.checkBody('id', 'ID Not Defined').notEmpty();
-        req.checkBody('status', 'Status can not be empty').notEmpty();
+        req.checkBody('iduser', 'ID user not defined').notEmpty();
+        req.checkBody('title', 'Title can not be empty').notEmpty();
+        req.checkBody('content', 'Content can not be empty').notEmpty();
         var errors = req.validationErrors();
         if (errors) {
             return res.json({ status: 2, msg: errors });
         } else {
-            withDrawModels.findOne({ id: req.body.id }).then((dataWithdraw) => {
-                console.log(dataWithdraw);
-                if (dataWithdraw) {
-                    dataWithdraw.statusWithdraw = req.body.status;
-                    dataWithdraw.save().then(() => {
-                        console.log('changed');
-                        return res.json({ status: 1, msg: "Success." });
-                    })
-                } else {
-                    return res.json({ status: 3, msg: "ID Not Defined." });
-                }
+            var notificationUserData = new sendNotiUserModels({
+                id: md5(Date.now()),
+                idUser: req.body.iduser,
+                title: req.body.title,
+                content: req.body.content,
+                dateCreate: Date.now(),
+                status: false
             });
-
+            return notificationUserData.save().then(() => {
+                return req.io.sockets.emit('notification-' + req.body.iduser, {
+                    title: req.body.title,
+                    content: req.body.content
+                });
+            }).then(() => {
+                return res.json({ status: 1, msg: "Send success to user." });
+            });
         }
 
         // 
@@ -62,7 +67,8 @@ router.post('/sendnotifiuser', (req, res) => {
 
     } catch (error) {
         console.log(error);
-        return res.render('error', { error, title: 'Page Error' });
+        return res.json({ status: 3, msg: error + '' });
+        // return res.render('error', { error, title: 'Page Error' });
     }
 });
 module.exports = router;

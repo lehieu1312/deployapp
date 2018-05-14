@@ -1,5 +1,5 @@
 <% include ../layout/header %>
-    <link rel="stylesheet" type="text/css" href="/themes/css/admin/withdraw.css">
+    <link rel="stylesheet" type="text/css" href="/themes/css/admin/membership.css">
     <div class="xcontent clsmenu">
         <div id="title-detail" class="row row1">
             <div id="title-appversion" class="content-title-detail has-feedback">
@@ -139,15 +139,20 @@
                                     <td>
                                         <span><%=item.username%></span>
                                     </td>
-                                    <td> <span><%=moment(item.dateCreate).format('DD/MM/YYYY HH:mm:ss')%></span> </td>
-                                    <td> <span><%=moment(item.dateUpdate).format('DD/MM/YYYY HH:mm:ss')%></span> </td>
+                                    <td> <span><%=moment(item.dateCreate).format('DD/MM/YYYY')%></span> </td>
+                                    <td> <span><%=moment(item.dateUpdate).format('DD/MM/YYYY')%></span> </td>
                                     <td>
-                                        <span><%=item.amount%></span>
+                                        <span>$<%=item.amount%></span>
                                     </td>
                                     <td>
-                                        <span><span><%=moment(item.expireDay).format('DD/MM/YYYY HH:mm:ss')%></span></span>
+                                        <span><%=moment(item.expireDay).format('DD/MM/YYYY')%></span>
                                     </td>
-                                    <td></td>
+                                    <td>
+                                        <a class="btn-send-notifi" href="javascript:void(0)" onclick="opendialogsendnoti('<%=item.idUser%>')">
+                                            <img class="img-notification-first" src="/themes/img/admin/inboxmail.png" alt="send notifi customer">
+                                            <img class="img-notification-second" src="/themes/img/admin/inboxmailactive.png" alt="send notifi customer"> &nbsp;SEND
+                                        </a>
+                                    </td>
                                 </tr>
 
                                 <%dem++})%>
@@ -307,18 +312,21 @@
             </div>
 
             <div class="container">
-                <div class="modal fade " id="myModa-adduser" role="dialog">
+                <div class="modal fade " id="myModa-sendnoti" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content1">
                             <div class="dialogdeleteapp">
-                                <div class="dialogdeleteapp-head-history ">
-                                    Add a User
+                                <div class="dialog-head-write-notification">
+                                    <img src="/themes/img/admin/writenotification.png" class="img-write-title-notifi" alt="write notification"> Write a Notifications
                                 </div>
                                 <form id="form-adduser" onsubmit="return false">
-                                    <textarea placeholder="Email address" rows="1" class="textarea-adduser" id="input-add-customer"></textarea>
+                                    <input type="hidden" value="" id="idusersendnoti">
+                                    <input type="text" placeholder="Title..." name="titlenoti" id="titlenoti" class="title-notification-dialog">
+                                    <textarea placeholder="Enter your content" rows="1" class="textarea-send-noti" id="contentsendnoti"></textarea>
                                     <div class="dialogdeleteapp-foot-history ">
-                                        <button id="cancel-adduser" class="float-right btn-gray margin-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                        <button type="submit" class="float-right btn-blue" id="adduser">Add user</button>
+                                        <button type="submit" class="float-right btn-blue" id="sendnotitouser">
+                                           <img src="/themes/img/admin/sendnoti.png" class="img-plane-noti" alt="Send notification">&nbsp; Send</button>
+                                        <button id="btn-cancel-send-noti" class="float-right btn-gray margin-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
                                     </div>
                                 </form>
                             </div>

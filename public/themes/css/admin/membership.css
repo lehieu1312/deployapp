@@ -1,0 +1,79 @@
+.btn-send-notifi {
+    margin-right: 15px;
+    font-family: 'OpenSans-Regular';
+    padding: 5px 15px 5px 15px;
+    color: rgb(0, 175, 238);
+    background: white;
+    border-radius: 3px;
+    border: solid 1px rgb(0, 175, 238);
+}
+
+.btn-send-notifi:hover {
+    background: rgb(0, 175, 238);
+    color: #fff;
+}
+
+.img-notification-second,
+.img-notification-first {
+    padding-bottom: 2px;
+}
+
+.btn-send-notifi:hover .img-notification-second {
+    display: inline;
+}
+
+.btn-send-notifi:hover .img-notification-first {
+    display: none;
+}
+
+.img-notification-second {
+    display: none;
+}
+
+.dialog-head-write-notification {
+    padding: 10px 0 0 20px;
+    height: 50px;
+    font-size: 14px;
+    color: #fff;
+    background: #00afee;
+    font-family: 'OpenSans-Light';
+}
+
+.img-write-title-notifi {
+    padding-bottom: 10px;
+}
+
+.btn-blue {
+    margin-right: 20px;
+    font-family: 'OpenSans-Regular';
+    color: white;
+    border-radius: 2px;
+    padding: 5px 17px 5px 16px;
+    background: #22baf0;
+    border: none;
+}
+
+.title-notification-dialog {
+    border: none;
+    width: 100%;
+    height: 40px;
+    padding: 10px 0px 10px 20px;
+}
+
+.textarea-send-noti {
+    font-family: 'OpenSans-Light';
+    width: 100%;
+    border: none;
+    border-top: solid 1px #f5f5f5;
+    padding: 27px 19px 27px 21px;
+    /* text-indent: 15px; */
+    height: 115px;
+}
+
+.img-plane-noti {
+    padding-bottom: 2px;
+}
+
+#btn-cancel-send-noti:hover {
+    background: #c1bebe;
+}

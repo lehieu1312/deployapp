@@ -28,18 +28,18 @@ $(document).ready(() => {
         if (validateForm_send_noti() == true) {
             $('#loading').show();
             $.ajax({
-                type: "POST",
                 url: "/admin/membership/send-noti-to-user",
-                dataType: "json",
+                type: "POST",
                 data: {
-                    iduser: $('#idcustomer').val(),
-                    title: $('#firstname').val(),
-                    content: $('#lastname').val(),
+                    iduser: $('#idusersendnoti').val(),
+                    title: $('#titlenoti').val(),
+                    content: $('#contentsendnoti').val(),
                 },
                 success: (data) => {
                     if (data.status == 1) {
                         $('#successPopup').show();
                         $('.contenemail').text('Update success.');
+                        $('#myModa-sendnoti').modal('hide');
                         // window.location.href = "/admin/customer";
                     } else if (data.status == 2) {
                         $('#errPopup').show();
@@ -54,10 +54,18 @@ $(document).ready(() => {
             });
         }
     });
+
+
+    $(".button-close-notification").click(() => {
+        $(".errPopup").fadeOut();
+    })
+
 });
 
 function opendialogsendnoti(id) {
     // alert(id);
+    $('#titlenoti').val('');
+    $('#contentsendnoti').val('');
     $('#idusersendnoti').val(id);
     $('#myModa-sendnoti').modal();
 }

@@ -814,7 +814,7 @@ router.post('/build-ios-macsv', async(req, res) => {
                             console.log('nameProvisionAdHoc: ' + nameProvisionAdHoc);
                             //security cms -D -i sunbri.mobileprovision -o sunbri.plist
                             process.chdir(path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision'));
-                            return commandLine('security', ['cms', '-D', '-i', fProvisionFileAdHoc, '-o', nameProvisionAdHoc + '.plist']);
+                            return commandLineImportSecurity('security', ['cms', '-D', '-i', fProvisionFileAdHoc, '-o', nameProvisionAdHoc + '.plist']);
                         }).then(() => {
                             console.log('====== Read File Plist Ad-Hoc =========');
                             console.log('nameProvisionAdHoc 2: ' + nameProvisionAdHoc);
@@ -890,7 +890,7 @@ router.post('/build-ios-macsv', async(req, res) => {
                         console.log('nameProvisionAppStore: ' + nameProvisionAppStore);
                         //security cms -D -i sunbri.mobileprovision -o sunbri.plist
                         process.chdir(path.join(appRoot, 'public', 'projectios', fKeyFolder, 'inputprovision'));
-                        return commandLine('security', ['cms', '-D', '-i', fProvisionFileAppStore, '-o', nameProvisionAppStore + '.plist']);
+                        return commandLineImportSecurity('security', ['cms', '-D', '-i', fProvisionFileAppStore, '-o', nameProvisionAppStore + '.plist']);
                     }).then(() => {
                         console.log('====== Read File Plist App-Store =========');
                         console.log('nameProvisionAppStore 2: ' + nameProvisionAppStore);
@@ -1182,6 +1182,40 @@ router.post('/build-ios-macsv', async(req, res) => {
                             // console.log(chalk.bold(data.toString()));
                             reject(data);
                         }
+                    });
+                    commandLine.on('close', function(code) {
+                        if (code > 0) {
+                            reject(new Error(code));
+                        }
+                        resolve('Success commandline.');
+                    });
+                } catch (error) {
+                    reject(error);
+                }
+            })
+        }
+
+        let commandLineImportSecurity = (cmd, optionList) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    var commandLine = crossSpawn.spawn(cmd, optionList);
+                    commandLine.stdout.on('data', function(data) {
+                        console.log('data out: ' + data.toString());
+                        if (data instanceof Error) {
+                            //console.log(chalk.bold(data.toString()));
+                            reject(data);
+                        }
+                    });
+                    commandLine.stderr.on('data', function(data) {
+                        console.log('data error: ' + data.toString());
+                        // if (data instanceof Error) {
+                        //console.log(chalk.bold(data.toString()));
+                        reject(data);
+                        // }
+                        // if (data.toString().toLowerCase().indexOf('error') >= 0) {
+                        // console.log(chalk.bold(data.toString()));
+                        // reject(data);
+                        // }
                     });
                     commandLine.on('close', function(code) {
                         if (code > 0) {

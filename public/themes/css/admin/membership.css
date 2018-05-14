@@ -77,3 +77,13 @@
 #btn-cancel-send-noti:hover {
     background: #c1bebe;
 }
+
+.successPopup {
+    z-index: 1051;
+    display: none;
+    width: auto;
+    width: 500px;
+    position: fixed;
+    top: 85px;
+    right: 105px;
+}

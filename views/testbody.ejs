@@ -1,0 +1,39 @@
+<head>
+
+</head>
+
+<body>
+    <form action="/getbody" method="post">
+        <input type="text" value="123" name="abc">
+        <button type="button" id="btnclick">Send</button>
+    </form>
+</body>
+<script src="/themes/js/jquery-3.2.1.min.js"></script>
+<script>
+    $(document).ready(() => {
+        $('#btnclick').click(() => {
+            var arrProd = [];
+            for (var i = 0; i <= 3; i++) {
+                arrProd.push(i);
+            }
+            $.ajax({
+                url: "/admin/membership/send-noti-to-user",
+                type: "POST",
+                data: {
+                    name: 'day la dau'
+                },
+
+                success: function(result) {
+                    alert('success');
+                },
+                error: function(jqXHR, exception) {
+                    alert('error');
+
+                }
+
+            }).always(function(data) {});
+        });
+    })
+</script>
+
+</html>

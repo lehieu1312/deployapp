@@ -337,7 +337,7 @@ textarea {
 }
 
 .errPopup {
-    z-index: 1010;
+    z-index: 1051;
     display: none;
     width: auto;
     width: 500px;

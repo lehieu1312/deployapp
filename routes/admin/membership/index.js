@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
     }
 });
 
-router.post('/send-noti-to-user', (req, res) => {
+router.post('/send-noti-to-user', multipartMiddleware, (req, res) => {
     try {
         console.log(req.body);
         req.checkBody('iduser', 'ID user not defined').notEmpty();

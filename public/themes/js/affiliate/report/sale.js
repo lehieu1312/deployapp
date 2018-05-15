@@ -1,4 +1,32 @@
 $(document).ready(() => {
+    function set_money(a) {
+        a = Number(a.toFixed(2));
+        return "$" + a.toLocaleString('en');
+    }
+    $.post("/affiliate/report/sale-traffic", {},
+        function (data) {
+            console.log(data)
+
+            $(".header-sale-traffic").html("");
+            $(".header-sale-traffic").append(
+                ` 
+                    <div class="item-earning-by-time">
+                    <div>Orders weekly</div>
+                    <div class="light-large-gray">${data.statistics.weekly}</div>
+                    </div>
+                    <div class="item-earning-by-time">
+                        <div>Orders monthly</div>
+                        <div class="light-large-gray">${data.statistics.monthly}</div>
+                    </div>
+                    <div class="item-earning-by-time">
+                        <div>Average revenue</div>
+                        <div class="light-large-gray">${set_money(Number(data.statistics.year))}</div>
+                    </div>
+                `
+            )
+        }
+    )
+
     var numberdate = 7;
     var numberend = 0;
 

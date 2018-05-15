@@ -186,16 +186,16 @@ function filter_user_traffic(a) {
     return b;
 }
 
-router.get("/affiliate/report/user-traffic", (req, res) => {
+router.post("/affiliate/report/user-traffic", (req, res) => {
     var time_start = 0;
-    var time_end = 1;
+    var time_end = 7;
     var time_now = new Date();
     var date_now = time_now.setHours(0, 0, 0, 0);
     User.findOne({
-        id: "06517fb6f210355bd73620f38b4d5469",
+        id: req.session.iduser,
         status: true
     }).then((user_session) => {
-        console.log("user:" + JSON.stringify(user_session));
+        // console.log("user:" + JSON.stringify(user_session));
         var data_use = [];
         async function data_daily_traffic() {
             for (let i = 0; i < time_end; i++) {
@@ -223,14 +223,12 @@ router.get("/affiliate/report/user-traffic", (req, res) => {
                     var c = getdata.filter((e) => {
                         return e.dateOut != null
                     })
-                    var x = [];
+                    var x = 0;
                     for (let i = 0; i < c.length; i++) {
-                        x[i] = {
-                            dateCreate: c[i].dateCreate,
-                            dateOut: c[i].dateOut
-                        }
+                        x = x + (c[i].dateOut - c[i].dateCreate);
                     }
-                    return x;
+                    // console.log(x);
+                    return Number(x) / c.length;
                 }
                 data_use[i] = {
                     user: filter_user_traffic(getdata).length,
@@ -243,6 +241,67 @@ router.get("/affiliate/report/user-traffic", (req, res) => {
         }
         data_daily_traffic();
     })
+})
+
+
+router.post("/affiliate/report/sale-traffic", (req, res) => {
+    var time_start = 0;
+    var time_end = 7;
+    var time_now = new Date();
+    var date_now = time_now.setHours(0, 0, 0, 0);
+    var sale_use = [];
+    async function data_sale_traffic() {
+        var user_use = await User.findOne({
+            id: req.session.iduser
+        }, {
+            dateCreate: 1
+        }).exec();
+        var data_old = await affiliate_modal.find({
+            idUser: req.session.iduser
+        }, {
+            money: 1,
+            dateCreate: 1,
+            blance: 1
+        }).sort({
+            dateCreate: -1
+        }).exec();
+
+        var weekly = await data_old.filter((e) => {
+            return e.dateCreate > date_now - 7 * 86400000 &&
+                e.dateCreate < date_now
+        })
+        var monthly = await data_old.filter((e) => {
+            return e.dateCreate > date_now - 30 * 86400000 &&
+                e.dateCreate < date_now
+        })
+
+        var count_days = Math.ceil((date_now - user_use.dateCreate) / 86400000);
+        console.log(data_old[0].blance);
+        var real_time = await (data_old[0].blance / count_days).toFixed(2);
+
+        for (let i = 0; i < time_end; i++) {
+            let getdata = await affiliate_modal.find({
+                idUser: req.session.iduser,
+                dateCreate: {
+                    $gte: date_now - (i + 1) * 86400000,
+                    $lt: date_now - (i) * 86400000
+                },
+                status: true
+            }, {
+                money: 1
+            }).exec();
+            sale_use.push(getdata);
+        }
+        return res.json({
+            statistics: {
+                weekly: weekly.length,
+                monthly: monthly.length,
+                year: real_time
+            },
+            sale: sale_use
+        })
+    }
+    data_sale_traffic();
 })
 
 module.exports = router;

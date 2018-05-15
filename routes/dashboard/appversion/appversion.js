@@ -66,17 +66,9 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
                         }, (err, count) => {
                             if (err) throw err;
                             // console.log(count)
-                            try {
-                                var appuse = {
-                                    idApp: req.params.idapp,
-                                    nameApp: count.nameApp
-                                }
-                            } catch (error) {
-                                console.log(error)
-                                res.render("error", {
-                                    title: "Error",
-                                    error
-                                });
+                            var appuse = {
+                                idApp: data1.idApp,
+                                nameApp: data1.nameApp
                             }
 
                             res.render('./dashboard/appversion/appversion', {
@@ -101,19 +93,10 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
                         }, (err, count) => {
                             if (err) throw err;
                             // console.log(count)
-                            try {
-                                var appuse = {
-                                    idApp: req.params.idapp,
-                                    nameApp: count.nameApp
-                                }
-                            } catch (error) {
-                                console.log(error)
-                                res.render("error", {
-                                    title: "Error",
-                                    error
-                                });
+                            var appuse = {
+                                idApp: data1.idApp,
+                                nameApp: data1.nameApp
                             }
-
                             res.render('./dashboard/appversion/appversion', {
                                 title: "App Version",
                                 appversions: count,

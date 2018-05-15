@@ -44,6 +44,7 @@
     <!-- datetime picker -->
     <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/momentdatetimepicker.js"></script>
     <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/datetimerpicker.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/notiuser.js"></script>
     <!-- chart google -->
     <!-- <script type="text/javascript " charset="utf-8 " src="/themes/js/dashboard/traffic/chartgg.js "></script> -->
     <!-- chart anychart -->
@@ -57,6 +58,7 @@
     <script type="text/javascript " charset="utf-8 " src="/themes/js/dashboard/chartjs/anychart/world.js"></script>
     <script type="text/javascript " charset="utf-8 " src="/themes/js/dashboard/chartjs/anychart/proj4.js"></script>
 
+
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/anychart-ui.min.css">
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/anychart-font.min.css">
     <!-- new 21-11 -->
@@ -67,6 +69,37 @@
                 function(data) {
                     $('.imgavatarsmall').attr('src', data.picture);
                     $('.setspanfullname').text(data.fullname);
+                }
+            )
+            $.post(
+                "/getnumbernoti", {},
+                function(data) {
+                    // alert(data);
+                    if (data.number > 0) {
+                        $('#number-of-notification').html(data.number);
+                        $('#number-notifications').html(data.number);
+                    }
+                    data.data.forEach((item) => {
+                        $('#body-content-for-user').append(`
+                                <a href="/dashboard/membership/detailnoti/` + item.id + `">
+                                <div class="box-content-noti">
+                                <div class="box-icon-notification">
+                                    <img src="/themes/img/admin/symbolnotifi.png" alt="symbol notification">
+                                </div>
+                                <div class="content-notification-user">
+                                    <div class="title-content-noti" id="title-notification-for-user">
+                                        <span>` + item.title + `</span>
+                                    </div>
+                                    <div class="body-content-noti" id="content-message-noti-for-user">
+                                <span>  ` + (item.content.length < 75 ? item.content : item.content.slice(0, 74) + '...') + `</span>       
+                                    </div>
+                                    <div class="head-content-noti" id="date-footer-noti-for-user">
+                                        <span>${moment(item.date).format('DD/MM/YYYY HH:mm:ss')} </span>
+                                    </div>
+                                </div>
+                            </div> 
+                            </a>`);
+                    })
                 }
             )
             $.post(
@@ -199,48 +232,60 @@
     </div>
     <div class="container ">
         <div class="modal fade" id="modal-notification" role="dialog">
-            <div class="content-cart">
-                <div class="header-modal-cart">
+            <input type="hidden" value="<%=idusernoti%>" id="iduserfornoti">
+            <div class="box-content-noti-for-user" id="box-content-notifi-for-user">
+                <div class="header-modal-notification-user">
                     <span>Notification
-                            <span id="number-product-in-cart">2</span>
+                            <span id="number-of-notification">0</span>
+                    <!-- <span id="number-product-in-cart">2</span> -->
+
                     </span>
                     <img data-dismiss="modal" aria-label="Close" src="/themes/img/dashboard/iconclose.png">
                 </div>
+                <div class="body-content-for-user" id="body-content-for-user">
 
+                </div>
+                <div class="footer-box-noti" id="footer-box-noti-for-user">
+                    <div class="box-see-all-noti-user">
+                        <a href="/dashboard/membership/notificationforuser">See All</a>
+                    </div>
+
+                </div>
                 <!--Content  -->
-                <div class="box-content-noti">
+                <!-- <div class="box-content-noti">
                     <div class="box-icon-notification">
                         <img src="/themes/img/admin/symbolnotifi.png" alt="symbol notification">
                     </div>
-                    <div class="content-notification">
-                        <div class="title-content-noti">
+                    <div class="content-notification-user">
+                        <div class="title-content-noti" id="title-notification-for-user">
                             <span>Notification</span>
                         </div>
-                        <div class="body-content-noti">
+                        <div class="body-content-noti" id="content-message-noti-for-user">
                             <span>Is simply dummy text of the printing  and typesetting industry.</span>
                         </div>
-                        <div class="head-content-noti">
+                        <div class="head-content-noti" id="date-footer-noti-for-user">
                             <span>09/10/2017  11:55:04 </span>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="box-content-noti">
+                <!-- <div class="box-content-noti">
                     <div class="box-icon-notification">
                         <img src="/themes/img/admin/symbolnotifi.png" alt="symbol notification">
                     </div>
-                    <div class="content-notification">
+                    <div class="content-notification-user">
                         <div class="title-content-noti">
                             <span>Notification</span>
                         </div>
                         <div class="body-content-noti">
-                            <span>Is simply dummy text of the printing  and typesetting industry.</span>
+                            <span>Is simply dummy text of the printing  and typesetting industry typesetting i...</span>
                         </div>
                         <div class="head-content-noti">
                             <span>09/10/2017  11:55:04 </span>
                         </div>
                     </div>
-                </div>
+                </div> -->
+                <!-- Close Content  -->
 
             </div>
 
@@ -301,7 +346,7 @@
                         <div id="ringing" data-toggle="modal" data-target="#modal-notification">
                             <a href="#">
                                 <span id="number-notifications">
-                                    2
+                                    
                                 </span>
                                 <img src="/themes/img/dashboard/ringnotifications.png">
                             </a>

@@ -595,7 +595,15 @@ app.use(function(req, res, next) {
         //     return res.json({ status: "3", message: 'Oops, something went wrong' });
     }
 });
-
+app.get("*", (req, res, next) => {
+    console.log(req.session.iduser);
+    if (req.session.iduser) {
+        res.locals.idusernoti = req.session.iduser;
+    } else {
+        res.locals.idusernoti = '';
+    }
+    next();
+});
 
 app.get("*", (req, res, next) => {
     User.count({

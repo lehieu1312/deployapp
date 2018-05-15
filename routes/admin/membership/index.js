@@ -41,18 +41,23 @@ router.post('/send-noti-to-user', multipartMiddleware, (req, res) => {
         if (errors) {
             return res.json({ status: 2, msg: errors });
         } else {
+            var sDate = Date.now();
+            var sID = md5(Date.now());
             var notificationUserData = new sendNotiUserModels({
-                id: md5(Date.now()),
+                id: sID,
                 idUser: req.body.iduser,
                 title: req.body.title,
                 content: req.body.content,
-                dateCreate: Date.now(),
+                dateCreate: sDate,
+                statusNoti: false,
                 status: false
             });
             return notificationUserData.save().then(() => {
                 return req.io.sockets.emit('notification-' + req.body.iduser, {
+                    id: sID,
                     title: req.body.title,
-                    content: req.body.content
+                    content: req.body.content,
+                    date: sDate
                 });
             }).then(() => {
                 return res.json({ status: 1, msg: "Send success to user." });

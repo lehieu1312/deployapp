@@ -1415,9 +1415,10 @@ a:hover .menumore-listmyapp {
     padding-top: 15px;
 }
 
-.content-notification {
+.content-notification-user {
     width: 80%;
     float: left;
+    padding-right: 8px;
 }
 
 .title-content-noti {
@@ -1438,4 +1439,100 @@ a:hover .menumore-listmyapp {
     font-family: "OpenSans-Light";
     font-size: 13px;
     padding-top: 3px;
+}
+
+.content-notification {
+    position: fixed;
+    width: 310px;
+    border: none;
+    height: 1000px;
+    background: white;
+    font-family: 'OpenSans-Regular';
+    font-size: 13px;
+    right: 20px;
+    border-radius: 2px;
+    color: #666666;
+}
+
+.header-modal-notification {
+    font-size: 16px;
+    color: #444459;
+    font-family: 'OpenSans-Regular';
+    width: 100%;
+    height: 60px;
+    border-bottom: solid 1px #ededed;
+    padding: 20px;
+}
+
+#number-of-notification {
+    background: red;
+    padding: 0 6.5px 0 6.5px;
+    border-radius: 3px;
+    color: #ffffff;
+    font-size: 13px;
+}
+
+.header-modal-notification-user {
+    font-size: 16px;
+    color: #444459;
+    font-family: 'OpenSans-Regular';
+    width: 100%;
+    height: 60px;
+    border-bottom: solid 1px #ededed;
+    padding: 20px;
+}
+
+.header-modal-notification-user img {
+    cursor: pointer;
+    float: right;
+}
+
+.box-content-noti-for-user {
+    position: fixed;
+    width: 310px;
+    border: none;
+    height: 630px;
+    background: white;
+    font-family: 'OpenSans-Regular';
+    font-size: 13px;
+    right: 20px;
+    border-radius: 2px;
+    color: #666666;
+}
+
+.body-content-for-user {
+    width: 100%;
+    float: left;
+    height: 85%;
+    overflow-x: scroll;
+    overflow-x: hidden;
+}
+
+.body-content-for-user::-webkit-scrollbar-thumb {
+    background-color: #cecece;
+    border: 2px solid #cecece;
+}
+
+.body-content-for-user::-webkit-scrollbar {
+    width: 5px;
+    background-color: #F5F5F5;
+}
+
+.body-content-for-user::-webkit-scrollbar-track {
+    /* -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0); */
+    background-color: #ffffff;
+}
+
+.footer-box-noti {
+    background-color: #f9f9f9;
+    float: left;
+    width: 100%;
+    height: 8%;
+}
+
+.box-see-all-noti-user {
+    padding: 11px;
+    text-align: center;
+    font-size: 13px;
+    font-family: "OpenSans-Regular";
 }

@@ -43,11 +43,11 @@ router.get('/logout', (req, res) => {
 });
 
 
-router.post("/login/tk", function (req, res) {
+router.post("/login/tk", function(req, res) {
     try {
         User.findOne({
             username: req.body.username
-        }, function (err, result) {
+        }, function(err, result) {
             if (err) {
                 console.log(err);
                 if (devMode == true)
@@ -146,7 +146,7 @@ var sendLinkMail = (emailReceive, name, link) => {
                 link
             }
         }
-        transporter.sendMail(mainOptions, function (err, info) {
+        transporter.sendMail(mainOptions, function(err, info) {
             if (err) {
                 return reject(err);
             }
@@ -156,7 +156,7 @@ var sendLinkMail = (emailReceive, name, link) => {
     });
 }
 
-router.post("/forgot", function (req, res) {
+router.post("/forgot", function(req, res) {
     var firstNameUser;
     var iduser1;
     try {
@@ -177,7 +177,7 @@ router.post("/forgot", function (req, res) {
                     });
             }
             if (result.length > 0) {
-                async.each(result, function (kq) {
+                async.each(result, function(kq) {
                     firstNameUser = kq.firstname;
                     iduser1 = kq.id;
                 });
@@ -194,7 +194,7 @@ router.post("/forgot", function (req, res) {
                     email: req.body.email
                 }, {
                     verifycode: newverifycode
-                }, function (err, data) {
+                }, function(err, data) {
                     if (err) {
                         // console.log(err);
                         if (devMode == true)
@@ -231,12 +231,12 @@ router.post("/forgot", function (req, res) {
                     })
                 });
 
-                setTimeout(function () {
+                setTimeout(function() {
                     User.update({
                         email: req.body.email
                     }, {
                         verifycode: ""
-                    }, function (err, data) {
+                    }, function(err, data) {
                         if (err) {
                             // console.log(err);
                             if (devMode == true)
@@ -290,13 +290,13 @@ function cutlastname(fullname) {
 }
 
 
-var download = function (uri, filename, callback) {
-    request.get(uri, function (err, res, body) {
+var download = function(uri, filename, callback) {
+    request.get(uri, function(err, res, body) {
         console.log('content-type:', res.headers['content-type']);
         console.log('content-length:', res.headers['content-length']);
         var r = request(uri).pipe(fs.createWriteStream("./public/themes/img/profile/" + filename));
         r.on('close', callback);
-        r.on('error', function (err) {
+        r.on('error', function(err) {
             console.log(err)
         })
     });
@@ -369,7 +369,7 @@ passport.use(new passportfb({
                 return done(null, result);
             } else {
                 var namepicture = md5(Date.now()) + '.png';
-                download(profile.photos[0].value, namepicture, function () {
+                download(profile.photos[0].value, namepicture, function() {
                     console.log('Done downloading..');
                 });
                 var newuser = new User({
@@ -473,7 +473,7 @@ passport.use(new passportgg({
                 //         return done(null, data);
                 //     } else {
                 var namepicture = md5(Date.now()) + '.png';
-                download(profile._json.image.url, namepicture, function () {
+                download(profile._json.image.url, namepicture, function() {
                     console.log('Done downloading..');
                 });
                 let newuser = new User({
@@ -490,10 +490,10 @@ passport.use(new passportgg({
                     status: true
                 });
                 newuser.save((err) => {
-                    return done(null, newuser);
-                })
-                // }
-                // })
+                        return done(null, newuser);
+                    })
+                    // }
+                    // })
             }
 
         });
@@ -564,7 +564,7 @@ passport.use(new passporttw({
                 return done(null, result);
             } else {
                 var namepicture = md5(Date.now()) + '.png';
-                download(profile._json.profile_image_url, namepicture, function () {
+                download(profile._json.profile_image_url, namepicture, function() {
                     console.log('Done downloading..');
                 });
                 var newuser = new User({

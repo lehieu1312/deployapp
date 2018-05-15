@@ -87,3 +87,11 @@
     top: 85px;
     right: 105px;
 }
+
+#number-of-notification {
+    background: red;
+    padding: 0 6.5px 0 6.5px;
+    border-radius: 3px;
+    color: #ffffff;
+    font-size: 13px;
+}

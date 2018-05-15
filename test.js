@@ -96,5 +96,5 @@
 // // var md5 = require("md5");
 // // console.log(md5(Date.now()));
 
-var str = "Is simply dummy text of the printing and typesetting industry."
+var str = "Is simply dummy text of the printing and typesetting industry typesetting i"
 console.log(str.length);

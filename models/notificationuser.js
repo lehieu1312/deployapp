@@ -6,6 +6,7 @@ let notificationUserChema = mongoose.Schema({
     title: String,
     content: String,
     dateCreate: Date,
+    statusNoti: Boolean,
     status: Boolean
 });
 

@@ -117,7 +117,7 @@ function clickmenu(a, b, c) {
                 opens: "left"
             },
             (start, end) => {
-                $(".myDropdown-traffic").hide();
+                $(".dropdown-traffic").hide();
                 let number = ((end._d - start._d) / 86400000).toFixed(0);
                 let startx = start._d;
                 startx = startx.toString().split(" ");

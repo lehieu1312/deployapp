@@ -266,6 +266,11 @@ router.post("/affiliate/report/sale-traffic", (req, res) => {
     var time_end = req.query.dateend;
     var time_now = new Date();
     var date_now = time_now.setHours(0, 0, 0, 0);
+
+    // if(time_end != 0){
+
+    // }
+
     var sale_use = [];
     async function data_sale_traffic() {
         var user_use = await User.findOne({

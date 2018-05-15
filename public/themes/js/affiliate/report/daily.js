@@ -1,20 +1,52 @@
-$(document).ready(() => {
+function ajax_daily_traffic(date_start, date_end) {
+    let url = "/affiliate/report/user-traffic?datestart=" + date_start + "&dateend=" + date_end
 
+    function set_time(a) {
+        a = a / 1000;
+        // if (Math.floor(a / 60) > 60) {
+        //     if (Math.floor(a / 60 / 60) > 24) {
+        //         return Math.floor(a / 60 / 60 / 24) + "d" + Math.floor((a / 60 / 60) % 24) + "h" + Math.floor((a / 60) % 60) + "m" + Math.floor(a % 60) + "s";
+        //     } else {
+        //         return Math.floor(a / 60 / 60) + "h" + Math.floor((a / 60) % 60) + "m" + Math.floor(a % 60) + "s";
+        //     }
+        // } else {
+        return Math.floor(a / 60) + "m" + Math.floor(a % 60) + "s";
+        // }
+    }
     $.post(
-        "/affiliate/report/user-traffic", {},
+        url, {},
         function (data) {
+            console.log(data)
+            $(".header-daily-traffic").html("");
+            $(".header-daily-traffic").append(
+                `  
+                    <div class="item-earning-by-time">
+                    <div>User</div>
+                    <div class="light-large-gray">${data.userStatistics.user}</div>
+                    </div>
+                    <div class="item-earning-by-time">
+                    <div>Session</div>
+                    <div class="light-large-gray">${data.userStatistics.session}</div>
+                    </div>
+                    <div class="item-earning-by-time">
+                    <div>Bounce Rate</div>
+                    <div class="light-large-gray">${(data.userStatistics.bounceRate/data.userStatistics.session)*100 + "%"}</div>
+                    </div>
+                    <div class="item-earning-by-time">
+                    <div>Session Duration</div>
+                    <div class="light-large-gray">${set_time(data.userStatistics.timeSession)}</div>
+                    </div>
+                `
+            )
+
             var data_traffic = [];
             let user = 0;
             let session = 0;
             let bounceRate = 0;
             let timeSession = 0;
 
-            for (let i = 0; i < data.length; i++) {
-                user = user + data[i].user;
-                session = session + data[i].session;
-                bounceRate = bounceRate + data[i].bounceRate;
-                timeSession = timeSession + data[i].timeSession
-                data_traffic[i] = data[i].user;
+            for (let i = 0; i < data.daily.length; i++) {
+                data_traffic[i] = data.daily[i].user;
             }
             // console.log(user, session, bounceRate, timeSession);
             // console.log(data_traffic);
@@ -41,28 +73,25 @@ $(document).ready(() => {
                 $(".myDropdown-traffic").hide();
             });
 
-            var numberdate = 7;
-            var numberend = 0;
-
             function getWeekDates() {
-                // if (numberdate == 7) {
+                // if (date_start == 7) {
                 let now = new Date();
-                if (!numberend) {
+                if (!date_end) {
                     now = new Date();
                 } else {
-                    // console.log(numberend)
-                    now = numberend._d;
+                    // console.log(date_end)
+                    now = date_end._d;
                 }
 
                 let dayOfWeek = now.getDay(); //0-6
                 let numDay = now.getDate();
                 let setdate = [];
                 let setarraydate = [];
-                for (var i = numberdate; i >= 1; i--) {
+                for (var i = date_start; i >= 1; i--) {
                     setarraydate.push(i)
                 }
 
-                for (let i = 1; i <= numberdate; i++) {
+                for (let i = 1; i <= date_start; i++) {
                     setdate[i - 1] = new Date(now); //copy
                     setdate[i - 1].setDate(numDay - setarraydate[i - 1]);
                     setdate[i - 1].setHours(23, 59, 59, 999);
@@ -194,6 +223,4 @@ $(document).ready(() => {
             })
         }
     )
-
-
-})
+}

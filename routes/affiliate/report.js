@@ -187,8 +187,8 @@ function filter_user_traffic(a) {
 }
 
 router.post("/affiliate/report/user-traffic", (req, res) => {
-    var time_start = 0;
-    var time_end = 7;
+    var time_start = req.query.datestart;
+    var time_end = req.query.dateend;
     var time_now = new Date();
     var date_now = time_now.setHours(0, 0, 0, 0);
     User.findOne({
@@ -198,7 +198,35 @@ router.post("/affiliate/report/user-traffic", (req, res) => {
         // console.log("user:" + JSON.stringify(user_session));
         var data_use = [];
         async function data_daily_traffic() {
-            for (let i = 0; i < time_end; i++) {
+            var affiliate_statictis = await affiliate_statictis_modal.find({
+                codeShare: user_session.codeShare
+            }, {
+                idUser: 1,
+                dateCreate: 1,
+                dateOut: 1,
+                page: 1
+            }).exec();
+
+            let time_session = function (a) {
+                var c = a.filter((e) => {
+                    return e.dateOut != null
+                })
+                var x = 0;
+                for (let i = 0; i < c.length; i++) {
+                    x = x + (c[i].dateOut - c[i].dateCreate);
+                }
+                // console.log(x);
+                return Number(x) / c.length;
+            }
+            let bounce_rate = function (a) {
+                var c = a.filter((e) => {
+                    return e.dateOut != null &&
+                        e.page.length < 2
+                })
+                return c.length;
+            }
+
+            for (let i = 0; i < time_start; i++) {
                 let getdata = await affiliate_statictis_modal.find({
                     codeShare: user_session.codeShare,
                     dateCreate: {
@@ -212,32 +240,21 @@ router.post("/affiliate/report/user-traffic", (req, res) => {
                     dateOut: 1,
                     page: 1
                 }).exec();
-                let bounce_rate = function () {
-                    var c = getdata.filter((e) => {
-                        return e.dateOut != null &&
-                            e.page.length < 2
-                    })
-                    return c.length;
-                }
-                let time_session = function () {
-                    var c = getdata.filter((e) => {
-                        return e.dateOut != null
-                    })
-                    var x = 0;
-                    for (let i = 0; i < c.length; i++) {
-                        x = x + (c[i].dateOut - c[i].dateCreate);
-                    }
-                    // console.log(x);
-                    return Number(x) / c.length;
-                }
+
+
                 data_use[i] = {
-                    user: filter_user_traffic(getdata).length,
-                    session: getdata.length,
-                    bounceRate: bounce_rate(),
-                    timeSession: time_session()
+                    user: filter_user_traffic(getdata).length
                 }
             }
-            return res.json(data_use)
+            return res.json({
+                daily: data_use,
+                userStatistics: {
+                    user: filter_user_traffic(affiliate_statictis).length,
+                    session: affiliate_statictis.length,
+                    bounceRate: bounce_rate(affiliate_statictis),
+                    timeSession: time_session(affiliate_statictis)
+                }
+            })
         }
         data_daily_traffic();
     })
@@ -245,8 +262,8 @@ router.post("/affiliate/report/user-traffic", (req, res) => {
 
 
 router.post("/affiliate/report/sale-traffic", (req, res) => {
-    var time_start = 0;
-    var time_end = 7;
+    var time_start = req.query.datestart;
+    var time_end = req.query.dateend;
     var time_now = new Date();
     var date_now = time_now.setHours(0, 0, 0, 0);
     var sale_use = [];
@@ -279,7 +296,7 @@ router.post("/affiliate/report/sale-traffic", (req, res) => {
         console.log(data_old[0].blance);
         var real_time = await (data_old[0].blance / count_days).toFixed(2);
 
-        for (let i = 0; i < time_end; i++) {
+        for (let i = 0; i < time_start; i++) {
             let getdata = await affiliate_modal.find({
                 idUser: req.session.iduser,
                 dateCreate: {

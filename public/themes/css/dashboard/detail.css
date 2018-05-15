@@ -493,6 +493,7 @@ button {
     padding-right: 7px;
 }
 
+
 /* .form-control-feedback1 {
     position: absolute;
     top: 27px;
@@ -695,6 +696,7 @@ button {
     z-index: 1;
 }
 
+
 /* .group-advertise:hover{
     opacity: 0.5;
 } */
@@ -885,6 +887,7 @@ a:hover .menumore-listmyapp {
     background: none;
     z-index: 2;
 }
+
 
 /* .hoverspan:hover .spantextmenu{
     white-space: nowrap;
@@ -1208,6 +1211,7 @@ a:hover .menumore-listmyapp {
     border: 1px solid #f5f5f5;
 }
 
+
 /* enu sub left */
 
 .subspantextmenu {
@@ -1260,9 +1264,11 @@ a:hover .menumore-listmyapp {
     color: #666666;
 }
 
+
 /* #submenuleft a{
     color: #666666!important;
 } */
+
 
 /* #submenuleft{
     display: none;
@@ -1393,4 +1399,43 @@ a:hover .menumore-listmyapp {
     padding: 6px 24px 6px 24px;
     background: #22baf0;
     border: none;
+}
+
+.box-content-noti {
+    width: 100%;
+    float: left;
+    border-bottom: 1px dotted;
+    padding-bottom: 5px;
+}
+
+.box-icon-notification {
+    width: 20%;
+    float: left;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.content-notification {
+    width: 80%;
+    float: left;
+}
+
+.title-content-noti {
+    color: #00afee;
+    font-size: 13px;
+    font-family: "OpenSans-Semibold";
+    padding-top: 5px;
+}
+
+.body-content-noti {
+    padding-top: 3px;
+    color: #666666;
+    font-family: "OpenSans-Regular";
+}
+
+.head-content-noti {
+    color: #acb0b6;
+    font-family: "OpenSans-Light";
+    font-size: 13px;
+    padding-top: 3px;
 }

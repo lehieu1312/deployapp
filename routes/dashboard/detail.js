@@ -83,12 +83,12 @@ router.post('/getnumbernoti', (req, res) => {
                 status: false
             }).count().then((dataNumberNoti) => {
                 return notifiUserModels.find({
-                    idUser: req.session.iduser
-                }).then((dataNoti) => {
+                    idUser: req.session.iduser,
+                    status: false
+                }).sort({ dateCreate: -1 }).then((dataNoti) => {
                     console.log('number noti: ' + dataNumberNoti);
                     return res.json({ number: dataNumberNoti, data: dataNoti });
                 })
-
             });
         }
     } catch (error) {
@@ -97,6 +97,37 @@ router.post('/getnumbernoti', (req, res) => {
     }
 
 });
+router.post('/updatestatusnotiforuser', (req, res) => {
+    try {
+        console.log(req.body);
+        notifiUserModels.update({ id: req.body.id }, {
+                $set: {
+                    status: true
+                }
+            }).then(() => {
+                return res.send('Success.');
+            })
+            // if (req.session.iduser) {
+            //     return notifiUserModels.find({
+            //         idUser: req.session.iduser,
+            //         status: false
+            //     }).count().then((dataNumberNoti) => {
+            //         return notifiUserModels.find({
+            //             idUser: req.session.iduser
+            //         }).then((dataNoti) => {
+            //             console.log('number noti: ' + dataNumberNoti);
+            //             return res.json({ number: dataNumberNoti, data: dataNoti });
+            //         })
+
+        //     });
+        // }
+    } catch (error) {
+        console.log(error)
+        res.json({ status: 3, msg: error + '' })
+    }
+
+});
+// 
 router.get('/dashboard', checkAdmin, (req, res) => {
         try {
             // console.log('idusernoti: ' );

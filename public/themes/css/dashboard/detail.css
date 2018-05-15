@@ -1536,3 +1536,7 @@ a:hover .menumore-listmyapp {
     font-size: 13px;
     font-family: "OpenSans-Regular";
 }
+
+.btn-close-noti {
+    float: right;
+}

@@ -21,7 +21,8 @@ var User = require('../../models/user');
 var infor_app_admin = require('../../models/inforappadmin');
 var order_modal = require("../../models/order");
 var promo_code = require("../../models/promocode");
-var affiliate_withdrawal_modal = require("../../models/withdraw")
+var affiliate_withdrawal_modal = require("../../models/withdraw");
+var affiliate_modal = require("../../models/affiliate");
 var http = require('http');
 var server = http.Server(app);
 var paypal = require("paypal-rest-sdk");
@@ -81,10 +82,35 @@ function filtercart(a) {
 
 
 router.get("/affiliate/statements", checkAdmin, (req, res) => {
-    res.render('./affiliate/statement', {
-        title: 'Statements',
-        appuse: "",
-    });
+    affiliate_withdrawal_modal.find({
+        idUser: req.session.iduser
+    }).sort({
+        dateCreate: -1
+    }).then((data) => {
+        if (data.length > 0) {
+            res.render('./affiliate/statement', {
+                title: 'Statements',
+                money: data[0].blance,
+                history: data,
+                appuse: "",
+            });
+        } else {
+            affiliate_modal.find({
+                idUser: req.session.iduser
+            }).sort({
+                dateCreate: -1
+            }).then((data_affiliate) => {
+                res.render('./affiliate/statement', {
+                    title: 'Statements',
+                    money: data_affiliate[0].blance,
+                    history: data,
+                    appuse: "",
+                });
+            })
+        }
+
+    })
+
 })
 
 // 1 pendding  

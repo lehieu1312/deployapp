@@ -216,6 +216,7 @@ text-cent-money {
 }
 
 .content-history-statements {
+    padding-bottom: 120px;
     border-radius: 2px;
     height: 100%;
     width: 1040px;
@@ -227,4 +228,36 @@ text-cent-money {
 
 .download-csv-statement {
     cursor: pointer;
+}
+
+.header-history-statement {
+    margin-top: 10px;
+    padding: 0 5px 0 15px;
+    height: 25px;
+}
+
+.item-header-history-statement {
+    width: 50%;
+}
+
+.form-control-feedback-statement {
+    position: absolute;
+    top: -8px;
+    display: block;
+    line-height: 34px;
+    text-align: center;
+}
+
+.statement-history {
+    margin-top: 20px;
+    min-height: 540px;
+    padding-bottom: 25px;
+}
+
+.set-table-statement {
+    margin-top: 30px;
+}
+
+.set-pagination-statement {
+    margin-right: 20px;
 }

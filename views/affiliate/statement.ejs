@@ -1,37 +1,204 @@
 <% include ../dashboard/headerdetail %>
     <div class="xcontent clsmenu">
-        <div id="title-detail" class="row row1">
-            <div class="content-title-detail has-feedback">
-                <h3 class="textmyapp">Affiliate Report</h3>
-            </div>
-        </div>
-        <div class="statement-header row row1">
-            <div class="content-statement">
-                <div class="set-icon-wallet">
-                    <img src="/themes/img/affiliate/iconwalletstatements.png" alt="money">
-                </div>
-                <div class="money-total-statements">$1,263.99</div>
-                <div class="description-total-statements">Remaining balance in your account</div>
-                <div class="button-withdrawal-statements">
-                    <button class="btn-blue-deploy">
-                        <img src="/themes/img/affiliate/iconwithdrawal.png" alt="money"> Withdrawal
-                    </button>
+        <%
+            function set_money(a) {
+                a = Number(a.toFixed(2));
+                return "$" + a.toLocaleString('en');
+            }
+        %>
+            <div id="title-detail" class="row row1">
+                <div class="content-title-detail has-feedback">
+                    <h3 class="textmyapp">Affiliate Report</h3>
                 </div>
             </div>
-        </div>
-        <div class="daily-traffic row row1">
-            <div class="content-history-statements">
-                <div class="content-head-statistics ">
-                    <span class="settext-h1-traffic ">History</span>
-                    <span class="graytext-h3 floatright ">
-                        <a class="download-csv-statement" onclick="download_csv()"> Download CSV</a>
-                    </span>
+            <div class="statement-header row row1">
+                <div class="content-statement">
+                    <div class="set-icon-wallet">
+                        <img src="/themes/img/affiliate/iconwalletstatements.png" alt="money">
+                    </div>
+                    <div class="money-total-statements">
+                        <%=set_money(money)%>
+                    </div>
+                    <div class="description-total-statements">Remaining balance in your account</div>
+                    <div class="button-withdrawal-statements">
+                        <button class="btn-blue-deploy">
+                            <img src="/themes/img/affiliate/iconwithdrawal.png" alt="money"> Withdrawal
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="statement-history row row1">
+                <div class="content-history-statements">
+                    <div class="content-head-statistics ">
+                        <span class="settext-h1-traffic ">History</span>
+                        <span class="graytext-h3 floatright ">
+                            <a class="download-csv-statement" onclick="download_csv()"> Download CSV</a>
+                        </span>
+                    </div>
+                    <div id="content-history-statement">
+                        <div class="header-history-statement">
+                            <div class="item-header-history-statement float-left">
+                                <span>All( 7) |</span>
+                                <span class="colora">Pending payment</span>( 1) |
+                                <span class="colora">Completed</span>( 1) |
+                                <span class="colora">Cancelled(</span>( 2) |
+                            </div>
+                            <div class="item-header-history-statement float-left">
+                                <div class="content-title-detail has-feedback">
+                                    <span class="setsearch">
+                                        <input type="text" onkeyup="searchappversion()" id="inputsearchapp1" name="search" placeholder="Search...">
+                                        <span class="form-control-feedback-statement" aria-hidden="true">
+                                            <img src="/themes/img/dashboard/iconsearch.png">
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row1">
+                            <div id="content-appversion" class="set-table-statement">
+                                <table id="table-appversion">
+                                    <tr id="title-table-header">
+                                        <th width="7.6%">#</th>
+                                        <th width="15%">Date
+                                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                                        </th>
+                                        <th width="22.2%">Content
+                                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                                        </th>
+                                        <th width="12.2%">Amount
+                                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                                        </th>
+                                        <th width="10%">Status
+                                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                                        </th>
+                                        <th width="10%">Blance
+                                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                                        </th>
+                                        <th width="33%">Note
+                                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                                        </th>
+                                    </tr>
+                                    <% for(let i =0; i <= 5; i ++){%>
+                                        <tr id="version<%=i%>" class="tr-content-appversion findcode">
+                                            <td>
+                                                <%=i+1%>
+                                            </td>
+                                            <td class="table-time-appversion finddate">
+                                                xyz
+                                            </td>
+                                            <td class="table-nameapp findnameapp">
+                                                mnp
+                                            </td>
+                                            <td class="table-version findversion">
+                                                fsdjlk
+                                            </td>
+                                            <td class="table-changelog findnote">
+                                                lkadjsla
+                                            </td>
+                                            <td>
+                                                abc
+                                            </td>
+                                            <td>
+                                                abc
+                                            </td>
+                                        </tr>
+                                        <%}%>
 
+                                            </tbody>
+                                </table>
+
+                                <div class="example">
+                                    <div class="container">
+                                        <div class="pagination-table-appversion row">
+                                            <ul class="pagination set-pagination-statement">
+                                                <li class="edit-li-pagination">
+                                                    <a class="number-items" href="#"></a>
+                                                </li>
+                                                <li class="limitsuperback">
+                                                    <a class="limitpagination" href="#">
+                                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="superback">
+                                                    <a href="#">
+                                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="backpage">
+                                                    <a href="#">
+                                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="limitback">
+                                                    <a class="limitpagination" href="#">
+                                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="thispage" href="#">
+
+                                                    </a>
+                                                </li>
+                                                <li class="edit-li-pagination">
+                                                    <a class="numberpage" href="#">
+                                                    </a>
+                                                </li>
+                                                <li class="limitnext">
+                                                    <a class="limitpagination" href="#">
+                                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="nextpage">
+                                                    <a href="#">
+                                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="supernext">
+                                                    <a href="#">
+                                                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="limitsupernext">
+                                                    <a class="limitpagination" href="#">
+                                                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="showing-footer">Showing 1-
+                                <span id="number-show-footer"></span> of
+                                <span class="number-items" href="#"></span>
+                            </span>
+                            <div class="container ">
+                                <div class="modal fade" id="myModal" role="dialog">
+                                    <div class="modal-dialog  ">
+                                        <div class="modal-content1">
+                                            <div class="dialogdeleteapp">
+                                                <div class="dialogdeleteapp-head-history">
+                                                    Write
+                                                </div>
+                                                <form id="form-note-history" onsubmit="return false">
+                                                    <textarea placeholder="Your content..." rows="5" class="textarea-history"></textarea>
+                                                    <div class="dialogdeleteapp-foot-history">
+                                                        <button id="cancel-histoty" class="float-right btn-gray margin-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                                        <button type="submit" class="float-right btn-blue" id="done-histoty">Done</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
     </div>
     </div>
     </div>
     <script type="text/javascript " charset="utf-8 " src="/themes/js/affiliate/statements/statement.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/appversion/pagination.js"></script>

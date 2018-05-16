@@ -65,7 +65,8 @@
             <div id="filter-table-appversion" class="row row1">
                 <span class="table-show">Show</span>
                 <div id="filter-number" class="btn-group">
-                    <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
                         <span id="span-show-number" class="span-button-select">18</span>
                         <span class="caret arow-button-select"></span>
                     </button>
@@ -260,54 +261,56 @@
                                                                     <span class="textstatus">
                                                                         <%=myorder[i].status%>
                                                                     </span>
-                                                                <img class="arrowselecsattus" src="/themes/img/appversion/iconarrowselectwhite.png" alt="">
+                                                                    <img class="arrowselecstatus" src="/themes/img/appversion/iconarrowselectwhite.png" alt="">
                                                                 </span>
                                                                 <% break; 
                                                         case 2: %>
-                                                                    <span class="paddingstatus orderorange statuspayment" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                                    <span class="paddingstatus orderorange statuspayment" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                                         <span class="textstatus">
                                                                             <%=myorder[i].status%>
                                                                         </span>
-                                                                    <img class="arrowselecsattus" src="/themes/img/appversion/iconarrowselectwhite.png" alt="">
+                                                                        <img class="arrowselecstatus" src="/themes/img/appversion/iconarrowselectwhite.png" alt="">
                                                                     </span>
                                                                     <% break; 
                                                            case 3:%>
-                                                                        <span class="paddingstatus ordergray statuspayment" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                                        <span class="paddingstatus ordergray statuspayment" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                                             <span class="textstatus">
                                                                                 <%=myorder[i].status%>
                                                                             </span>
-                                                                        <img class="arrowselecsattus" src="/themes/img/appversion/iconarrowselectwhite.png" alt="">
+                                                                            <img class="arrowselecstatus" src="/themes/img/appversion/iconarrowselectwhite.png" alt="">
                                                                         </span>
                                                                         <% break; 
                                                               case 4: %>
-                                                                            <span class="paddingstatus ordergreen statuspayment" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                                            <span class="paddingstatus ordergreen statuspayment" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                                                 <span class="textstatus">
                                                                                     <%=myorder[i].status%>
                                                                                 </span>
-                                                                            <img class="arrowselecsattus" src="/themes/img/appversion/iconarrowselectwhite.png" alt="">
+                                                                                <img class="arrowselecstatus" src="/themes/img/appversion/iconarrowselectwhite.png" alt="">
                                                                             </span>
                                                                             <% break; 
                                                                  case 5: %>
-                                                                                <span class="paddingstatus orderpink statuspayment" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                                                <span class="paddingstatus orderpink statuspayment" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                                                     <span class="textstatus">
                                                                                         <%=myorder[i].status%>
                                                                                     </span>
-                                                                                <img class="arrowselecsattus" src="/themes/img/appversion/iconarrowselectwhite.png" alt="">
+                                                                                    <img class="arrowselecstatus" src="/themes/img/appversion/iconarrowselectwhite.png" alt="">
                                                                                 </span>
                                                                                 <%break; 
                                                                     case 6:%>
-                                                                                    <span class="paddingstatus ordergrayred statuspayment" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                                                    <span class="paddingstatus ordergrayred statuspayment" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                                                         <span class="textstatus">
                                                                                             <%=myorder[i].status%>
                                                                                         </span>
-                                                                                    <img class="arrowselecsattus" src="/themes/img/appversion/iconarrowselectwhite.png" alt="">
+                                                                                        <img class="arrowselecstatus" src="/themes/img/appversion/iconarrowselectwhite.png" alt="">
+                                                                                    </span>
                                                                                     <%break; 
+                                                                                  
                                                                        case 7:%>
-                                                                                        <span class="paddingstatus orderpinkstrong statuspayment" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                                                                <span class="textstatus">
-                                                                                                    <%=myorder[i].status%>
-                                                                                                </span>
-                                                                                        <img class="arrowselecsattus" src="/themes/img/appversion/iconarrowselectwhite.png" alt="">
+                                                                                        <span class="paddingstatus orderpinkstrong statuspayment" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                                                            <span class="textstatus">
+                                                                                                <%=myorder[i].status%>
+                                                                                            </span>
+                                                                                            <img class="arrowselecstatus" src="/themes/img/appversion/iconarrowselectwhite.png" alt="">
                                                                                         </span>
                                                                                         <%break;} %>
 
@@ -428,7 +431,7 @@
                 </div>
                 <span class="showing-footer">Showing 1-
                     <span id="number-show-footer"></span> of
-                <span class="number-items" href="#"></span>
+                    <span class="number-items" href="#"></span>
                 </span>
                 <div class="container ">
                     <div class="modal fade" id="myModal-deleteuser" role="dialog">

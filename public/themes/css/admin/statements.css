@@ -37,8 +37,15 @@
     font-size: 24px;
 }
 
-.percent-ratio {
+.percent-ratio-up {
     background: #3fcf7f;
+    padding: 1px 10px;
+    border-radius: 14px;
+    color: #fff;
+}
+
+.percent-ratio-down {
+    background: #f44336;
     padding: 1px 10px;
     border-radius: 14px;
     color: #fff;

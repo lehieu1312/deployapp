@@ -27,7 +27,7 @@ let orderShema = mongoose.Schema({
         amount: Number,
         intoMoney: Number
     }],
-    totalMoney: Number,
+    amount: Number,
     paymentMethod: String,
     content: String,
     note: String,

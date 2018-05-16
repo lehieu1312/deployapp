@@ -13,13 +13,23 @@ var hbs = require('nodemailer-express-handlebars');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 
+var withdrawModels = require('../../../models/withdraw');
+var orderModels = require('../../../models/order');
+
 
 
 
 
 router.get('/', (req, res) => {
     try {
-        res.render('admin/statements/index', { moment, title: "Statements" });
+        var arrData = [];
+        withdrawModels.find({}, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, status: 1 }).then((dataWithdraw) => {
+            console.log(dataWithdraw);
+            arrData.push(dataWithdraw);
+            console.log(arrData);
+            res.render('admin/statements/index', { moment, title: "Statements" });
+        })
+
         // membershipModels.find().sort({ dateCreate: -1 }).then((dataMemberShipModels) => {
         //     res.render('admin/statements/index', { dataMemberShipModels, moment, title: "Statements" });
         // });

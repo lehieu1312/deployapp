@@ -4,6 +4,8 @@ var ObjectId = Schema.ObjectId;
 let withdrawSchema = mongoose.Schema({
     id: String,
     idUser: String,
+    username: String,
+    email: String,
     codeShare: String,
     bankSend: String,
     bankReceipt: String,

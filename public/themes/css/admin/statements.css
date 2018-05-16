@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'OpenSans-Light';
+    src: url('/themes/fonts/OpenSans-Light_2.ttf') format('truetype');
+}
+
+.box-statement-math {
+    margin-right: 20px;
+    margin-left: 20px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 20px;
+    font-family: "OpenSans-Light";
+    color: #666666;
+}
+
+.box-revenue {
+    width: 25%;
+    float: left;
+}
+
+.box-withdraw {
+    width: 25%;
+    float: left;
+}
+
+.box-profit {
+    width: 25%;
+    float: left;
+}
+
+.box-pending {
+    width: 25%;
+    float: left;
+}
+
+.number-money {
+    font-size: 24px;
+}
+
+.percent-ratio {
+    background: #3fcf7f;
+    padding: 1px 10px;
+    border-radius: 14px;
+    color: #fff;
+}
+
+.number-money {
+    padding: 5px 0px;
+}
+
+.img-arrow-top {
+    padding-bottom: 3px;
+}

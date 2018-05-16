@@ -1,0 +1,246 @@
+<% include ../layout/header %>
+    <link rel="stylesheet" type="text/css" href="/themes/css/admin/statements.css">
+    <div class="xcontent clsmenu">
+        <div id="title-detail" class="row row1">
+            <div id="title-appversion" class="content-title-detail has-feedback">
+                <span class="textmyapp">Statements
+    </span>
+
+                <span class="setsearch">
+                <!-- onkeyup="searchFunc()" -->
+        <input type="text"  id="inputsearch-customer" name="search" placeholder="Search...">
+        <span class="form-control-feedback2 icon-search-top" aria-hidden="true">
+            <img src="/themes/img/admin/search.png">
+        </span>
+                </span>
+            </div>
+        </div>
+        <div class="box-statement-math row">
+            <div class="box-revenue">
+                <div class="title-box">
+                    <span>Revenue</span>
+                </div>
+                <div class="number-money">
+                    $158.755.5145
+                </div>
+                <div class="dv-traffic">
+                    <span class="percent-ratio"><img class="img-arrow-top" src="/themes/img/admin/arrowtop.png" alt="Arrow"> 86.36%</span>
+                </div>
+            </div>
+            <div class="box-withdraw">
+                <div class="title-box">
+                    <span>Withdraw</span>
+                </div>
+                <div class="number-money">
+                    $158.755.5145
+                </div>
+                <div class="dv-traffic">
+                    <span class="percent-ratio">86.36%</span>
+                </div>
+            </div>
+            <div class="box-profit">
+                <div class="title-box">
+                    <span>Profit</span>
+                </div>
+                <div class="number-money">
+                    $158.755.5145
+                </div>
+                <div class="dv-traffic">
+                    <span class="percent-ratio">86.36%</span>
+                </div>
+            </div>
+            <div class="box-pending">
+
+                <div class="title-box">
+                    <span>Profit</span>
+                </div>
+                <div class="number-money">
+                    $158.755.5145
+                </div>
+                <div class="dv-traffic">
+                    <span class="percent-ratio">86.36%</span>
+                </div>
+
+            </div>
+        </div>
+        <div id="filter-table-appversion" class="row row1">
+            <div class="filter-left">
+                <span class="table-show">Show</span>
+                <div id="filter-number" class="btn-group">
+                    <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber btn-shownum-perpage" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="span-show-number" class="span-button-select">9</span>
+            <span class="caret arow-button-select"></span>
+        </button>
+                    <ul class="dropdown-menu ">
+                        <li id="show9perpage">
+                            <a href="javascript:void(0)">9 Per page</a>
+                        </li>
+                        <li id="show18perpage">
+                            <a href="javascript:void(0)">18 Per page</a>
+                        </li>
+                        <li id="show27perpage">
+                            <a href="javascript:void(0)">27 Per page</a>
+                        </li>
+                        <li id="show36perpage">
+                            <a href="javascript:void(0)">36 Per page</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div id="filter-date" class="btn-group">
+                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="span-selcect-date" class="span-button-select">All Dates</span>
+            <span class="caret arow-button-select"></span>
+        </button>
+                    <ul class="dropdown-menu">
+                        <li id="filter-date-hoursago">
+                            <a href="javascript:void(0)">Hours Ago</a>
+                        </li>
+                        <li id="filter-date-yesterday">
+                            <a href="javascript:void(0)">Yesterday</a>
+                        </li>
+                        <li id="filter-date-lastweed">
+                            <a href="javascript:void(0)">Last Weed</a>
+                        </li>
+                        <li id="filter-date-alldate">
+                            <a href="javascript:void(0)">All Dates</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li id="filter-date-customize">
+                            <input hidden id="fillter-date-custom" value="">
+                            <a href="javascript:void(0)">Custom...</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="filter-page-right">
+                <div class="pagination-table-deploy ">
+                    <ul class="pagination">
+                        <li class="edit-li-pagination">
+                            <span id="totalitems" class="totalitems"></span>
+                        </li>
+                        <li class="btnfirstpage">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="btnprevpage">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="currentpage currentpagetext" href="javascript:void(0)"></a>
+                        </li>
+                        <li class="edit-li-pagination">
+                            <span class="totalpage totalpagetext" href="javascript:void(0)">
+                </span>
+                        </li>
+                        <li class="btnnextpage">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="btnlastpage">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row row1">
+            <div id="content-appversion">
+                <table id="table-appversion">
+                    <tr id="title-table-header">
+                        <th width="7.8%">#</th>
+                        <th width="13%">User
+                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                        </th>
+                        <th width="15.2%">Date create
+                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                        </th>
+                        <th width="15.2%">Extension date
+                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                        </th>
+                        <th width="10.2%">Amount
+                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                        </th>
+                        <th width="12%">Expire days
+                        </th>
+                        <th width="10%">Actions
+                        </th>
+                    </tr>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            <!-- Paging bottom -->
+            <div class="box-paging-bottom">
+                <div class="box-showitem-left">
+                    <span>Showing </span> <span class="totalshowcurrent"></span> <span> of </span><span class="totalitems"></span>
+                </div>
+                <div class="box-paging-right">
+                    <div class="pagination-table-deploy">
+                        <ul class="pagination">
+                            <li class="edit-li-pagination">
+                                <span id="totalitems" class="totalitems"></span>
+                            </li>
+                            <li class="btnfirstpage">
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="btnprevpage">
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="currentpage currentpagetext" href="javascript:void(0)"></a>
+                            </li>
+                            <li class="edit-li-pagination">
+                                <span class="totalpage totalpagetext" href="javascript:void(0)">
+                                </span>
+                            </li>
+                            <li class="btnnextpage">
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="btnlastpage">
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Close -->
+
+        </div>
+
+
+    </div>
+    </div>
+    </div>
+
+    <!-- <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/membership.js "></script> -->
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/paging.js "></script>
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/breadcrumb.js "></script>
+    <script type="text/javascript">
+        // getPagination('#table-appversion');
+        //getPagination('.table-class');
+        //getPagination('table');
+    </script>
+    <!-- <script type="text/javascript " charset="utf-8 " src="/themes/js/dashboard/appversion/pagination.js "></script> -->

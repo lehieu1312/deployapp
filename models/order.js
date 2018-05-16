@@ -5,6 +5,7 @@ let orderShema = mongoose.Schema({
     id: String,
     codeOrder: String,
     idUser: String,
+    username: String,
     firstName: String,
     lastName: String,
     company: String,
@@ -28,6 +29,8 @@ let orderShema = mongoose.Schema({
     }],
     totalMoney: Number,
     paymentMethod: String,
+    content: String,
+    note: String,
     statusOrder: String,
     dateCreate: Date,
     status: Boolean

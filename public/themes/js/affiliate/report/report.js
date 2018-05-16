@@ -126,6 +126,7 @@ function clickmenu(a, b, c) {
                 showdate.innerHTML = startx[1] + " " + startx[2] + "," + startx[3] + " - " + endx[1] + " " + endx[2] + "," + endx[3];;
                 selected.innerHTML = "Custom";
                 selected1.innerHTML = "Custom";
+                // console.log(number, end)
                 b(number, end)
             })
     }

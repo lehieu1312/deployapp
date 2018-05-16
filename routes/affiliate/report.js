@@ -225,25 +225,47 @@ router.post("/affiliate/report/user-traffic", (req, res) => {
                 })
                 return c.length;
             }
+            if (time_end != 0) {
+                for (let i = 0; i < time_start; i++) {
+                    let getdata = await affiliate_statictis_modal.find({
+                        codeShare: user_session.codeShare,
+                        dateCreate: {
+                            $gte: time_end - (i + 1) * 86400000,
+                            $lt: time_end - (i) * 86400000
+                        },
+                        status: true
+                    }, {
+                        idUser: 1,
+                        dateCreate: 1,
+                        dateOut: 1,
+                        page: 1
+                    }).exec();
 
-            for (let i = 0; i < time_start; i++) {
-                let getdata = await affiliate_statictis_modal.find({
-                    codeShare: user_session.codeShare,
-                    dateCreate: {
-                        $gte: date_now - (i + 1) * 86400000,
-                        $lt: date_now - (i) * 86400000
-                    },
-                    status: true
-                }, {
-                    idUser: 1,
-                    dateCreate: 1,
-                    dateOut: 1,
-                    page: 1
-                }).exec();
+
+                    data_use[i] = {
+                        user: filter_user_traffic(getdata).length
+                    }
+                }
+            } else {
+                for (let i = 0; i < time_start; i++) {
+                    let getdata = await affiliate_statictis_modal.find({
+                        codeShare: user_session.codeShare,
+                        dateCreate: {
+                            $gte: date_now - (i + 1) * 86400000,
+                            $lt: date_now - (i) * 86400000
+                        },
+                        status: true
+                    }, {
+                        idUser: 1,
+                        dateCreate: 1,
+                        dateOut: 1,
+                        page: 1
+                    }).exec();
 
 
-                data_use[i] = {
-                    user: filter_user_traffic(getdata).length
+                    data_use[i] = {
+                        user: filter_user_traffic(getdata).length
+                    }
                 }
             }
             return res.json({
@@ -267,9 +289,6 @@ router.post("/affiliate/report/sale-traffic", (req, res) => {
     var time_now = new Date();
     var date_now = time_now.setHours(0, 0, 0, 0);
 
-    // if(time_end != 0){
-
-    // }
 
     var sale_use = [];
     async function data_sale_traffic() {
@@ -301,19 +320,37 @@ router.post("/affiliate/report/sale-traffic", (req, res) => {
         console.log(data_old[0].blance);
         var real_time = await (data_old[0].blance / count_days).toFixed(2);
 
-        for (let i = 0; i < time_start; i++) {
-            let getdata = await affiliate_modal.find({
-                idUser: req.session.iduser,
-                dateCreate: {
-                    $gte: date_now - (i + 1) * 86400000,
-                    $lt: date_now - (i) * 86400000
-                },
-                status: true
-            }, {
-                money: 1
-            }).exec();
-            sale_use.push(getdata);
+        if (time_end != 0) {
+            for (let i = 0; i < time_start; i++) {
+                let getdata = await affiliate_modal.find({
+                    idUser: req.session.iduser,
+                    dateCreate: {
+                        $gte: time_end - (i + 1) * 86400000,
+                        $lt: time_end - (i) * 86400000
+                    },
+                    status: true
+                }, {
+                    money: 1
+                }).exec();
+                sale_use.push(getdata);
+            }
+        } else {
+            for (let i = 0; i < time_start; i++) {
+                let getdata = await affiliate_modal.find({
+                    idUser: req.session.iduser,
+                    dateCreate: {
+                        $gte: date_now - (i + 1) * 86400000,
+                        $lt: date_now - (i) * 86400000
+                    },
+                    status: true
+                }, {
+                    money: 1
+                }).exec();
+                sale_use.push(getdata);
+            }
         }
+
+
         return res.json({
             statistics: {
                 weekly: weekly.length,

@@ -53,6 +53,12 @@ router.post('/send-noti-to-user', multipartMiddleware, (req, res) => {
                 status: false
             });
             return notificationUserData.save().then(() => {
+                return sendNotiUserModels.find({
+                    idUser: req.body.iduser,
+                    status: false
+                }).count();
+            }).then((datanumber) => {
+                console.log('datanumber: ' + datanumber);
                 return req.io.sockets.emit('notification-' + req.body.iduser, {
                     id: sID,
                     title: req.body.title,
@@ -61,7 +67,7 @@ router.post('/send-noti-to-user', multipartMiddleware, (req, res) => {
                 });
             }).then(() => {
                 return res.json({ status: 1, msg: "Send success to user." });
-            });
+            })
         }
 
         // 

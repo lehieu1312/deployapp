@@ -197,18 +197,21 @@
                                         <th width="10%">Blance
                                             <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                                         </th>
-                                        <th width="33%">Note
+                                        <th width="25%">Note
+                                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                                        </th>
+                                        <th width="8%">
                                             <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                                         </th>
                                     </tr>
                                     <%   let status = ["Pedding", "Complate", "Cancel"] %>
                                         <% for(let i = 0; i < history.length; i ++){%>
                                             <% var number = history.length - i - 1;
-                                        var d = history[number].dateCreate;
-                                        var m = d.getMonth() + 1;
-                                        var updated = d.getDate() + "/" + m + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " GMT";    
-                                        var arr = updated.split(" ");
-                                         %>
+                                                var d = history[number].dateCreate;
+                                                var m = d.getMonth() + 1;
+                                                var updated = d.getDate() + "/" + m + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " GMT";    
+                                                var arr = updated.split(" ");
+                                            %>
                                                 <tr id="version<%=i%>" class="tr-content-appversion findcode">
                                                     <td>
                                                         <%=i+1%>
@@ -238,9 +241,23 @@
                                                     <td>
                                                         <%=history[i].note%>
                                                     </td>
+                                                    <td class="set-position-relative">
+                                                        <img class="setimg-head-myapp deleteuser" src="/themes/img/dashboard/iconmenumore.png">
+                                                        <div class="delete-user" style="display:none">
+                                                            <a href="#" data-toggle="modal" data-target="#mymodal-deleteuser">
+                                                                <div class="element-delete">
+                                                                    <img class="imgicondelete" src="/themes/img/affiliate/iconview.png">
+                                                                    <span>View</span>
+                                                                </div>
+                                                            </a>
+                                                            <div class="arrowmenuuser-left">
+                                                            </div>
+                                                            <div class="arrowmenuuser-left1">
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                                 <%}%>
-
                                                     </tbody>
                                 </table>
 

@@ -5,27 +5,6 @@
                 <h3 class="textmyapp">Affiliate Report</h3>
             </div>
         </div>
-
-        <%
-        function set_money(a) {
-            a = Number(a.toFixed(2));
-            return "$" + a.toLocaleString('en');
-        }
-
-        function set_money_change(a) {
-            if(a>=0){
-                a = Number(a.toFixed(2));
-                return "+ $" + a.toLocaleString('en');
-            }else{
-                a = Math.abs(a);
-                a = Number(a.toFixed(2));
-                return "- $" + a.toLocaleString('en');
-            }
-           
-        }
-        %>
-
-
     </div>
     </div>
     </div>

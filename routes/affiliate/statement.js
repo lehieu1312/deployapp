@@ -126,6 +126,13 @@ router.post("/getdata/withdrawal", (req, res) => {
     })
 })
 
+router.get("/affiliate/statement/detail", checkAdmin, (req, res) => {
+    res.render('./affiliate/detail', {
+        title: 'Detail Statements',
+        appuse: "",
+    });
+})
+
 
 
 module.exports = router;

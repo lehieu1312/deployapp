@@ -56,10 +56,10 @@ function makeid() {
     return text;
 }
 
-router.get("/affiliate/withdrawal", (req, res) => {
+router.get("/affiliate/withdrawal", checkAdmin, (req, res) => {
     res.render("./affiliate/withdrawal", {
         title: "Withdrawal",
-        myapp: ""
+        appuse: ""
     })
 })
 

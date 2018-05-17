@@ -261,3 +261,30 @@ text-cent-money {
 .set-pagination-statement {
     margin-right: 20px;
 }
+
+.content-detail-affiliate {
+    height: 340px;
+    width: 1050px;
+}
+
+.lable-content-detail-affiliate {
+    height: 100%;
+    margin-left: 25px;
+    border: solid 1px #f1f1f1;
+    border-radius: 2px;
+    background: white;
+}
+
+.left-content-detail-affiliate {
+    width: 187px;
+    height: auto;
+    line-height: 2;
+    padding: 10px 0 0 20px;
+}
+
+.right-content-detail-affiliate {
+    width: 800px;
+    height: auto;
+    line-height: 2;
+    padding: 10px 0 0 20px;
+}

@@ -17,7 +17,12 @@ $(document).ready(function() {
         if (tmlpage == 0) {
             totalPages = $('.trrecord').length / mPageSize;
         } else {
-            totalPages = $('.trrecord').length / mPageSize + 1;
+            if (($('.trrecord').length / mPageSize) == 0) {
+                totalPages = $('.trrecord').length / mPageSize;
+            } else {
+                totalPages = $('.trrecord').length / mPageSize + 1;
+            }
+
         }
         totalPages = Math.floor(totalPages);
         totalRecord = $('.trrecord').length;
@@ -29,31 +34,36 @@ $(document).ready(function() {
     function showRecord(fPageSize, fCurrentPage, fTotalRecord, fTotalPage) {
         var trnum = 0;
         $('.currentpagetext').html(fCurrentPage);
-        $('.trrecord').each(function() {
-            trnum++;
-            if (fCurrentPage == 1) {
-                if (trnum <= fPageSize) {
-                    $('.totalshowcurrent').html('1-' + trnum);
-                    $(this).show();
-                    $(this).find('.numberorder').html(trnum);
+        if ($('.trrecord').length > 0) {
+            $('.trrecord').each(function() {
+                trnum++;
+                if (fCurrentPage == 1) {
+                    if (trnum <= fPageSize) {
+                        $('.totalshowcurrent').html('1-' + trnum);
+                        $(this).show();
+                        $(this).find('.numberorder').html(trnum);
+                    } else {
+                        $(this).hide();
+                    }
                 } else {
-                    $(this).hide();
+                    var countPrevious = ((fCurrentPage - 1) * fPageSize);
+                    var countNext = (((fCurrentPage + 1) * fPageSize) - fPageSize);
+                    if (fCurrentPage == fTotalPage) {
+                        $('.totalshowcurrent').html((countPrevious + 1) + '-' + (fTotalRecord));
+                    } else
+                        $('.totalshowcurrent').html((countPrevious + 1) + '-' + (countNext));
+                    if ((countPrevious < trnum) && (trnum <= countNext)) {
+                        $(this).find('.numberorder').html(trnum);
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
                 }
-            } else {
-                var countPrevious = ((fCurrentPage - 1) * fPageSize);
-                var countNext = (((fCurrentPage + 1) * fPageSize) - fPageSize);
-                if (fCurrentPage == fTotalPage) {
-                    $('.totalshowcurrent').html((countPrevious + 1) + '-' + (fTotalRecord));
-                } else
-                    $('.totalshowcurrent').html((countPrevious + 1) + '-' + (countNext));
-                if ((countPrevious < trnum) && (trnum <= countNext)) {
-                    $(this).find('.numberorder').html(trnum);
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            }
-        });
+            });
+        } else {
+            $('.totalshowcurrent').html(trnum);
+            $(this).find('.numberorder').html(trnum);
+        }
     }
     $('.btnfirstpage').click(() => {
         currentPage = 1;

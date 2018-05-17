@@ -39,7 +39,35 @@ function genderCodeShare() {
 router.get('/', (req, res) => {
     try {
         var condition = req.query.con;
-        if (condition == "deactive") {
+        if (condition == "affiliate") {
+            userModels.aggregate([{
+                    $lookup: {
+                        from: 'orders',
+                        localField: 'id',
+                        foreignField: 'idUser',
+                        as: 'orders'
+                    }
+                },
+                {
+                    $addFields: {
+                        count: { $size: '$orders' }
+                    }
+                }, {
+                    $match: {
+                        count: { $gte: 1 }
+                    }
+                }
+            ]).then((dataUser) => {
+                console.log(dataUser);
+                userModels.find().sort({ dateCreate: -1 }).then((dataAll) => {
+                    userModels.find({ blocked: true }).sort({ dateCreate: -1 }).then((userBocked) => {
+                        userModels.find({ status: false }).sort({ dateCreate: -1 }).then((userDeactive) => {
+                            res.render('admin/customer', { dataUser, dataAll, userDeactive, userBocked, moment, title: "Customer" });
+                        });
+                    });
+                });
+            });
+        } else if (condition == "deactive") {
             userModels.find({ status: false }).sort({ dateCreate: -1 }).then((dataUser) => {
                 userModels.find().sort({ dateCreate: -1 }).then((dataAll) => {
                     userModels.find({ blocked: true }).sort({ dateCreate: -1 }).then((userBocked) => {

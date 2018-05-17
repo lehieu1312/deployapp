@@ -34,5 +34,6 @@ let orderShema = mongoose.Schema({
     statusOrder: String,
     dateCreate: Date,
     status: Boolean
-})
-let orders = module.exports = mongoose.model("orders", orderShema)
+}, { collection: 'orders' });
+module.exports = mongoose.model('orders', orderShema);
+// let orders = module.exports = mongoose.model("orders", orderShema)

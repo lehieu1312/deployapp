@@ -36,6 +36,6 @@ let userChema = mongoose.Schema({
     }],
     blocked: Boolean,
     status: Boolean
-});
-
-let User = module.exports = mongoose.model('users', userChema);
+}, { collection: 'users' });
+module.exports = mongoose.model('users', userChema);
+// let User = module.exports = mongoose.model('users', userChema);

@@ -17,6 +17,7 @@ var multipartMiddleware = multipart();
 var libAppCountry = require('../../../lib/country');
 var libCountry = libAppCountry.country;
 var userModels = require('../../../models/user');
+var orderModels = require('../../../models/order');
 
 function genderPassword() {
     var text = "";
@@ -38,19 +39,21 @@ function genderCodeShare() {
 
 router.get('/', (req, res) => {
     try {
+        console.log('abc');
         var condition = req.query.con;
         if (condition == "affiliate") {
+            console.log('1');
             userModels.aggregate([{
                     $lookup: {
-                        from: 'orders',
+                        from: 'affiliates',
                         localField: 'id',
                         foreignField: 'idUser',
-                        as: 'orders'
+                        as: 'affiliates'
                     }
                 },
                 {
                     $addFields: {
-                        count: { $size: '$orders' }
+                        count: { $size: '$affiliates' }
                     }
                 }, {
                     $match: {
@@ -62,37 +65,96 @@ router.get('/', (req, res) => {
                 userModels.find().sort({ dateCreate: -1 }).then((dataAll) => {
                     userModels.find({ blocked: true }).sort({ dateCreate: -1 }).then((userBocked) => {
                         userModels.find({ status: false }).sort({ dateCreate: -1 }).then((userDeactive) => {
-                            res.render('admin/customer', { dataUser, dataAll, userDeactive, userBocked, moment, title: "Customer" });
+                            res.render('admin/customer', { dataUser, affiliateData: dataUser, dataAll, userDeactive, userBocked, moment, title: "Customer" });
                         });
                     });
                 });
             });
+
         } else if (condition == "deactive") {
             userModels.find({ status: false }).sort({ dateCreate: -1 }).then((dataUser) => {
-                userModels.find().sort({ dateCreate: -1 }).then((dataAll) => {
-                    userModels.find({ blocked: true }).sort({ dateCreate: -1 }).then((userBocked) => {
-                        userModels.find({ status: false }).sort({ dateCreate: -1 }).then((userDeactive) => {
-                            res.render('admin/customer', { dataUser, dataAll, userDeactive, userBocked, moment, title: "Customer" });
+                userModels.aggregate([{
+                        $lookup: {
+                            from: 'affiliates',
+                            localField: 'id',
+                            foreignField: 'idUser',
+                            as: 'affiliates'
+                        }
+                    },
+                    {
+                        $addFields: {
+                            count: { $size: '$affiliates' }
+                        }
+                    }, {
+                        $match: {
+                            count: { $gte: 1 }
+                        }
+                    }
+                ]).then((affiliateData) => {
+                    userModels.find().sort({ dateCreate: -1 }).then((dataAll) => {
+                        userModels.find({ blocked: true }).sort({ dateCreate: -1 }).then((userBocked) => {
+                            userModels.find({ status: false }).sort({ dateCreate: -1 }).then((userDeactive) => {
+                                res.render('admin/customer', { dataUser, dataAll, affiliateData, userDeactive, userBocked, moment, title: "Customer" });
+                            });
                         });
                     });
                 });
             });
         } else if (condition == "blocked") {
             userModels.find({ blocked: true }).sort({ dateCreate: -1 }).then((dataUser) => {
-                userModels.find().sort({ dateCreate: -1 }).then((dataAll) => {
-                    userModels.find({ blocked: true }).sort({ dateCreate: -1 }).then((userBocked) => {
-                        userModels.find({ status: false }).sort({ dateCreate: -1 }).then((userDeactive) => {
-                            res.render('admin/customer', { dataUser, dataAll, userDeactive, userBocked, moment, title: "Customer" });
+                userModels.aggregate([{
+                        $lookup: {
+                            from: 'affiliates',
+                            localField: 'id',
+                            foreignField: 'idUser',
+                            as: 'affiliates'
+                        }
+                    },
+                    {
+                        $addFields: {
+                            count: { $size: '$affiliates' }
+                        }
+                    }, {
+                        $match: {
+                            count: { $gte: 1 }
+                        }
+                    }
+                ]).then((affiliateData) => {
+                    userModels.find().sort({ dateCreate: -1 }).then((dataAll) => {
+                        userModels.find({ blocked: true }).sort({ dateCreate: -1 }).then((userBocked) => {
+                            userModels.find({ status: false }).sort({ dateCreate: -1 }).then((userDeactive) => {
+                                res.render('admin/customer', { dataUser, dataAll, affiliateData, userDeactive, userBocked, moment, title: "Customer" });
+                            });
                         });
                     });
                 });
+
             });
         } else {
             userModels.find().sort({ dateCreate: -1 }).then((dataUser) => {
-                userModels.find().sort({ dateCreate: -1 }).then((dataAll) => {
-                    userModels.find({ blocked: true }).sort({ dateCreate: -1 }).then((userBocked) => {
-                        userModels.find({ status: false }).sort({ dateCreate: -1 }).then((userDeactive) => {
-                            res.render('admin/customer', { dataUser, dataAll, userDeactive, userBocked, moment, title: "Customer" });
+                userModels.aggregate([{
+                        $lookup: {
+                            from: 'affiliates',
+                            localField: 'id',
+                            foreignField: 'idUser',
+                            as: 'affiliates'
+                        }
+                    },
+                    {
+                        $addFields: {
+                            count: { $size: '$affiliates' }
+                        }
+                    }, {
+                        $match: {
+                            count: { $gte: 1 }
+                        }
+                    }
+                ]).then((affiliateData) => {
+                    userModels.find().sort({ dateCreate: -1 }).then((dataAll) => {
+                        userModels.find({ blocked: true }).sort({ dateCreate: -1 }).then((userBocked) => {
+                            userModels.find({ status: false }).sort({ dateCreate: -1 }).then((userDeactive) => {
+                                res.render('admin/customer', { dataUser, dataAll, affiliateData, userDeactive, userBocked, moment, title: "Customer" });
+                            });
                         });
                     });
                 });
@@ -100,6 +162,7 @@ router.get('/', (req, res) => {
         }
 
     } catch (error) {
+        console.log(error);
         return res.render('error', { error, title: "Page Error" });
     }
 });

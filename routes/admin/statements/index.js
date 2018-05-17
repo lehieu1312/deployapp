@@ -25,10 +25,21 @@ router.get('/', (req, res) => {
         var arrData = [];
         withdrawModels.find({}, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, status: 1 }).then((dataWithdraw) => {
             console.log(dataWithdraw);
-            arrData.push(dataWithdraw);
+            async.forEach(dataWithdraw, (item) => {
+                arrData.push(item);
+            })
+            console.log('=====================================================================');
             console.log(arrData);
-            res.render('admin/statements/index', { moment, title: "Statements" });
-        })
+            orderModels.find({}, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, status: 1 }).then((dataOrders) => {
+                console.log(dataOrders);
+                async.forEach(dataOrders, (item) => {
+                    arrData.push(item);
+                })
+                console.log('=====================================================================');
+                console.log(arrData);
+                res.render('admin/statements/index', { moment, title: "Statements" });
+            });
+        });
 
         // membershipModels.find().sort({ dateCreate: -1 }).then((dataMemberShipModels) => {
         //     res.render('admin/statements/index', { dataMemberShipModels, moment, title: "Statements" });

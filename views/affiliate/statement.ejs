@@ -54,8 +54,131 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="filter-table-appversion" class="set-table-statement row row1">
+                            <span class="table-show">Show</span>
+                            <div id="filter-number" class="btn-group">
+                                <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <span id="span-show-number" class="span-button-select">18</span>
+                                    <span class="caret arow-button-select"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li id="show9">
+                                        <a href="javascript:void(0)">9 Per page</a>
+                                    </li>
+                                    <li id="show18">
+                                        <a href="javascript:void(0)">18 Per page</a>
+                                    </li>
+                                    <li id="show27">
+                                        <a href="javascript:void(0)">27 Per page</a>
+                                    </li>
+                                    <li id="show36">
+                                        <a href="javascript:void(0)">36 Per page</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div id="filter-date" class="btn-group">
+                                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span id="span-selcect-date" class="span-button-select">All Dates</span>
+                                    <span class="caret arow-button-select"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li id="select-date-1">
+                                        <a href="javascript:void(0)">Hours Ago</a>
+                                    </li>
+                                    <li id="select-date-2">
+                                        <a href="javascript:void(0)">Yesterday</a>
+                                    </li>
+                                    <li id="select-date-3">
+                                        <a href="javascript:void(0)">Last Weed</a>
+                                    </li>
+                                    <li id="select-date-4">
+                                        <a href="javascript:void(0)">All Dates</a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li id="select-date-5">
+                                        <input hidden id="fillter-date-custom" value="">
+                                        <a href="javascript:void(0)">Custom...</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- <div id="filter-status" class="btn-group">
+                                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span id="span-selcect-status" class="span-button-select">New</span>
+                                    <span class="caret arow-button-select"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li id="slect-status-1">
+                                        <a href="javascript:void(0)">New</a>
+                                    </li>
+                                    <li id="slect-status-2">
+                                        <a href="javascript:void(0)">Feature</a>
+                                    </li>
+                                    <li id="slect-status-3">
+                                        <a href="javascript:void(0)">All</a>
+                                    </li>
+                                </ul>
+                            </div> -->
+                            <div class="pagination-table-appversion1 row">
+                                <ul class="pagination set-pagination-statement">
+                                    <li class="edit-li-pagination">
+                                        <a class="number-items" href="javascript:void(0)"></a>
+                                    </li>
+                                    <li class="limitsuperback">
+                                        <a class="limitpagination" href="javascript:void(0)">
+                                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="superback">
+                                        <a href="javascript:void(0)">
+                                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="backpage">
+                                        <a href="javascript:void(0)">
+                                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="limitback">
+                                        <a class="limitpagination" href="javascript:void(0)">
+                                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="thispage" href="javascript:void(0)">
+
+                                        </a>
+                                    </li>
+                                    <li class="edit-li-pagination">
+                                        <a class="numberpage" href="javascript:void(0)">
+                                        </a>
+                                    </li>
+                                    <li class="limitnext">
+                                        <a class="limitpagination" href="javascript:void(0)">
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nextpage">
+                                        <a href="javascript:void(0)">
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="supernext">
+                                        <a href="javascript:void(0)">
+                                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="limitsupernext">
+                                        <a class="limitpagination" href="javascript:void(0)">
+                                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                         <div class="row row1">
-                            <div id="content-appversion" class="set-table-statement">
+                            <div id="content-appversion">
                                 <table id="table-appversion">
                                     <tr id="title-table-header">
                                         <th width="7.6%">#</th>
@@ -78,33 +201,47 @@
                                             <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                                         </th>
                                     </tr>
-                                    <% for(let i =0; i <= 5; i ++){%>
-                                        <tr id="version<%=i%>" class="tr-content-appversion findcode">
-                                            <td>
-                                                <%=i+1%>
-                                            </td>
-                                            <td class="table-time-appversion finddate">
-                                                xyz
-                                            </td>
-                                            <td class="table-nameapp findnameapp">
-                                                mnp
-                                            </td>
-                                            <td class="table-version findversion">
-                                                fsdjlk
-                                            </td>
-                                            <td class="table-changelog findnote">
-                                                lkadjsla
-                                            </td>
-                                            <td>
-                                                abc
-                                            </td>
-                                            <td>
-                                                abc
-                                            </td>
-                                        </tr>
-                                        <%}%>
+                                    <%   let status = ["Pedding", "Complate", "Cancel"] %>
+                                        <% for(let i = 0; i < history.length; i ++){%>
+                                            <% var number = history.length - i - 1;
+                                        var d = history[number].dateCreate;
+                                        var m = d.getMonth() + 1;
+                                        var updated = d.getDate() + "/" + m + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " GMT";    
+                                        var arr = updated.split(" ");
+                                         %>
+                                                <tr id="version<%=i%>" class="tr-content-appversion findcode">
+                                                    <td>
+                                                        <%=i+1%>
+                                                    </td>
+                                                    <td class="table-time-appversion finddate">
+                                                        <span>
+                                                            <%=arr[0]%>
+                                                        </span>
+                                                        <br>
+                                                        <span>
+                                                            <%=arr[1]%>
+                                                                <%=arr[2]%>
+                                                        </span>
+                                                    </td>
+                                                    <td class=" findnameapp">
+                                                        <%=history[i].content%>
+                                                    </td>
+                                                    <td class="table-version findversion">
+                                                        <%=history[i].amount%>
+                                                    </td>
+                                                    <td class="table-changelog findnote">
+                                                        <%=status[history[i].statusWithdraw]%>
+                                                    </td>
+                                                    <td>
+                                                        <%=history[i].blance%>
+                                                    </td>
+                                                    <td>
+                                                        <%=history[i].note%>
+                                                    </td>
+                                                </tr>
+                                                <%}%>
 
-                                            </tbody>
+                                                    </tbody>
                                 </table>
 
                                 <div class="example">
@@ -112,54 +249,54 @@
                                         <div class="pagination-table-appversion row">
                                             <ul class="pagination set-pagination-statement">
                                                 <li class="edit-li-pagination">
-                                                    <a class="number-items" href="#"></a>
+                                                    <a class="number-items" href="javascript:void(0)"></a>
                                                 </li>
                                                 <li class="limitsuperback">
-                                                    <a class="limitpagination" href="#">
+                                                    <a class="limitpagination" href="javascript:void(0)">
                                                         <i class="fa fa-angle-double-left" aria-hidden="true"></i>
                                                     </a>
                                                 </li>
                                                 <li class="superback">
-                                                    <a href="#">
+                                                    <a href="javascript:void(0)">
                                                         <i class="fa fa-angle-double-left" aria-hidden="true"></i>
                                                     </a>
                                                 </li>
                                                 <li class="backpage">
-                                                    <a href="#">
+                                                    <a href="javascript:void(0)">
                                                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                                                     </a>
                                                 </li>
                                                 <li class="limitback">
-                                                    <a class="limitpagination" href="#">
+                                                    <a class="limitpagination" href="javascript:void(0)">
                                                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="thispage" href="#">
+                                                    <a class="thispage" href="javascript:void(0)">
 
                                                     </a>
                                                 </li>
                                                 <li class="edit-li-pagination">
-                                                    <a class="numberpage" href="#">
+                                                    <a class="numberpage" href="javascript:void(0)">
                                                     </a>
                                                 </li>
                                                 <li class="limitnext">
-                                                    <a class="limitpagination" href="#">
+                                                    <a class="limitpagination" href="javascript:void(0)">
                                                         <i class="fa fa-angle-right" aria-hidden="true"></i>
                                                     </a>
                                                 </li>
                                                 <li class="nextpage">
-                                                    <a href="#">
+                                                    <a href="javascript:void(0)">
                                                         <i class="fa fa-angle-right" aria-hidden="true"></i>
                                                     </a>
                                                 </li>
                                                 <li class="supernext">
-                                                    <a href="#">
+                                                    <a href="javascript:void(0)">
                                                         <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                                                     </a>
                                                 </li>
                                                 <li class="limitsupernext">
-                                                    <a class="limitpagination" href="#">
+                                                    <a class="limitpagination" href="javascript:void(0)">
                                                         <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                                                     </a>
                                                 </li>
@@ -170,7 +307,7 @@
                             </div>
                             <span class="showing-footer">Showing 1-
                                 <span id="number-show-footer"></span> of
-                                <span class="number-items" href="#"></span>
+                                <span class="number-items" href="javascript:void(0)"></span>
                             </span>
                             <div class="container ">
                                 <div class="modal fade" id="myModal" role="dialog">

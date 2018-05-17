@@ -317,6 +317,7 @@ router.get('/checkout/ok/process', (req, res) => {
                         console.log("data checkout: " + JSON.stringify(data))
                         async function get_data_car() {
                             var product = [];
+                            var code_order = makeid();
                             let data_session_cart = await filtercart(req.session.cart);
                             for (let i = 0; i < data_session_cart.length; i++) {
                                 let getdata = await infor_app_admin.findOne({
@@ -370,14 +371,14 @@ router.get('/checkout/ok/process', (req, res) => {
                             }
 
                             var id_order = md5(new Date());
-                            var code_order = makeid();
+
                             console.log("product:" + JSON.stringify(product))
                             var queryCheckout = await Object.assign({
                                 id: id_order,
                                 codeOrder: code_order,
                                 idUser: req.session.iduser,
                                 productInformation: product,
-                                totalMoney: data.amount.total,
+                                amount: data.amount.total,
                                 paymentMethod: "paypal",
                                 statusOrder: data.state,
                                 dateCreate: new Date(),

@@ -138,32 +138,32 @@ $(document).ready(() => {
         console.log(xnumber);
     })
     $('.superback').click(() => {
-            $(".superback").hide();
-            $(".limitsuperback").show();
-            $(".supernext").show();
-            $(".limitsupernext").hide();
+        $(".superback").hide();
+        $(".limitsuperback").show();
+        $(".supernext").show();
+        $(".limitsupernext").hide();
+        $(".nextpage").show();
+        $(".limitnext").hide();
+        xnumber = 1;
+        $('.thispage').text(xnumber);
+        amount = setamount;
+        // console.log(amount);
+        for (let i = 0; i < manguse.length; i++) {
+            if (i < amount) {
+                $('#version' + manguse[i]).show();
+            } else {
+                $('#version' + manguse[i]).hide();
+            }
+        }
+        if (xnumber == 1) {
             $(".nextpage").show();
             $(".limitnext").hide();
-            xnumber = 1;
-            $('.thispage').text(xnumber);
-            amount = setamount;
-            // console.log(amount);
-            for (let i = 0; i < manguse.length; i++) {
-                if (i < amount) {
-                    $('#version' + manguse[i]).show();
-                } else {
-                    $('#version' + manguse[i]).hide();
-                }
-            }
-            if (xnumber == 1) {
-                $(".nextpage").show();
-                $(".limitnext").hide();
-                $(".backpage").hide();
-                $(".limitback").show();
-            }
-            console.log(xnumber);
-        })
-        //filter status
+            $(".backpage").hide();
+            $(".limitback").show();
+        }
+        console.log(xnumber);
+    })
+    //filter status
     $("#slect-status-1").click(() => {
         $("#span-selcect-status").text("New");
         // console.log($('.tr-content-appversion>').find(".new-appversion").length)
@@ -200,31 +200,31 @@ $(document).ready(() => {
         checkpaginnation(dem, setamount);
     });
     $("#slect-status-3").click(() => {
-            $("#span-selcect-status").text("All")
-            var lenthmanguse = manguse.length;
-            manguse.splice(0, lenthmanguse);
-            xnumber = 1;
-            var dem = 0;
-            $('.thispage').text(xnumber);
-            $("#span-show-number").text(setamount);
-            // console.log($('.tr-content-appversion').length);
-            for (let i = 0; i < $('.tr-content-appversion').length; i++) {
-                dem++;
-                manguse.push(i);
-                if (i > setamount - 1) {
-                    $('#version' + i).hide();
-                } else {
-                    $('#version' + i).show();
-                }
+        $("#span-selcect-status").text("All")
+        var lenthmanguse = manguse.length;
+        manguse.splice(0, lenthmanguse);
+        xnumber = 1;
+        var dem = 0;
+        $('.thispage').text(xnumber);
+        $("#span-show-number").text(setamount);
+        // console.log($('.tr-content-appversion').length);
+        for (let i = 0; i < $('.tr-content-appversion').length; i++) {
+            dem++;
+            manguse.push(i);
+            if (i > setamount - 1) {
+                $('#version' + i).hide();
+            } else {
+                $('#version' + i).show();
             }
-            $(".number-items").text(manguse.length + " item(s)")
-            let page = Math.ceil($('.tr-content-appversion').length / setamount)
-            numberpage = page;
-            $('.numberpage').text("of " + page);
-            checkpaginnation(dem, setamount);
-            dem = 0;
-        })
-        // filter date
+        }
+        $(".number-items").text(manguse.length + " item(s)")
+        let page = Math.ceil($('.tr-content-appversion').length / setamount)
+        numberpage = page;
+        $('.numberpage').text("of " + page);
+        checkpaginnation(dem, setamount);
+        dem = 0;
+    })
+    // filter date
     $("#select-date-1").click(() => {
         $("#span-selcect-date").text("Hours Ago");
         var lenthmanguse = manguse.length;
@@ -336,7 +336,7 @@ $(document).ready(() => {
     $("#select-date-5").daterangepicker({
         drops: "up",
         opens: "left"
-    }, function(start, end) {
+    }, function (start, end) {
         var lenthmanguse = manguse.length;
         manguse.splice(0, lenthmanguse);
         var d1 = new Date();
@@ -372,7 +372,6 @@ function searchappversion() {
     spantime = document.getElementsByClassName("finddate");
     var dem = 0;
     for (let i = 0; i < spanversion.length; i++) {
-        // console.log(spanversion[i].innerHTML.toUpperCase().indexOf(filter));
         if (spanversion[i].innerHTML.toUpperCase().indexOf(filter) > -1 || spanchangelog[i].innerHTML.toUpperCase().indexOf(filter) > -1 || spantime[i].innerHTML.toUpperCase().indexOf(filter) > -1 || spannameapp[i].innerHTML.toUpperCase().indexOf(filter) > -1 | findcode[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
             if (findcode[i].innerHTML.toUpperCase().indexOf(filter) == 0 || findcode[i].innerHTML.toUpperCase().indexOf(filter) == 1 || spanversion[i].innerHTML.toUpperCase().indexOf(filter) == 0 || spanversion[i].innerHTML.toUpperCase().indexOf(filter) == 1 || spantime[i].innerHTML.toUpperCase().indexOf(filter) == 0 || spantime[i].innerHTML.toUpperCase().indexOf(filter) == 1 || spanversion[i].innerHTML.toUpperCase().indexOf(filter) == 0 || spanversion[i].innerHTML.toUpperCase().indexOf(filter) == 1 || spannameapp[i].innerHTML.toUpperCase().indexOf(filter) == 0 || spannameapp[i].innerHTML.toUpperCase().indexOf(filter) == 1) {
                 manguse.push(i);
@@ -393,17 +392,55 @@ function searchappversion() {
             } else {
                 manguse.push(i);
                 dem++;
-                // $('#version' + i).show();
             }
         } else {
             $('#version' + i).hide();
         }
     }
-    // console.log(manguse);
     $(".number-items").text(manguse.length + " item(s)")
     checkpaginnation(dem, setamount);
     dem = 0;
 }
+
+// function searchappversion() {
+//     var lenthmanguse = manguse.length;
+//     manguse.splice(0, lenthmanguse);
+//     var input, filter, spanversion, findcode, spannameapp, spanchangelog, spantime;
+//     input = document.getElementById("inputsearchapp1");
+//     filter = input.value.toUpperCase();
+//     var tr = document.getElementsByClassName("tr-content-appversion");
+//     var dem = 0;
+//     for (let i = 0; i < spanversion.length; i++) {
+//         span = tr[i].getElementsByTagName("span");
+//         if (spanversion[i].innerHTML.toUpperCase().indexOf(filter) > -1 || spanchangelog[i].innerHTML.toUpperCase().indexOf(filter) > -1 || spantime[i].innerHTML.toUpperCase().indexOf(filter) > -1 || spannameapp[i].innerHTML.toUpperCase().indexOf(filter) > -1 | findcode[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+//             if (findcode[i].innerHTML.toUpperCase().indexOf(filter) == 0 || findcode[i].innerHTML.toUpperCase().indexOf(filter) == 1 || spanversion[i].innerHTML.toUpperCase().indexOf(filter) == 0 || spanversion[i].innerHTML.toUpperCase().indexOf(filter) == 1 || spantime[i].innerHTML.toUpperCase().indexOf(filter) == 0 || spantime[i].innerHTML.toUpperCase().indexOf(filter) == 1 || spanversion[i].innerHTML.toUpperCase().indexOf(filter) == 0 || spanversion[i].innerHTML.toUpperCase().indexOf(filter) == 1 || spannameapp[i].innerHTML.toUpperCase().indexOf(filter) == 0 || spannameapp[i].innerHTML.toUpperCase().indexOf(filter) == 1) {
+//                 manguse.push(i);
+//                 dem = spanversion.length;
+//                 xnumber = 1;
+//                 $('.thispage').text(xnumber);
+//                 $("#span-show-number").text(setamount);
+//                 for (let i = 0; i < $('.tr-content-appversion').length; i++) {
+//                     if (i > setamount - 1) {
+//                         $('#version' + i).hide();
+//                     } else {
+//                         $('#version' + i).show();
+//                     }
+//                 }
+//                 let page = Math.ceil($('.tr-content-appversion').length / setamount)
+//                 numberpage = page;
+//                 $('.numberpage').text("of " + page);
+//             } else {
+//                 manguse.push(i);
+//                 dem++;
+//             }
+//         } else {
+//             $('#version' + i).hide();
+//         }
+//     }
+//     $(".number-items").text(manguse.length + " item(s)")
+//     checkpaginnation(dem, setamount);
+//     dem = 0;
+// }
 
 function checkpaginnation(a, b) {
     if (a > b) {

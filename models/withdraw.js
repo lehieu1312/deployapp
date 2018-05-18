@@ -20,6 +20,7 @@ let withdrawSchema = mongoose.Schema({
     method: String,
     dateCreate: Date,
     statusWithdraw: Number,
+    isWithdraw: Boolean,
     status: Boolean
 });
 let withdrawsData = module.exports = mongoose.model("withdraws", withdrawSchema);

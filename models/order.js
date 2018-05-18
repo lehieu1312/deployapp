@@ -33,6 +33,7 @@ let orderShema = mongoose.Schema({
     note: String,
     statusOrder: String,
     dateCreate: Date,
+    isOrder: Boolean,
     status: Boolean
 }, { collection: 'orders' });
 module.exports = mongoose.model('orders', orderShema);

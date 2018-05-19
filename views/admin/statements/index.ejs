@@ -176,6 +176,33 @@
                         </th>
                     </tr>
                     <tbody>
+                        <%var dem =1;%>
+                            <%data.forEach((item)=>{%>
+                                <tr class="tr-content-appversion trrecord">
+
+                                    <td>
+                                        <span class="numberorder"><%=dem%></span>
+                                    </td>
+                                    <td> <span><%=moment(item.dateCreate).format('DD/MM/YYYY')%></span> </td>
+                                    <td>
+                                        <span>$<%=item.username%></span>
+                                    </td>
+                                    <td>
+                                        <span><%=item.content%></span>
+                                    </td>
+                                    <td>
+                                        <span><%=item.amount%></span>
+                                    </td>
+                                    <td>
+
+                                        <span><%=item.status%></span>
+                                    </td>
+                                    <td>
+                                        <span><%=item.note%></span>
+                                    </td>
+                                </tr>
+
+                                <%dem++})%>
 
                     </tbody>
                 </table>

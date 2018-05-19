@@ -16,30 +16,24 @@ var multipartMiddleware = multipart();
 var withdrawModels = require('../../../models/withdraw');
 var orderModels = require('../../../models/order');
 
-
-
-
-
 router.get('/', (req, res) => {
     try {
         var arrData = [];
-        withdrawModels.find({}, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, status: 1 }).then((dataWithdraw) => {
+        withdrawModels.find({}, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusWithdraw: 1, isWithdraw: 1, dateCreate: 1, status: 1 }).then((dataWithdraw) => {
             // console.log(dataWithdraw);
             async.forEach(dataWithdraw, (item) => {
-                console.log(item);
-                // item.push("sata:a");
                 arrData.push(item);
-            })
+            });
             console.log('=====================================================================');
             // console.log(arrData);
-            orderModels.find({}, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, status: 1 }).then((dataOrders) => {
+            orderModels.find({}, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusOrder: 1, isOrder: 1, dateCreate: 1, status: 1 }).then((dataOrders) => {
                 // console.log(dataOrders);
                 async.forEach(dataOrders, (item) => {
                     arrData.push(item);
-                })
+                });
                 console.log('=====================================================================');
                 // console.log(arrData);
-                res.render('admin/statements/index', { moment, title: "Statements" });
+                res.render('admin/statements/index', { data: arrData, moment, title: "Statements" });
             });
         });
 

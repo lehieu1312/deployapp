@@ -212,6 +212,7 @@
                                                 var updated = d.getDate() + "/" + m + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " GMT";    
                                                 var arr = updated.split(" ");
                                             %>
+                                                <input class="id-history" hidden value="<%=history[i].id%>">
                                                 <tr id="version<%=i%>" class="tr-content-appversion findcode">
                                                     <td>
                                                         <%=i+1%>

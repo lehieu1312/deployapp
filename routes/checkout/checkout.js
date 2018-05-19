@@ -382,6 +382,7 @@ router.get('/checkout/ok/process', (req, res) => {
                                 paymentMethod: "paypal",
                                 statusOrder: data.state,
                                 dateCreate: new Date(),
+                                isOrder: true,
                                 status: true
                             }, req.session.inforCheckout);
                             // if(req.cookies.codesharedeployapp)

@@ -127,10 +127,31 @@ router.post("/getdata/withdrawal", (req, res) => {
 })
 
 router.get("/affiliate/statement/detail", checkAdmin, (req, res) => {
-    res.render('./affiliate/detail', {
-        title: 'Detail Statements',
-        appuse: "",
-    });
+    try {
+        if (req.query.idhistory) {
+            affiliate_withdrawal_modal.findOne({
+                id: req.query.idhistory
+            }).then((data) => {
+                if (data) {
+                    res.render('./affiliate/detail', {
+                        title: 'Detail Statements',
+                        detail: data,
+                        appuse: "",
+                    });
+                } else {
+                    res.redirect("/404")
+                }
+            })
+        } else {
+            res.redirect("/404")
+        }
+    } catch (error) {
+        console.log(error + "")
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
 })
 
 

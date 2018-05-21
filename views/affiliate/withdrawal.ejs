@@ -10,16 +10,16 @@
                 <div class="col-sm-6 item-content-withdrawal">
                     <div class="title-content-affiliate">ENTER INFORMATIONS</div>
                     <div class="form-group has-feedback">
-                        <label class="control-label" for="inputSuccess2">Amount of withdrawal *</label>
+                        <label class="control-label" for="inputSuccess2">Amount of withdrawal</label>
                         <input autocomplete="off" type="text" class="resetinputlogin">
                         <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
                         </span>
                     </div>
-                    <div class="form-group has-feedback">
-                        <label class="control-label" for="inputSuccess2">Method of receiving money *</label>
+                    <div class="form-group has-feedback ">
+                        <label class="control-label" for="inputSuccess2">Method of receiving money</label>
                         <div class="col-sm-10">
-                            <label class="container-radio-custom">Paypal
+                            <label class="container-radio-custom set-method-paypal">Paypal
                                 <input checked type="radio" name="notiradio" value="1">
                                 <span class="checkmark"></span>
                             </label>
@@ -27,9 +27,36 @@
                     </div>
                     <div class="form-group has-feedback">
                         <label class="control-label" for="inputSuccess2">Additional notes *</label>
+                        <textarea placeholder="Enter your note content..." rows="4" class="textarea-withdrawal"></textarea>
                     </div>
                 </div>
-                <div class="col-sm-6 item-content-withdrawal"></div>
+                <div class="col-sm-6 item-content-withdrawal set-right-content-withdrawal">
+                    <div class="rim-right-content-withdraw">
+                        <div class="rim-user-withdrawal">
+                            <div class="float-left">
+                                <img src="/themes/img/affiliate/smalliconwithdrawal.png" alt="money">
+                            </div>
+                            <div class="float-left rim-right-account">
+                                <span>Hello
+                                    <span class="text-name-withdrawal">Nguyễn Công Nam</span>
+                                </span>
+                                <br>
+                                <span class="set-span-sourcr-account"> Source account: 12346578</span>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-money-withdrawal">Balance: $3,456.78</span>
+                        </div>
+                    </div>
+                    <div class="comment-right-content-withdraw">
+                        <span>* (Amount>= $10,
+                            <=Account Balance, is a multiple of 1.0).</span>
+                                <br>
+                                <br>
+                                <span>* Fund withdrawal request are not processed on Saturday and requests on the weekend will
+                                    be processed on the fllowing Monday</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

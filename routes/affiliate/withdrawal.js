@@ -59,10 +59,38 @@ function makeid() {
 }
 
 router.get("/affiliate/withdrawal", checkAdmin, (req, res) => {
-    res.render("./affiliate/withdrawal", {
-        title: "Withdrawal",
-        appuse: ""
+    User.find({
+        id: req.session.iduser
+    }).then(user => {
+        affiliate_withdrawal_modal.find({
+            idUser: req.session.iduser
+        }).sort({
+            dateCreate: -1
+        }).then((data) => {
+            if (data.length > 0) {
+                res.render('./affiliate/withdrawal', {
+                    title: 'Withdrawal',
+                    money: data[0].blance,
+                    user,
+                    appuse: "",
+                });
+            } else {
+                affiliate_modal.find({
+                    idUser: req.session.iduser
+                }).sort({
+                    dateCreate: -1
+                }).then((data_affiliate) => {
+                    res.render('./affiliate/withdrawal', {
+                        title: 'Withdrawal',
+                        money: data_affiliate[0].blance,
+                        user,
+                        appuse: "",
+                    });
+                })
+            }
+        })
     })
+
 })
 
 

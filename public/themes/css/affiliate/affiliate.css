@@ -316,6 +316,12 @@ text-cent-money {
     font-family: 'OpenSans-Regular';
 }
 
+.text-money-withdrawal {
+    font-size: 16px;
+    color: #444459;
+    font-family: 'OpenSans-Semibold';
+}
+
 .item-content-withdrawal .title-content-affiliate {
     padding: 0 0 10px 15px;
 }
@@ -324,4 +330,59 @@ text-cent-money {
     padding: 20px 0 0 0;
 }
 
-/* 32cd32 */
+.textarea-withdrawal {
+    font-family: 'OpenSans-Light';
+    width: 100%;
+    border: none;
+    border-bottom: solid 1px #dedede;
+    padding-top: 17px;
+    text-indent: 7px;
+    /* resize: auto; */
+}
+
+.rim-right-content-withdraw {
+    text-align: center;
+    width: 330px;
+    border: solid 1px #f1f1f1;
+    height: 160px;
+    border-radius: 2px;
+}
+
+.set-right-content-withdrawal {
+    padding-left: 155px;
+}
+
+.comment-right-content-withdraw {
+    padding-right: 60px;
+    margin-top: 10px;
+}
+
+.rim-user-withdrawal {
+    margin: 15px;
+    width: auto;
+    height: 80px;
+    border-bottom-style: dotted;
+    border-width: 1px;
+    border-color: #cecece;
+}
+
+.rim-right-account {
+    padding-top: 10px;
+    padding-left: 5px;
+}
+
+.set-span-sourcr-account {
+    padding-left: 5px;
+}
+
+.text-name-withdrawal {
+    font-size: 13px;
+    color: #444459;
+    font-family: 'OpenSans-Semibold';
+}
+
+.set-method-paypal {
+    margin-top: 10px;
+}
+
+/* 32cd32 444549 */

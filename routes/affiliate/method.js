@@ -61,9 +61,9 @@ function makeid() {
     return text;
 }
 
-router("affiliate/mehtod", checkAdmin, (req, res) => {
-    res.render("./afiliate/method", {
-        title: "Method Payment",
+router.get("/affiliate/payment-method", checkAdmin, (req, res) => {
+    res.render("./affiliate/method", {
+        title: "Payment Methods",
         appuse: ""
     })
 })

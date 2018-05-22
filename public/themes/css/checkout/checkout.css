@@ -209,9 +209,10 @@
 .modal-success-head {
     top: 100px;
     /* padding: 15px 0 0 20px; */
-    height: 175px;
+    min-height: 175px;
     font-size: 14px;
     background: white;
+    padding-bottom: 15px;
 }
 
 .modal-success-foot button {

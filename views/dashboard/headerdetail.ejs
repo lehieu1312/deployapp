@@ -63,56 +63,69 @@
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/anychart-font.min.css">
     <!-- new 21-11 -->
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             $.post(
                 "/getaccount", {},
-                function(data) {
+                function (data) {
                     $('.imgavatarsmall').attr('src', data.picture);
                     $('.setspanfullname').text(data.fullname);
                 }
             )
             $.post(
                 "/getnumbernoti", {},
-                function(data) {
+                function (data) {
                     // alert(data);
                     if (data.number > 0) {
                         $('#number-of-notification').html(data.number);
                         $('#number-notifications').html(data.number);
                     }
                     data.data.forEach((item) => {
-                        $('#body-content-for-user').append(`
-                                <a href="/dashboard/membership/detailnoti/` + item.id + `" >
-                                <div class="box-content-noti" id="box-content-noti-` + item.id + `">
+                        $('#body-content-for-user').append(
+                            `
+                                <a href="/dashboard/membership/detailnoti/` +
+                            item.id +
+                            `" >
+                                <div class="box-content-noti" id="box-content-noti-` +
+                            item.id +
+                            `">
                                 <div class="box-icon-notification">
                                     <img src="/themes/img/admin/symbolnotifi.png" alt="symbol notification">
                                 </div>
                                 <div class="content-notification-user">
                                     <div class="title-content-noti" id="title-notification-for-user">
-                                        <span>` + item.title + `</span>
-                                        <a href="javascript:void(0)" onclick="deletenotiuser('` + item.id + `')" class="btn-close-noti">
+                                        <span>` +
+                            item.title +
+                            `</span>
+                                        <a href="javascript:void(0)" onclick="deletenotiuser('` +
+                            item.id +
+                            `')" class="btn-close-noti">
                                            <img src="/themes/img/admin/closemodal.png" alt="Close model">
                                         </a>
                                     </div>
                                     <div class="body-content-noti" id="content-message-noti-for-user">
-                                <span>  ` + (item.content.length < 75 ? item.content : item.content.slice(0, 74) + '...') + `</span>       
+                                <span>  ` +
+                            (item.content.length < 75 ? item.content : item.content.slice(0, 74) +
+                                '...') +
+                            `</span>       
                                     </div>
                                     <div class="head-content-noti" id="date-footer-noti-for-user">
                                         <span>${moment(item.dateCreate).format('DD/MM/YYYY HH:mm:ss')} </span>
                                     </div>
                                 </div>
                             </div> 
-                            </a>`);
+                            </a>`
+                        );
                     })
                 }
             )
             $.post(
                 "/getamountapp", {},
-                function(data) {
+                function (data) {
                     $('.textamountapp').text("MyApp(" + data.amount + ")");
                 }
             )
             $.post("/get-cart", {},
-                function(data) {
+                function (data) {
                     let tong = 0;
                     // console.log(data.cart[0].cart.idApp)
                     $("#number-product-in-cart").text(data.cart.length);
@@ -239,8 +252,8 @@
             <div class="box-content-noti-for-user" id="box-content-notifi-for-user">
                 <div class="header-modal-notification-user">
                     <span>Notification
-                            <span id="number-of-notification">0</span>
-                    <!-- <span id="number-product-in-cart">2</span> -->
+                        <span id="number-of-notification">0</span>
+                        <!-- <span id="number-product-in-cart">2</span> -->
 
                     </span>
                     <img data-dismiss="modal" aria-label="Close" src="/themes/img/dashboard/iconclose.png">
@@ -349,7 +362,7 @@
                         <div id="ringing" data-toggle="modal" data-target="#modal-notification">
                             <a href="#">
                                 <span id="number-notifications">
-                                    
+
                                 </span>
                                 <img src="/themes/img/dashboard/ringnotifications.png">
                             </a>
@@ -379,15 +392,15 @@
                         $('#number-of-notification').html(numbOld - 1);
                         $('#number-notifications').html(numbOld - 1);
                         $.post(
-                                "/updatestatusnotiforuser", {
-                                    id: id
-                                },
-                                function(data) {
-                                    // $('.imgavatarsmall').attr('src', data.picture);
-                                    // $('.setspanfullname').text(data.fullname);
-                                    console.log(data);
-                                }
-                            )
-                            // alert(id);
+                            "/updatestatusnotiforuser", {
+                                id: id
+                            },
+                            function (data) {
+                                // $('.imgavatarsmall').attr('src', data.picture);
+                                // $('.setspanfullname').text(data.fullname);
+                                console.log(data);
+                            }
+                        )
+                        // alert(id);
                     }
                 </script>

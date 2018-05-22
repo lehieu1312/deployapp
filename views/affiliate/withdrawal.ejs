@@ -1,65 +1,161 @@
 <% include ../dashboard/headerdetail %>
     <div class="xcontent clsmenu">
-        <div id="title-detail" class="row row1">
-            <div class="content-title-detail has-feedback">
-                <h3 class="textmyapp">Withdrawal</h3>
-            </div>
-        </div>
-        <div class="withdrawal-affiliate">
-            <div class="content-withdrawal-affilicate">
-                <div class="col-sm-6 item-content-withdrawal">
-                    <div class="title-content-affiliate">ENTER INFORMATIONS</div>
-                    <div class="form-group has-feedback">
-                        <label class="control-label" for="inputSuccess2">Amount of withdrawal</label>
-                        <input autocomplete="off" type="text" class="resetinputlogin">
-                        <span class="form-control-feedback" aria-hidden="true">
-                            <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
-                        </span>
-                    </div>
-                    <div class="form-group has-feedback ">
-                        <label class="control-label" for="inputSuccess2">Method of receiving money</label>
-                        <div class="col-sm-10">
-                            <label class="container-radio-custom set-method-paypal">Paypal
-                                <input checked type="radio" name="notiradio" value="1">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group has-feedback">
-                        <label class="control-label" for="inputSuccess2">Additional notes *</label>
-                        <textarea placeholder="Enter your note content..." rows="4" class="textarea-withdrawal"></textarea>
-                    </div>
+        <%
+            function set_money(a) {
+                a = Number(a.toFixed(2));
+                return "$" + a.toLocaleString('en');
+            }
+        %>
+            <div id="title-detail" class="row row1">
+                <div class="content-title-detail has-feedback">
+                    <h3 class="textmyapp">Withdrawal</h3>
                 </div>
-                <div class="col-sm-6 item-content-withdrawal set-right-content-withdrawal">
-                    <div class="rim-right-content-withdraw">
-                        <div class="rim-user-withdrawal">
-                            <div class="float-left">
-                                <img src="/themes/img/affiliate/smalliconwithdrawal.png" alt="money">
-                            </div>
-                            <div class="float-left rim-right-account">
-                                <span>Hello
-                                    <span class="text-name-withdrawal">Nguyễn Công Nam</span>
+            </div>
+            <form id="form-withdrawal" onsubmit="return false">
+                <div class="withdrawal-affiliate">
+                    <div class="content-withdrawal-affilicate">
+                        <div class="col-sm-6 item-content-withdrawal">
+                            <div class="title-content-affiliate">ENTER INFORMATIONS</div>
+
+                            <div class="form-group has-feedback col-sm-8">
+                                <label class="control-label" for="inputSuccess2">Amount of withdrawal</label>
+                                <input autocomplete="off" type="text" class="input-amount-withdrawal" id="amount-withdrawal">
+                                <span class="form-control-feedback" aria-hidden="true">
+                                    <img class="seticoneye seticoneye-withdrawal iconerr icon" id="iconerr1" src="" alt="">
                                 </span>
-                                <br>
-                                <span class="set-span-sourcr-account"> Source account: 12346578</span>
+                            </div>
+
+                            <div class="select-product select-currency col-sm-4">
+                                <span class="float-left text-currency">USD</span>
+                                <img class="float-right set-img-product-url" src="/themes/img/dashboard/iconarrow.png">
+                            </div>
+                            <div class="form-group has-feedback set-select-payment">
+                                <label class="control-label" for="inputSuccess2">Method of receiving money</label>
+                                <div class="col-sm-10">
+                                    <label class="container-radio-custom set-method-paypal">Paypal
+                                        <input checked type="radio" name="notiradio" value="1">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <!-- <div class="col-sm-10">
+                                <label class="container-radio-custom set-method-paypal">Credit Card
+                                    <input checked type="radio" name="notiradio" value="1">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div> -->
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label class="control-label" for="inputSuccess2">Additional notes *</label>
+                                <textarea placeholder="Enter your note content..." rows="4" class="textarea-withdrawal"></textarea>
                             </div>
                         </div>
-                        <div>
-                            <span class="text-money-withdrawal">Balance: $3,456.78</span>
+                        <div class="col-sm-6 item-content-withdrawal set-right-content-withdrawal">
+                            <div class="rim-right-content-withdraw">
+                                <div class="rim-user-withdrawal">
+                                    <div class="float-left">
+                                        <img src="/themes/img/affiliate/smalliconwithdrawal.png" alt="money">
+                                    </div>
+                                    <div class="float-left rim-right-account">
+                                        <span>Hello
+                                            <input hidden id="fullname-withdrawal" value=" <%=user.firstname + " " + user.lastname%>">
+                                            <span class="text-name-withdrawal">
+                                                <%=user.firstname + " " + user.lastname%>
+                                            </span>
+                                        </span>
+                                        <br>
+                                        <input hidden id="codeShare-withdrawal" value=" <%=user.codeShare%>">
+                                        <span class="set-span-sourcr-account"> Source account:
+                                            <%=user.codeShare%>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="text-money-withdrawal">Balance:
+                                        <%=set_money(money)%>
+                                            <input hidden id="balance-withdrawal" value="<%=money%>">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="comment-right-content-withdraw">
+                                <span>* (Amount>= $10,
+                                    <=Account Balance, is a multiple of 1.0).</span>
+                                        <br>
+                                        <br>
+                                        <span>* Fund withdrawal request are not processed on Saturday and requests on the weekend
+                                            will be processed on the fllowing Monday</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="comment-right-content-withdraw">
-                        <span>* (Amount>= $10,
-                            <=Account Balance, is a multiple of 1.0).</span>
+                </div>
+
+                <div id="detail-withdrawal" class="display-none">
+                    <div class="content-detail-affiliate row row1">
+                        <div class="lable-content-detail-affiliate">
+                            <div class="left-content-detail-affiliate float-left">
+                                <span>Money transfer account</span>
+                                <br>
+                                <span>Balance amount</span>
+                                <br>
+                                <span>Account/ receipt card</span>
+                                <br>
+                                <span>Bank branch</span>
+                                <br>
+                                <span>Account holder</span>
+                                <br>
+                                <span>Amount of withdrawal</span>
                                 <br>
                                 <br>
-                                <span>* Fund withdrawal request are not processed on Saturday and requests on the weekend will
-                                    be processed on the fllowing Monday</span>
+                                <span>Fee (Not VAT)</span>
+                                <br>
+                                <span>Method of receiving money</span>
+                                <br>
+                                <span>Additional notes</span>
+                                <br>
+                            </div>
+                            <div class="right-content-detail-affiliate float-left">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="back-withdrawal" type="button" class="btn-blue-deploy set-btn-withdrawal display-none">Back</button>
+                <button id="submit-withdrawal" type="submit" class="btn-blue-deploy set-btn-withdrawal display-none"></button>
+            </form>
+            <button id="continue-withdrawal" class="btn-blue-deploy set-btn-withdrawal">Continue</button>
+            <div id="select-product-url" class="select-product-url">
+                <ul>
+                    <li>USD</li>
+                    <li>GBP</li>
+                    <li>EUR</li>
+                    <li>AUD</li>
+                </ul>
+            </div>
+            <div class="container ">
+                <div class="modal fade" id="myModal-success-withdrawal" role="dialog">
+                    <div class="modal-dialog  ">
+                        <div class="modal-content1">
+                            <div class="dialogdeleteapp">
+                                <div class="modal-success-head">
+                                    <div class="set-img-iconcheck">
+                                        <img src="/themes/img/checkout/iconcheck.png" alt="Checkout">
+                                    </div>
+                                    <div class="text-thank-you">
+                                        <span>Successful transaction</span>
+                                    </div>
+                                    <div class="content-success">
+
+                                    </div>
+                                </div>
+                                <div class="modal-success-foot">
+                                    <button id="done-withdrawal" class="btn-blue-deploy">done</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
     </div>
     </div>
     </div>
+    <script type="text/javascript" charset="utf-8" src="/themes/js/affiliate/withdrawal/withdrawal.js"></script>

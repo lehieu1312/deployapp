@@ -90,7 +90,9 @@
                             <%=detail.bankSend%>
                         </span>
                         <br>
-                        <span>$3,456.78</span>
+                        <span>
+                            <%="$" + detail.blance%>
+                        </span>
                         <br>
                         <span>
                             <%=detail.bankReceipt%>
@@ -121,7 +123,8 @@
                         </span>
                         <br>
                         <span>
-                            <%=detail.dateCreate%>
+                            <% var month = detail.dateCreate.getMonth() + 1 %>
+                                <%=detail.dateCreate.getDate() + "/" + month + "/" + detail.dateCreate.getFullYear() %>
                         </span>
                         <br>
                         <span class="set-color-status">

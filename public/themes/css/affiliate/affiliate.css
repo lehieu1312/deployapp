@@ -358,6 +358,7 @@ text-cent-money {
 }
 
 .rim-user-withdrawal {
+    text-align: left;
     margin: 15px;
     width: auto;
     height: 80px;
@@ -368,11 +369,7 @@ text-cent-money {
 
 .rim-right-account {
     padding-top: 10px;
-    padding-left: 5px;
-}
-
-.set-span-sourcr-account {
-    padding-left: 5px;
+    padding-left: 10px;
 }
 
 .text-name-withdrawal {
@@ -385,4 +382,44 @@ text-cent-money {
     margin-top: 10px;
 }
 
-/* 32cd32 444549 */
+.input-amount-withdrawal {
+    outline: none;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #dedede;
+    width: 100%;
+}
+
+.set-select-payment {
+    margin-top: 63px;
+}
+
+.select-currency {
+    margin-top: 24px;
+    width: 16%;
+}
+
+.select-product {
+    cursor: pointer;
+}
+
+.set-btn-withdrawal {
+    margin-top: 15px;
+    margin-left: 25px;
+}
+
+.seticoneye-withdrawal {
+    margin-left: -16px;
+}
+
+#back-withdrawal {
+    background: #cdcdcd;
+}
+
+.set-text-money {
+    font-size: 13px;
+    color: #666666;
+    font-family: 'OpenSans-Semibold';
+}
+
+/* 32cd32 444549 background: #cdcdcd; */

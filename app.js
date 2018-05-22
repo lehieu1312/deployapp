@@ -825,6 +825,7 @@ var checkout = require("./routes/checkout/checkout");
 var affiliate_report = require("./routes/affiliate/report");
 var affiliate_statement = require("./routes/affiliate/statement");
 var affiliate_withdrawal = require("./routes/affiliate/withdrawal");
+var affiliate_method = require("./routes/affiliate/method");
 
 //Test
 var testBody = require("./routes/testbody");
@@ -887,6 +888,7 @@ app.use('/', checkout);
 app.use('/', affiliate_report);
 app.use('/', affiliate_statement);
 app.use('/', affiliate_withdrawal);
+app.use('/', affiliate_method);
 
 
 /////////////////////

@@ -58,3 +58,22 @@
 .img-arrow-top {
     padding-bottom: 3px;
 }
+
+.bgstatuscomplete {
+    background: rgb(50, 205, 50);
+}
+
+.bgstatuspending {
+    background: rgb(65, 105, 225);
+}
+
+.bgstatuscancel {
+    background: rgb(220, 20, 60);
+}
+
+.paddingstatus {
+    cursor: pointer;
+    color: white;
+    padding: 1px 10px 2px 10px;
+    border-radius: 13px;
+}

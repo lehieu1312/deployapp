@@ -1,25 +1,31 @@
 <% include ../dashboard/headerdetail %>
+    <div id="navigate-text">
+        <a class="colora" href="/dashboard">
+            <span>Home</span>
+        </a>
+        <span class="setarrownavigate">
+            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
+        </span>
+        <span id="text-href">Payment Method</span>
+    </div>
+    </div>
     <div class="xcontent clsmenu">
         <div id="title-detail" class="row row1">
             <div id="title-appversion" class="content-title-detail has-feedback">
                 <span class="textmyapp">Payment Methods
                 </span>
-                <button type="submit" class="btn-blue" id="adduser" data-toggle="modal" data-target="#myModa-adduser">
-                    <img class="seticonadd" src="/themes/img/appversion/iconadd.png"> Add User</button>
-                <span class="setsearch">
-                    <input type="text" onkeyup="searchappversion()" id="inputsearchapp1" name="search" placeholder="Search...">
-                    <span class="form-control-feedback2" aria-hidden="true">
-                        <img src="/themes/img/dashboard/iconsearch.png">
-                    </span>
-                </span>
+                <a href="/affiliate/payment-method/add">
+                    <button type="submit" class="btn-blue">
+                        <img class="seticonadd" src="/themes/img/appversion/iconadd.png"> Add New</button>
+                </a>
+
             </div>
         </div>
 
         <div id="filter-table-appversion" class="row row1">
             <span class="table-show">Show</span>
             <div id="filter-number" class="btn-group">
-                <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
+                <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" aria-expanded="false">
                     <span id="span-show-number" class="span-button-select">18</span>
                     <span class="caret arow-button-select"></span>
                 </button>
@@ -111,37 +117,47 @@
                         </th>
                     </tr>
                     <tbody>
-                        <%for(var i = 0;i<5;i++){ %>
-                            <tr id="version<%=i%>" class="tr-content-appversion set-method-affiliate">
-                                <td class="findcode">
+                        <%
+                              function settime(a){
+                                let month = a.getMonth() + 1;
+                                let text = a.getDate() + "/" + month + "/" + a.getFullYear() + " " + a.getHours()+ ":" + a.getMinutes() + ":" + a.getSeconds();
+                                return text;
+                            }
+                             %>
+                            <%for(var i = 0; i< method.length;i++){ %>
 
-                                </td>
-                                <td class="table-nameapp findversion">
-
-                                </td>
-                                <td class="table-version findnameapp">
-
-                                </td>
-                                <td class="table-changelog findnote">
-
-                                </td>
-                                <td class="set-position-relative">
-                                    <img class="setimg-head-myapp deleteuser" src="/themes/img/dashboard/iconmenumore.png">
-                                    <div class="delete-user" style="display:none">
-                                        <a href="#" data-toggle="modal" data-target="#mymodal-deleteuser">
-                                            <div class="element-delete">
-                                                <img class="imgicondelete" src="/themes/img/dashboard/icondelete.png">
-                                                <span>Delete</span>
+                                <tr id="version<%=i%>" class="tr-content-appversion set-method-affiliate">
+                                    <td class="findcode">
+                                        <%=i+1%>
+                                    </td>
+                                    <td class=" findversion">
+                                        <%= method[i].method%>
+                                    </td>
+                                    <td class="table-version findnameapp">
+                                        <%= settime(method[i].dateCreate)%>
+                                    </td>
+                                    <td class="table-changelog findnote">
+                                        <% if(method[i].dateUpdate != null){ %>
+                                            <%=settime(method[i].dateUpdate)%>
+                                                <%}%>
+                                    </td>
+                                    <td class="set-position-relative">
+                                        <img class="setimg-head-myapp deleteuser" src="/themes/img/dashboard/iconmenumore.png">
+                                        <div class="delete-user" style="display:none">
+                                            <a href="#" data-toggle="modal" data-target="#mymodal-deleteuser">
+                                                <div class="element-delete">
+                                                    <img class="imgicondelete" src="/themes/img/dashboard/icondelete.png">
+                                                    <span>Delete</span>
+                                                </div>
+                                            </a>
+                                            <div class="arrowmenuuser-left">
                                             </div>
-                                        </a>
-                                        <div class="arrowmenuuser-left">
+                                            <div class="arrowmenuuser-left1">
+                                            </div>
                                         </div>
-                                        <div class="arrowmenuuser-left1">
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <%}%>
+                                    </td>
+                                </tr>
+                                <%}%>
                     </tbody>
                 </table>
                 <div class="example">
@@ -214,5 +230,4 @@
     </div>
     </div>
     </div>
-    <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/myteam/myteam.js"></script>
     <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/appversion/pagination.js"></script>

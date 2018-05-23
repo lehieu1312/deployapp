@@ -30,6 +30,7 @@ var http = require('http');
 var server = http.Server(app);
 var paypal = require("paypal-rest-sdk");
 var country = require("../../lib/country");
+var affiliate_method_modal = require("../../models/paymentmethod");
 
 
 
@@ -168,47 +169,64 @@ router.post("/affiliate/withdrawal/ok", (req, res) => {
                 })
             })
         }
-        getBalance().then((balance) => {
-            User.findOne({
-                id: req.session.iduser,
-                status: true
-            }).then(user => {
 
-                var query = {
-                    id: makeid(),
-                    idUser: req.session.iduser,
-                    username: user.username,
-                    email: user.email,
-                    codeShare: user.codeShare,
-                    bankSend: req.body.method,
-                    bankReceipt: req.body.method,
-                    bank: req.body.method,
-                    bankBranch: req.body.method,
-                    accountHolder: req.session.fullname,
-                    fee: 3 * req.body.amount / 100,
-                    amount: req.body.amount,
-                    blance: Number((balance - req.body.amount - 3 * req.body.amount / 100).toFixed(1)),
-                    content: "tranfer $" + req.body.amount,
-                    note: req.body.note,
-                    method: req.body.method,
-                    dateCreate: new Date(),
-                    statusWithdraw: 1,
-                    isWithdraw: true,
-                    status: true
-                }
-                var new_withdrawal = new affiliate_withdrawal_modal(query);
+        affiliate_method_modal.findOne({
+            method: req.body.method,
+            idUser: req.session.iduser,
+            status: true
+        }).then((method_payment) => {
+            if (method_payment) {
+                getBalance().then((balance) => {
+                    User.findOne({
+                        id: req.session.iduser,
+                        status: true
+                    }).then(user => {
 
-                sendLinkMail(email_admin, req.session.fullname, req.body.amount)
-                    .then(() => {
-                        new_withdrawal.save().then(() => {
-                            res.json({
-                                status: "1",
-                                balance: Number((balance - req.body.amount - 3 * req.body.amount / 100).toFixed(1))
+                        var query = {
+                            id: makeid(),
+                            idUser: req.session.iduser,
+                            username: user.username,
+                            email: user.email,
+                            codeShare: user.codeShare,
+                            bankSend: req.body.method,
+                            bankReceipt: req.body.method,
+                            bank: req.body.method,
+                            bankBranch: req.body.method,
+                            accountNumber: method_payment.accountNumber,
+                            accountHolder: method_payment.accountHolder,
+                            fee: 3 * req.body.amount / 100,
+                            amount: req.body.amount,
+                            blance: Number((balance - req.body.amount - 3 * req.body.amount / 100).toFixed(1)),
+                            content: "tranfer $" + req.body.amount,
+                            note: req.body.note,
+                            method: req.body.method,
+                            dateCreate: new Date(),
+                            statusWithdraw: 1,
+                            isWithdraw: true,
+                            status: true
+                        }
+                        var new_withdrawal = new affiliate_withdrawal_modal(query);
+
+                        sendLinkMail(email_admin, req.session.fullname, req.body.amount)
+                            .then(() => {
+                                new_withdrawal.save().then(() => {
+                                    res.json({
+                                        status: "1",
+                                        balance: Number((balance - req.body.amount - 3 * req.body.amount / 100).toFixed(1))
+                                    })
+                                })
                             })
-                        })
                     })
-            })
+                })
+            } else {
+                res.json({
+                    status: "2",
+                    message: "You are missing accounting information. Please enter the payment method method for more information."
+                })
+            }
         })
+
+
 
     } catch (error) {
         console.log(error + "")

@@ -66,99 +66,54 @@ $(document).ready(function () {
     // console.log(pathArray)
 
     if (pathArray[1] == "dashboard" && pathArray[2] == null) {
-        $('#navigate-text').append(
-            `<a class="colora" href="/dashboard"><span>Home</span><a>
-        <span class="setarrownavigate">
-            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
-        </span>
-        <span id="text-href">My app</span>`)
+
 
     }
     if (pathArray[1] == "checkout" && pathArray[2] == null) {
-        $('#navigate-text').append(
-            `<a class="colora" href="/Membership"><span>Membership</span><a>
-        <span class="setarrownavigate">
-            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
-        </span>
-        <span id="text-href">Checkout</span>`)
+
 
     }
     if (pathArray[2] == "appversion") {
         // hoversubmenu[0].style.display = "none"
         hoverarrow[0].style.color = "#00afee"
         hovertext[0].style.color = "#00afee"
-        $('#navigate-text').append(
-            `<a class="colora" href="/dashboard"><span>Home</span><a>
-        <span class="setarrownavigate">
-            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
-        </span>
-        <span id="text-href">App Version</span>`)
+
 
     }
     if (pathArray[2] == "editprofile") {
         // hoversubmenu[0].style.display = "none"
-        $('#navigate-text').append(
-            `<a class="colora" href="/dashboard"><span>Home</span><a>
-        <span class="setarrownavigate">
-            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
-        </span>
-        <span id="text-href">User</span>`)
+
 
     }
     if (pathArray[2] == "dashboard") {
         // hoverarrow[1].style.color = "#00afee"
         // hovertext[1].style.color = "#00afee"
-        $('#navigate-text').append(
-            `<a class="colora" href="/dashboard"><span>Home</span><a>
-        <span class="setarrownavigate">
-            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
-        </span>
-        <span id="text-href">My app</span>`)
+
 
     }
     if (pathArray[2] == "history") {
         hoverarrow[1].style.color = "#00afee"
         hovertext[1].style.color = "#00afee"
-        $('#navigate-text').append(
-            `<a class="colora" href="/dashboard"><span>Home</span><a>
-        <span class="setarrownavigate">
-            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
-        </span>
-        <span id="text-href">History</span>`)
+
 
     }
     if (pathArray[2] == "myteam") {
         hoverarrow[2].style.color = "#00afee"
         hovertext[2].style.color = "#00afee"
-        $('#navigate-text').append(
-            `<a class="colora" href="/dashboard"><span>Home</span><a>
-        <span class="setarrownavigate">
-            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
-        </span>
-        <span id="text-href">My Team</span>`)
+
 
     }
     if (pathArray[2] == "appsetting") {
         hoverarrow[3].style.color = "#00afee"
         hovertext[3].style.color = "#00afee"
-        $('#navigate-text').append(
-            `<a class="colora" href="/dashboard"><span>Home</span><a>
-        <span class="setarrownavigate">
-            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
-        </span>
-        <span id="text-href">Traffic</span>`)
+
 
     }
     if (pathArray[2] == "myorder") {
         hoverarrow[4].style.color = "#00afee"
         hovertext[4].style.color = "#00afee"
         if (pathArray[2] != "detail") {
-            $('#navigate-text').append(
-                `<a class="colora" href="/dashboard"><span>Home</span><a>
-            <span class="setarrownavigate">
-                <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
-            </span>
-            <span id="text-href">My Order</span>`)
+
         } else {
             var parseQueryString = function (queryString) {
                 var params = {},
@@ -173,16 +128,7 @@ $(document).ready(function () {
                 return params;
             };
             var querycodeorder = parseQueryString(window.location.search.substring(1))
-            $('#navigate-text').append(
-                `<a class="colora" href="/dashboard"><span>Home</span><a>
-            <span class="setarrownavigate">
-                <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
-            </span>
-            <a class="colora" href="/myorder/${pathArray[3]}"><span>My Order</span><a>
-            <span class="setarrownavigate">
-                <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
-            </span>
-            <span id="text-href">#${querycodeorder.codeorder}</span>`)
+
         }
 
     }
@@ -190,23 +136,13 @@ $(document).ready(function () {
     if (pathArray[2] == "traffic") {
         hoverarrow[5].style.color = "#00afee"
         hovertext[5].style.color = "#00afee"
-        $('#navigate-text').append(
-            `<a class="colora" href="/dashboard"><span>Home</span><a>
-        <span class="setarrownavigate">
-            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
-        </span>
-        <span id="text-href">Traffic</span>`)
+
 
     }
     if (pathArray[2] == "notification") {
         hoverarrow[6].style.color = "#00afee"
         hovertext[6].style.color = "#00afee"
-        $('#navigate-text').append(
-            `<a class="colora" href="/dashboard"><span>Home</span><a>
-        <span class="setarrownavigate">
-            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
-        </span>
-        <span id="text-href">Notification</span>`)
+
 
     }
     // console.log(pathArray)

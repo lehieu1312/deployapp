@@ -1,0 +1,61 @@
+<% include ../dashboard/headerdetail %>
+    <div id="navigate-text">
+        <a class="colora" href="/dashboard">
+            <span>Home</span>
+        </a>
+        <span class="setarrownavigate">
+            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
+        </span>
+        <a class="colora" href="/affiliate/payment-method">
+            <span>Payment Method</span>
+        </a>
+        <span class="setarrownavigate">
+            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
+        </span>
+        <a class="colora" href="/dashboard/myorder">
+            <span id="text-href">
+                add
+            </span>
+        </a>
+    </div>
+    </div>
+    <div class="xcontent clsmenu">
+        <div id="title-detail" class="row row1">
+            <div id="title-appversion" class="content-title-detail has-feedback">
+                <span class="textmyapp">Add a payment method
+            </div>
+        </div>
+        <form id="form-method" onsubmit="return false">
+            <div class="withdrawal-affiliate">
+                <div class="content-withdrawal-affilicate">
+                    <div class="title-content-affiliate set-title-add-method">Enter Information</div>
+                    <div class="select-method">
+                        <div class="active-method item-payment-method">
+                            PayPal
+                            <img class="check-method" src="/themes/img/affiliate/iconckeck.png">
+                        </div>
+                        <div class="item-payment-method">Other Bank
+                            <br>
+                            <img class="set-img-arrow-method" src="/themes/img/affiliate/iconarrowmethod.png">
+                        </div>
+                    </div>
+                    <div class="title-content-affiliate set-title-add-method">PayPal Information</div>
+                    <div class="content-infor-method">
+                        <div class="form-group has-feedback col-sm-6">
+                            <label class="control-label" for="inputSuccess2">Account PayPal *</label>
+                            <input autocomplete="off" type="text" class="input-amount-withdrawal" id="account-number-method">
+                            <span class="form-control-feedback" aria-hidden="true">
+                                <img class="seticoneye seticoneye-withdrawal iconerr icon" id="iconerr1" src="" alt="">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn-blue-deploy set-btn-withdrawal">Save</button>
+        </form>
+    </div>
+    </div>
+    </div>
+    </div>
+    <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/appversion/pagination.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/themes/js/affiliate/method/method.js"></script>

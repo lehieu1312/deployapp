@@ -388,10 +388,15 @@ router.get('/checkout/ok/process', (req, res) => {
                             // if(req.cookies.codesharedeployapp)
 
                             var new_order = new order_modal(queryCheckout);
+
+                            var user_checkout = await User.findOne({
+                                id: req.session.iduser,
+                                status: true
+                            }).exec()
+
                             await new_order.save().then(() => {
                                 if (req.cookies.codesharedeployapp) {
                                     User.findOne({
-                                        id: req.session.iduser,
                                         codeShare: req.cookies.codesharedeployapp.code,
                                         status: true
                                     }).then((user_share) => {
@@ -405,6 +410,7 @@ router.get('/checkout/ok/process', (req, res) => {
                                                 var new_affiliate = new affiliate_modal({
                                                     id: md5(new Date()),
                                                     idUser: user_share.id,
+                                                    username: user_checkout.username,
                                                     codeShare: req.cookies.codesharedeployapp.code,
                                                     idOrder: id_order,
                                                     codeOrder: code_order,

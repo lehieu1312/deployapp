@@ -11,6 +11,7 @@ let withdrawSchema = mongoose.Schema({
     bankReceipt: String,
     bank: String,
     bankBranch: String,
+    accountNumber: String,
     accountHolder: String,
     fee: Number,
     amount: Number,

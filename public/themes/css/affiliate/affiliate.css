@@ -426,4 +426,52 @@ text-cent-money {
     height: 55px;
 }
 
-/* 32cd32 444549 background: #cdcdcd; */
+.set-title-add-method {
+    padding: 15px 0 0 20px;
+}
+
+.active-method {
+    color: #00afee !important;
+    border-style: solid !important;
+    border-width: 1px !important;
+    border-color: #00afee !important;
+    font-family: 'OpenSans-Regular';
+}
+
+.check-method {
+    position: absolute;
+    top: 50px;
+    left: 90px;
+}
+
+.content-infor-method {
+    padding: 15px 0 20px 10px;
+}
+
+.item-payment-method {
+    position: relative;
+    color: #acb0b6;
+    cursor: pointer;
+    margin-left: 20px;
+    padding-top: 24px;
+    text-align: center;
+    float: left;
+    border-style: dotted;
+    border-width: 1px;
+    border-color: #cecece;
+    border-radius: 2px;
+    height: 70px;
+    width: 110px;
+}
+
+.set-img-arrow-method {
+    margin-top: -10px;
+}
+
+.select-method {
+    padding: 15px 0 0 0px;
+    width: auto;
+    height: 100px;
+}
+
+/* 32cd32 444549 background: #cdcdcd;  00afee acb0b6*/

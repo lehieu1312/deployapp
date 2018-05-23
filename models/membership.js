@@ -7,7 +7,7 @@ let membershipChema = mongoose.Schema({
     firstname: String,
     username: String,
     email: String,
-    isMember: Boolean,
+    isMember: Number,
     amount: Number,
     dateCreate: Date,
     dateUpdate: Date,

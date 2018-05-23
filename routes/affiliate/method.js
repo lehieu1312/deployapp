@@ -93,6 +93,17 @@ router.get("/affiliate/payment-method/add", checkAdmin, (req, res) => {
 
 })
 
+router.post("/affiliate/payment-method/delete", (req, res) => {
+    affiliate_method_modal.remove({
+        idMethod: req.body.id,
+        status: true
+    }).then(() => {
+        res.json({
+            status: "1"
+        })
+    })
+})
+
 router.post("/affiliate/payment-method/add/ok", (req, res) => {
     try {
         if (req.body.method == "paypal") {

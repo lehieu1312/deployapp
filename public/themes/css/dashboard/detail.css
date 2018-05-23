@@ -493,7 +493,6 @@ button {
     padding-right: 7px;
 }
 
-
 /* .form-control-feedback1 {
     position: absolute;
     top: 27px;
@@ -696,7 +695,6 @@ button {
     z-index: 1;
 }
 
-
 /* .group-advertise:hover{
     opacity: 0.5;
 } */
@@ -887,7 +885,6 @@ a:hover .menumore-listmyapp {
     background: none;
     z-index: 2;
 }
-
 
 /* .hoverspan:hover .spantextmenu{
     white-space: nowrap;
@@ -1211,7 +1208,6 @@ a:hover .menumore-listmyapp {
     border: 1px solid #f5f5f5;
 }
 
-
 /* enu sub left */
 
 .subspantextmenu {
@@ -1264,11 +1260,16 @@ a:hover .menumore-listmyapp {
     color: #666666;
 }
 
+.arrow-top-afiliate {
+    transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
 
 /* #submenuleft a{
     color: #666666!important;
 } */
-
 
 /* #submenuleft{
     display: none;

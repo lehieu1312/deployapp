@@ -827,6 +827,9 @@ var affiliate_statement = require("./routes/affiliate/statement");
 var affiliate_withdrawal = require("./routes/affiliate/withdrawal");
 var affiliate_method = require("./routes/affiliate/method");
 
+// membership
+var membership = require("./routes/membership/membership");
+
 //Test
 var testBody = require("./routes/testbody");
 
@@ -890,6 +893,8 @@ app.use('/', affiliate_statement);
 app.use('/', affiliate_withdrawal);
 app.use('/', affiliate_method);
 
+// membership
+app.use('/', membership);
 
 /////////////////////
 app.use('/deploy-api', API);

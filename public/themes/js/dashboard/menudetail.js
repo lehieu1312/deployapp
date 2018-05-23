@@ -1,4 +1,17 @@
 $(document).ready(function () {
+
+    $(".far-notification").click((event) => {
+        $('.item-notification').toggle();
+        event.stopPropagation();
+    })
+
+    $(".far-affiliate").click((event) => {
+        $(".arrow-top-afiliate").toggle();
+        $(".arrow-affiliate").toggle();
+        $('.item-affiliate').toggle();
+        event.stopPropagation();
+    })
+
     $('.showmenuaccount').click((event) => {
         $('#menuaccount').toggle();
         event.stopPropagation();

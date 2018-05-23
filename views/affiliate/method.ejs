@@ -125,7 +125,7 @@
                             }
                              %>
                             <%for(var i = 0; i< method.length;i++){ %>
-
+                                <input type="hidden" class="id-method-use" value="<%= method[i].idMethod%>">
                                 <tr id="version<%=i%>" class="tr-content-appversion set-method-affiliate">
                                     <td class="findcode">
                                         <%=i+1%>
@@ -226,8 +226,26 @@
                 <span class="number-items" href="#"></span>
             </span>
         </div>
+        <div class="container ">
+            <div class="modal fade" id="mymodal-deleteuser" role="dialog">
+                <div class="modal-dialog  ">
+                    <div class="modal-content1">
+                        <div class="dialogdeleteapp">
+                            <div class="dialogdeleteapp-head">
+                                You definitely want to Delete this method ?
+                            </div>
+                            <div class="dialogdeleteapp-foot">
+                                <button id="delete-ok">Delete</button>
+                                <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     </div>
     </div>
     </div>
+    <script type="text/javascript" charset="utf-8" src="/themes/js/affiliate/method/method.js"></script>
     <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/appversion/pagination.js"></script>

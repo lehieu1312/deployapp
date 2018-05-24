@@ -1,12 +1,14 @@
 <% include ../layout/header %>
 
+    <link rel="stylesheet" type="text/css" href="/themes/css/admin/apps.css">
     <div class="xcontent clsmenu">
         <div id="title-detail" class="row row1">
             <div id="title-appversion" class="content-title-detail has-feedback">
                 <span class="textmyapp">Apps
             </span>
-                <button type="submit" class="btn-blue" id="adduser" data-toggle="modal" data-target="#myModa-adduser">
-                <img class="seticonadd" src="/themes/img/admin/add.png"> Add</button>
+                <a href="/admin/apps/add" class="btn-blue" id="adduser">
+                    <img class="seticonadd" src="/themes/img/admin/add.png"> Add
+                </a>
 
                 <!-- <span class="setsearch">
                 <input type="text" onkeyup="searchFunc()" id="inputsearch-customer" name="search" placeholder="Search...">
@@ -16,8 +18,6 @@
                 </span> -->
             </div>
         </div>
-
-
 
         <div id="filter-table-appversion" class="row row1">
             <div class="filter-left">
@@ -41,31 +41,6 @@
                             <a href="javascript:void(0)">36 Per page</a>
                         </li>
 
-                    </ul>
-                </div>
-                <div id="filter-date" class="btn-group">
-                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span id="span-selcect-date" class="span-button-select">All Dates</span>
-                        <span class="caret arow-button-select"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li id="select-date-1">
-                            <a href="#">Hours Ago</a>
-                        </li>
-                        <li id="select-date-2">
-                            <a href="#">Yesterday</a>
-                        </li>
-                        <li id="select-date-3">
-                            <a href="#">Last Week</a>
-                        </li>
-                        <li id="select-date-4">
-                            <a href="#">All Dates</a>
-                        </li>
-                        <li role="separator" class="divider"></li>
-                        <li id="select-date-5">
-                            <input hidden id="fillter-date-custom" value="">
-                            <a href="#">Custom...</a>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -118,10 +93,19 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <!-- data-toggle="modal" data-target="#mymodal-blockuser" -->
-                                <a href="javascript:void(0)" id="btn-block-multi"><img src="/themes/img/admin/blockmultioption.png" class="img-option-multi" alt="Block selected"> &nbsp;<span>Block selected</span></a>
+                                <a href="javascript:void(0)" id="btn-enable-multi"><img src="/themes/img/admin/enable.png" class="img-option-multi" alt="Block selected"> &nbsp;
+                                    <span>Enable selected</span>
+                                </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" id="btn-delete-multi"><img src="/themes/img/admin/deletemultioption.png" class="img-option-multi" alt="Delete selected"> &nbsp;<span>Delete selected</span></a>
+                                <a href="javascript:void(0)" id="btn-disable-multi"><img src="/themes/img/admin/disable.png" class="img-option-multi" alt="Delete selected"> &nbsp;
+                                    <span>Disable selected</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" id="btn-delete-multi"><img src="/themes/img/admin/deletemultioption.png" class="img-option-multi" alt="Delete selected"> &nbsp;
+                                    <span>Delete selected</span>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -132,110 +116,134 @@
                     <tr id="title-table-header">
                         <th width="5.8%"><input type="checkbox" id="checkboxall"></th>
                         <th width="7.8%">#</th>
-                        <th width="13%">Avatar
+                        <th width="20%">Name
                             <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                         </th>
-                        <th width="12.2%">First name
+                        <th width="12.2%">Uploaded
                             <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                         </th>
-                        <th width="12.2%">Last name
+                        <th width="12.2%">Updated
                             <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                         </th>
-                        <th width="25.2%">Email
+                        <th width="10%">Last Version
                             <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                         </th>
-                        <th width="15%">Date added
+                        <th width="10%">List Price
                             <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                         </th>
-                        <th width="10%">Login
+                        <th width="10%">Price
+                        </th>
+                        <th width="10%">Status
                         </th>
                         <th width="15.8%">
                         </th>
                     </tr>
                     <tbody>
                         <%var dem=1;%>
-                            <% dataUser.forEach(function(item){%>
+                            <% dataApps.forEach(function(item){%>
                                 <tr id="" class="tr-content-appversion trrecord">
-                                    <td><input type="checkbox" name="name[]" id="<%=item.id%>"></td>
+                                    <td><input type="checkbox" name="name[]" id="<%=item.idApp%>"></td>
                                     <td class="">
                                         <span class="numberorder"><%=dem%></span>
                                     </td>
-                                    <td class="table-nameapp ">
-                                        <%if(!item.picture){%>
-                                            <img class="imgavatarsmall1" src="/themes/img/admin/avatar.png" alt="avatar">
-                                            <%}else{%>
-                                                <img class="imgavatarsmallcircle" src="/themes/img/profile/<%=item.picture%>" alt="avatar">
-                                                <%}%>
+
+                                    <td class="table-version">
+                                        <a href="/admin/apps/edit/<%=item.idApp%>"> <span><%=item.nameApp%></span></a>
                                     </td>
                                     <td class="table-version">
-                                        <span><%=item.firstname%></span>
-                                    </td>
-                                    <td class="table-version">
-                                        <span><%=item.lastname%></span>
-                                    </td>
-                                    <td class="table-changelog">
-                                        <span><%=item.email%></span>
-                                    </td>
-                                    <td class="table-time-appversion finddate">
                                         <span><%=moment(item.dateCreate).format('DD/MM/YYYY HH:mm:ss')%></span>
                                     </td>
-                                    <td>
-                                        <a href="/admin/customer/login/<%=item.id%>" target="_blank" class="btn-login-customer">
-                                            <img class="login-first" src="/themes/img/admin/login.png" alt="login customer">
-                                            <img class="login-second" src="/themes/img/admin/loginactive.png" alt="login customer">
-                                        </a>
+                                    <td class="table-changelog">
+                                        <span><%=moment(item.dateUpdate).format('DD/MM/YYYY HH:mm:ss')%></span>
                                     </td>
+                                    <td class="table-time-appversion ">
+                                        <span><%=item.lastVersion%></span>
+                                    </td>
+                                    <td class="table-time-appversion ">
+                                        <span>$<%=item.cost%></span>
+                                    </td>
+                                    <td class="table-time-appversion ">
+                                        <span>$<%=item.price%></span>
+                                    </td>
+                                    <td class="table-time-appversion ">
+                                        <%if(item.status){%>
+                                            <span>Enable</span>
+                                            <%}else{%>
+                                                <span class="text-red">Disable</span>
+                                                <%}%>
+                                    </td>
+
                                     <td class="set-position-relative">
                                         <img class="setimg-head-myapp more-menu" src="/themes/img/admin/moreoption.png">
                                         <div class="box-more-menu" style="display:none">
-                                            <a href="/admin/customer/edit/<%=item.id%>">
-                                                <div class="element-delete">
-                                                    <div class="box-edit-customer box-option-customer">
-                                                        <div class="left-box-item">
-                                                            <img class="imgicondelete" src="/themes/img/admin/edit.png">
-                                                            <span>Edit</span>
+                                            <a href="javascript:void(0)" onclick="enableApp('<%=item.idApp%>')">
+                                                <div class=" element-delete ">
+                                                    <div class="box-edit-customer box-option-apps ">
+                                                        <div class="left-box-item ">
+                                                            <img class="imgicondelete " src="/themes/img/admin/enable.png "><span> Enable</span>
                                                         </div>
                                                     </div>
                                             </a>
-                                            <%if(item.blocked==true){%>
-                                                <a href="javascript:void(0)" class="unblock-user" onclick="unblockUser('<%=item.id%>')">
-                                                    <div class="box-edit-customer box-option-customer">
-                                                        <div class="left-box-item">
-                                                            <img class="imgicondelete" src="/themes/img/admin/unblock.png">
-                                                            <span>Unblock</span>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <%}else{%>
-                                                    <a href="javascript:void(0)" onclick="blockUser('<%=item.id%>')">
-                                                        <div class="box-edit-customer box-option-customer">
-                                                            <div class="left-box-item">
-                                                                <img class="imgicondelete" src="/themes/img/admin/block.png">
-                                                                <span>Block</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <%}%>
-                                                        <a href="javascript:void(0)" onclick="deleteUser('<%=item.id%>')">
-                                                            <div class="box-edit-customer box-option-customer">
-                                                                <div class="left-box-item">
-                                                                    <img class="imgicondelete" src="/themes/img/admin/delete.png">
-                                                                    <span>Delete</span>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                        </div>
 
-                                                        <div class="arrowmenuuser-left">
-                                                        </div>
-                                                        <div class="arrowmenuuser-left1">
-                                                        </div>
+
+                                            <a href="javascript:void(0) " onclick="disableApp( '<%=item.idApp%>') ">
+                                                <div class="box-edit-customer box-option-apps ">
+                                                    <div class="left-box-item ">
+                                                        <img class="imgicondelete " src="/themes/img/admin/disable.png "><span> Disable</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a href="/admin/apps/version/<%=item.idApp%>">
+                                                <div class="box-edit-customer box-option-apps">
+                                                    <div class="left-box-item">
+                                                        <img class="imgicondelete" src="/themes/img/admin/versionapps.png"><span> Version</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                            <a href="javascript:void(0)" onclick="deleteApp('<%=item.idApp%>')">
+                                                <div class="box-edit-customer box-option-apps">
+                                                    <div class="left-box-item">
+                                                        <img class="imgicondelete" src="/themes/img/admin/deletemultioption.png"><span>Delete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            </div>
+
+                                            <div class="arrowmenuuser-left">
+                                            </div>
+                                            <div class="arrowmenuuser-left1">
+                                            </div>
 
                                     </td>
                                 </tr>
                                 <% dem++;})%>
                     </tbody>
                 </table>
+                <div class="multi-option">
+                    <div class="input-group ">
+                        <button data-toggle="dropdown" class="btn btn-white dropmenu-multi-option" type="button" aria-expanded="true">Bulk actions <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <!-- data-toggle="modal" data-target="#mymodal-blockuser" -->
+                                <a href="javascript:void(0)" id="btn-enable-multi"><img src="/themes/img/admin/enable.png" class="img-option-multi" alt="Block selected"> &nbsp;
+                                    <span>Enable selected</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" id="btn-disable-multi"><img src="/themes/img/admin/disable.png" class="img-option-multi" alt="Delete selected"> &nbsp;
+                                    <span>Disable selected</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" id="btn-delete-multi"><img src="/themes/img/admin/deletemultioption.png" class="img-option-multi" alt="Delete selected"> &nbsp;
+                                    <span>Delete selected</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
                 </div>
                 <!-- Paging bottom -->
                 <div class="box-paging-bottom">
@@ -280,33 +288,16 @@
                     </div>
                 </div>
 
-
                 <!-- Close -->
 
+                <!-- Delete Apps Multi-->
                 <div class="container">
-                    <div class="modal fade" id="mymodal-deleteuser" role="dialog">
+                    <div class="modal fade" id="mymodal-deleteappsmulti" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content1">
                                 <div class="dialogdeleteapp">
                                     <div class="dialogdeleteapp-head">
-                                        Are you sure you want to Delete this account?
-                                    </div>
-                                    <div class="dialogdeleteapp-foot">
-                                        <button id="delete-ok">Delete</button>
-                                        <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="modal fade" id="mymodal-deleteusermulti" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content1">
-                                <div class="dialogdeleteapp">
-                                    <div class="dialogdeleteapp-head">
-                                        Are you sure you want to delete the selected accounts?
+                                        Are you sure you want to Delete this apps?
                                     </div>
                                     <div class="dialogdeleteapp-foot">
                                         <button id="delete-ok-multi" class="btn-delete-ok">Delete</button>
@@ -318,33 +309,17 @@
                     </div>
                 </div>
 
+                <!-- Disable Apps Multi -->
                 <div class="container box-blockuser">
-                    <div class="modal fade" id="mymodal-blockuser" role="dialog">
+                    <div class="modal fade" id="mymodal-disableappsmulti" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content1">
                                 <div class="dialogdeleteapp">
                                     <div class="dialogdeleteapp-head">
-                                        Are you sure you want to block the accounts you have selected?
+                                        Are you sure you want to disable the apps you have selected?
                                     </div>
                                     <div class="dialogdeleteapp-foot">
-                                        <button id="block-ok" class="btn-block-ok">Block</button>
-                                        <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container box-blockuser">
-                    <div class="modal fade" id="mymodal-blockusermulti" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content1">
-                                <div class="dialogdeleteapp">
-                                    <div class="dialogdeleteapp-head">
-                                        Are you sure you want to block the accounts you have selected?
-                                    </div>
-                                    <div class="dialogdeleteapp-foot">
-                                        <button id="block-ok-multi" class="btn-block-ok">Block</button>
+                                        <button id="disable-ok-multi" class="btn-block-ok">Disable</button>
                                         <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
                                     </div>
                                 </div>
@@ -353,16 +328,17 @@
                     </div>
                 </div>
 
-                <div class="container box-unblockuser">
-                    <div class="modal fade" id="mymodal-unblockuser" role="dialog">
+                <!-- Enable Apps Multi-->
+                <div class="container box-blockuser">
+                    <div class="modal fade" id="mymodal-enableappsmulti" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content1">
                                 <div class="dialogdeleteapp">
                                     <div class="dialogdeleteapp-head">
-                                        Are you sure you want to unblock this account?
+                                        Are you sure you want to enable the apps you have selected?
                                     </div>
                                     <div class="dialogdeleteapp-foot">
-                                        <button id="unblock-ok">Unblock</button>
+                                        <button id="enable-ok-multi" class="btn-block-ok">Enable</button>
                                         <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
                                     </div>
                                 </div>
@@ -370,6 +346,67 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Enable App This -->
+                <div class="container">
+                    <div class="modal fade" id="mymodal-enableapp" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content1">
+                                <div class="dialogdeleteapp">
+                                    <div class="dialogdeleteapp-head">
+                                        Are you sure you want to enable this app?
+                                    </div>
+                                    <div class="dialogdeleteapp-foot">
+                                        <button id="enable-ok" class="btn-enable-ok">Enable</button>
+                                        <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disable App This -->
+                <div class="container">
+                    <div class="modal fade" id="mymodal-disableapp" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content1">
+                                <div class="dialogdeleteapp">
+                                    <div class="dialogdeleteapp-head">
+                                        Are you sure you want to disable this app?
+                                    </div>
+                                    <div class="dialogdeleteapp-foot">
+                                        <button id="disable-ok" class="btn-disable-ok">Enable</button>
+                                        <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Delete App This -->
+                <div class="container">
+                    <div class="modal fade" id="mymodal-deleteapp" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content1">
+                                <div class="dialogdeleteapp">
+                                    <div class="dialogdeleteapp-head">
+                                        Are you sure you want to delete this app?
+                                    </div>
+                                    <div class="dialogdeleteapp-foot">
+                                        <button id="delete-ok" class="btn-delete-ok">Delete</button>
+                                        <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <div class="container">
                     <div class="modal fade" id="mymodal-warring" role="dialog">
                         <div class="modal-dialog">
@@ -415,7 +452,7 @@
     </div>
     </div>
 
-    <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/customer.js "></script>
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/apps.js "></script>
     <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/paging.js "></script>
     <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/breadcrumb.js "></script>
     <!-- <script type="text/javascript " charset="utf-8 " src="/themes/js/dashboard/appversion/pagination.js "></script> -->

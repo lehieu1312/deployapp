@@ -1,0 +1,52 @@
+.text-red {
+    color: #ef5350;
+}
+
+.box-more-menu a {
+    color: #666;
+}
+
+.box-option-apps {
+    padding: 3px 0px;
+}
+
+.box-option-apps:hover {
+    background-color: #fafbfc;
+}
+
+#enable-ok-multi {
+    background-color: #0B760B;
+}
+
+.btn-enable-ok {
+    background-color: #0B760B;
+    margin-right: 15px;
+    font-family: 'OpenSans-Regular';
+    color: white;
+    float: right;
+    border-radius: 2px;
+    padding: 7px 21px 7px 21px;
+    border: none;
+}
+
+.btn-disable-ok {
+    margin-right: 15px;
+    background: #00afee;
+    font-family: 'OpenSans-Regular';
+    color: white;
+    float: right;
+    border-radius: 2px;
+    padding: 7px 21px 7px 21px;
+    border: none;
+}
+
+.btn-delete-ok {
+    margin-right: 15px;
+    font-family: 'OpenSans-Regular';
+    color: white;
+    float: right;
+    border-radius: 2px;
+    padding: 7px 18px 7px 18px;
+    background: #ef5350;
+    border: none;
+}

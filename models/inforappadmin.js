@@ -13,9 +13,11 @@ let inforAppAdminChema = mongoose.Schema({
     nameApp: String,
     image: String,
     installed: Number,
+    lastVersion: String,
     cost: Number,
     price: Number,
     dateCreate: Date,
+    dateUpdate: Date,
     status: Boolean
 });
 

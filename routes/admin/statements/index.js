@@ -83,8 +83,7 @@ router.get('/', async(req, res) => {
                 });
             });
         } else {
-            console.log('Have query st');
-            ///////////////Hours Ago//////////
+            ///////////////Hours Ago//////////////////////////////////////////////////////////////////////////////////////////////////////////
             if (req.query.st == 'hoursago') {
                 var sRevenueTwoHours = 0,
                     sWithdrawTwoHours = 0,
@@ -93,22 +92,22 @@ router.get('/', async(req, res) => {
 
                 var sDateNow = new Date();
                 console.log(sDateNow);
-                console.log(moment(sDateNow).format('DD/MM/YYYY HH:mm:ss'));
+                // console.log(moment(sDateNow).format('DD/MM/YYYY HH:mm:ss'));
                 // var mathDateHoursAgo = sDateNow - (1000 * 60 * 60);
                 var mathDateTwoHours = sDateNow - (1000 * 60 * 120);
                 var mathDateHoursAgo = new Date(sDateNow.getFullYear(), sDateNow.getMonth(), sDateNow.getDate(), sDateNow.getHours() - 1, sDateNow.getMinutes(), sDateNow.getSeconds());
-
-                console.log(mathDateHoursAgo.toUTCString());
-                // console.log(mathDateHoursAgo);
-
-                console.log(moment(mathDateHoursAgo).format('DD/MM/YYYY HH:mm:ss'));
+                // console.log(mathDateHoursAgo.toUTCString());
+                console.log(mathDateTwoHours);
+                // console.log(moment(mathDateTwoHours).format('DD/MM/YYYY HH:mm:ss'));
                 // console.log(moment(mathDateTwoHours).format('DD/MM/YYYY HH:mm:ss'));
 
                 console.log('==================================Hours Ago===================================');
 
-                var dataWithdrawHoursAgo = await withdrawModels.find({ dateCreate: { $gt: mathDateHoursAgo.getTime() } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusWithdraw: 1, isWithdraw: 1, dateCreate: 1, status: 1 }).exec();
+                var dataWithdrawHoursAgo = await withdrawModels.find({ dateCreate: { $gt: mathDateHoursAgo, $lt: sDateNow } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusWithdraw: 1, isWithdraw: 1, dateCreate: 1, status: 1 }).exec();
+                console.log('dataWithdrawHoursAgo');
                 console.log(dataWithdrawHoursAgo);
                 async.forEach(dataWithdrawHoursAgo, (item) => {
+                    console.log()
                     arrData.push(item);
                     if (item.statusWithdraw == 2) {
                         sWithdraw += item.amount;
@@ -120,6 +119,8 @@ router.get('/', async(req, res) => {
                 console.log(sWithdraw);
 
                 var dataOrdersHoursAgo = await orderModels.find({ dateCreate: { $gt: mathDateHoursAgo, $lt: sDateNow } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusOrder: 1, isOrder: 1, dateCreate: 1, status: 1 }).exec();
+                console.log('dataOrdersHoursAgo');
+                console.log(dataOrdersHoursAgo);
                 async.forEach(dataOrdersHoursAgo, (item) => {
                     arrData.push(item);
                     sRevenue += item.amount;
@@ -129,7 +130,7 @@ router.get('/', async(req, res) => {
 
                 console.log('=================================2 Hours ====================================');
                 var dataWithdrawTwoHours = await withdrawModels.find({ dateCreate: { $lt: mathDateHoursAgo, $gt: mathDateTwoHours } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusWithdraw: 1, isWithdraw: 1, dateCreate: 1, status: 1 }).exec();
-                // console.log(dataWithdraw);
+                console.log(dataWithdrawTwoHours);
                 async.forEach(dataWithdrawTwoHours, (item) => {
                     arrDataMath.push(item);
                     if (item.statusWithdraw == 2) {
@@ -146,9 +147,6 @@ router.get('/', async(req, res) => {
                     sRevenueTwoHours += item.amount;
                 });
                 sProfitTwoHours = sRevenueTwoHours - sWithdrawTwoHours;
-
-
-
                 console.log('=================================close====================================');
                 // console.log(sProfit);
                 arrData = arrData.slice(0);
@@ -156,75 +154,120 @@ router.get('/', async(req, res) => {
                     return a.dateCreate - b.dateCreate;
                 });
                 //////////////////
-                if (sRevenue <= sRevenueTwoHours) {
+                if (sRevenue == 0 && sRevenueTwoHours != 0) {
+                    checkRevenue = 0;
+                    pRevenue = 100;
+                } else if (sRevenue != 0 && sRevenueTwoHours == 0) {
+                    checkRevenue = 1;
+                    pRevenue = 100;
+                } else if (sRevenue == 0 && sRevenueTwoHours == 0) {
+                    checkRevenue = 0;
+                    pRevenue = 0;
+                } else if (sRevenue <= sRevenueTwoHours) {
                     checkRevenue = 0;
                     var vTemp = sRevenueTwoHours - sRevenue;
-                    pRevenue = vTemp * sRevenueTwoHours / 100;
+                    pRevenue = (vTemp * 100 / sRevenueTwoHours).toFixed(2);
                 } else {
                     checkRevenue = 1;
                     var vTemp = sRevenue - sRevenueTwoHours;
-                    pRevenue = vTemp * sRevenueTwoHours / 100;
+                    pRevenue = (vTemp * 100 / sRevenueTwoHours).toFixed(2);
                 }
 
                 //////////////////////
-                if (sWithdraw <= sWithdrawTwoHours) {
+                if (sWithdraw == 0 && sWithdrawTwoHours != 0) {
+                    checkWithdraw = 0;
+                    pWithdraw = 100;
+                } else if (sWithdraw != 0 && sWithdrawTwoHours == 0) {
+                    checkWithdraw = 1;
+                    pWithdraw = 100;
+                } else if (sWithdraw == 0 && sWithdrawTwoHours == 0) {
+                    checkWithdraw = 0;
+                    pWithdraw = 0;
+                } else if (sWithdraw <= sWithdrawTwoHours) {
                     checkWithdraw = 0;
                     var vTemp = sWithdrawTwoHours - sWithdraw;
-                    pWithdraw = vTemp * sWithdrawTwoHours / 100;
+                    pWithdraw = (vTemp * 100 / sWithdrawTwoHours).toFixed(2);
                 } else {
                     checkWithdraw = 1;
                     var vTemp = sWithdraw - sWithdrawTwoHours;
-                    pWithdraw = vTemp * sWithdrawTwoHours / 100;
+                    pWithdraw = (vTemp * 100 / sWithdrawTwoHours).toFixed(2);
                 }
 
                 //////////////////////
-                if (sProfit <= sProfitTwoHours) {
+                if (sProfit == 0 && sProfitTwoHours != 0) {
+                    checkProfit = 0;
+                    pProfit = 100;
+                } else if (sProfit != 0 && sProfitTwoHours == 0) {
+                    checkProfit = 1;
+                    pProfit = 100;
+                } else if (sProfit == 0 && sProfitTwoHours == 0) {
+                    checkProfit = 0;
+                    pProfit = 0;
+                } else if (sProfit <= sProfitTwoHours) {
                     checkProfit = 0;
                     var vTemp = sProfitTwoHours - sProfit;
-                    pProfit = vTemp * sProfitTwoHours / 100;
+                    pProfit = (vTemp * 100 / sProfitTwoHours).toFixed(2);
                 } else {
                     checkProfit = 1;
                     var vTemp = sProfit - sProfitTwoHours;
-                    pProfit = vTemp * sProfitTwoHours / 100;
+                    if (sProfitTwoHours < 0) {
+                        pProfit = (vTemp * 100 / -(sProfitTwoHours)).toFixed(2);
+                    } else {
+                        pProfit = (vTemp * 100 / sProfitTwoHours).toFixed(2);
+                    }
+                    // pProfit = (vTemp * 100 / sProfitTwoHours).toFixed(2);
                 }
                 /////////////////////
-                if (sPending <= sPendingTwoHours) {
+                if (sPending == 0 && sPendingTwoHours != 0) {
+                    checkPending = 0;
+                    pPending = 100;
+                } else if (sPending != 0 && sPendingTwoHours == 0) {
+                    checkPending = 1;
+                    pPending = 100;
+                } else if (sPending == 0 && sPendingTwoHours == 0) {
+                    checkPending = 0;
+                    pPending = 0;
+                } else if (sPending <= sPendingTwoHours) {
                     checkPending = 0;
                     var vTemp = sPendingTwoHours - sPending;
-                    pPending = vTemp * sPendingTwoHours / 100;
+                    pPending = (vTemp * 100 / sPendingTwoHours).toFixed(2);
                 } else {
                     checkPending = 1;
                     var vTemp = sPending - sPendingTwoHours;
-                    pPending = vTemp * sPendingTwoHours / 100;
+                    pPending = (vTemp * 100 / sPendingTwoHours).toFixed(2);
                 }
-                /////////////Yesterday///////////////////////////////////////////////////////////////////////////////
+                /////////////Yesterday////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             } else if (req.query.st == "yesterday") {
                 console.log('YesterDay');
                 var dateNow = new Date();
                 // console.log(moment(dateNow).format())
                 var mathDateNow = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate());
                 var mathDateYesterDay = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate() - 1);
-                // console.log("Ngày hôm nay: " + mathDateNow);
+                var mathDateTwoDayAgo = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate() - 2);
+
+                console.log("Ngày hôm nay: " + mathDateNow);
+                console.log("Ngày hôm qua: " + mathDateYesterDay);
+                console.log("Ngày hôm kia: " + mathDateTwoDayAgo);
                 var sRevenueTwoDayAgo = 0,
                     sWithdrawTwoDayAgo = 0,
                     sProfitTwoDayAgo = 0,
                     sPendingTwoDayAgo = 0;
 
                 // var mathDateYesterDay = dateNow.getTime() - dateNow.getHours
-                var mathDateTwoDayAgo = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate() - 2);
+                // var mathDateTwoDayAgo = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate() - 2);
 
                 // console.log(moment(mathDateYesterDay).format('DD/MM/YYYY HH:mm:ss'));
                 // console.log(moment(mathDateTwoDayAgo).format('DD/MM/YYYY HH:mm:ss'));
                 // console.log(mathDateNow.getTime());
                 // console.log(mathDateYesterDay.getTime());
-                var datetest = new Date('2018-01-12 03:33:10.407Z').getTime();
-                console.log(datetest);
+                // var datetest = new Date('2018-01-12 03:33:10.407Z').getTime();
+                // console.log(datetest);
 
-                mathDateNow = moment(mathDateNow).format('YYYY-MM-DD HH:mm:ss');
-                mathDateYesterDay = moment(mathDateYesterDay).format('YYYY-MM-DD HH:mm:ss');
-                console.log(mathDateNow);
-                console.log(mathDateYesterDay);
-                /////////////////////////////////////////////////////////////////////////////////////////////
+                // mathDateNow = moment(mathDateNow).format('YYYY-MM-DD HH:mm:ss');
+                // mathDateYesterDay = moment(mathDateYesterDay).format('YYYY-MM-DD HH:mm:ss');
+                // console.log(mathDateNow);
+                // console.log(mathDateYesterDay);
+                //////////////////////////////////
                 // var startDate = new Date(); 
                 // // this is the starting date that looks like ISODate("2014-10-03T04:00:00.188Z")
 
@@ -267,7 +310,7 @@ router.get('/', async(req, res) => {
                 var dataWithdrawTwoDayAgo = await withdrawModels.find({ $and: [{ dateCreate: { $lt: mathDateYesterDay } }, { dateCreate: { $gt: mathDateTwoDayAgo } }] }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusWithdraw: 1, isWithdraw: 1, dateCreate: 1, status: 1 }).exec();
                 console.log(dataWithdrawTwoDayAgo);
                 async.forEach(dataWithdrawTwoDayAgo, (item) => {
-                    arrData.push(item);
+                    arrDataMath.push(item);
                     if (item.statusWithdraw == 2) {
                         sWithdrawTwoDayAgo += item.amount;
                     }
@@ -278,14 +321,10 @@ router.get('/', async(req, res) => {
 
                 var dataOrdersTwoDayAgo = await orderModels.find({ $and: [{ dateCreate: { $lt: mathDateYesterDay } }, { dateCreate: { $gt: mathDateTwoDayAgo } }] }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusOrder: 1, isOrder: 1, dateCreate: 1, status: 1 }).exec();
                 async.forEach(dataOrdersTwoDayAgo, (item) => {
-                    arrData.push(item);
+                    arrDataMath.push(item);
                     sRevenueTwoDayAgo += item.amount;
                 });
                 sProfitTwoDayAgo = sRevenueTwoDayAgo - sWithdrawTwoDayAgo;
-
-
-
-
 
                 console.log('=================================close====================================');
                 // console.log(sProfit);
@@ -294,107 +333,133 @@ router.get('/', async(req, res) => {
                     return a.dateCreate - b.dateCreate;
                 });
                 //////////////////
-                if (sRevenue <= sRevenueTwoDayAgo) {
+                if (sRevenue == 0 && sRevenueTwoDayAgo != 0) {
+                    checkRevenue = 0;
+                    pRevenue = 100;
+                } else if (sRevenue != 0 && sRevenueTwoDayAgo == 0) {
+                    checkRevenue = 1;
+                    pRevenue = 100;
+                } else if (sRevenue == 0 && sRevenueTwoDayAgo == 0) {
+                    checkRevenue = 0;
+                    pRevenue = 0;
+                } else if (sRevenue <= sRevenueTwoDayAgo) {
                     checkRevenue = 0;
                     var vTemp = sRevenueTwoDayAgo - sRevenue;
-                    pRevenue = vTemp * sRevenueTwoDayAgo / 100;
+                    pRevenue = (vTemp * 100 / sRevenueTwoDayAgo).toFixed(2);
                 } else {
                     checkRevenue = 1;
                     var vTemp = sRevenue - sRevenueTwoDayAgo;
-                    pRevenue = vTemp * sRevenueTwoDayAgo / 100;
+                    pRevenue = (vTemp * 100 / sRevenueTwoDayAgo).toFixed(2);
                 }
 
                 //////////////////////
-                if (sWithdraw <= sWithdrawTwoDayAgo) {
+                if (sWithdraw == 0 && sWithdrawTwoDayAgo != 0) {
+                    checkWithdraw = 0;
+                    pWithdraw = 100;
+                } else if (sWithdraw != 0 && sWithdrawTwoDayAgo == 0) {
+                    checkWithdraw = 1;
+                    pWithdraw = 100;
+                } else if (sWithdraw == 0 && sWithdrawTwoDayAgo == 0) {
+                    checkWithdraw = 0;
+                    pWithdraw = 0;
+                } else if (sWithdraw <= sWithdrawTwoDayAgo) {
                     checkWithdraw = 0;
                     var vTemp = sWithdrawTwoDayAgo - sWithdraw;
-                    pWithdraw = vTemp * sWithdrawTwoDayAgo / 100;
+                    pWithdraw = (vTemp * 100 / sWithdrawTwoDayAgo).toFixed(2);
                 } else {
                     checkWithdraw = 1;
                     var vTemp = sWithdraw - sWithdrawTwoDayAgo;
-                    pWithdraw = vTemp * sWithdrawTwoDayAgo / 100;
+                    pWithdraw = (vTemp * 100 / sWithdrawTwoDayAgo).toFixed(2);
                 }
 
                 //////////////////////
-                if (sProfit <= sProfitTwoDayAgo) {
+                if (sProfit == 0 && sProfitTwoDayAgo != 0) {
+                    checkProfit = 0;
+                    pProfit = 100;
+                } else if (sProfit != 0 && sProfitTwoDayAgo == 0) {
+                    checkProfit = 1;
+                    pProfit = 100;
+                } else if (sProfit == 0 && sProfitTwoDayAgo == 0) {
+                    checkProfit = 0;
+                    pProfit = 0;
+                } else if (sProfit <= sProfitTwoDayAgo) {
                     checkProfit = 0;
                     var vTemp = sProfitTwoDayAgo - sProfit;
-                    pProfit = vTemp * sProfitTwoDayAgo / 100;
+                    pProfit = (vTemp * 100 / sProfitTwoDayAgo).toFixed(2);
                 } else {
                     checkProfit = 1;
                     var vTemp = sProfit - sProfitTwoDayAgo;
-                    pProfit = vTemp * sProfitTwoDayAgo / 100;
+                    if (sProfitTwoDayAgo < 0) {
+                        pProfit = (vTemp * 100 / -(sProfitTwoDayAgo)).toFixed(2);
+                    } else {
+                        pProfit = (vTemp * 100 / sProfitTwoDayAgo).toFixed(2);
+                    }
+                    // pProfit = (vTemp * 100 / sProfitTwoDayAgo).toFixed(2);
                 }
                 /////////////////////
-                if (sPending <= sPendingTwoDayAgo) {
+                if (sPending == 0 && sPendingTwoDayAgo != 0) {
+                    checkPending = 0;
+                    pPending = 100;
+                } else if (sPending != 0 && sPendingTwoDayAgo == 0) {
+                    checkPending = 1;
+                    pPending = 100;
+                } else if (sPending == 0 && sPendingTwoDayAgo == 0) {
+                    checkPending = 0;
+                    pPending = 0;
+                } else if (sPending <= sPendingTwoDayAgo) {
                     checkPending = 0;
                     var vTemp = sPendingTwoDayAgo - sPending;
-                    pPending = vTemp * sPendingTwoDayAgo / 100;
+                    pPending = (vTemp * 100 / sPendingTwoDayAgo).toFixed(2);
                 } else {
                     checkPending = 1;
                     var vTemp = sPending - sPendingTwoDayAgo;
-                    pPending = vTemp * sPendingTwoDayAgo / 100;
+                    pPending = (vTemp * 100 / sPendingTwoDayAgo).toFixed(2);
                 }
 
 
-                /////////////Last Week////////
+                /////////////Last Week/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             } else if (req.query.st == "lastweek") {
                 console.log('lastweek');
                 var sRevenueTwoWeek = 0,
                     sWithdrawTwoWeek = 0,
                     sProfitTwoWeek = 0,
                     sPendingTwoWeek = 0;
-                var dateNow = new Date();
-                console.log('dateNow: ' + dateNow);
-                var dateLater = dateNow.getTime();
-                console.log('dateLater: ' + dateLater);
-                var hoursNow = dateNow.getHours();
-                var minuteNow = dateNow.getMinutes();
-                var secondNow = dateNow.getSeconds();
+                var sDateNow = new Date();
+                console.log(moment(sDateNow).format("DD/MM/YYYY HH:mm:ss "));
+                console.log(sDateNow.getDate());
+                var mathDateNow = new Date(sDateNow.getFullYear(), sDateNow.getMonth(), sDateNow.getDate());
+                var mathDateLastWeek = new Date(sDateNow.getFullYear(), sDateNow.getMonth(), sDateNow.getDate() - 7);
+                var mathDateTwoWeek = new Date(sDateNow.getFullYear(), sDateNow.getMonth(), sDateNow.getDate() - 14);
+                console.log(mathDateNow);
+                console.log('Ngay hnay: ' + mathDateNow);
+                console.log('Ngay tuan truoc: ' + mathDateLastWeek);
+                console.log('Ngay 2 tuan truoc: ' + mathDateTwoWeek);
+                // console.log('dateNow: ' + dateNow);
+                // var dateLater = dateNow.getTime();
+                // console.log('dateLater: ' + dateLater);
+                // var hoursNow = dateNow.getHours();
+                // var minuteNow = dateNow.getMinutes();
+                // var secondNow = dateNow.getSeconds();
                 // dateNow = dateNow - 0;
-                console.log('hoursNow: ' + hoursNow);
-                console.log('minuteNow: ' + minuteNow);
-                console.log('secondNow: ' + secondNow);
 
-                var dateYesterDay = dateNow - hoursNow;
-                console.log(moment(dateNow).format('DD/MM/YYYY HH:mm:ss'));
-                console.log(moment(dateYesterDay).format('DD/MM/YYYY HH:mm:ss'));
+                // var dateYesterDay = dateNow - hoursNow;
+                // console.log(moment(dateNow).format('DD/MM/YYYY HH:mm:ss'));
+                // console.log(moment(dateYesterDay).format('DD/MM/YYYY HH:mm:ss'));
                 // console.log(dateNow);
-                console.log('dateYesterDay: ' + dateYesterDay);
+                // console.log('dateYesterDay: ' + dateYesterDay);
 
-                var mathDateWeek = Date.now() - (1000 * 60 * 60);
-                var mathDateTwoWeek = Date.now() - (1000 * 60 * 120);
+                // var mathDateWeek = Date.now() - (1000 * 60 * 60);
+                // var mathDateTwoWeek = Date.now() - (1000 * 60 * 120);
                 // console.log(mathDateHoursAgo);
 
                 // console.log(moment(mathDateHoursAgo).format('DD/MM/YYYY 00:00:00'));
                 // console.log(moment(mathDateTwoHours).format('DD/MM/YYYY 00:00:00'));
 
-                console.log('=================================TWO WEEK ====================================');
-                var dataWithdrawTwoHours = await withdrawModels.find({ $and: [{ dateCreate: { $lt: mathDateHoursAgo } }, { dateCreate: { $gt: mathDateTwoHours } }] }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusWithdraw: 1, isWithdraw: 1, dateCreate: 1, status: 1 }).exec();
+                console.log('==================================LAST WEEK===================================');
+
+                var dataWithdrawLastWeek = await withdrawModels.find({ dateCreate: { $gt: mathDateLastWeek, $lt: mathDateNow } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusWithdraw: 1, isWithdraw: 1, dateCreate: 1, status: 1 }).exec();
                 // console.log(dataWithdraw);
-                async.forEach(dataWithdrawTwoHours, (item) => {
-                    arrData.push(item);
-                    if (item.statusWithdraw == 2) {
-                        sWithdrawTwoHours += item.amount;
-                    }
-                    if (item.statusWithdraw == 1) {
-                        sPendingTwoHours += item.amount;
-                    }
-                });
-
-                var dataOrdersTwoHours = await orderModels.find({ $and: [{ dateCreate: { $lt: mathDateHoursAgo } }, { dateCreate: { $gt: mathDateTwoHours } }] }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusOrder: 1, isOrder: 1, dateCreate: 1, status: 1 }).exec();
-                async.forEach(dataOrdersTwoHours, (item) => {
-                    arrData.push(item);
-                    sRevenueTwoHours += item.amount;
-                });
-                sProfitTwoHours = sRevenueTwoHours - sWithdrawTwoHours;
-
-
-                console.log('==================================Hours Ago===================================');
-
-                var dataWithdrawHoursAgo = await withdrawModels.find({ dateCreate: { $gt: mathDateHoursAgo } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusWithdraw: 1, isWithdraw: 1, dateCreate: 1, status: 1 }).exec();
-                // console.log(dataWithdraw);
-                async.forEach(dataWithdrawHoursAgo, (item) => {
+                async.forEach(dataWithdrawLastWeek, (item) => {
                     arrData.push(item);
                     if (item.statusWithdraw == 2) {
                         sWithdraw += item.amount;
@@ -405,65 +470,140 @@ router.get('/', async(req, res) => {
                 });
                 console.log(sWithdraw);
 
-                var dataOrdersHoursAgo = await orderModels.find({ dateCreate: { $gt: mathDateHoursAgo } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusOrder: 1, isOrder: 1, dateCreate: 1, status: 1 }).exec();
-                async.forEach(dataOrdersHoursAgo, (item) => {
+                var dataOrdersLastWeek = await orderModels.find({ dateCreate: { $gt: mathDateLastWeek, $lt: mathDateNow } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusOrder: 1, isOrder: 1, dateCreate: 1, status: 1 }).exec();
+                async.forEach(dataOrdersLastWeek, (item) => {
                     arrData.push(item);
                     sRevenue += item.amount;
                 });
                 console.log(sRevenue);
                 sProfit = sRevenue - sWithdraw;
+
+                console.log('=================================TWO WEEK ====================================');
+                var dataWithdrawTwoWeek = await withdrawModels.find({ dateCreate: { $lt: mathDateLastWeek, $gt: mathDateTwoWeek } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusWithdraw: 1, isWithdraw: 1, dateCreate: 1, status: 1 }).exec();
+                // console.log(dataWithdraw);
+                async.forEach(dataWithdrawTwoWeek, (item) => {
+                    arrDataMath.push(item);
+                    if (item.statusWithdraw == 2) {
+                        sWithdrawTwoWeek += item.amount;
+                    }
+                    if (item.statusWithdraw == 1) {
+                        sPendingTwoWeek += item.amount;
+                    }
+                });
+
+                var dataOrdersTwoWeek = await orderModels.find({ dateCreate: { $lt: mathDateLastWeek, $gt: mathDateTwoWeek } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusOrder: 1, isOrder: 1, dateCreate: 1, status: 1 }).exec();
+                async.forEach(dataOrdersTwoWeek, (item) => {
+                    arrDataMath.push(item);
+                    sRevenueTwoWeek += item.amount;
+                });
+                console.log(sWithdrawTwoWeek);
+                console.log(sRevenueTwoWeek);
+                sProfitTwoWeek = sRevenueTwoWeek - sWithdrawTwoWeek;
+                // if (sProfitTwoWeek < 0)
+                //     sProfitTwoWeek = -sProfitTwoWeek;
+
+
+
                 console.log('=================================close====================================');
                 // console.log(sProfit);
                 arrData = arrData.slice(0);
                 arrData.sort(function(a, b) {
                     return a.dateCreate - b.dateCreate;
                 });
-                //////////////////
-                if (sRevenue <= sRevenueTwoHours) {
+                //////////////////Renvue//////////
+                if (sRevenue == 0 && sRevenueTwoWeek != 0) {
                     checkRevenue = 0;
-                    var vTemp = sRevenueTwoHours - sRevenue;
-                    pRevenue = vTemp * sRevenueTwoHours / 100;
+                    pRevenue = 100;
+                } else if (sRevenue != 0 && sRevenueTwoWeek == 0) {
+                    checkRevenue = 1;
+                    pRevenue = 100;
+                } else if (sRevenue == 0 && sRevenueTwoWeek == 0) {
+                    checkRevenue = 0;
+                    pRevenue = 0;
+                } else if (sRevenue <= sRevenueTwoWeek) {
+                    checkRevenue = 0;
+                    var vTemp = sRevenueTwoWeek - sRevenue;
+                    pRevenue = (vTemp * 100 / sRevenueTwoWeek).toFixed(2);
                 } else {
                     checkRevenue = 1;
-                    var vTemp = sRevenue - sRevenueTwoHours;
-                    pRevenue = vTemp * sRevenueTwoHours / 100;
+                    var vTemp = sRevenue - sRevenueTwoWeek;
+                    pRevenue = (vTemp * 100 / sRevenueTwoWeek).toFixed(2);
                 }
 
-                //////////////////////
-                if (sWithdraw <= sWithdrawTwoHours) {
+                //////////////////////WithDraw//////
+                if (sWithdraw == 0 && sWithdrawTwoWeek != 0) {
                     checkWithdraw = 0;
-                    var vTemp = sWithdrawTwoHours - sWithdraw;
-                    pWithdraw = vTemp * sWithdrawTwoHours / 100;
+                    pWithdraw = 100;
+                } else if (sWithdraw != 0 && sWithdrawTwoWeek == 0) {
+                    checkWithdraw = 1;
+                    pWithdraw = 100;
+                } else if (sWithdraw == 0 && sWithdrawTwoWeek == 0) {
+                    checkWithdraw = 0;
+                    pWithdraw = 0;
+                } else if (sWithdraw <= sWithdrawTwoWeek) {
+                    checkWithdraw = 0;
+                    var vTemp = sWithdrawTwoWeek - sWithdraw;
+                    pWithdraw = (vTemp * 100 / sWithdrawTwoWeek).toFixed(2);
                 } else {
                     checkWithdraw = 1;
-                    var vTemp = sWithdraw - sWithdrawTwoHours;
-                    pWithdraw = vTemp * sWithdrawTwoHours / 100;
+                    var vTemp = sWithdraw - sWithdrawTwoWeek;
+                    pWithdraw = (vTemp * 100 / sWithdrawTwoWeek).toFixed(2);
                 }
 
-                //////////////////////
-                if (sProfit <= sProfitTwoHours) {
+                //////////////////////Profit//////////////
+                if (sProfit == 0 && sProfitTwoWeek != 0) {
+                    console.log('1');
                     checkProfit = 0;
-                    var vTemp = sProfitTwoHours - sProfit;
-                    pProfit = vTemp * sProfitTwoHours / 100;
-                } else {
+                    pProfit = 100;
+                } else if (sProfit != 0 && sProfitTwoWeek == 0) {
+                    console.log('2');
                     checkProfit = 1;
-                    var vTemp = sProfit - sProfitTwoHours;
-                    pProfit = vTemp * sProfitTwoHours / 100;
+                    pProfit = 100;
+                } else if (sProfit == 0 && sProfitTwoWeek == 0) {
+                    console.log('3');
+                    checkProfit = 0;
+                    pProfit = 0;
+                } else if (sProfit <= sProfitTwoWeek) {
+                    console.log('4');
+                    checkProfit = 0;
+                    var vTemp = sProfitTwoWeek - sProfit;
+                    pProfit = (vTemp * 100 / sProfitTwoWeek).toFixed(2);
+                } else {
+                    console.log('5');
+                    console.log(sProfit);
+                    console.log(sProfitTwoWeek);
+                    checkProfit = 1;
+                    var vTemp = sProfit - sProfitTwoWeek;
+                    if (sProfitTwoWeek < 0) {
+                        pProfit = (vTemp * 100 / -(sProfitTwoWeek)).toFixed(2);
+                    } else {
+                        pProfit = (vTemp * 100 / sProfitTwoWeek).toFixed(2);
+                    }
+
                 }
                 /////////////////////
-                if (sPending <= sPendingTwoHours) {
+                if (sPending == 0 && sPendingTwoWeek != 0) {
                     checkPending = 0;
-                    var vTemp = sPendingTwoHours - sPending;
-                    pPending = vTemp * sPendingTwoHours / 100;
+                    pPending = 100;
+                } else if (sPending != 0 && sPendingTwoWeek == 0) {
+                    checkPending = 1;
+                    pPending = 100;
+                } else if (sPending == 0 && sPendingTwoWeek == 0) {
+                    checkPending = 0;
+                    pPending = 0;
+                } else if (sPending <= sPendingTwoWeek) {
+                    checkPending = 0;
+                    var vTemp = sPendingTwoWeek - sPending;
+                    pPending = (vTemp * 100 / sPendingTwoWeek).toFixed(2);
                 } else {
                     checkPending = 1;
-                    var vTemp = sPending - sPendingTwoHours;
-                    pPending = vTemp * sPendingTwoHours / 100;
+                    var vTemp = sPending - sPendingTwoWeek;
+                    pPending = (vTemp * 100 / sPendingTwoWeek).toFixed(2);
                 }
 
 
 
-                ////////////Customer////////
+                ////////////Customer/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             } else {
                 console.log('Customize');
 

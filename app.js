@@ -41,7 +41,7 @@ var multipartMiddleware = multipart();
 var app = express();
 var server = http.Server(app);
 var io = require('socket.io')(server);
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     req.io = io;
     next();
 });
@@ -76,16 +76,16 @@ mongoose.connect('mongodb://127.0.0.1/deployapp', {
     connectTimeoutMS: 300000,
     reconnectTries: 30,
     reconnectInterval: 3000
-    // ssl: true,
-    // sslValidate: false
+        // ssl: true,
+        // sslValidate: false
 });
 var dbMongo = mongoose.connection;
 
-dbMongo.on('error', function (err) {
+dbMongo.on('error', function(err) {
     console.log(err);
 
 });
-dbMongo.on('open', function () {
+dbMongo.on('open', function() {
     console.log('Mongodb conected');
     // console.log(io);
 })
@@ -110,13 +110,13 @@ passport.deserializeUser((id, done) => {
 //////////////////////////////////
 
 
-let updateDataDBUploaded = async () => {
+let updateDataDBUploaded = async() => {
     var sUploaded, sDeployed, sRegister;
     try {
         let staticUpload = await Statistic.find().exec();
         // console.log(staticUpload);
 
-        await staticUpload.forEach(function (kq) {
+        await staticUpload.forEach(function(kq) {
             sUploaded = kq.uploaded;
             // sDeployed = kq.deployed;
             // sRegister = kq.register;
@@ -137,13 +137,13 @@ let updateDataDBUploaded = async () => {
 
     }
 }
-let updateDataDBDeployed = async () => {
+let updateDataDBDeployed = async() => {
     var sUploaded, sDeployed, sRegister;
     try {
         let staticUpload = await Statistic.find().exec();
         // console.log(staticUpload);
 
-        await staticUpload.forEach(function (kq) {
+        await staticUpload.forEach(function(kq) {
             // sUploaded = kq.uploaded;
             sDeployed = kq.deployed;
             sRegister = kq.register;
@@ -190,12 +190,12 @@ let delKeyBuilding = () => {
 }
 
 setInterval(delKeyBuilding, 60000);
-io.on('connection', function (socket) {
+io.on('connection', function(socket) {
 
     console.log('co nguoi ket noi: ' + socket.id + ' ---> ' + moment(Date.now()).format('DD-MM-YYYY, HH:mm:ss'));
     var sUploaded, sDeployed, sRegister;
 
-    let queryDBUploaded = async () => {
+    let queryDBUploaded = async() => {
 
         let realUploaded = await Infomation.find({}).count().exec();
         // let realBuilded = await Infomation.find({ stepBuild: 'builded' }).count().exec();
@@ -204,7 +204,7 @@ io.on('connection', function (socket) {
         let staticUpload = await Statistic.find().exec();
         // console.log(staticUpload);
 
-        await staticUpload.forEach(function (kq) {
+        await staticUpload.forEach(function(kq) {
             sUploaded = kq.uploaded;
             // sDeployed = kq.deployed;
             // sRegister = kq.register;
@@ -223,7 +223,7 @@ io.on('connection', function (socket) {
             clUploaded: sUploaded
         });
     }
-    let queryDBDeployed = async () => {
+    let queryDBDeployed = async() => {
 
         // let realUploaded = await Infomation.find({ stepBuild: 'uploaded' }).count().exec();
         let realBuilded = await Infomation.find({
@@ -234,7 +234,7 @@ io.on('connection', function (socket) {
         let staticUpload = await Statistic.find().exec();
         // console.log(staticUpload);
 
-        await staticUpload.forEach(function (kq) {
+        await staticUpload.forEach(function(kq) {
             // sUploaded = kq.uploaded;
             sDeployed = kq.deployed;
             sRegister = kq.register;
@@ -263,14 +263,14 @@ let commandLine = (cmd, optionList) => {
     return new Promise((resolve, reject) => {
         try {
             var commandLine = crossSpawn.spawn(cmd, optionList);
-            commandLine.stdout.on('data', function (data) {
+            commandLine.stdout.on('data', function(data) {
                 console.log('data out: ' + data.toString());
                 if (data instanceof Error) {
                     //console.log(chalk.bold(data.toString()));
                     reject(data);
                 }
             });
-            commandLine.stderr.on('data', function (data) {
+            commandLine.stderr.on('data', function(data) {
                 console.log('data error: ' + data.toString());
                 if (data instanceof Error) {
                     //console.log(chalk.bold(data.toString()));
@@ -281,7 +281,7 @@ let commandLine = (cmd, optionList) => {
                     reject(data);
                 }
             });
-            commandLine.on('close', function (code) {
+            commandLine.on('close', function(code) {
                 if (code > 0) {
                     reject(new Error(code));
                 }
@@ -322,7 +322,7 @@ let delFolderNotExist = () => {
         console.log('====Temporary=====');
         var pathProjectTemp = path.join(appRoot, 'public', 'temporary');
         var arrFolder = fs.readdirSync(pathProjectTemp);
-        async.each(arrFolder, function (result) {
+        async.each(arrFolder, function(result) {
             console.log('res temp: ' + result);
             Infomation.find({
                 keyFolder: result
@@ -338,7 +338,7 @@ let delFolderNotExist = () => {
         console.log('====Project=====');
         var pathProjectPro = path.join(appRoot, 'public', 'project');
         var arrFolderPro = fs.readdirSync(pathProjectPro);
-        async.each(arrFolderPro, function (resultPro) {
+        async.each(arrFolderPro, function(resultPro) {
             console.log('res project: ' + resultPro);
             Infomation.find({
                 keyFolder: resultPro
@@ -354,7 +354,7 @@ let delFolderNotExist = () => {
         console.log('====Uploads=====');
         var pathProjectUploads = path.join(appRoot, 'public', 'uploads');
         var arrFolderUp = fs.readdirSync(pathProjectUploads);
-        async.each(arrFolderUp, function (resultUp) {
+        async.each(arrFolderUp, function(resultUp) {
             console.log('res uploads: ' + resultUp);
             Infomation.find({
                 keyFolder: resultUp
@@ -384,7 +384,7 @@ let delFolderApp = () => {
             dateCreate: {
                 $lt: sDateNow - (1000 * 60 * 60 * 12)
             }
-        }).exec(async (err, result) => {
+        }).exec(async(err, result) => {
             if (err) {
                 console.log(err);
                 return res.render('error', {
@@ -394,7 +394,7 @@ let delFolderApp = () => {
             }
             console.log('number folder: ' + result.length);
             if (result.length > 0) {
-                async.each(result, function (kq) {
+                async.each(result, function(kq) {
                     // var mang = kq.keyFolder;
                     sKey = kq.keyFolder;
 
@@ -436,7 +436,7 @@ let delFolderNotSuccess = () => {
             dateCreate: {
                 $lt: sDateNow - (1000 * 60 * 60 * 12)
             }
-        }).exec(async (err, result) => {
+        }).exec(async(err, result) => {
             if (err) {
                 console.log(err);
                 return res.render('error', {
@@ -446,7 +446,7 @@ let delFolderNotSuccess = () => {
             }
             console.log('number folder not success: ' + result.length);
             if (result.length > 0) {
-                async.each(result, function (kq) {
+                async.each(result, function(kq) {
                     // var mang = kq.keyFolder;
                     sKey = kq.keyFolder;
 
@@ -522,7 +522,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(expressValidator({
-    errorFormatter: function (param, msg, value) {
+    errorFormatter: function(param, msg, value) {
         var namespace = param.split('.'),
             root = namespace.shift(),
             formParam = root;
@@ -538,7 +538,7 @@ app.use(expressValidator({
     }
 }));
 
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     res.locals.title = 'Build App Auto one click';
     res.locals.error = '';
     next();
@@ -548,7 +548,7 @@ app.use(session({
     saveUninitialized: true,
     secret: 'appbuild'
 }));
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     try {
         if (req.session.iduser) {
             // var picturex;
@@ -664,12 +664,12 @@ app.get("*", (req, res, next) => {
                     }
                 })
 
-                setTimeout(function () {
+                setTimeout(function() {
                     affiliate_statistic_modal.update({
                         id: req.cookies.codesharedeployapp.id
                     }, {
                         dateOut: new Date(),
-                    }, function (err, data) {
+                    }, function(err, data) {
                         if (err) {
                             // console.log(err);
                             if (devMode == true)
@@ -734,12 +734,12 @@ app.get("*", (req, res, next) => {
                     }
                 })
 
-                setTimeout(function () {
+                setTimeout(function() {
                     affiliate_statistic_modal.update({
                         id: req.cookies.codesharedeployapp.id
                     }, {
                         dateOut: new Date(),
-                    }, function (err, data) {
+                    }, function(err, data) {
                         if (err) {
                             // console.log(err);
                             if (devMode == true)
@@ -817,6 +817,7 @@ var adminCustomer = require('./routes/admin/customer/index');
 var adminWithdraw = require('./routes/admin/withdraw/index');
 var adminMembership = require('./routes/admin/membership/index');
 var adminStatements = require('./routes/admin/statements/index');
+var adminApps = require('./routes/admin/apps/index');
 //checkout
 var checkout = require("./routes/checkout/checkout");
 
@@ -880,6 +881,7 @@ app.use('/admin/customer', adminCustomer);
 app.use('/admin/withdraw', adminWithdraw);
 app.use('/admin/membership', adminMembership);
 app.use('/admin/statements', adminStatements);
+app.use('/admin/apps', adminApps);
 
 
 
@@ -907,7 +909,7 @@ app.use('/', paypal);
 
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     // next(err);
@@ -919,7 +921,7 @@ app.use(function (req, res, next) {
 //     res.cookie('arrFileUpload', [])
 // });
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};

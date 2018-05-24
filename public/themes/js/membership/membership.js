@@ -1,6 +1,4 @@
 $(document).ready(() => {
-
-
     $('#deploy-detail-content').click(() => {
         $('#country1').hide();
     })
@@ -221,7 +219,8 @@ $(document).ready(() => {
                     zipCode: zipcode.val(),
                     phoneNumber: mobiphone.val(),
                     email: email.val(),
-                    plan: $("#plan-using").val()
+                    plan: $("#plan-using").val(),
+                    promoCode: $("#promo-code").val()
                 },
                 success: function (data) {
                     if (data.status == "1") {
@@ -297,7 +296,7 @@ $(document).ready(() => {
                     success: function (data) {
                         if (data.status == "1") {
                             $(".set-div-promo").hide();
-                            $(".amount-membership").text("$" + data.message)
+                            $(".amount-membership").text("$" + $("#amount-plan").val())
                         }
                     }
                 })

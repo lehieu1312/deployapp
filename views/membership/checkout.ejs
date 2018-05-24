@@ -462,8 +462,11 @@
                     </div>
                     <div class="content-modal-cart">
                         <div class="item-membership-in-cart">
-                            <span>Silver</span>
+                            <span>
+                                <%=plan.text%>
+                            </span>
                             <div>
+                                <input type="hidden" value="  <%=plan.money%>" id="amount-plan">
                                 <span>Cappacity: 1TB Yearly</span>
                                 <span class="float-right">
                                     <%="$" + plan.money%>

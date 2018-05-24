@@ -128,7 +128,12 @@ $(document).ready(() => {
                     if (data.status == "1") {
                         let tong = 0;
                         $("#content-modal-cart-id").html("");
-                        $("#number-product-to-cart").text(data.cart.length);
+                        if (data.cart.length > 0) {
+                            $("#number-product-to-cart").text(data.cart.length);
+                            $("#number-product-to-cart").show();
+                        } else {
+                            $("#number-product-to-cart").hide();
+                        }
                         for (let i = 0; i < data.cart.length; i++) {
                             $("#content-modal-cart-id").append(
                                 `<div class="item-product-in-cart">

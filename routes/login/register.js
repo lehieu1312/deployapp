@@ -26,6 +26,17 @@ var numberReg = /^[a-zA-Z0-9]*$/;
 var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 
 
+function makecode() {
+    var text = "";
+    var possible = "0123456789";
+
+    for (var i = 0; i < 6; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
+
 var sendLinkMail = (emailReceive, name, link) => {
     return new Promise((resolve, reject) => {
         var transporter = nodemailer.createTransport({ // config mail server
@@ -103,6 +114,7 @@ router.get('/register/:email', function (req, res, next) {
 });
 router.post("/register/ok", function (req, res) {
     try {
+
         // console.log(req.body.username);
         var id = md5(Date.now());
         var query = {
@@ -116,6 +128,8 @@ router.post("/register/ok", function (req, res) {
             address: req.body.address,
             country: req.body.country,
             zipcode: req.body.zipcode,
+            codeShare: makecode(),
+            blocked: false,
             status: false
         }
         User.findOne({

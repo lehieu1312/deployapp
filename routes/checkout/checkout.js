@@ -293,9 +293,6 @@ router.post("/checkout/ok", (req, res) => {
 
 })
 
-function save_infor_complate() {
-    User.save
-}
 
 router.get('/checkout/ok/process', (req, res) => {
     var paymentId = req.query.paymentId;
@@ -426,6 +423,7 @@ router.get('/checkout/ok/process', (req, res) => {
                                                     status: true
                                                 })
                                                 new_affiliate.save().then(() => {
+                                                    req.session.percentSale = null;
                                                     req.session.cart = [];
                                                     res.redirect("/dashboard?checkout=ok")
                                                 });
@@ -448,6 +446,7 @@ router.get('/checkout/ok/process', (req, res) => {
                                                     status: true
                                                 })
                                                 new_affiliate.save().then(() => {
+                                                    req.session.percentSale = null;
                                                     req.session.cart = [];
                                                     res.redirect("/dashboard?checkout=ok")
                                                 });
@@ -456,6 +455,7 @@ router.get('/checkout/ok/process', (req, res) => {
                                         })
                                     })
                                 } else {
+                                    req.session.percentSale = null;
                                     req.session.cart = [];
                                     res.redirect("/dashboard?checkout=ok")
                                 }

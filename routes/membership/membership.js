@@ -41,12 +41,15 @@ paypal.configure({
 });
 
 var plan = [{
+    text: "Basic",
     plan: 1,
     money: 23,
 }, {
+    text: "Silver",
     plan: 2,
     money: 45,
 }, {
+    text: "Gold",
     plan: 3,
     money: 66,
 }]
@@ -107,6 +110,13 @@ router.get("/membership", checkAdmin, (req, res) => {
 router.post("/membership/checkout/ok", (req, res) => {
     req.session.inforMembership = req.body;
     console.log(req.body);
+
+    var money = 0;
+    if (req.session.percentSale) {
+        money = plan[req.body.plan - 1].money - plan[req.body.plan - 1].money * Number(req.session.percentSale) / 100;
+    } else {
+        money = plan[req.body.plan - 1].money;
+    }
     var create_payment_json = JSON.stringify({
         intent: 'sale',
         payer: {
@@ -118,7 +128,7 @@ router.post("/membership/checkout/ok", (req, res) => {
         },
         transactions: [{
             amount: {
-                total: plan[req.body.plan - 1].money,
+                total: money,
                 currency: 'USD'
             },
             description: 'Payments from deployapp.net.'
@@ -145,6 +155,11 @@ router.post("/membership/checkout/ok", (req, res) => {
 })
 
 router.get('/membership/checkout/ok/process', (req, res) => {
+    if (req.session.percentSale) {
+        money = plan[req.session.inforMembership.plan - 1].money - plan[req.session.inforMembership.plan - 1].money * Number(req.session.percentSale) / 100
+    } else {
+        money = plan[req.session.inforMembership.plan - 1].money
+    }
     var paymentId = req.query.paymentId;
     var payerId = {
         payer_id: req.query.PayerID
@@ -175,15 +190,16 @@ router.get('/membership/checkout/ok/process', (req, res) => {
                                         blocked: false,
                                         status: true
                                     }, {
-                                        dateUpdate: new_date,
+                                        dateUpdate: new Date(),
                                         expireDay: new_date.setDate(new_date.getDate() + 30),
                                         isMember: req.session.inforMembership.plan,
-                                        amount: plan[req.session.inforMembership.plan - 1].money,
+                                        amount: money,
                                         lastname: req.session.inforMembership.lastname,
                                         firstname: req.session.inforMembership.firstname,
                                         username: user_meber.username,
                                         email: req.session.inforMembership.email,
                                     }).then(() => {
+                                        req.session.percentSale = null;
                                         res.redirect("/membership")
                                     })
                                 } else {
@@ -195,7 +211,7 @@ router.get('/membership/checkout/ok/process', (req, res) => {
                                         username: user_meber.username,
                                         email: req.session.inforMembership.email,
                                         isMember: req.session.inforMembership.plan,
-                                        amount: plan[req.session.inforMembership.plan - 1].money,
+                                        amount: money,
                                         dateCreate: new_date,
                                         dateUpdate: null,
                                         expireDay: new_date.setDate(new_date.getDate() + 30),
@@ -203,6 +219,7 @@ router.get('/membership/checkout/ok/process', (req, res) => {
                                         status: true
                                     })
                                     new_membership.save().then(() => {
+                                        req.session.percentSale = null;
                                         res.redirect("/membership")
                                     })
                                 }

@@ -27,14 +27,29 @@ var promo_code = require("../../models/promocode");
 var affiliate_withdrawal_modal = require("../../models/withdraw");
 var affiliate_modal = require("../../models/affiliate");
 var affiliate_method_modal = require("../../models/paymentmethod");
+var membership_modal = require("../../models/membership");
 
 var http = require('http');
 var server = http.Server(app);
 var paypal = require("paypal-rest-sdk");
 var country = require("../../lib/country");
 
+paypal.configure({
+    'mode': 'sandbox', //sandbox or live
+    'client_id': 'Ac1YRFBQMzjwaB6QGsMxW_Z321sYjpE7l9ngSQBoaIiTfRWC-ZHH2NKvRxbqKNtNkUi08Xgz7u5IDH5X',
+    'client_secret': 'EHdNlc0ANRNjgyOOI3d-0QK5AOP-Y47W7ZqMS-Wvh3afOVHig5VsIlIUPumExqSbM4p5L8rIOMAiLZZB'
+});
 
-
+var plan = [{
+    plan: 1,
+    money: 23,
+}, {
+    plan: 2,
+    money: 45,
+}, {
+    plan: 3,
+    money: 66,
+}]
 
 function checkAdmin(req, res, next) {
     if (req.session.iduser) {
@@ -66,10 +81,174 @@ function makeid() {
 
 
 router.get("/membership", checkAdmin, (req, res) => {
-    res.render("./membership/membership", {
-        title: "Membership",
-        appuse: ""
+    try {
+        membership_modal.findOne({
+            idUser: req.session.iduser,
+            status: true
+        }).then(data => {
+            res.render("./membership/membership", {
+                title: "Membership",
+                membership: data,
+                appuse: ""
+            })
+        })
+    } catch (error) {
+        console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
+
+
+
+})
+
+router.post("/membership/checkout/ok", (req, res) => {
+    req.session.inforMembership = req.body;
+    console.log(req.body);
+    var create_payment_json = JSON.stringify({
+        intent: 'sale',
+        payer: {
+            payment_method: 'paypal'
+        },
+        redirect_urls: {
+            return_url: hostServer + '/membership/checkout/ok/process',
+            cancel_url: hostServer + '/membership/checkout?plan=' + req.body.plan,
+        },
+        transactions: [{
+            amount: {
+                total: plan[req.body.plan - 1].money,
+                currency: 'USD'
+            },
+            description: 'Payments from deployapp.net.'
+        }]
+    });
+    paypal.payment.create(create_payment_json, function (error, payment) {
+        if (error) {
+            console.log('loi:' + JSON.stringify(error.response));
+            throw error;
+        } else {
+            for (var index = 0; index < payment.links.length; index++) {
+                //Redirect user to this endpoint for redirect url
+                if (payment.links[index].rel == 'approval_url') {
+                    return res.json({
+                        status: "1",
+                        message: payment.links[index].href
+                    })
+                }
+            }
+
+        }
+    });
+
+})
+
+router.get('/membership/checkout/ok/process', (req, res) => {
+    var paymentId = req.query.paymentId;
+    var payerId = {
+        payer_id: req.query.PayerID
+    };
+    paypal.payment.execute(paymentId, payerId, function (error, payment) {
+        // console.log(payment)
+        if (error) {
+            console.error(JSON.stringify(error));
+        } else {
+            if (payment.state == 'approved') {
+                paypal.sale.get(payment.transactions[0].related_resources[0].sale.id, (err, data) => {
+                    if (error) {
+                        console.error(JSON.stringify(error));
+                    } else {
+                        var new_date = new Date();
+                        User.findOne({
+                            id: req.session.iduser,
+                            status: true
+                        }).then((user_meber) => {
+                            membership_modal.findOne({
+                                idUser: req.session.iduser,
+                                blocked: false,
+                                status: true
+                            }).then((member) => {
+                                if (member) {
+                                    membership_modal.update({
+                                        idUser: req.session.iduser,
+                                        blocked: false,
+                                        status: true
+                                    }, {
+                                        dateUpdate: new_date,
+                                        expireDay: new_date.setDate(new_date.getDate() + 30),
+                                        isMember: req.session.inforMembership.plan,
+                                        amount: plan[req.session.inforMembership.plan - 1].money,
+                                        lastname: req.session.inforMembership.lastname,
+                                        firstname: req.session.inforMembership.firstname,
+                                        username: user_meber.username,
+                                        email: req.session.inforMembership.email,
+                                    }).then(() => {
+                                        res.redirect("/membership")
+                                    })
+                                } else {
+                                    var new_membership = new membership_modal({
+                                        id: makeid(),
+                                        idUser: req.session.iduser,
+                                        lastname: req.session.inforMembership.lastname,
+                                        firstname: req.session.inforMembership.firstname,
+                                        username: user_meber.username,
+                                        email: req.session.inforMembership.email,
+                                        isMember: req.session.inforMembership.plan,
+                                        amount: plan[req.session.inforMembership.plan - 1].money,
+                                        dateCreate: new_date,
+                                        dateUpdate: null,
+                                        expireDay: new_date.setDate(new_date.getDate() + 30),
+                                        blocked: false,
+                                        status: true
+                                    })
+                                    new_membership.save().then(() => {
+                                        res.redirect("/membership")
+                                    })
+                                }
+                            })
+                        })
+
+                    }
+                })
+            } else {
+                res.redirect("/checkout")
+            }
+        }
     })
+})
+
+router.get("/membership/checkout", checkAdmin, (req, res) => {
+    try {
+
+        if (req.query.plan) {
+            if (req.query.plan == 1 || req.query.plan == 2 || req.query.plan == 3) {
+                User.findOne({
+                    id: req.session.iduser
+                }).then((user_using) => {
+                    res.render('./membership/checkout', {
+                        title: 'Checkout',
+                        plan: plan[req.query.plan - 1],
+                        user: user_using,
+                        appuse: "",
+
+                    })
+                })
+            } else {
+                res.redirect("/membership")
+            }
+        } else {
+            res.redirect("/membership")
+        }
+    } catch (error) {
+        console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
+
+
 })
 
 

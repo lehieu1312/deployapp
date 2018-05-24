@@ -195,6 +195,10 @@ text-cent-money {
     background: white;
 }
 
+.active-membership {
+    border-top: solid 5px #00afee !important;
+}
+
 #tooltip-sale-traffic table th {
     background: #00afee;
     text-align: center;

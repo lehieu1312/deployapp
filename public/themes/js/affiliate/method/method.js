@@ -1,4 +1,13 @@
+function test() {
+
+
+    var blobUrl = encodeURI("blob:http://kenh14.vn/58330089-4ad1-4518-9e4c-e5cbe68e6fae");
+
+    console.log(blobUrl);
+}
+
 $(document).ready(() => {
+    test()
     var get_val = "";
     var id_method_use = document.getElementsByClassName("id-method-use");
     var btndelete = document.getElementsByClassName("deleteuser");

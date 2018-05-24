@@ -220,7 +220,7 @@ router.post("/checkout/check-promo-code", (req, res) => {
 
 router.post("/checkout/ok", (req, res) => {
     try {
-        console.log(req.body)
+        // console.log(req.body)
         req.session.inforCheckout = req.body;
 
         function get_total_price() {

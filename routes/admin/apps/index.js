@@ -14,10 +14,11 @@ var hbs = require('nodemailer-express-handlebars');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 
-
 var inforAppAdminModels = require('../../../models/inforappadmin');
+var appVersionAdminModels = require('../../../models/appversionadmin');
 
-router.get('/', (req, res) => {
+////////////////Index apps
+router.get('/', checkAdmin, (req, res) => {
     try {
         inforAppAdminModels.find().sort({ dateCreate: -1 }).then((dataApps) => {
             // console.log(dataApps);
@@ -32,7 +33,7 @@ router.get('/', (req, res) => {
 });
 
 ///////Redirect page add app
-router.get('/add', (req, res) => {
+router.get('/add', checkAdmin, (req, res) => {
     try {
         res.render('admin/apps/add', { title: "Add Apps" });
     } catch (error) {
@@ -42,7 +43,7 @@ router.get('/add', (req, res) => {
 })
 
 ///////////Add New App
-router.post('/addapp', multipartMiddleware, async(req, res) => {
+router.post('/addapp', checkAdmin, multipartMiddleware, async(req, res) => {
     try {
         console.log(req.body);
         console.log(req.files);
@@ -103,7 +104,7 @@ router.post('/addapp', multipartMiddleware, async(req, res) => {
 
 
 ///////Redirect page EDIT app
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', checkAdmin, (req, res) => {
     try {
         inforAppAdminModels.findOne({ idApp: req.params.id }).then((dataApp) => {
             console.log(dataApp);
@@ -121,7 +122,7 @@ router.get('/edit/:id', (req, res) => {
 })
 
 ///////////Edit New App
-router.post('/editapp', multipartMiddleware, async(req, res) => {
+router.post('/editapp', checkAdmin, multipartMiddleware, async(req, res) => {
     try {
         // console.log(req.body);
         // console.log(req.files);
@@ -195,8 +196,8 @@ router.post('/editapp', multipartMiddleware, async(req, res) => {
     }
 });
 
-
-router.post('/enableappsmulti', (req, res) => {
+////////
+router.post('/enableappsmulti', checkAdmin, (req, res) => {
     try {
         console.log(req.body);
         var arrApps = req.body.arrapps;
@@ -219,7 +220,7 @@ router.post('/enableappsmulti', (req, res) => {
 
 });
 
-router.post('/disableappsmulti', (req, res) => {
+router.post('/disableappsmulti', checkAdmin, (req, res) => {
     try {
         console.log(req.body);
         var arrApps = req.body.arrapps;
@@ -242,7 +243,7 @@ router.post('/disableappsmulti', (req, res) => {
 
 });
 
-router.post('/deleteappsmulti', (req, res) => {
+router.post('/deleteappsmulti', checkAdmin, (req, res) => {
     try {
         console.log(req.body);
         var arrApps = req.body.arrapps;
@@ -272,7 +273,7 @@ router.post('/deleteappsmulti', (req, res) => {
 
 });
 
-router.post('/enableapp', async(req, res) => {
+router.post('/enableapp', checkAdmin, async(req, res) => {
     try {
         console.log(req.body);
         var sIdApp = req.body.idapp;
@@ -296,7 +297,7 @@ router.post('/enableapp', async(req, res) => {
     }
 });
 
-router.post('/disableapp', async(req, res) => {
+router.post('/disableapp', checkAdmin, async(req, res) => {
     try {
         console.log(req.body);
         var sIdApp = req.body.idapp;
@@ -320,7 +321,7 @@ router.post('/disableapp', async(req, res) => {
     }
 });
 
-router.post('/deleteapp', async(req, res) => {
+router.post('/deleteapp', checkAdmin, async(req, res) => {
     try {
         console.log(req.body);
         var sIdApp = req.body.idapp;
@@ -345,4 +346,296 @@ router.post('/deleteapp', async(req, res) => {
         return res.json({ status: 3, msg: error + '' });
     }
 });
+/////////////////////////////////////////   APP   VerSion  /////////////////////////////////////////////////
+
+
+////////////////Index appversion
+router.get('/version/:idApp', checkAdmin, (req, res) => {
+    try {
+        var sIDApp = req.params.idApp;
+
+        appVersionAdminModels.findOne({ idApp: sIDApp }).sort({ dateCreate: -1 }).then((dataAppVersion) => {
+            res.render('admin/appversion/index', { dataAppVersion, sIDApp, moment, title: "Version Apps" });
+        });
+        // res.render('admin/apps/index', { title: "Apps" });
+    } catch (error) {
+        console.log(error);
+        return res.render('error', { error });
+    }
+
+});
+
+////////////////GEt Add Appversion /////////////////
+router.get('/version/add/:idApp', checkAdmin, async(req, res) => {
+    try {
+        var sIDApp = req.params.idApp;
+        var checkAppExists = await inforAppAdminModels.findOne({ idApp: sIDApp }).exec();
+        res.render('admin/appversion/add', { sIDApp, appName: checkAppExists.nameApp, title: "Add Version Apps" });
+    } catch (error) {
+        console.log(error);
+        return res.render('error', { error });
+    }
+
+});
+////////////////POST Add Appversion /////////////////
+router.post('/version/add', checkAdmin, multipartMiddleware, async(req, res) => {
+    try {
+        // console.log('vao check add version');
+        console.log(req.body);
+        console.log(req.files);
+        var appFile = req.files.appfile;
+
+        req.check('idapp', 'ID app is required').notEmpty();
+        req.check('lastversion', 'Last version is required').notEmpty();
+        req.check('changelog', 'Change log is required').notEmpty();
+
+        var errors = req.validationErrors();
+        if (errors) {
+            console.log(errors);
+            return res.json({ status: "2", msg: errors });
+        }
+        if (typeof appFile == 'undefined') {
+            return res.json({ status: "3", msg: 'App file can not be empty' });
+        }
+
+        var sIDApp = req.body.idapp;
+        var sVersionApp = req.body.lastversion;
+        var sChangeLog = req.body.changelog;
+        var checkAppExists = await inforAppAdminModels.findOne({ idApp: sIDApp }).exec();
+        if (!checkAppExists) {
+            return res.json({ status: 3, msg: 'ID app not exists.' });
+        }
+        var checkDataVersion = await appVersionAdminModels.findOne({ idApp: sIDApp, inforAppversion: { $elemMatch: { version: sVersionApp } } }).exec();
+        if (checkDataVersion) {
+            return res.json({ status: "3", msg: 'This version app already exists.' });
+        }
+        var nameFileApp = md5(Date.now()) + '.' + appFile.name.split('.').pop();
+        var pathSourceApp = path.join(appRoot, 'public', 'sourcecodeapp');
+        var dataAppFile = fs.readFileSync(appFile.path);
+        fs.writeFileSync(path.join(pathSourceApp, nameFileApp), dataAppFile);
+
+        var checkAppVersionExist = await appVersionAdminModels.findOne({ idApp: sIDApp }).exec();
+        if (checkAppVersionExist) {
+            appVersionAdminModels.update({ idApp: sIDApp }, {
+                $push: {
+                    inforAppversion: {
+                        id: md5(Date.now()),
+                        version: sVersionApp,
+                        changeLog: sChangeLog,
+                        createDate: Date.now(),
+                        updatedDate: Date.now(),
+                        nameFile: nameFileApp,
+                        isDeployed: false,
+                        status: true
+                    }
+                }
+            }, {
+                safe: true,
+                upsert: true
+            }).then(() => {
+                res.json({ status: 1, msg: 'Success' });
+            })
+        } else {
+            var dataVersionApp = new appVersionAdminModels({
+                id: md5(Date.now()),
+                idApp: sIDApp,
+                nameApp: checkAppExists.nameApp,
+                inforAppversion: [{
+                    id: md5(Date.now() + 1),
+                    version: sVersionApp,
+                    changeLog: sChangeLog,
+                    createDate: Date.now(),
+                    updatedDate: Date.now(),
+                    nameFile: nameFileApp,
+                    isDeployed: false,
+                    status: true
+                }],
+                image: '',
+                dateCreate: Date.now(),
+                status: true
+            });
+            dataVersionApp.save().then(() => {
+                res.json({ status: 1, msg: 'Success' });
+            })
+        }
+        // var sIDApp = req.params.idApp;
+
+        // res.render('admin/apps/index', { title: "Apps" });
+    } catch (error) {
+        console.log(error);
+        return res.json({ status: 1, mag: error + '' });
+    }
+
+});
+
+//////////////// Enable Multi app version//////
+router.post('/version/enablemultiversion', checkAdmin, (req, res) => {
+    try {
+        console.log(req.body);
+        var arrApps = req.body.arrapps;
+        var sIDApp = req.body.idapp;
+        if (arrApps && sIDApp) {
+            async.forEach(arrApps, (item) => {
+                console.log(item);
+
+                appVersionAdminModels.updateOne({ idApp: sIDApp, "inforAppversion.id": item }, { $set: { "inforAppversion.$.status": true } }).then(() => {
+                    console.log('Update disable multi success');
+                });
+            });
+            return res.json({ status: 1, msg: 'Success' });
+        } else {
+            return res.json({ status: 3, msg: 'Not item selected' });
+        }
+
+    } catch (error) {
+        console.log(error);
+        return res.json({ status: 3, msg: error + '' });
+    }
+
+});
+
+//////////////// Disable Multi app version//////
+router.post('/version/disablemultiversion', checkAdmin, (req, res) => {
+    try {
+        console.log(req.body);
+        var arrApps = req.body.arrapps;
+        var sIDApp = req.body.idapp;
+        if (arrApps && sIDApp) {
+            async.forEach(arrApps, (item) => {
+                console.log(item);
+
+                appVersionAdminModels.updateOne({ idApp: sIDApp, "inforAppversion.id": item }, { $set: { "inforAppversion.$.status": false } }).then(() => {
+                    console.log(item);
+                });
+            });
+            return res.json({ status: 1, msg: 'Success' });
+        } else {
+            return res.json({ status: 3, msg: 'Not item selected' });
+        }
+
+    } catch (error) {
+        console.log(error);
+        return res.json({ status: 3, msg: error + '' });
+    }
+
+});
+
+
+
+//////////////// Enable Multi app version//////
+router.post('/version/deletemultiversion', checkAdmin, (req, res) => {
+    try {
+        console.log(req.body);
+        var arrApps = req.body.arrapps;
+        var sIDApp = req.body.idapp;
+        if (arrApps && sIDApp) {
+            async.forEach(arrApps, async(item) => {
+                console.log(item);
+                var dataVersion = await appVersionAdminModels.findOne({ idApp: sIDApp }, { inforAppversion: { $elemMatch: { id: item } } }).exec();
+                console.log('dataVersion');
+                console.log(dataVersion.inforAppversion[0].nameFile);
+                if (dataVersion.inforAppversion[0].nameFile != '') {
+                    if (fs.existsSync(path.join(appRoot, 'public', 'sourcecodeapp', dataVersion.inforAppversion[0].nameFile))) {
+                        fs.unlinkSync(path.join(appRoot, 'public', 'sourcecodeapp', dataVersion.inforAppversion[0].nameFile));
+                    }
+                }
+                appVersionAdminModels.updateOne({ idApp: sIDApp }, { $pull: { inforAppversion: { id: item } } }).then(() => {
+                    console.log('Delete multi success');
+                });
+            });
+            return res.json({ status: 1, msg: 'Success' });
+        } else {
+            return res.json({ status: 3, msg: 'Not item selected' });
+        }
+
+    } catch (error) {
+        console.log(error);
+        return res.json({ status: 3, msg: error + '' });
+    }
+
+});
+
+
+
+//////////////// Enable version app//////
+router.post('/version/enableversion', checkAdmin, (req, res) => {
+    try {
+        console.log(req.body);
+        var idVersion = req.body.idversion;
+        var sIDApp = req.body.idapp;
+        if (idVersion && sIDApp) {
+            appVersionAdminModels.updateOne({ idApp: sIDApp, "inforAppversion.id": idVersion }, { $set: { "inforAppversion.$.status": true } }).then(() => {
+                return res.json({ status: 1, msg: 'Success' });
+            });
+        } else {
+            return res.json({ status: 3, msg: 'Not item selected' });
+        }
+
+    } catch (error) {
+        console.log(error);
+        return res.json({ status: 3, msg: error + '' });
+    }
+
+});
+
+
+//////////////// Enable version app//////
+router.post('/version/disableversion', checkAdmin, (req, res) => {
+    try {
+        console.log(req.body);
+        var idVersion = req.body.idversion;
+        var sIDApp = req.body.idapp;
+        if (idVersion && sIDApp) {
+            appVersionAdminModels.updateOne({ idApp: sIDApp, "inforAppversion.id": idVersion }, { $set: { "inforAppversion.$.status": false } }).then(() => {
+                return res.json({ status: 1, msg: 'Success' });
+            });
+        } else {
+            return res.json({ status: 3, msg: 'Not item selected' });
+        }
+
+    } catch (error) {
+        console.log(error);
+        return res.json({ status: 3, msg: error + '' });
+    }
+
+});
+
+
+//////////////// Enable version app//////
+router.post('/version/deleteversion', checkAdmin, async(req, res) => {
+    try {
+        console.log(req.body);
+        var idVersion = req.body.idversion;
+        var sIDApp = req.body.idapp;
+        if (idVersion && sIDApp) {
+            var dataVersion = await appVersionAdminModels.findOne({ idApp: sIDApp }, { inforAppversion: { $elemMatch: { id: idVersion } } }).exec();
+            console.log('dataVersion');
+            console.log(dataVersion.inforAppversion[0].nameFile);
+            if (dataVersion.inforAppversion[0].nameFile != '') {
+                if (fs.existsSync(path.join(appRoot, 'public', 'sourcecodeapp', dataVersion.inforAppversion[0].nameFile))) {
+                    fs.unlinkSync(path.join(appRoot, 'public', 'sourcecodeapp', dataVersion.inforAppversion[0].nameFile));
+                }
+            }
+            appVersionAdminModels.updateOne({ idApp: sIDApp }, { $pull: { inforAppversion: { id: idVersion } } }).then(() => {
+                return res.json({ status: 1, msg: 'Success' });
+            });
+        } else {
+            return res.json({ status: 3, msg: 'Not item selected' });
+        }
+
+    } catch (error) {
+        console.log(error);
+        return res.json({ status: 3, msg: error + '' });
+    }
+
+});
+
+function checkAdmin(req, res, next) {
+    if (req.session.iduseradmin) {
+        next();
+    } else {
+        res.redirect('/admin/login');
+    }
+}
+
 module.exports = router;

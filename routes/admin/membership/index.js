@@ -19,7 +19,7 @@ var libCountry = libAppCountry.country;
 var membershipModels = require('../../../models/membership');
 var sendNotiUserModels = require('../../../models/notificationuser');
 
-router.get('/', (req, res) => {
+router.get('/', checkAdmin, (req, res) => {
     try {
         membershipModels.find().sort({ dateCreate: -1 }).then((dataMemberShipModels) => {
             res.render('admin/membership/index', { dataMemberShipModels, moment, title: "Membership" });
@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
     }
 });
 
-router.post('/send-noti-to-user', multipartMiddleware, (req, res) => {
+router.post('/send-noti-to-user', checkAdmin, multipartMiddleware, (req, res) => {
     try {
         console.log(req.body);
         req.checkBody('iduser', 'ID user not defined').notEmpty();
@@ -82,4 +82,12 @@ router.post('/send-noti-to-user', multipartMiddleware, (req, res) => {
         // return res.render('error', { error, title: 'Page Error' });
     }
 });
+
+function checkAdmin(req, res, next) {
+    if (req.session.iduseradmin) {
+        next();
+    } else {
+        res.redirect('/admin/login');
+    }
+}
 module.exports = router;

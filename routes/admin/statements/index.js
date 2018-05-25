@@ -16,7 +16,7 @@ var multipartMiddleware = multipart();
 var withdrawModels = require('../../../models/withdraw');
 var orderModels = require('../../../models/order');
 
-router.get('/', async(req, res) => {
+router.get('/', checkAdmin, async(req, res) => {
     try {
         var arrData = [];
         var arrDataMath = [];
@@ -641,5 +641,12 @@ router.get('/', async(req, res) => {
     }
 });
 
+function checkAdmin(req, res, next) {
+    if (req.session.iduseradmin) {
+        next();
+    } else {
+        res.redirect('/admin/login');
+    }
+}
 
 module.exports = router;

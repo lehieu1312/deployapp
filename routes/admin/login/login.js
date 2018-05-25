@@ -31,7 +31,7 @@ router.post("/tk", (req, res) => {
         username: req.body.username
     }).then((result) => {
         if (!result) {
-            return res.send({
+            return res.json({
                 status: "2",
                 message: "The username or password is incorrect"
             });
@@ -64,4 +64,11 @@ router.post("/tk", (req, res) => {
     })
 })
 
+function checkAdmin(req, res, next) {
+    if (req.session.iduseradmin) {
+        next();
+    } else {
+        res.redirect('/admin/login');
+    }
+}
 module.exports = router;

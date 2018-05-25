@@ -50,7 +50,7 @@ $(document).ready(() => {
         }
     });
 
-    $('#btn-enable-multi').click(() => {
+    $('.btn-enable-multi').click(() => {
         // alert('1');
         var arrApps = [];
         $('#table-appversion input[type=checkbox]').each(function() {
@@ -112,7 +112,7 @@ $(document).ready(() => {
 
     // btn-disable-multi
 
-    $('#btn-disable-multi').click(() => {
+    $('.btn-disable-multi').click(() => {
         // alert('1');
         var arrApps = [];
         $('#table-appversion input[type=checkbox]').each(function() {
@@ -173,7 +173,7 @@ $(document).ready(() => {
     });
 
     // /////////////////// Delete Apps Multi
-    $('#btn-delete-multi').click(() => {
+    $('.btn-delete-multi').click(() => {
         // alert('1');
         var arrApps = [];
         $('#table-appversion input[type=checkbox]').each(function() {
@@ -270,36 +270,36 @@ function enableApps(idApp) {
     });
 }
 
-function enableApp(idApp) {
-    // alert(idApps);
-    $('#mymodal-enableapp').modal('show');
-    $('#enable-ok').click(() => {
-        $("#mymodal-enableapp").modal('hide');
-        $('#loading').show();
-        $.ajax({
-            type: "POST",
-            url: "/admin/apps/enableapp",
-            dataType: "json",
-            data: {
-                idapp: idApp
-            },
-            success: (data) => {
-                if (data.status == 1) {
-                    window.location.href = "/admin/apps";
-                } else if (data.status == 2) {
-                    $('#errPopup').show();
-                    $('.alert-upload').text(data.msg[0].msg);
-                } else {
-                    $('#errPopup').show();
-                    $('.alert-upload').text(data.msg);
-                }
-            }
-        }).always(function(data) {
-            $('#loading').hide();
-        });
-        // alert('Deleted: ' + idUser);
-    });
-}
+// function enableApp(idApp) {
+//     // alert(idApps);
+//     $('#mymodal-enableapp').modal('show');
+//     $('#enable-ok').click(() => {
+//         $("#mymodal-enableapp").modal('hide');
+//         $('#loading').show();
+//         $.ajax({
+//             type: "POST",
+//             url: "/admin/apps/enableapp",
+//             dataType: "json",
+//             data: {
+//                 idapp: idApp
+//             },
+//             success: (data) => {
+//                 if (data.status == 1) {
+//                     window.location.href = "/admin/apps";
+//                 } else if (data.status == 2) {
+//                     $('#errPopup').show();
+//                     $('.alert-upload').text(data.msg[0].msg);
+//                 } else {
+//                     $('#errPopup').show();
+//                     $('.alert-upload').text(data.msg);
+//                 }
+//             }
+//         }).always(function(data) {
+//             $('#loading').hide();
+//         });
+//         // alert('Deleted: ' + idUser);
+//     });
+// }
 
 function disableApp(idApp) {
     // alert(idApps);

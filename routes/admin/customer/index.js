@@ -37,7 +37,7 @@ function genderCodeShare() {
     return text;
 }
 
-router.get('/', (req, res) => {
+router.get('/', checkAdmin, (req, res) => {
     try {
         console.log('abc');
         var condition = req.query.con;
@@ -166,7 +166,7 @@ router.get('/', (req, res) => {
         return res.render('error', { error, title: "Page Error" });
     }
 });
-router.post('/addcustomer', multipartMiddleware, async(req, res) => {
+router.post('/addcustomer', checkAdmin, multipartMiddleware, async(req, res) => {
     try {
         var sEmail;
         req.check('email', 'Email is required').notEmpty();
@@ -260,7 +260,7 @@ router.post('/addcustomer', multipartMiddleware, async(req, res) => {
         return res.json({ status: 3, msg: error + '' });
     }
 });
-router.post('/blockmulti', async(req, res) => {
+router.post('/blockmulti', checkAdmin, async(req, res) => {
     try {
         console.log(req.body);
         var arrUser = req.body.arruser;
@@ -280,7 +280,7 @@ router.post('/blockmulti', async(req, res) => {
         return res.json({ status: 3, msg: error + '' });
     }
 });
-router.post('/delmulti', async(req, res) => {
+router.post('/delmulti', checkAdmin, async(req, res) => {
     try {
         console.log(req.body);
         var arrUser = req.body.arruser;
@@ -300,7 +300,7 @@ router.post('/delmulti', async(req, res) => {
         return res.json({ status: 3, msg: error + '' });
     }
 });
-router.post('/blockuser', async(req, res) => {
+router.post('/blockuser', checkAdmin, async(req, res) => {
     try {
         console.log(req.body);
         var idUser = req.body.iduser;
@@ -322,7 +322,7 @@ router.post('/blockuser', async(req, res) => {
         return res.json({ status: 3, msg: error + '' });
     }
 });
-router.post('/unblockuser', async(req, res) => {
+router.post('/unblockuser', checkAdmin, async(req, res) => {
     try {
         console.log(req.body);
         var idUser = req.body.iduser;
@@ -345,7 +345,7 @@ router.post('/unblockuser', async(req, res) => {
     }
 });
 
-router.post('/deleteuser', async(req, res) => {
+router.post('/deleteuser', checkAdmin, async(req, res) => {
     try {
         console.log(req.body);
         var idUser = req.body.iduser;
@@ -368,7 +368,7 @@ router.post('/deleteuser', async(req, res) => {
         return res.json({ status: 3, msg: error + '' });
     }
 });
-router.get('/login/:id', async(req, res) => {
+router.get('/login/:id', checkAdmin, async(req, res) => {
     try {
         console.log(req.params);
         var idUser = req.params.id;
@@ -392,7 +392,7 @@ router.get('/login/:id', async(req, res) => {
         return res.json({ status: 3, msg: error + '' });
     }
 });
-router.get('/edit/:id', async(req, res) => {
+router.get('/edit/:id', checkAdmin, async(req, res) => {
     try {
         console.log(req.params);
         var idUser = req.params.id;
@@ -415,7 +415,7 @@ router.get('/edit/:id', async(req, res) => {
         return res.render('error', { error: error + '', title: 'Page Error' });
     }
 });
-router.post('/edit', async(req, res) => {
+router.post('/edit', checkAdmin, async(req, res) => {
     try {
         console.log('===========');
         console.log(req.body);
@@ -465,5 +465,13 @@ router.post('/edit', async(req, res) => {
         return res.json({ status: 3, msg: error + '' });
     }
 });
+
+function checkAdmin(req, res, next) {
+    if (req.session.iduseradmin) {
+        next();
+    } else {
+        res.redirect('/admin/login');
+    }
+}
 
 module.exports = router;

@@ -1057,7 +1057,7 @@ app.use('/admin/withdraw', adminWithdraw);
 app.use('/admin/membership', adminMembership);
 app.use('/admin/statements', adminStatements);
 app.use('/admin/apps', adminApps);
-app.use('/admin/login', loginAdmin);
+app.use('/admin', loginAdmin);
 
 
 

@@ -1,0 +1,109 @@
+<% include ../layout/header %>
+    <link rel="stylesheet" type="text/css" href="/themes/css/admin/apps.css">
+    <script type="text/javascript" charset="utf-8" src="/themes/js/froala_editor.pkgd.min.js"></script>
+    <div class="xcontent clsmenu">
+        <div id="title-detail" class="row row1">
+            <div id="title-appversion" class="content-title-detail has-feedback">
+                <span class="textmyapp">Edit App
+        </span>
+                <!-- <a href="/admin/apps" class="btn-blue" id="backuser">
+                    <i class="fa fa-arrow-circle-left"></i> Back</a> -->
+            </div>
+        </div>
+        <div class="row row1">
+            <div id="content-editprofile">
+                <div class="title-add-app">
+                    <span> Infomation</span>
+                </div>
+                <form id="form" method="POST">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback">
+
+                                <label class="control-label">App Name *</label>
+                                <input class="inputeditcustomer input-editcustomer" placeholder="Enter app name" type="text" id="appname" name="appname" value="<%=dataApp.nameApp%>" />
+                                <span class="form-control-feedback" aria-hidden="true"></span>
+                                <span id="icon-err-appname" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
+                            </div>
+                            <div class="">
+                                <input type="hidden" value="<%=dataApp.idApp%>" id="idapp">
+                                <label class="control-label">App image *</label>
+                                <div class="div-choose-file" id="boxdiv-choose-file-edit">
+                                    <div class="box-choose-image-app-edit col-md-6">
+                                        <img src="/themes/img/appdashboard/<%=dataApp.image%>" alt="Image app" id="img-of-app" width="250px" height="130px">
+                                        <!-- <div class="img-choose-image">
+                                            <img class="img-file" src="/themes/img/admin/chooseimage.png" alt="Choose file">
+                                        </div>
+                                        <div class="text-choose-image">
+                                            <span id="text-file-image">Add a Image</span>
+                                        </div> -->
+                                    </div>
+                                    <div class="col-md-6">
+
+                                    </div>
+                                </div>
+                                <span class="name-file-img"></span>
+                                <span class="form-control-feedback" aria-hidden="true"></span>
+                            </div>
+                            <div class="form-group has-feedback box-btn-file">
+                                <input type="button" class="btn btn-choose-file" id="btn-choose-file" value="Choose File">
+                                <!-- <input type="button" class="btn btn-delete-file" id="btn-delete-file" value="Delete File"> -->
+                                <input type="file" name="image-app-edit" id="image-app-edit" accept="image/*">
+                            </div>
+                            <div class="form-group has-feedback text-img-err">
+                                <span id="icon-err-imagefile" class=" display-none"></span>
+                                <span id="text-file-image"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback">
+                                <label class="control-label">Version *</label>
+                                <input class="inputeditcustomer input-editcustomer" placeholder="Enter version" type="text" id="versionapp" name="versionapp" value="<%=dataApp.lastVersion%>" />
+                                <span class="form-control-feedback" aria-hidden="true"></span>
+                                <span id="icon-err-versionapp" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label">List price *</label>
+                                        <input class="inputeditcustomer input-editcustomer" placeholder="$0.00" type="number" min="0" id="listprice" name="listprice" value="<%=dataApp.cost%>" />
+                                        <span class="form-control-feedback" aria-hidden="true"></span>
+                                        <span id="icon-err-listprice" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label">Price *</label>
+                                        <input class="inputeditcustomer input-editcustomer" placeholder="$0.00" type="number" min="0" id="priceapp" name="priceapp" value="<%=dataApp.price%>" />
+                                        <span class="form-control-feedback" aria-hidden="true"></span>
+                                        <span id="icon-err-priceapp" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group has-feedback">
+                                <label class="control-label">Description *</label>
+                                <textarea class="inputeditcustomer input-editcustomer ckeditor" placeholder="" type="text" id="description" name="description"><%=dataApp.description%></textarea>
+                                <span class="form-control-feedback" aria-hidden="true"></span>
+                                <span id="icon-err-description" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="box-btn-add-app">
+            <div class="divbox-btn-add-app">
+                <a href="/admin/apps" id="btn-edit-cancel" class="setcolorfontinput setcolorloginbackround btn btn-cancel-add-app">CANCEL</a>
+                <input type="button" id="btn-edit-apps" class="setcolorfontinput setcolorloginbackround btn btn-add-apps-new" value="SAVE">
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/addapp.js "></script> -->
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/breadcrumb.js "></script>
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/addapp.js "></script>
+
+    <script src="/themes/js/admin/ckeditor/ckeditor.js"></script>

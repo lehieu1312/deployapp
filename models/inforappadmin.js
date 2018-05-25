@@ -14,6 +14,7 @@ let inforAppAdminChema = mongoose.Schema({
     image: String,
     installed: Number,
     lastVersion: String,
+    description: String,
     cost: Number,
     price: Number,
     dateCreate: Date,

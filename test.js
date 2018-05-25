@@ -93,8 +93,8 @@
 // // console.log(Base64.encode(Date.now()))
 // // console.log(Base64.encode(Date.now()))
 
-// // var md5 = require("md5");
-// // console.log(md5(Date.now()));
+var md5 = require("md5");
+console.log(md5(Date.now()));
 
-var str = "Is simply dummy text of the printing and typesetting industry typesetting i"
-console.log(str.length);
+// var str = "Is simply dummy text of the printing and typesetting industry typesetting i"
+// console.log(str.length);

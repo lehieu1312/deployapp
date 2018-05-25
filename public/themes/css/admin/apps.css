@@ -15,11 +15,11 @@
 }
 
 #enable-ok-multi {
-    background-color: #0B760B;
+    background-color: #0da00d;
 }
 
 .btn-enable-ok {
-    background-color: #0B760B;
+    background-color: #0da00d;
     margin-right: 15px;
     font-family: 'OpenSans-Regular';
     color: white;
@@ -49,4 +49,145 @@
     padding: 7px 18px 7px 18px;
     background: #ef5350;
     border: none;
+}
+
+.divbox-btn-add-app {
+    text-align: right;
+}
+
+.btn-cancel-add-app {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 13px;
+    line-height: 1.33;
+    border-radius: 3px;
+    border: 1px solid #eaeaea;
+    box-shadow: 3px;
+    background: #fff;
+    color: #00afee;
+    margin-right: 5px;
+    font-family: "OpenSans-Semibold";
+}
+
+.btn-cancel-add-app:hover {
+    color: #00afee;
+    background-color: #FAFAFA;
+}
+
+.btn-add-apps-new {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 13px;
+    line-height: 1.33;
+    border-radius: 3px;
+    background: #00afee;
+    color: #fff;
+    font-family: "OpenSans-Semibold";
+}
+
+.btn-add-apps-new:hover {
+    background: #2DC0F4;
+}
+
+.box-btn-add-app {
+    padding: 10px 18px;
+}
+
+.title-add-app {
+    width: 100%;
+    padding-bottom: 22px;
+    font-size: 24px;
+    font-family: "Opensans-Regular";
+}
+
+.box-choose-image-app {
+    border: 2px dotted #B9B5B5;
+    height: 130px;
+}
+
+
+/* 
+.box-choose-image-app-edit {
+    border: 2px dotted #B9B5B5;
+    height: 130px;
+} */
+
+.img-choose-image {
+    height: 55%;
+    text-align: center;
+}
+
+.img-file {
+    margin-top: 35px;
+}
+
+.text-choose-image {
+    text-align: center;
+}
+
+#image-app {
+    display: none;
+}
+
+#boxdiv-choose-file:hover {
+    cursor: pointer;
+}
+
+.div-choose-file {
+    width: 100%;
+    height: auto;
+    float: left;
+}
+
+.input-error {
+    color: #dc2a2a;
+}
+
+.has-feedback .display-none {
+    display: none;
+}
+
+.has-feedback .display-inline {
+    display: inline;
+}
+
+.text-img-err {
+    top: 13px;
+}
+
+.box-btn-file {
+    top: 15px;
+}
+
+.btn-choose-file {
+    padding-left: 13px;
+    padding-right: 20px;
+    font-size: 13px;
+    line-height: 1.33;
+    border-radius: 3px;
+    background: #00afee;
+    color: #fff;
+    font-family: "OpenSans-Semibold";
+}
+
+.btn-choose-file:hover {
+    background: #0BB7F5;
+}
+
+.btn-delete-file {
+    padding-left: 13px;
+    padding-right: 20px;
+    font-size: 13px;
+    line-height: 1.33;
+    border-radius: 3px;
+    background: #fff;
+    color: #ef5350;
+    border: 1px solid #ef5350;
+    font-family: "OpenSans-Semibold";
+}
+
+.btn-delete-file:hover,
+.btn-delete-file:focus {
+    color: #ef5350;
+    background-color: #F1EEEE;
 }

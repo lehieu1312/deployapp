@@ -606,163 +606,336 @@ app.get("*", (req, res, next) => {
 });
 
 app.get("*", (req, res, next) => {
-    User.count({
-        codeShare: req.query.codeshare,
-        status: true
-    }).then((count) => {
-        if (count > 0) {
-            if (req.query.codeshare && !req.cookies.codesharedeployapp || req.query.codeshare && req.cookies.codesharedeployapp.code != req.query.codeshare) {
-                var path_codeshare = req.url.split("?")[0];
-                var id = md5(new Date());
-                res.cookie("codesharedeployapp", {
-                    id,
-                    code: req.query.codeshare
-                }, {
-                    expires: new Date() + 2592000000,
-                    maxAge: 2592000000
-                })
-                affiliate_statistic_modal.findOne({
-                    id,
-                    codeShare: req.query.codeshare,
-                    dateOut: null,
-                    status: true
-                }).then((data) => {
-                    if (data) {
-                        affiliate_statistic_modal.update({
-                            id: data.id
-                        }, {
-                            "$push": {
-                                page: {
-                                    pageText: path_codeshare,
-                                    dateCreate: new Date(),
-                                    dateOut: null
-                                }
-                            }
-                        }, {
-                            safe: true,
-                            upsert: true
-                        }).then(() => {
-                            next();
-                        })
-                    } else {
-                        var new_affiliate_statistic_modal = new affiliate_statistic_modal({
-                            id,
-                            idUser: id,
+    // res.clearCookie("codesharedeployapp");
+    try {
+        console.log(req.cookies);
+        var id_now = md5(new Date());
+        User.count({
+            codeShare: req.query.codeshare,
+            status: true
+        }).then((count) => {
+            if (count > 0) {
+                if (req.query.codeshare) {
+                    if (!req.cookies.codesharedeployapp) {
+                        var path_codeshare = req.url.split("?")[0];
+                        affiliate_statistic_modal.findOne({
+                            id: id_now,
                             codeShare: req.query.codeshare,
-                            dateCreate: new Date(),
                             dateOut: null,
-                            page: [{
-                                pageText: path_codeshare,
-                                dateCreate: new Date(),
-                                dateOut: null
-                            }],
                             status: true
-                        })
-                        new_affiliate_statistic_modal.save().then(() => {
-                            next();
-                        });
-                    }
-                })
-
-                setTimeout(function () {
-                    affiliate_statistic_modal.update({
-                        id: req.cookies.codesharedeployapp.id
-                    }, {
-                        dateOut: new Date(),
-                    }, function (err, data) {
-                        if (err) {
-                            // console.log(err);
-                            if (devMode == true)
-                                return res.send({
-                                    status: "3",
-                                    message: err + ''
-                                });
-                            else
-                                return res.json({
-                                    status: "3",
-                                    message: 'Oops, something went wrong'
-                                });
-                        }
-                        // console.log(data);
-                    })
-                }, 240000)
-
-            } else if (req.cookies.codesharedeployapp) {
-                // console.log(req.cookies)
-                var path_codeshare = req.url.split("?")[0];
-                affiliate_statistic_modal.findOne({
-                    id: req.cookies.codesharedeployapp.id,
-                    codeShare: req.cookies.codesharedeployapp.code,
-                    dateOut: null,
-                    status: true
-                }).then((data) => {
-                    // console.log("data:" + JSON.stringify(data))
-                    if (data) {
-                        affiliate_statistic_modal.update({
-                            id: data.id
-                        }, {
-                            "$push": {
-                                page: {
-                                    pageText: path_codeshare,
+                        }).then((data) => {
+                            if (data) {
+                                affiliate_statistic_modal.update({
+                                    id: data.id
+                                }, {
+                                    "$push": {
+                                        page: {
+                                            pageText: path_codeshare,
+                                            dateCreate: new Date(),
+                                            dateOut: null
+                                        }
+                                    }
+                                }, {
+                                    safe: true,
+                                    upsert: true
+                                }).then(() => {
+                                    next();
+                                })
+                            } else {
+                                var new_affiliate_statistic_modal = new affiliate_statistic_modal({
+                                    id: id_now,
+                                    idUser: id_now,
+                                    codeShare: req.query.codeshare,
                                     dateCreate: new Date(),
-                                    dateOut: null
-                                }
+                                    dateOut: null,
+                                    page: [{
+                                        pageText: path_codeshare,
+                                        dateCreate: new Date(),
+                                        dateOut: null
+                                    }],
+                                    status: true
+                                })
+                                new_affiliate_statistic_modal.save().then(() => {
+                                    res.cookie("codesharedeployapp", {
+                                        id: id_now,
+                                        code: req.query.codeshare
+                                    }, {
+                                        expires: new Date() + 2592000000,
+                                        maxAge: 2592000000
+                                    })
+                                    next();
+                                });
                             }
-                        }, {
-                            safe: true,
-                            upsert: true
-                        }).then(() => {
-                            next();
                         })
-                    } else {
-                        var new_affiliate_statistic_modal = new affiliate_statistic_modal({
-                            id: req.cookies.codesharedeployapp.id,
-                            idUser: req.cookies.codesharedeployapp.id,
-                            codeShare: req.cookies.codesharedeployapp.code,
-                            dateCreate: new Date(),
-                            dateOut: null,
-                            page: [{
-                                pageText: path_codeshare,
-                                dateCreate: new Date(),
-                                dateOut: null
-                            }],
-                            status: true
-                        })
-                        new_affiliate_statistic_modal.save().then(() => {
-                            next();
-                        });
-                    }
-                })
 
-                setTimeout(function () {
-                    affiliate_statistic_modal.update({
-                        id: req.cookies.codesharedeployapp.id
-                    }, {
-                        dateOut: new Date(),
-                    }, function (err, data) {
-                        if (err) {
-                            // console.log(err);
-                            if (devMode == true)
-                                return res.send({
-                                    status: "3",
-                                    message: err + ''
-                                });
-                            else
-                                return res.json({
-                                    status: "3",
-                                    message: 'Oops, something went wrong'
-                                });
+                        setTimeout(function () {
+                            affiliate_statistic_modal.update({
+                                id: req.cookies.codesharedeployapp.id
+                            }, {
+                                dateOut: new Date(),
+                            }, function (err, data) {
+                                if (err) {
+                                    // console.log(err);
+                                    if (devMode == true)
+                                        return res.send({
+                                            status: "3",
+                                            message: err + ''
+                                        });
+                                    else
+                                        return res.json({
+                                            status: "3",
+                                            message: 'Oops, something went wrong'
+                                        });
+                                }
+                                // console.log(data);
+                            })
+                        }, 240000)
+                    } else {
+                        if (req.cookies.codesharedeployapp.code != req.query.codeshare) {
+                            var path_codeshare = req.url.split("?")[0];
+
+                            affiliate_statistic_modal.findOne({
+                                id: id_now,
+                                codeShare: req.query.codeshare,
+                                dateOut: null,
+                                status: true
+                            }).then((data) => {
+                                if (data) {
+                                    affiliate_statistic_modal.update({
+                                        id: data.id
+                                    }, {
+                                        "$push": {
+                                            page: {
+                                                pageText: path_codeshare,
+                                                dateCreate: new Date(),
+                                                dateOut: null
+                                            }
+                                        }
+                                    }, {
+                                        safe: true,
+                                        upsert: true
+                                    }).then(() => {
+                                        next();
+                                    })
+                                } else {
+                                    var new_affiliate_statistic_modal = new affiliate_statistic_modal({
+                                        id: id_now,
+                                        idUser: id_now,
+                                        codeShare: req.query.codeshare,
+                                        dateCreate: new Date(),
+                                        dateOut: null,
+                                        page: [{
+                                            pageText: path_codeshare,
+                                            dateCreate: new Date(),
+                                            dateOut: null
+                                        }],
+                                        status: true
+                                    })
+                                    new_affiliate_statistic_modal.save().then(() => {
+                                        res.cookie("codesharedeployapp", {
+                                            id: id_now,
+                                            code: req.query.codeshare
+                                        }, {
+                                            expires: new Date() + 2592000000,
+                                            maxAge: 2592000000
+                                        })
+                                        next();
+                                    });
+                                }
+                            })
+
+                            setTimeout(function () {
+                                affiliate_statistic_modal.update({
+                                    id: req.cookies.codesharedeployapp.id
+                                }, {
+                                    dateOut: new Date(),
+                                }, function (err, data) {
+                                    if (err) {
+                                        // console.log(err);
+                                        if (devMode == true)
+                                            return res.send({
+                                                status: "3",
+                                                message: err + ''
+                                            });
+                                        else
+                                            return res.json({
+                                                status: "3",
+                                                message: 'Oops, something went wrong'
+                                            });
+                                    }
+                                    // console.log(data);
+                                })
+                            }, 240000)
+                        } else {
+                            var path_codeshare = req.url.split("?")[0];
+                            affiliate_statistic_modal.findOne({
+                                id: req.cookies.codesharedeployapp.id,
+                                codeShare: req.query.codeshare,
+                                dateOut: null,
+                                status: true
+                            }).then((data) => {
+                                if (data) {
+                                    affiliate_statistic_modal.update({
+                                        id: data.id
+                                    }, {
+                                        "$push": {
+                                            page: {
+                                                pageText: path_codeshare,
+                                                dateCreate: new Date(),
+                                                dateOut: null
+                                            }
+                                        }
+                                    }, {
+                                        safe: true,
+                                        upsert: true
+                                    }).then(() => {
+                                        next();
+                                    })
+                                } else {
+                                    var new_affiliate_statistic_modal = new affiliate_statistic_modal({
+                                        id: id_now,
+                                        idUser: id_now,
+                                        codeShare: req.query.codeshare,
+                                        dateCreate: new Date(),
+                                        dateOut: null,
+                                        page: [{
+                                            pageText: path_codeshare,
+                                            dateCreate: new Date(),
+                                            dateOut: null
+                                        }],
+                                        status: true
+                                    })
+                                    new_affiliate_statistic_modal.save().then(() => {
+                                        res.cookie("codesharedeployapp", {
+                                            id: id_now,
+                                            code: req.query.codeshare
+                                        }, {
+                                            expires: new Date() + 2592000000,
+                                            maxAge: 2592000000
+                                        })
+                                        next();
+                                    });
+                                }
+                            })
+
+                            setTimeout(function () {
+                                affiliate_statistic_modal.update({
+                                    id: req.cookies.codesharedeployapp.id
+                                }, {
+                                    dateOut: new Date(),
+                                }, function (err, data) {
+                                    if (err) {
+                                        // console.log(err);
+                                        if (devMode == true)
+                                            return res.send({
+                                                status: "3",
+                                                message: err + ''
+                                            });
+                                        else
+                                            return res.json({
+                                                status: "3",
+                                                message: 'Oops, something went wrong'
+                                            });
+                                    }
+                                    // console.log(data);
+                                })
+                            }, 240000)
                         }
-                        // console.log(data);
-                    })
-                }, 360000)
+                    }
+                } else {
+                    if (req.cookies.codesharedeployapp) {
+                        if (req.cookies.codesharedeployapp.id && req.cookies.codesharedeployapp.code) {
+                            // console.log(req.cookies)
+                            var code_share_app = req.cookies.codesharedeployapp.code;
+                            var path_codeshare = req.url.split("?")[0];
+                            affiliate_statistic_modal.findOne({
+                                id: req.cookies.codesharedeployapp.id,
+                                codeShare: req.cookies.codesharedeployapp.code,
+                                dateOut: null,
+                                status: true
+                            }).then((data) => {
+                                // console.log("data:" + JSON.stringify(data))
+                                if (data) {
+                                    affiliate_statistic_modal.update({
+                                        id: data.id
+                                    }, {
+                                        "$push": {
+                                            page: {
+                                                pageText: path_codeshare,
+                                                dateCreate: new Date(),
+                                                dateOut: null
+                                            }
+                                        }
+                                    }, {
+                                        safe: true,
+                                        upsert: true
+                                    }).then(() => {
+                                        next();
+                                    })
+                                } else {
+                                    var new_affiliate_statistic_modal = new affiliate_statistic_modal({
+                                        id: id_now,
+                                        idUser: id_now,
+                                        codeShare: req.cookies.codesharedeployapp.code,
+                                        dateCreate: new Date(),
+                                        dateOut: null,
+                                        page: [{
+                                            pageText: path_codeshare,
+                                            dateCreate: new Date(),
+                                            dateOut: null
+                                        }],
+                                        status: true
+                                    })
+                                    new_affiliate_statistic_modal.save().then(() => {
+                                        res.cookie("codesharedeployapp", {
+                                            id: id_now,
+                                            code: code_share_app
+                                        }, {
+                                            expires: new Date() + 2592000000,
+                                            maxAge: 2592000000
+                                        })
+                                        next();
+                                    });
+                                }
+                            })
+
+                            setTimeout(function () {
+                                affiliate_statistic_modal.update({
+                                    id: req.cookies.codesharedeployapp.id
+                                }, {
+                                    dateOut: new Date(),
+                                }, function (err, data) {
+                                    if (err) {
+                                        // console.log(err);
+                                        if (devMode == true)
+                                            return res.send({
+                                                status: "3",
+                                                message: err + ''
+                                            });
+                                        else
+                                            return res.json({
+                                                status: "3",
+                                                message: 'Oops, something went wrong'
+                                            });
+                                    }
+                                    // console.log(data);
+                                })
+                            }, 240000)
+                        } else {
+                            next();
+                        }
+                    } else {
+                        next();
+                    }
+                }
             } else {
                 next();
             }
-        } else {
-            next();
-        }
-    })
+        })
+    } catch (error) {
+        console.log(error + "");
+    }
+
 })
 
 

@@ -431,111 +431,119 @@ router.post('/send-notification/:idApp', (req, res) => {
             appsetting.findOne({
                 idApp: req.params.idApp
             }).then((setting) => {
-                var sendNotification = function (data) {
-                    return new Promise(function (resolve, reject) {
-                        var headers = {
-                            "Content-Type": "application/json; charset=utf-8",
-                            "Authorization": "Basic " + setting.oneSignalAPIKey
-                        };
-                        var options = {
-                            host: "onesignal.com",
-                            port: 443,
-                            path: "/api/v1/notifications",
-                            method: "POST",
-                            headers: headers
-                        };
+                if (setting.oneSignalAPIKey && setting.oneSignalID) {
+                    var sendNotification = function (data) {
+                        return new Promise(function (resolve, reject) {
+                            var headers = {
+                                "Content-Type": "application/json; charset=utf-8",
+                                "Authorization": "Basic " + setting.oneSignalAPIKey
+                            };
+                            var options = {
+                                host: "onesignal.com",
+                                port: 443,
+                                path: "/api/v1/notifications",
+                                method: "POST",
+                                headers: headers
+                            };
 
-                        var reqnoti = https.request(options, function (resnoti) {
-                            resnoti.on('data', function (data) {
-                                let getdata = JSON.parse(data);
-                                console.log("getdata:");
-                                console.log(getdata);
-                                var myNoti = new OneSignal.Client({
-                                    userAuthKey: setting.oneSignalUserID,
-                                    app: {
-                                        appAuthKey: setting.oneSignalAPIKey,
-                                        appId: setting.oneSignalID
-                                    }
-                                });
-                                myNoti.viewNotification(getdata.id, function (err, httpResponse, data) {
-                                    let datanoti = JSON.parse(data);
-                                    console.log("datanoti:");
-                                    console.log(datanoti);
-                                    if (datanoti.errors) {
-                                        res.render("error", {
-                                            title: "Error",
-                                            error: datanoti.errors + ""
-                                        })
-                                    }
-                                    if (httpResponse.statusCode === 200 && !err) {
-                                        var notiArrays = [];
-                                        notification.update({
-                                            idApp: setting.idApp,
-                                            status: false
-                                        }, {
-                                            idNotification: getdata.id,
-                                            successful: datanoti.successful,
-                                            failed: datanoti.failed,
-                                            converted: datanoti.converted,
-                                            remaining: datanoti.remaining,
-                                        }).then(() => {
-                                            resolve(datanoti);
-                                        })
-                                    }
-                                });
-                            })
+                            var reqnoti = https.request(options, function (resnoti) {
+                                resnoti.on('data', function (data) {
+                                    let getdata = JSON.parse(data);
+                                    console.log("getdata:");
+                                    console.log(getdata);
+                                    var myNoti = new OneSignal.Client({
+                                        userAuthKey: setting.oneSignalUserID,
+                                        app: {
+                                            appAuthKey: setting.oneSignalAPIKey,
+                                            appId: setting.oneSignalID
+                                        }
+                                    });
+                                    myNoti.viewNotification(getdata.id, function (err, httpResponse, data) {
+                                        let datanoti = JSON.parse(data);
+                                        console.log("datanoti:");
+                                        console.log(datanoti);
+                                        if (datanoti.errors) {
+                                            res.render("error", {
+                                                title: "Error",
+                                                error: datanoti.errors + ""
+                                            })
+                                        }
+                                        if (httpResponse.statusCode === 200 && !err) {
+                                            var notiArrays = [];
+                                            notification.update({
+                                                idApp: setting.idApp,
+                                                status: false
+                                            }, {
+                                                idNotification: getdata.id,
+                                                successful: datanoti.successful,
+                                                failed: datanoti.failed,
+                                                converted: datanoti.converted,
+                                                remaining: datanoti.remaining,
+                                            }).then(() => {
+                                                resolve(datanoti);
+                                            })
+                                        }
+                                    });
+                                })
 
-                        });
+                            });
 
-                        reqnoti.on('error', function (e) {
-                            console.log("ERROR:");
-                            console.log(e);
-                        });
-                        reqnoti.write(JSON.stringify(data));
-                        reqnoti.end();
-                    })
-                };
-
-                var message = {
-                    app_id: setting.oneSignalID,
-                    headings: result.titleNotification,
-                    contents: result.contentNotification,
-                    url: result.internalLink[0].url,
-                    // large_icon: "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg",
-                    // small_icon: "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg",
-                    // big_picture: "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg",
-                    // android_background_layout: {
-                    //     "image": "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg"
-                    // },
-                    large_icon: hostServer + "/themes/img/settingnotification/" + result.smallIcon,
-                    small_icon: hostServer + "/themes/img/settingnotification/" + result.iconNotification,
-                    big_picture: hostServer + "/themes/img/settingnotification/" + result.bigimagesNotification,
-                    android_background_layout: {
-                        "image": hostServer + "/themes/img/settingnotification/" + result.backgroundNotification
-                    },
-
-                    android_led_color: "#ededed",
-                    android_accent_color: "#ededed",
-                    included_segments: result.sendToUser,
-                    excluded_segments: result.excludesendToUser
-                };
-                if (result.include_player_ids.length > 0) {
-                    message.include_player_ids = result.include_player_ids
-                }
-                sendNotification(message).then(() => {
-                    notification.update({
-                        idApp: setting.idApp,
-                        status: false
-                    }, {
-                        status: true
-                    }).then(() => {
-                        console.log("vao out..")
-                        return res.json({
-                            status: 1,
-                            message: "ok"
+                            reqnoti.on('error', function (e) {
+                                console.log("ERROR:");
+                                console.log(e);
+                            });
+                            reqnoti.write(JSON.stringify(data));
+                            reqnoti.end();
                         })
-                    });
-                })
+                    };
+
+                    var message = {
+                        app_id: setting.oneSignalID,
+                        headings: result.titleNotification,
+                        contents: result.contentNotification,
+                        url: result.internalLink[0].url,
+                        // large_icon: "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg",
+                        // small_icon: "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg",
+                        // big_picture: "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg",
+                        // android_background_layout: {
+                        //     "image": "https://dev.deployapp.net/themes/img/profile/8d18ea3b1e9add36c219de44631c4f92.jpg"
+                        // },
+                        large_icon: hostServer + "/themes/img/settingnotification/" + result.smallIcon,
+                        small_icon: hostServer + "/themes/img/settingnotification/" + result.iconNotification,
+                        big_picture: hostServer + "/themes/img/settingnotification/" + result.bigimagesNotification,
+                        android_background_layout: {
+                            "image": hostServer + "/themes/img/settingnotification/" + result.backgroundNotification
+                        },
+
+                        android_led_color: "#ededed",
+                        android_accent_color: "#ededed",
+                        included_segments: result.sendToUser,
+                        excluded_segments: result.excludesendToUser
+                    };
+                    if (result.include_player_ids.length > 0) {
+                        message.include_player_ids = result.include_player_ids
+                    }
+                    sendNotification(message).then(() => {
+                        notification.update({
+                            idApp: setting.idApp,
+                            status: false
+                        }, {
+                            status: true
+                        }).then(() => {
+                            console.log("vao out..")
+                            return res.json({
+                                status: 1,
+                                message: "ok"
+                            })
+                        });
+                    })
+                } else {
+                    return res.json({
+                        status: 2,
+                        message: "You need to add the onesignal information in appsetting"
+                    })
+                }
+
             })
 
         })

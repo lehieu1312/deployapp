@@ -327,8 +327,14 @@ router.get('/checkout/ok/process', (req, res) => {
                                     imageProduct: getdata.image,
                                     price: getdata.price
                                 }
+                                await infor_app_admin.update({
+                                    idApp: data_session_cart[i].id
+                                }, {
+                                    installed: getdata.installed + data_session_cart[i].count
+                                }).exec();
                                 for (let j = 0; j < data_session_cart[i].count; j++) {
                                     let id_inforapp = "com.taydo." + Date.now();
+
                                     await User.update({
                                         id: req.session.iduser,
                                         status: true

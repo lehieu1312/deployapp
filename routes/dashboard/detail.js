@@ -243,9 +243,16 @@ router.post("/getamountapp", (req, res) => {
         }, (err, data) => {
             if (err) throw err;
             // console.log("myapp:" + data.length)
-            return res.json({
-                amount: data.myapp.length
-            });
+            if (data) {
+                return res.json({
+                    amount: data.myapp.length
+                });
+            } else {
+                return res.json({
+                    amount: 0
+                });
+            }
+
         })
     } catch (error) {
         console.log(error + "")

@@ -65,8 +65,6 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
 
                 let getdata = JSON.parse(data);
 
-                console.log(getdata)
-                console.log(getdata.errors)
                 if (getdata.errors) {
 
                     res.render("error", {
@@ -109,7 +107,8 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                         })
                     }
                     // update information for old player
-                    async function updatePlayer(a) {
+                    function updatePlayer(a) {
+                        // return new Promise(function (resolve, reject) {
                         var APIuser = new OneSignal.Client({
                             app: {
                                 appAuthKey: setting.oneSignalAPIKey,
@@ -119,7 +118,7 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
 
                         for (let i = 0; i < a.length; i++) {
                             APIuser.viewDevice(a[i].id, function (err, httpResponse, data) {
-                                let getdataxx = JSON.parse(data)
+                                let getdataxx = JSON.parse(data);
                                 userplayers.update({
                                     id: a[i].id
                                 }, {
@@ -127,9 +126,14 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                                     playtime: getdataxx.playtime,
                                     amount_spent: getdataxx.amount_spent,
                                     badge_count: getdataxx.badge_count
-                                });
+                                })
                             })
                         }
+                        // resolve({
+                        //     status: 1,
+                        //     message: "ok"
+                        // })
+                        // })
                     }
                     // get users don't save to database
                     function get_user_new(a, b) {
@@ -183,11 +187,12 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                                 console.log("User :");
                                 (() => {
                                     return new Promise((resolve, reject) => {
-                                        updatePlayer(users_deploy);
-                                        get_user_new(players, users_deploy).then((user_new) => {
-                                            userplayers.insertMany(user_new)
-                                            resolve(user_new);
-                                        })
+                                        updatePlayer(users_deploy).then(() => {
+                                            get_user_new(players, users_deploy).then((user_new) => {
+                                                userplayers.insertMany(user_new)
+                                                resolve(user_new);
+                                            })
+                                        });
                                     })
                                 })().then(() => {
                                     userplayers.find({

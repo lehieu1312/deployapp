@@ -702,7 +702,14 @@ $(document).ready(() => {
                             if (data.status == 1) {
                                 window.location.href = "/dashboard/notification/" + idApp
                             }
-
+                            if (data.status == 2) {
+                                $('.errPopup').show();
+                                $('.alert-upload').text(data.message);
+                                $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                                    $("#danger-alert").slideUp(1000);
+                                    $('.errPopup').hide();
+                                });
+                            }
                         }
                     })
                 })()

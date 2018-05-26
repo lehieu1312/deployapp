@@ -167,6 +167,25 @@ function trimSpace(str) {
     return str.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, "").replace(/\s+/g, " ");
 }
 
+function searchapp_admin() {
+    var input, filter, span, i, div;
+    input = document.getElementById("inputsearhappadmin");
+    filter = input.value.toUpperCase();
+    // console.log(filter);
+    span = document.getElementsByClassName("name-app-advertise");
+    div = document.getElementsByClassName("group-advertise");
+    var dem = 0;
+    for (i = 0; i < span.length; i++) {
+        if (span[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+            dem++;
+            div[i].style.display = "";
+
+        } else {
+            div[i].style.display = "none";
+        }
+    }
+}
+
 function searchmyapp() {
     var input, filter, span, i, div;
     input = document.getElementById("inputsearchapp");

@@ -1256,6 +1256,16 @@ a:hover .menumore-listmyapp {
     display: none;
 }
 
+#inputsearhappadmin {
+    padding-bottom: 3px;
+    padding-left: 20px;
+    border: none;
+    background: none;
+    width: 300px;
+    border-bottom: solid 1px #cdcdcd;
+    margin-right: 15px;
+}
+
 #menu-detail a {
     color: #666666;
 }

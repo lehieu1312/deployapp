@@ -47,7 +47,10 @@ router.get('/login', (req, res) => {
     }
 });
 router.get('/logout', (req, res) => {
-    req.session.destroy();
+
+    delete req.session.iduser;
+    delete req.session.fullname;
+    delete req.session.cart
     // res.locals.staticuser = "login";
     res.redirect("/login")
 });

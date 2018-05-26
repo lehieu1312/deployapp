@@ -159,10 +159,10 @@
                                         <span><%=item.lastVersion%></span>
                                     </td>
                                     <td class="table-time-appversion ">
-                                        <span>$<%=item.cost%></span>
+                                        <span>$<%=item.cost.toLocaleString()%></span>
                                     </td>
                                     <td class="table-time-appversion ">
-                                        <span>$<%=item.price%></span>
+                                        <span>$<%=item.price.toLocaleString()%></span>
                                     </td>
                                     <td class="table-time-appversion ">
                                         <%if(item.status){%>

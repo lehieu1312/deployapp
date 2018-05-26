@@ -318,6 +318,7 @@ router.get('/checkout/ok/process', (req, res) => {
                             var product = [];
                             var code_order = makeid();
                             let data_session_cart = await filtercart(req.session.cart);
+                            console.log("data json:" + JSON.stringify(data_session_cart));
                             for (let i = 0; i < data_session_cart.length; i++) {
                                 let getdata = await infor_app_admin.findOne({
                                     idApp: data_session_cart[i].id
@@ -335,7 +336,7 @@ router.get('/checkout/ok/process', (req, res) => {
                                     installed: getdata.installed + data_session_cart[i].count
                                 }).exec();
                                 for (let j = 0; j < data_session_cart[i].count; j++) {
-                                    let id_inforapp = "com.taydo." + Date.now();
+                                    let id_inforapp = "com.taydo.app" + Date.now();
 
                                     await User.update({
                                         id: req.session.iduser,
@@ -377,6 +378,11 @@ router.get('/checkout/ok/process', (req, res) => {
 
                             var id_order = md5(new Date());
 
+                            var user_checkout = await User.findOne({
+                                id: req.session.iduser,
+                                status: true
+                            }).exec()
+
                             console.log("product:" + JSON.stringify(product))
                             var queryCheckout = await Object.assign({
                                 id: id_order,
@@ -384,6 +390,7 @@ router.get('/checkout/ok/process', (req, res) => {
                                 idUser: req.session.iduser,
                                 productInformation: product,
                                 amount: data.amount.total,
+                                username: user_checkout.username,
                                 paymentMethod: "paypal",
                                 statusOrder: data.state,
                                 dateCreate: new Date(),
@@ -394,10 +401,6 @@ router.get('/checkout/ok/process', (req, res) => {
 
                             var new_order = new order_modal(queryCheckout);
 
-                            var user_checkout = await User.findOne({
-                                id: req.session.iduser,
-                                status: true
-                            }).exec()
 
                             await new_order.save().then(() => {
                                 if (req.cookies.codesharedeployapp) {
@@ -405,62 +408,68 @@ router.get('/checkout/ok/process', (req, res) => {
                                         codeShare: req.cookies.codesharedeployapp.code,
                                         status: true
                                     }).then((user_share) => {
-                                        affiliate_modal.find({
-                                            codeShare: req.cookies.codesharedeployapp.code,
-                                            idUser: user_share.id
-                                        }).sort({
-                                            dateCreate: -1
-                                        }).then((affiliate_old) => {
-                                            if (affiliate_old.length > 0) {
-                                                var new_affiliate = new affiliate_modal({
-                                                    id: md5(new Date()),
-                                                    idUser: user_share.id,
-                                                    username: user_checkout.username,
-                                                    codeShare: req.cookies.codesharedeployapp.code,
-                                                    idOrder: id_order,
-                                                    codeOrder: code_order,
-                                                    orderMoney: data.amount.total,
-                                                    percentSale: 1,
-                                                    money: (data.amount.total / 100).toFixed(2),
-                                                    blance: Number(affiliate_old[0].blance) + Number((data.amount.total / 100).toFixed(2)),
-                                                    idUserOroder: req.session.iduser,
-                                                    nameUserOrder: req.session.fullname,
-                                                    paymentMethodOrder: "paypal",
-                                                    note: "note deploy",
-                                                    dateCreate: new Date(),
-                                                    status: true
-                                                })
-                                                new_affiliate.save().then(() => {
-                                                    req.session.percentSale = null;
-                                                    req.session.cart = [];
-                                                    res.redirect("/dashboard?checkout=ok")
-                                                });
-                                            } else {
-                                                var new_affiliate = new affiliate_modal({
-                                                    id: md5(new Date()),
-                                                    idUser: user_share.id,
-                                                    codeShare: req.cookies.codesharedeployapp.code,
-                                                    idOrder: id_order,
-                                                    codeOrder: code_order,
-                                                    orderMoney: data.amount.total,
-                                                    percentSale: 1,
-                                                    money: Number((data.amount.total / 100).toFixed(2)),
-                                                    blance: Number((data.amount.total / 100).toFixed(2)),
-                                                    idUserOroder: req.session.iduser,
-                                                    nameUserOrder: req.session.fullname,
-                                                    paymentMethodOrder: "paypal",
-                                                    note: "note deploy",
-                                                    dateCreate: new Date(),
-                                                    status: true
-                                                })
-                                                new_affiliate.save().then(() => {
-                                                    req.session.percentSale = null;
-                                                    req.session.cart = [];
-                                                    res.redirect("/dashboard?checkout=ok")
-                                                });
-                                            }
+                                        if (user_share) {
+                                            affiliate_modal.find({
+                                                codeShare: req.cookies.codesharedeployapp.code,
+                                                idUser: user_share.id
+                                            }).sort({
+                                                dateCreate: -1
+                                            }).then((affiliate_old) => {
+                                                if (affiliate_old.length > 0) {
+                                                    var new_affiliate = new affiliate_modal({
+                                                        id: md5(new Date()),
+                                                        idUser: user_share.id,
+                                                        username: user_checkout.username,
+                                                        codeShare: req.cookies.codesharedeployapp.code,
+                                                        idOrder: id_order,
+                                                        codeOrder: code_order,
+                                                        orderMoney: data.amount.total,
+                                                        percentSale: 1,
+                                                        money: (data.amount.total / 100).toFixed(2),
+                                                        blance: Number(affiliate_old[0].blance) + Number((data.amount.total / 100).toFixed(2)),
+                                                        idUserOroder: req.session.iduser,
+                                                        nameUserOrder: req.session.fullname,
+                                                        paymentMethodOrder: "paypal",
+                                                        note: "note deploy",
+                                                        dateCreate: new Date(),
+                                                        status: true
+                                                    })
+                                                    new_affiliate.save().then(() => {
+                                                        delete req.session.percentSale;
+                                                        req.session.cart = [];
+                                                        res.redirect("/dashboard?checkout=ok")
+                                                    });
+                                                } else {
+                                                    var new_affiliate = new affiliate_modal({
+                                                        id: md5(new Date()),
+                                                        idUser: user_share.id,
+                                                        codeShare: req.cookies.codesharedeployapp.code,
+                                                        idOrder: id_order,
+                                                        codeOrder: code_order,
+                                                        orderMoney: data.amount.total,
+                                                        percentSale: 1,
+                                                        money: Number((data.amount.total / 100).toFixed(2)),
+                                                        blance: Number((data.amount.total / 100).toFixed(2)),
+                                                        idUserOroder: req.session.iduser,
+                                                        nameUserOrder: req.session.fullname,
+                                                        paymentMethodOrder: "paypal",
+                                                        note: "note deploy",
+                                                        dateCreate: new Date(),
+                                                        status: true
+                                                    })
+                                                    new_affiliate.save().then(() => {
+                                                        delete req.session.percentSale;
+                                                        req.session.cart = [];
+                                                        res.redirect("/dashboard?checkout=ok")
+                                                    });
+                                                }
 
-                                        })
+                                            })
+                                        } else {
+                                            req.session.percentSale = null;
+                                            req.session.cart = [];
+                                            res.redirect("/dashboard?checkout=ok")
+                                        }
                                     })
                                 } else {
                                     req.session.percentSale = null;
@@ -470,10 +479,6 @@ router.get('/checkout/ok/process', (req, res) => {
                             })
                         }
                         get_data_car();
-                        // } else {
-                        // res.redirect("/checkout")
-                        // }
-                        // console.log(data);
                     }
                 })
             } else {

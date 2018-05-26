@@ -2,7 +2,7 @@ var socket = io('https://deployapp.net');
 // var socketclient = io('http://localhost:3000');
 // /http://104.238.165.113/
 // hostServer
-socket.on('Server-send-data-uploaded', function (data) {
+socket.on('Server-send-data-uploaded', function(data) {
     var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',');
     $('#numUpload').animateNumber({
         number: data.clUploaded,
@@ -10,7 +10,7 @@ socket.on('Server-send-data-uploaded', function (data) {
     });
 });
 
-socket.on('Server-send-data-deployed', function (data) {
+socket.on('Server-send-data-deployed', function(data) {
     var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',');
     $('#numDeploy').animateNumber({
         number: data.clDeployed,

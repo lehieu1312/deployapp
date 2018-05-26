@@ -78,6 +78,33 @@ $(document).ready(() => {
                         $('.alert-upload').html('Oops, something went wrong');
                     }
                 },
+                xhr: function() {
+                    var xhr;
+                    // create an XMLHttpRequest
+                    if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+                        xhr = new XMLHttpRequest();
+                    } else { // code for IE6, IE5
+                        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    // var xhr = new XMLHttpRequest();
+                    // listen to the 'progress' event
+                    xhr.upload.addEventListener('progress', function(evt) {
+                        var str = "";
+                        if (evt.lengthComputable) {
+                            // calculate the percentage of upload completed
+                            var percentComplete = evt.loaded / evt.total;
+                            percentComplete = parseInt(percentComplete * 100);
+                            console.log(percentComplete);
+                            // update the Bootstrap progress bar with the new percentage
+                            // $('.progress-bar').text(percentComplete + '%');
+
+                            // $('.progress-bar').width(percentComplete + '%');
+                            // once the upload reaches 100%, set the progress bar text to done
+
+                        }
+                    }, false);
+                    return xhr;
+                },
                 error: function(jqXHR, exception) {
                     $('.errPopup').show();
                     $('.alert-upload').html('Oops, something went wrong');

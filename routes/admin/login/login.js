@@ -20,19 +20,24 @@ var userModels = require('../../../models/user');
 var orderModels = require('../../../models/order');
 var userAdminModel = require("../../../models/useradmin");
 
-router.get("/", (req, res) => {
+router.get("/login", (req, res) => {
     res.render("admin/login/login", {
         title: "Login"
     })
 })
+router.get("/logout", (req, res) => {
+    delete req.session.iduseradmin;
+    // res.locals.staticuser = "login";
+    res.redirect("/admin/login")
+})
 
-router.post("/tk", (req, res) => {
+router.post("/login/tk", (req, res) => {
     userAdminModel.findOne({
         username: req.body.username,
         status: true
     }).then((result) => {
         if (!result) {
-            return res.send({
+            return res.json({
                 status: "2",
                 message: "The username or password is incorrect"
             });
@@ -65,4 +70,11 @@ router.post("/tk", (req, res) => {
     })
 })
 
+function checkAdmin(req, res, next) {
+    if (req.session.iduseradmin) {
+        next();
+    } else {
+        res.redirect('/admin/login');
+    }
+}
 module.exports = router;

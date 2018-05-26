@@ -127,14 +127,14 @@
                                 </div>
                                 <div id="menuuser">
 
-                                    <a href="/editprofile">
+                                    <!-- <a href="/editprofile">
                                         <div class="selectmenu divhover showmenuaccount">
                                             <img class="imgfirst" src="/themes/img/dashboard/iconacountt.png">
                                             <img class="imglast" src="/themes/img/dashboard/iconaccountactive.png">
                                             <span class="spanmenuaccount">Edit profile</span>
                                         </div>
-                                    </a>
-                                    <a href="/logout">
+                                    </a> -->
+                                    <a href="/admin/logout">
                                         <div class="selectmenu divhover showmenuaccount">
                                             <img class="imgfirst" src="/themes/img/dashboard/iconlogout.png">
                                             <img class="imglast" src="/themes/img/dashboard/iconlogoutative.png">
@@ -169,3 +169,14 @@
                         <span id="text-href">My app</span> -->
                     </div>
                 </div>
+                <script>
+                    $(document).ready(() => {
+                        $('.showmenuaccount').click((event) => {
+                            $('#menuaccount').toggle();
+                            event.stopPropagation();
+                        })
+                        $(body).click(() => {
+                            $('#menuaccount').hide();
+                        })
+                    })
+                </script>

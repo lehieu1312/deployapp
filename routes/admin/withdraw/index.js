@@ -18,7 +18,7 @@ var libAppCountry = require('../../../lib/country');
 var libCountry = libAppCountry.country;
 var withDrawModels = require('../../../models/withdraw');
 
-router.get('/', (req, res) => {
+router.get('/', checkAdmin, (req, res) => {
     try {
         withDrawModels.find().sort({ dateCreate: -1 }).then((dataWithdraw) => {
             res.render('admin/withdraw/index', { dataWithdraw, moment, title: "Withdraw" });
@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
         return res.render('error', { error, title: 'Page Error' });
     }
 });
-router.post('/changestatuswithdraw', (req, res) => {
+router.post('/changestatuswithdraw', checkAdmin, (req, res) => {
     try {
         console.log(req.body);
         req.checkBody('id', 'ID Not Defined').notEmpty();
@@ -64,4 +64,12 @@ router.post('/changestatuswithdraw', (req, res) => {
         return res.render('error', { error, title: 'Page Error' });
     }
 });
+
+function checkAdmin(req, res, next) {
+    if (req.session.iduseradmin) {
+        next();
+    } else {
+        res.redirect('/admin/login');
+    }
+}
 module.exports = router;

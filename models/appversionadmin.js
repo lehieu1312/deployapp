@@ -1,9 +1,11 @@
 let mongoose = require('mongoose');
 
 let appversionschema = mongoose.Schema({
+    id: String,
     idApp: String,
     nameApp: String,
     inforAppversion: [{
+        id: String,
         version: String,
         changeLog: String,
         createDate: Date,

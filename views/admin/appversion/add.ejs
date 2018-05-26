@@ -1,0 +1,73 @@
+<% include ../layout/header %>
+    <link rel="stylesheet" type="text/css" href="/themes/css/admin/apps.css">
+    <script type="text/javascript" charset="utf-8" src="/themes/js/froala_editor.pkgd.min.js"></script>
+    <div class="xcontent clsmenu">
+        <div id="title-detail" class="row row1">
+            <div id="title-appversion" class="content-title-detail has-feedback">
+                <span class="textmyapp">Add Version
+        </span>
+                <!-- <a href="/admin/apps" class="btn-blue" id="backuser">
+                    <i class="fa fa-arrow-circle-left"></i> Back</a> -->
+            </div>
+        </div>
+        <div class="row row1">
+            <div id="content-editprofile">
+                <div class="title-add-app">
+                    <span> Add <%=appName%> Version</span>
+                </div>
+                <form id="form" method="POST">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback">
+                                <input type="hidden" value="<%=sIDApp%>" name="sidapp" id="sidapp">
+                                <label class="control-label">Last version *</label>
+                                <input class="inputeditcustomer input-editcustomer" placeholder="Enter last version" type="text" id="lastversion" name="lastversion" value="" />
+                                <span class="form-control-feedback" aria-hidden="true"></span>
+                                <span id="icon-err-lastversion" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label class="control-label">App file *</label>
+                                <div class="">
+                                    <label class="custom-file-upload">
+                                                <!-- <i class="fa fa-cloud-upload"></i>  -->
+                                                <input class="form-control input-file-build-ios input-form-info " type="file" displaytext="App file" id="source-app-fle" name="source-app-fle" value="" accept=".zip"/>
+                                             <img  src="/themes/img/icon-choose-file.png" class="img-choose-file-ios" alt="choose file"> &nbsp; <span  class="text-choose-file"> Choose a File</span>
+                                        </label>
+                                    <span class="extnamefile" id="text-prod-file-zip">&nbsp;&nbsp;*.zip</span>
+                                </div>
+                                <span class="name-file-img"></span>
+                                <input type="file" name="image-app" id="image-app" accept="image/*">
+                                <span class="form-control-feedback" aria-hidden="true"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <span id="icon-err-imagefile" class=" display-none"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback">
+                                <label class="control-label">Change log *</label>
+                                <div class="box-input-changelog">
+                                    <input class="inputeditcustomer input-editcustomer" placeholder="Enter your content" type="text" id="txtchangelog" class="txtchangelog" name="changelog" value="" />
+                                    <span class="form-control-feedback" aria-hidden="true"></span>
+                                    <span id="icon-err-changelog" class="glyphicon glyphicon-err form-control-feedback display-none icon-err-changelog"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="box-btn-add-app">
+            <div class="divbox-btn-add-app">
+                <a href="/admin/apps/version/<%=sIDApp%>" id="btn-edit-cancel" class="setcolorfontinput setcolorloginbackround btn btn-cancel-add-app">CANCEL</a>
+                <input type="button" id="btn-add-versionapp" class="setcolorfontinput setcolorloginbackround btn btn-add-apps-new" value="CREATE">
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/addapp.js "></script> -->
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/breadcrumb.js "></script>
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/addversion.js "></script>

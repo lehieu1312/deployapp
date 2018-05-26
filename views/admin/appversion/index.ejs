@@ -1,0 +1,446 @@
+<% include ../layout/header %>
+
+    <link rel="stylesheet" type="text/css" href="/themes/css/admin/apps.css">
+    <div class="xcontent clsmenu">
+        <div id="title-detail" class="row row1">
+            <div id="title-appversion" class="content-title-detail has-feedback">
+                <span class="textmyapp">App Version
+            </span>
+                <a href="/admin/apps/version/add/<%=sIDApp%>" class="btn-blue" id="adduser">
+                    <img class="seticonadd" src="/themes/img/admin/add.png"> Add
+                </a>
+
+                <!-- <span class="setsearch">
+                <input type="text" onkeyup="searchFunc()" id="inputsearch-customer" name="search" placeholder="Search...">
+                <span class="form-control-feedback2 icon-search-top" aria-hidden="true">
+                    <img src="/themes/img/admin/search.png">
+                </span>
+                </span> -->
+            </div>
+        </div>
+
+        <div id="filter-table-appversion" class="row row1">
+            <div class="filter-left">
+                <span class="table-show">Show</span>
+                <div id="filter-number" class="btn-group">
+                    <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber btn-shownum-perpage" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span id="span-show-number" class="span-button-select">9</span>
+                        <span class="caret arow-button-select"></span>
+                    </button>
+                    <ul class="dropdown-menu ">
+                        <li id="show9perpage">
+                            <a href="javascript:void(0)">9 Per page</a>
+                        </li>
+                        <li id="show18perpage">
+                            <a href="javascript:void(0)">18 Per page</a>
+                        </li>
+                        <li id="show27perpage">
+                            <a href="javascript:void(0)">27 Per page</a>
+                        </li>
+                        <li id="show36perpage">
+                            <a href="javascript:void(0)">36 Per page</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="filter-page-right">
+                <div class="pagination-table-deploy ">
+                    <ul class="pagination">
+                        <li class="edit-li-pagination">
+                            <span id="totalitems" class="totalitems"></span>
+                        </li>
+                        <li class="btnfirstpage">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="btnprevpage">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="currentpage currentpagetext" href="javascript:void(0)"></a>
+                        </li>
+                        <li class="edit-li-pagination">
+                            <span class="totalpage totalpagetext" href="javascript:void(0)">
+                            </span>
+                        </li>
+                        <li class="btnnextpage">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="btnlastpage">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row row1">
+            <div id="content-appversion">
+
+                <div class="multi-option">
+                    <div class="input-group ">
+                        <button data-toggle="dropdown" class="btn btn-white dropmenu-multi-option" type="button" aria-expanded="true">Bulk actions <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <!-- data-toggle="modal" data-target="#mymodal-blockuser" -->
+                                <a href="javascript:void(0)" id="btn-enable-multi" class="btn-enable-multi"><img src="/themes/img/admin/enable.png" class="img-option-multi" alt="Block selected"> &nbsp;
+                                    <span>Enable selected</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" id="btn-disable-multi" class="btn-disable-multi"><img src="/themes/img/admin/disable.png" class="img-option-multi" alt="Delete selected"> &nbsp;
+                                    <span>Disable selected</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" id="btn-delete-multi" class="btn-delete-multi"><img src="/themes/img/admin/deletemultioption.png" class="img-option-multi" alt="Delete selected"> &nbsp;
+                                    <span>Delete selected</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <input type="hidden" value="<%=sIDApp%>" id="sidapp">
+                <table id="table-appversion">
+                    <tr id="title-table-header">
+                        <th width="5.8%"><input type="checkbox" id="checkboxall"></th>
+                        <th width="7.8%">#</th>
+                        <th width="35%">App Name
+                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                        </th>
+                        <th width="12.2%">Version
+                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                        </th>
+                        <th width="12.2%">Create Date
+                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                        </th>
+                        <th width="12.2%">Updated
+                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                        </th>
+                        <th width="10%">Status
+                        </th>
+                        <th width="10.8%">
+                        </th>
+                    </tr>
+                    <tbody>
+                        <%var dem=1;
+                        if(dataAppVersion){
+                            if(dataAppVersion.inforAppversion){
+                        %>
+
+                            <% dataAppVersion.inforAppversion.forEach(function(item){%>
+                                <tr id="" class="tr-content-appversion trrecord">
+                                    <td><input type="checkbox" name="name[]" id="<%=item.id%>"></td>
+                                    <td class="">
+                                        <span class="numberorder"><%=dem%></span>
+                                    </td>
+
+                                    <td class="table-version">
+                                        <a href="javascript:void(0)"> <span><%=dataAppVersion.nameApp%></span></a>
+                                    </td>
+                                    <td class="table-time-appversion ">
+                                        <span><%=item.version%></span>
+                                    </td>
+                                    <td class="table-version">
+                                        <span><%=moment(item.createDate).format('DD/MM/YYYY HH:mm:ss')%></span>
+                                    </td>
+                                    <td class="table-changelog">
+                                        <span><%=moment(item.updatedDate).format('DD/MM/YYYY HH:mm:ss')%></span>
+                                    </td>
+
+                                    <td class="table-time-appversion ">
+                                        <%if(item.status){%>
+                                            <span>Enable</span>
+                                            <%}else{%>
+                                                <span class="text-red">Disable</span>
+                                                <%}%>
+                                    </td>
+
+                                    <td class="set-position-relative">
+                                        <img class="setimg-head-myapp more-menu" src="/themes/img/admin/moreoption.png">
+                                        <div class="box-more-menu" style="display:none">
+                                            <a href="javascript:void(0)" onclick="enableVersionApp('<%=item.id%>','<%=sIDApp%>')">
+                                                <div class=" element-delete ">
+                                                    <div class="box-edit-customer box-option-apps ">
+                                                        <div class="left-box-item ">
+                                                            <img class="imgicondelete " src="/themes/img/admin/enable.png "><span> Enable</span>
+                                                        </div>
+                                                    </div>
+                                            </a>
+
+
+                                            <a href="javascript:void(0) " onclick="disableVersionApp( '<%=item.id%>','<%=sIDApp%>') ">
+                                                <div class="box-edit-customer box-option-apps ">
+                                                    <div class="left-box-item ">
+                                                        <img class="imgicondelete " src="/themes/img/admin/disable.png "><span> Disable</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                            <a href="javascript:void(0)" onclick="deleteVersionApp('<%=item.id%>','<%=sIDApp%>')">
+                                                <div class="box-edit-customer box-option-apps">
+                                                    <div class="left-box-item">
+                                                        <img class="imgicondelete" src="/themes/img/admin/deletemultioption.png"><span>Delete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            </div>
+
+                                            <div class="arrowmenuuser-left">
+                                            </div>
+                                            <div class="arrowmenuuser-left1">
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <% dem++;})}}%>
+                    </tbody>
+                </table>
+                <div class="multi-option">
+                    <div class="input-group ">
+                        <button data-toggle="dropdown" class="btn btn-white dropmenu-multi-option" type="button" aria-expanded="true">Bulk actions <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <!-- data-toggle="modal" data-target="#mymodal-blockuser" -->
+                                <a href="javascript:void(0)" id="btn-enable-multi" class="btn-enable-multi"><img src="/themes/img/admin/enable.png" class="img-option-multi" alt="Block selected"> &nbsp;
+                                    <span>Enable selected</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" id="btn-disable-multi" class="btn-disable-multi"><img src="/themes/img/admin/disable.png" class="img-option-multi" alt="Delete selected"> &nbsp;
+                                    <span>Disable selected</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" id="btn-delete-multi" class="btn-delete-multi"><img src="/themes/img/admin/deletemultioption.png" class="img-option-multi" alt="Delete selected"> &nbsp;
+                                    <span>Delete selected</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                </div>
+                <!-- Paging bottom -->
+                <div class="box-paging-bottom">
+                    <div class="box-showitem-left">
+                        <span>Showing </span> <span class="totalshowcurrent"></span> <span> of </span><span class="totalitems"></span>
+                    </div>
+                    <div class="box-paging-right">
+                        <div class="pagination-table-deploy">
+                            <ul class="pagination">
+                                <li class="edit-li-pagination">
+                                    <span id="totalitems" class="totalitems"></span>
+                                </li>
+                                <li class="btnfirstpage">
+                                    <a href="javascript:void(0)">
+                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="btnprevpage">
+                                    <a href="javascript:void(0)">
+                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="currentpage currentpagetext" href="javascript:void(0)"></a>
+                                </li>
+                                <li class="edit-li-pagination">
+                                    <span class="totalpage totalpagetext" href="javascript:void(0)">
+                                </span>
+                                </li>
+                                <li class="btnnextpage">
+                                    <a href="javascript:void(0)">
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="btnlastpage">
+                                    <a href="javascript:void(0)">
+                                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Close -->
+
+                <!-- Delete Apps Multi-->
+                <div class="container">
+                    <div class="modal fade" id="mymodal-deleteappsmulti" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content1">
+                                <div class="dialogdeleteapp">
+                                    <div class="dialogdeleteapp-head">
+                                        Are you sure you want to Delete this version?
+                                    </div>
+                                    <div class="dialogdeleteapp-foot">
+                                        <button id="delete-ok-multi" class="btn-delete-ok">Delete</button>
+                                        <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disable Apps Multi -->
+                <div class="container box-blockuser">
+                    <div class="modal fade" id="mymodal-disableappsmulti" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content1">
+                                <div class="dialogdeleteapp">
+                                    <div class="dialogdeleteapp-head">
+                                        Are you sure you want to disable the version you have selected?
+                                    </div>
+                                    <div class="dialogdeleteapp-foot">
+                                        <button id="disable-ok-multi" class="btn-block-ok">Disable</button>
+                                        <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enable Apps Multi-->
+                <div class="container box-blockuser">
+                    <div class="modal fade" id="mymodal-enableappsmulti" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content1">
+                                <div class="dialogdeleteapp">
+                                    <div class="dialogdeleteapp-head">
+                                        Are you sure you want to enable the versions you have selected?
+                                    </div>
+                                    <div class="dialogdeleteapp-foot">
+                                        <button id="enable-ok-multi" class="btn-block-ok">Enable</button>
+                                        <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enable App This -->
+                <div class="container">
+                    <div class="modal fade" id="mymodal-enableapp" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content1">
+                                <div class="dialogdeleteapp">
+                                    <div class="dialogdeleteapp-head">
+                                        Are you sure you want to enable this version?
+                                    </div>
+                                    <div class="dialogdeleteapp-foot">
+                                        <button id="enable-ok" class="btn-enable-ok">Enable</button>
+                                        <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disable App This -->
+                <div class="container">
+                    <div class="modal fade" id="mymodal-disableapp" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content1">
+                                <div class="dialogdeleteapp">
+                                    <div class="dialogdeleteapp-head">
+                                        Are you sure you want to disable this version?
+                                    </div>
+                                    <div class="dialogdeleteapp-foot">
+                                        <button id="disable-ok" class="btn-disable-ok">Disable</button>
+                                        <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Delete App This -->
+                <div class="container">
+                    <div class="modal fade" id="mymodal-deleteapp" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content1">
+                                <div class="dialogdeleteapp">
+                                    <div class="dialogdeleteapp-head">
+                                        Are you sure you want to delete this version?
+                                    </div>
+                                    <div class="dialogdeleteapp-foot">
+                                        <button id="delete-ok" class="btn-delete-ok">Delete</button>
+                                        <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="container">
+                    <div class="modal fade" id="mymodal-warring" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content1">
+                                <div class="dialogdeleteapp">
+                                    <div class="dialogdeleteapp-head">
+                                        No item selected!
+                                    </div>
+                                    <div class="dialogdeleteapp-foot">
+                                        <button type="button" data-dismiss="modal" aria-label="Close" id="ok-empty">Ok</button>
+                                        <!-- <button type="button "  data-dismiss="modal " aria-label="Close ">Cancel</button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="modal fade " id="myModa-adduser" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content1">
+                                <div class="dialogdeleteapp">
+                                    <div class="dialogdeleteapp-head-history ">
+                                        Add a User
+                                    </div>
+                                    <form id="form-adduser" onsubmit="return false">
+                                        <textarea placeholder="Email address" rows="1" class="textarea-adduser" id="input-add-customer"></textarea>
+                                        <div class="dialogdeleteapp-foot-history ">
+                                            <button id="cancel-adduser" class="float-right btn-gray margin-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                            <button type="submit" class="float-right btn-blue" id="adduser">Add user</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    </div>
+
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/versions.js "></script>
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/paging.js "></script>
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/breadcrumb.js "></script>
+    <!-- <script type="text/javascript " charset="utf-8 " src="/themes/js/dashboard/appversion/pagination.js "></script> -->

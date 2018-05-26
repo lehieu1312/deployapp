@@ -11,7 +11,7 @@ var moment = require('moment');
 var libSetting = require('../../lib/setting');
 var devMode = libSetting.devMode;
 
-router.get('/', (req, res) => {
+router.get('/', checkAdmin, (req, res) => {
     try {
         res.render('admin/index', { title: "Administrator" });
 
@@ -19,5 +19,13 @@ router.get('/', (req, res) => {
         return res.render('error', { error, title: "ERROR-PAGE" });
     }
 });
+
+function checkAdmin(req, res, next) {
+    if (req.session.iduseradmin) {
+        next();
+    } else {
+        res.redirect('/admin/login');
+    }
+}
 
 module.exports = router;

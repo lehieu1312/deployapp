@@ -83,7 +83,8 @@ function filtercart(a) {
 
 router.get("/affiliate/statements", checkAdmin, (req, res) => {
     affiliate_withdrawal_modal.find({
-        idUser: req.session.iduser
+        idUser: req.session.iduser,
+        status: true
     }).sort({
         dateCreate: -1
     }).then((data) => {
@@ -96,7 +97,8 @@ router.get("/affiliate/statements", checkAdmin, (req, res) => {
             });
         } else {
             affiliate_modal.find({
-                idUser: req.session.iduser
+                idUser: req.session.iduser,
+                status: true
             }).sort({
                 dateCreate: -1
             }).then((data_affiliate) => {
@@ -120,7 +122,8 @@ router.get("/affiliate/statements", checkAdmin, (req, res) => {
 
 router.post("/getdata/withdrawal", (req, res) => {
     affiliate_withdrawal_modal.find({
-        idUser: req.session.iduser
+        idUser: req.session.iduser,
+        status: true
     }).then((data) => {
         return res.json(data)
     })
@@ -130,7 +133,8 @@ router.get("/affiliate/statement/detail", checkAdmin, (req, res) => {
     try {
         if (req.query.idhistory) {
             affiliate_withdrawal_modal.findOne({
-                id: req.query.idhistory
+                id: req.query.idhistory,
+                status: true
             }).then((data) => {
                 if (data) {
                     res.render('./affiliate/detail', {

@@ -47,7 +47,8 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
     try {
 
         appversionUser.find({
-            idApp: req.params.idapp
+            idApp: req.params.idapp,
+            status: true
         }).then((data) => {
             if (data.length > 0) {
                 for (let i = 0; i < data.length; i++) {
@@ -58,11 +59,13 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
                 });
                 Inforapp.findOne({
                     idApp: req.params.idapp,
-                    "idUser.idUser": req.session.iduser
+                    "idUser.idUser": req.session.iduser,
+                    status: true
                 }).then((data1) => {
                     if (data1) {
                         Appversion.findOne({
-                            idApp: data[0].idAppAdmin
+                            idApp: data[0].idAppAdmin,
+                            status: true
                         }, (err, count) => {
                             if (err) throw err;
                             // console.log(count)
@@ -85,11 +88,13 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
             } else {
                 Inforapp.findOne({
                     idApp: req.params.idapp,
-                    "idUser.idUser": req.session.iduser
+                    "idUser.idUser": req.session.iduser,
+                    status: true
                 }).then((data1) => {
                     if (data1) {
                         Appversion.findOne({
-                            idApp: data1.idAppAdmin
+                            idApp: data1.idAppAdmin,
+                            status: true
                         }, (err, count) => {
                             if (err) throw err;
                             // console.log(count)

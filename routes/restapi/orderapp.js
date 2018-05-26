@@ -127,7 +127,8 @@ router.post('/addneworder', (req, res) => {
                 }
             }
             InforAppModel.findOne({
-                idApp
+                idApp,
+                status: true
             }).then((infor) => {
                 if (infor) {
                     var order = new OrderOfApp({

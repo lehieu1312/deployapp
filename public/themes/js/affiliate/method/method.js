@@ -1,28 +1,28 @@
-function showFile(blob) {
+// function showFile(blob) {
 
-    var newBlob = new Blob([blob], {
-        type: "application/video"
-    })
+//     var newBlob = new Blob([blob], {
+//         type: "application/video"
+//     })
 
-    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(newBlob);
-        return;
-    }
+//     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+//         window.navigator.msSaveOrOpenBlob(newBlob);
+//         return;
+//     }
 
-    const data = window.URL.createObjectURL(newBlob);
-    var link = document.createElement('a');
-    link.href = data;
-    link.download = "video.mp4";
-    link.click();
-    setTimeout(() => {
-        window.URL.revokeObjectURL(data);
-    }, 100);
-}
+//     const data = window.URL.createObjectURL(newBlob);
+//     var link = document.createElement('a');
+//     link.href = data;
+//     link.download = "video.mp4";
+//     link.click();
+//     setTimeout(() => {
+//         window.URL.revokeObjectURL(data);
+//     }, 100);
+// }
 
 
 
 $(document).ready(() => {
-    showFile("blob:http://kenh14.vn/58330089-4ad1-4518-9e4c-e5cbe68e6fae");
+    // showFile("blob:http://kenh14.vn/58330089-4ad1-4518-9e4c-e5cbe68e6fae");
     var get_val = "";
     var id_method_use = document.getElementsByClassName("id-method-use");
     var btndelete = document.getElementsByClassName("deleteuser");

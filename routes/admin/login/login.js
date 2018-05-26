@@ -28,7 +28,8 @@ router.get("/", (req, res) => {
 
 router.post("/tk", (req, res) => {
     userAdminModel.findOne({
-        username: req.body.username
+        username: req.body.username,
+        status: true
     }).then((result) => {
         if (!result) {
             return res.send({

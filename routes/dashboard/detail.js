@@ -40,7 +40,8 @@ router.post('/getaccount', (req, res) => {
     try {
         if (req.session.iduser) {
             User.findOne({
-                id: req.session.iduser
+                id: req.session.iduser,
+                status: true
             }, (err, data) => {
                 if (err) {
                     console.log(err)
@@ -145,7 +146,8 @@ router.get('/dashboard', checkAdmin, (req, res) => {
     try {
         // console.log('idusernoti: ' );
         User.findOne({
-            id: req.session.iduser
+            id: req.session.iduser,
+            status: true
         }).then((data) => {
             var myapps = [];
             async function getmyapp() {
@@ -155,6 +157,7 @@ router.get('/dashboard', checkAdmin, (req, res) => {
                     for (let i = 0; i < data.myapp.length; i++) {
                         await TrafficModel.find({
                             idApp: data.myapp[i].idApp,
+                            status: true
                         }).then((result) => {
                             if (result == []) {
                                 var userOnline = [];
@@ -239,7 +242,8 @@ router.get('/dashboard', checkAdmin, (req, res) => {
 router.post("/getamountapp", (req, res) => {
     try {
         User.findOne({
-            id: req.session.iduser
+            id: req.session.iduser,
+            status: true
         }, (err, data) => {
             if (err) throw err;
             // console.log("myapp:" + data.length)
@@ -266,7 +270,8 @@ router.post("/getamountapp", (req, res) => {
 router.post("/dashboard/deleteapp", (req, res) => {
     try {
         Inforapp.findOne({
-            idApp: req.body.idApp
+            idApp: req.body.idApp,
+            status: true
         }, {
             idUser: {
                 $elemMatch: {

@@ -91,14 +91,16 @@ function filtercart(a) {
 
 router.get('/checkout', checkAdmin, checkcart, (req, res) => {
     User.findOne({
-        id: req.session.iduser
+        id: req.session.iduser,
+        status: true
     }).then((user_using) => {
         var data_session_cart = filtercart(req.session.cart);
         async function get_data_car() {
             var cart = [];
             for (let i = 0; i < data_session_cart.length; i++) {
                 let getdata = await infor_app_admin.findOne({
-                    idApp: data_session_cart[i].id
+                    idApp: data_session_cart[i].id,
+                    status: true
                 }).exec();
                 cart.push({
                     cart: getdata,

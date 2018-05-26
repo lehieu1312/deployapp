@@ -42,7 +42,8 @@ function checkAdmin(req, res, next) {
 router.get('/editprofile', checkAdmin, (req, res) => {
     try {
         User.findOne({
-            id: req.session.iduser
+            id: req.session.iduser,
+            status: true
         }, (err, result) => {
             // console.log("user update :" + result);
             if (err) {
@@ -1348,7 +1349,8 @@ router.get('/editprofile', checkAdmin, (req, res) => {
 router.post('/changeprofile', uploading.single('avartar'), function (req, res) {
     try {
         User.findOne({
-            id: req.session.iduser
+            id: req.session.iduser,
+            status: true
         }, (err, result) => {
             if (!result.picture) {
                 User.update({
@@ -1400,7 +1402,8 @@ router.post('/editprofile/ok', (req, res) => {
             zipcode: req.body.zipcode,
         }
         User.findOne({
-            id: req.session.iduser
+            id: req.session.iduser,
+            status: true
         }, (err, data) => {
             if (err) {
                 console.log(err);
@@ -1432,7 +1435,8 @@ router.post('/editprofile/ok', (req, res) => {
                         id: req.session.iduser
                     }, query).then(() => {
                         User.findOne({
-                            id: req.session.iduser
+                            id: req.session.iduser,
+                            status: true
                         }, (err, result) => {
                             Country.findOne({
                                 idcountry: result.country
@@ -1448,7 +1452,8 @@ router.post('/editprofile/ok', (req, res) => {
                     })
                 } else {
                     User.findOne({
-                        email: req.body.email
+                        email: req.body.email,
+                        status: true
                     }, (err, data) => {
                         if (err) {
                             console.log(err);
@@ -1462,7 +1467,8 @@ router.post('/editprofile/ok', (req, res) => {
                                 id: req.session.iduser
                             }, query).then(() => {
                                 User.findOne({
-                                    id: req.session.iduser
+                                    id: req.session.iduser,
+                                    status: true
                                 }, (err, result) => {
                                     Country.findOne({
                                         idcountry: result.country
@@ -1510,7 +1516,8 @@ router.post('/changepassword/ok', (req, res) => {
             password: md5(req.body.password)
         }
         User.findOne({
-            id: req.session.iduser
+            id: req.session.iduser,
+            status: true
         }, (err, data) => {
             if (err) {
                 console.log(err);

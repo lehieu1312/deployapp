@@ -12,7 +12,8 @@ var devMode = libSetting.devMode;
 router.get('/updateinf', (req, res) => {
     if (req.session.iduser) {
         User.findOne({
-            id: req.session.iduser
+            id: req.session.iduser,
+            status: true
         }, (err, result) => {
             // console.log("user update :" + result);
             if (err) {
@@ -43,7 +44,8 @@ router.post('/updateinf/ok', (req, res) => {
             zipcode: req.body.zipcode
         }
         User.findOne({
-            id: req.session.iduser
+            id: req.session.iduser,
+            status: true
         }, function (err, result) {
             if (err) {
                 console.log(err);
@@ -62,7 +64,8 @@ router.post('/updateinf/ok', (req, res) => {
 
             if (!result.username) {
                 User.findOne({
-                    username: req.body.username
+                    username: req.body.username,
+                    status: true
                 }, function (err, data) {
                     if (err) {
                         console.log(error);
@@ -80,7 +83,8 @@ router.post('/updateinf/ok', (req, res) => {
                     }
                     if (!data) {
                         User.findOne({
-                            email: req.body.email
+                            email: req.body.email,
+                            status: true
                         }, function (err, result) {
                             if (err) {
                                 console.log(err);
@@ -131,7 +135,8 @@ router.post('/updateinf/ok', (req, res) => {
                 } else {
                     if (!result.email) {
                         User.findOne({
-                            email: req.body.email
+                            email: req.body.email,
+                            status: true
                         }, (err, data) => {
                             if (err) {
                                 console.log(err);

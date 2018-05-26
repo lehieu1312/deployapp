@@ -68,7 +68,8 @@ router.get("/affiliate/withdrawal", checkAdmin, (req, res) => {
         status: true
     }).then(user => {
         affiliate_withdrawal_modal.find({
-            idUser: req.session.iduser
+            idUser: req.session.iduser,
+            status: true
         }).sort({
             dateCreate: -1
         }).then((data) => {
@@ -81,7 +82,8 @@ router.get("/affiliate/withdrawal", checkAdmin, (req, res) => {
                 });
             } else {
                 affiliate_modal.find({
-                    idUser: req.session.iduser
+                    idUser: req.session.iduser,
+                    status: true
                 }).sort({
                     dateCreate: -1
                 }).then((data_affiliate) => {
@@ -147,7 +149,8 @@ router.post("/affiliate/withdrawal/ok", (req, res) => {
         function getBalance() {
             return new Promise((resolve, reject) => {
                 affiliate_withdrawal_modal.find({
-                    idUser: req.session.iduser
+                    idUser: req.session.iduser,
+                    status: true
                 }).sort({
                     dateCreate: -1
                 }).then((data) => {
@@ -155,7 +158,8 @@ router.post("/affiliate/withdrawal/ok", (req, res) => {
                         resolve(data[0].blance);
                     } else {
                         affiliate_modal.find({
-                            idUser: req.session.iduser
+                            idUser: req.session.iduser,
+                            status: true
                         }).sort({
                             dateCreate: -1
                         }).then((data_affiliate) => {

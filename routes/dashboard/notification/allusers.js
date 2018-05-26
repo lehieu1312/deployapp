@@ -46,7 +46,8 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
     try {
         var idApp = req.params.idApp;
         appsetting.findOne({
-            idApp
+            idApp,
+            status: true
         }).then((setting) => {
             var APIuserAll = new OneSignal.Client({
                 app: {
@@ -151,13 +152,15 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
 
                     get_all_player().then((players) => {
                         userplayers.find({
-                            idApp
+                            idApp,
+                            status: true
                         }).then((users_deploy) => {
                             if (users_deploy.length < 0 || users_deploy == undefined) {
                                 console.log("not User :");
                                 userplayers.insertMany(players).then(() => {
                                     userplayers.find({
-                                        idApp
+                                        idApp,
+                                        status: true
                                     }).sort({
                                         created_at: -1
                                     }).then((user_playser) => {
@@ -196,7 +199,8 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                                     })
                                 })().then(() => {
                                     userplayers.find({
-                                        idApp
+                                        idApp,
+                                        status: true
                                     }).sort({
                                         created_at: -1
                                     }).then((user_playser) => {

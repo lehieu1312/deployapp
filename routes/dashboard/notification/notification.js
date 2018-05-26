@@ -91,7 +91,8 @@ router.get("/notification/:idApp", checkAdmin, (req, res) => {
                         status: false
                     }).then((data) => {
                         Inforapp.findOne({
-                            idApp: req.params.idApp
+                            idApp: req.params.idApp,
+                            status: true
                         }).then((infor) => {
 
                             let appuse = {
@@ -120,7 +121,8 @@ router.get("/notification/:idApp", checkAdmin, (req, res) => {
                 })()
             } else {
                 Inforapp.findOne({
-                    idApp: req.params.idApp
+                    idApp: req.params.idApp,
+                    status: true
                 }).then((infor) => {
                     let appuse = {
                         idApp: infor.idApp,

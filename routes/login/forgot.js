@@ -9,7 +9,8 @@ var Base64 = require('js-base64').Base64;
 
 router.get('/forgot/:email', function (req, res) {
     User.findOne({
-        verifycode: Base64.decode(req.query.verifycode)
+        verifycode: Base64.decode(req.query.verifycode),
+        status: true
     }, (err, data) => {
         if (err) {
             console.log(err);

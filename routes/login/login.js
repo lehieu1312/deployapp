@@ -56,7 +56,8 @@ router.get('/logout', (req, res) => {
 router.post("/login/tk", function (req, res) {
     try {
         User.findOne({
-            username: req.body.username
+            username: req.body.username,
+            status: true
         }, function (err, result) {
             if (err) {
                 console.log(err);
@@ -176,7 +177,8 @@ router.post("/forgot", function (req, res) {
     var iduser1;
     try {
         User.find({
-            email: req.body.email
+            email: req.body.email,
+            status: true
         }).exec((err, result) => {
             if (err) {
                 // console.log(err);
@@ -327,7 +329,8 @@ router.get("/auth/fb/cb", passport.authenticate('facebook', {
     (req, res) => {
         req.session.iduser = req.user.id;
         User.findOne({
-            id: req.user.id
+            id: req.user.id,
+            status: true
         }, (err, result) => {
             if (err) {
                 console.log(err);
@@ -363,7 +366,8 @@ passport.use(new passportfb({
     (accessToken, refreshToken, profile, done) => {
         console.log('profile FB: ' + JSON.stringify(profile));
         User.findOne({
-            email: profile._json.email
+            email: profile._json.email,
+            status: true
         }, (err, result) => {
             if (err) {
                 console.log(err);
@@ -425,7 +429,8 @@ router.get("/auth/gg/cb", passport.authenticate('google', {
         console.log("user:" + req.user + "")
         req.session.iduser = req.user.id;
         User.findOne({
-            id: req.user.id
+            id: req.user.id,
+            status: true
         }, (err, result) => {
             if (err) {
                 console.log(err);
@@ -460,7 +465,8 @@ passport.use(new passportgg({
     },
     (request, accessToken, refreshToken, profile, done) => {
         User.findOne({
-            email: profile.email
+            email: profile.email,
+            status: true
         }, (err, result) => {
             if (err) {
                 console.log(err);
@@ -528,7 +534,8 @@ router.get("/auth/tw/cb", passport.authenticate('twitter', {
     (req, res) => {
         req.session.iduser = req.user.id;
         User.findOne({
-            id: req.user.id
+            id: req.user.id,
+            status: true
         }, (err, result) => {
             if (err) {
                 console.log(err);
@@ -562,7 +569,8 @@ passport.use(new passporttw({
     },
     (token, tokenSecret, profile, done) => {
         User.findOne({
-            username: profile._json.screen_name
+            username: profile._json.screen_name,
+            status: true
         }, (err, result) => {
             if (err) {
                 console.log(err);

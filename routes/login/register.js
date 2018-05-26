@@ -133,7 +133,8 @@ router.post("/register/ok", function (req, res) {
             status: false
         }
         User.findOne({
-            username: req.body.username
+            username: req.body.username,
+            status: true
         }, function (err, result) {
             if (err) {
                 console.log(err);
@@ -151,7 +152,8 @@ router.post("/register/ok", function (req, res) {
             }
             if (!result) {
                 User.findOne({
-                    email: req.body.email
+                    email: req.body.email,
+                    status: true
                 }, function (err, result) {
                     if (err) {
                         console.log(err);

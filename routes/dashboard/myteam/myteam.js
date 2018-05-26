@@ -70,7 +70,8 @@ router.get('/myteam/:idapp', checkAdmin, (req, res) => {
     try {
         Inforapp.findOne({
             idApp: req.params.idapp,
-            "idUser.idUser": req.session.iduser
+            "idUser.idUser": req.session.iduser,
+            status: true
         }).then((data) => {
             if (data) {
                 var appuse = {};
@@ -84,7 +85,8 @@ router.get('/myteam/:idapp', checkAdmin, (req, res) => {
                         async function rendermyteam() {
                             for (let i = 0; i < count.length; i++) {
                                 let getdata = await Inforapp.findOne({
-                                    idApp: req.params.idapp
+                                    idApp: req.params.idapp,
+                                    status: true
                                 }, {
                                     idUser: {
                                         $elemMatch: {
@@ -101,7 +103,8 @@ router.get('/myteam/:idapp', checkAdmin, (req, res) => {
                                 };
                             }
                             let getdata1 = await Inforapp.findOne({
-                                idApp: req.params.idapp
+                                idApp: req.params.idapp,
+                                status: true
                             }).exec();
                             appuse = {
                                 idApp: req.params.idapp,
@@ -141,7 +144,8 @@ router.get('/myteam/:idapp', checkAdmin, (req, res) => {
 router.post("/adduser", checkAdmin, (req, res) => {
     try {
         Inforapp.findOne({
-            idApp: req.body.idApp
+            idApp: req.body.idApp,
+            status: true
         }, {
             idUser: {
                 $elemMatch: {
@@ -153,7 +157,8 @@ router.post("/adduser", checkAdmin, (req, res) => {
             // console.log(role.idUser[0].role)
             if (role.idUser[0].role == 1) {
                 Inforapp.findOne({
-                    idApp: req.body.idApp
+                    idApp: req.body.idApp,
+                    status: true
                 }).then((infor) => {
                     User.findOne({
                         email: req.body.email,
@@ -181,7 +186,8 @@ router.post("/adduser", checkAdmin, (req, res) => {
                                 upsert: true
                             }).then(() => {
                                 Inforapp.findOneAndUpdate({
-                                    idApp: req.body.idApp
+                                    idApp: req.body.idApp,
+                                    status: true
                                 }, {
                                     '$push': {
                                         idUser: {
@@ -224,7 +230,8 @@ router.post("/adduser", checkAdmin, (req, res) => {
 router.post("/deleteuser", checkAdmin, (req, res) => {
     try {
         Inforapp.findOne({
-            idApp: req.body.idApp
+            idApp: req.body.idApp,
+            status: true
         }, {
             idUser: {
                 $elemMatch: {
@@ -260,7 +267,8 @@ router.post("/deleteuser", checkAdmin, (req, res) => {
                         }).then(() => {
                             console.log(data)
                             Inforapp.findOneAndUpdate({
-                                idApp: req.body.idApp
+                                idApp: req.body.idApp,
+                                status: true
                             }, {
                                 '$pull': {
                                     idUser: {

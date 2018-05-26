@@ -29,11 +29,13 @@ router.get("/myorder/:idapp", checkAdmin, (req, res) => {
         // console.log(statusPayment)
         Inforapp.findOne({
             idApp: req.params.idapp,
-            "idUser.idUser": req.session.iduser
+            "idUser.idUser": req.session.iduser,
+            status: true
         }).then((data) => {
             if (data) {
                 orderOfapp.find({
-                    idApp: req.params.idapp
+                    idApp: req.params.idapp,
+                    status: true
                 }).then((order) => {
                     // console.log(order)
                     var orderx = [];
@@ -72,7 +74,8 @@ router.post("/changestatuspayment", (req, res) => {
         console.log(req.body)
         orderOfapp.findOne({
             idApp: req.body.idApp,
-            codeOrder: req.body.codeOrder
+            codeOrder: req.body.codeOrder,
+            status: true
         }).then(() => {
             orderOfapp.update({
                 codeOrder: req.body.codeOrder
@@ -103,7 +106,8 @@ router.post("/deleteorder", (req, res) => {
     try {
         orderOfapp.findOne({
             idApp: req.body.idApp,
-            codeOrder: req.body.codeOrder
+            codeOrder: req.body.codeOrder,
+            status: true
         }).then(() => {
             orderOfapp.remove({
                 codeOrder: req.body.codeOrder
@@ -131,7 +135,8 @@ router.get("/myorder/detail/:idApp", checkAdmin, (req, res) => {
         console.log(req.params)
         orderOfapp.findOne({
             idApp: req.params.idApp,
-            codeOrder: req.query.codeorder
+            codeOrder: req.query.codeorder,
+            status: true
         }, (err, data) => {
             if (err) throw err;
             console.log(data);

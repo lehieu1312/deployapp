@@ -56,7 +56,8 @@ router.get("/notification/sentnotification/:idApp", checkAdmin, (req, res) => {
 
     try {
         appsetting.findOne({
-            idApp: req.params.idApp
+            idApp: req.params.idApp,
+            status: true
         }).then((setting) => {
             if (setting) {
                 notification.find({
@@ -139,7 +140,8 @@ router.get("/notification/sentnotification/:idApp", checkAdmin, (req, res) => {
 router.post("/notifiction/sentnotification/delete/:idApp", (req, res) => {
     try {
         appsetting.findOne({
-            idApp: req.params.idApp
+            idApp: req.params.idApp,
+            status: true
         }).then((setting) => {
             if (setting) {
                 notification.remove({

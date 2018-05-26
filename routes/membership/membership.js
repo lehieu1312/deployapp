@@ -241,7 +241,8 @@ router.get("/membership/checkout", checkAdmin, (req, res) => {
         if (req.query.plan) {
             if (req.query.plan == 1 || req.query.plan == 2 || req.query.plan == 3) {
                 User.findOne({
-                    id: req.session.iduser
+                    id: req.session.iduser,
+                    status: true
                 }).then((user_using) => {
                     res.render('./membership/checkout', {
                         title: 'Checkout',

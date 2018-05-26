@@ -33,12 +33,14 @@ router.get('/history/:idapp', checkAdmin, (req, res) => {
     try {
         Inforapp.findOne({
             idApp: req.params.idapp,
-            "idUser.idUser": req.session.iduser
+            "idUser.idUser": req.session.iduser,
+            status: true
         }).then((data) => {
             console.log(data)
             if (data) {
                 Appversionuser.find({
                     idApp: req.params.idapp,
+                    status: true
                 }, (err, count) => {
                     console.log(count)
                     var dateversion = [];
@@ -52,6 +54,7 @@ router.get('/history/:idapp', checkAdmin, (req, res) => {
                             var getdatauser = await appversion.findOne({
                                 idApp: count[i].idAppAdmin,
                                 "inforAppversion.version": count[i].versionAdmin,
+                                status: true
                                 // status: true
                             }).exec()
                             console.log(getdatauser)

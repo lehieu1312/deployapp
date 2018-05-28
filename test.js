@@ -82,19 +82,19 @@
 
 
 
-// var Base642 = require('js-base64').Base64;
+var Base642 = require('js-base64').Base64;
 // var id = 'com.taydotech.appcus';
 // var mahoa = Base64.encode(id);
 // console.log(mahoa);
 // // Y29tLnRheWRvdGVjaC5jZWxsc3RvcmU
 
-// var demahoa = Base642.decode('Y29tLnRheWRvdGVjaC5jZWxsc3RvcmU')
-// console.log("'" + demahoa + "'");
+var demahoa = Base642.decode('Y29tLnRheWRvLjE1MjczNDE0ODk2OTM')
+console.log("'" + demahoa + "'");
 // // console.log(Base64.encode(Date.now()))
 // // console.log(Base64.encode(Date.now()))
 
-var md5 = require("md5");
-console.log(md5(Date.now()));
+// var md5 = require("md5");
+// console.log(md5(Date.now()));
 
 // var str = "Is simply dummy text of the printing and typesetting industry typesetting i"
 // console.log(str.length);

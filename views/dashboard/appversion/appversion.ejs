@@ -1,4 +1,346 @@
 <% include ./../headerdetail %>
+
+
+    <div id="navigate-text">
+        <a class="colora" href="/dashboard">
+            <span>Home</span>
+        </a>
+        <span class="setarrownavigate">
+            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
+        </span>
+        <span id="text-href">App Version</span>
+    </div>
+    </div>
+
+    <div class="xcontent clsmenu">
+        <div id="title-detail" class="row row1">
+            <div id="title-appversion" class="content-title-detail has-feedback">
+                <span class="textmyapp">App Version</span>
+                <span class="setsearch">
+                    <input type="text" onkeyup="searchappversion()" id="inputsearchapp1" name="search" placeholder="Search...">
+                    <span class="form-control-feedback2" aria-hidden="true">
+                        <img src="/themes/img/dashboard/iconsearch.png">
+                    </span>
+                </span>
+            </div>
+        </div>
+
+
+
+        <div id="filter-table-appversion" class="row row1">
+            <span class="table-show">Show</span>
+            <div id="filter-number" class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span id="span-show-number" class="span-button-select">18</span>
+                    <span class="caret arow-button-select"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li id="show9">
+                        <a>9 Per page</a>
+                    </li>
+                    <li id="show18">
+                        <a>18 Per page</a>
+                    </li>
+                    <li id="show27">
+                        <a>27 Per page</a>
+                    </li>
+                    <li id="show36">
+                        <a>36 Per page</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="filter-date" class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span id="span-selcect-date" class="span-button-select">All Dates</span>
+                    <span class="caret arow-button-select"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li id="select-date-1">
+                        <a>Hours Ago</a>
+                    </li>
+                    <li id="select-date-2">
+                        <a>Yesterday</a>
+                    </li>
+                    <li id="select-date-3">
+                        <a>Last Weed</a>
+                    </li>
+                    <li id="select-date-4">
+                        <a>All Dates</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li id="select-date-5">
+                        <input hidden id="fillter-date-custom" value="">
+                        <a>Custom...</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="filter-status" class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span id="span-selcect-status" class="span-button-select">New</span>
+                    <span class="caret arow-button-select"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li id="slect-status-1">
+                        <a>New</a>
+                    </li>
+                    <li id="slect-status-2">
+                        <a>Feature</a>
+                    </li>
+                    <li id="slect-status-3">
+                        <a>All</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="pagination-table-appversion1 row">
+                <ul class="pagination">
+                    <li class="edit-li-pagination">
+                        <a class="number-items"></a>
+                    </li>
+                    <li class="limitsuperback">
+                        <a class="limitpagination">
+                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="superback">
+                        <a>
+                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="backpage">
+                        <a>
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="limitback">
+                        <a class="limitpagination">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="thispage">
+
+                        </a>
+                    </li>
+                    <li class="edit-li-pagination">
+                        <a class="numberpage">
+                        </a>
+                    </li>
+                    <li class="limitnext">
+                        <a class="limitpagination">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="nextpage">
+                        <a>
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="supernext">
+                        <a>
+                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="limitsupernext">
+                        <a class="limitpagination">
+                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row row1">
+            <div id="content-appversion">
+                <table id="table-appversion">
+                    <tr id="title-table-header">
+                        <th width="7.6%">#</th>
+                        <th width="20%">App Name
+                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                        </th>
+                        <th width="12.2%">Version
+                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                        </th>
+                        <th width="34.9%">Changelog
+                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                        </th>
+                        <th width="15%">Updated
+                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                        </th>
+                        <th width="10.3%"></th>
+                    </tr>
+                    <%
+                    function setNumberVersion(a) {
+                        let arrNumber = a.split(".");
+                        let a1 = parseInt(arrNumber[0]) * 100;
+                        let a2 = parseInt(arrNumber[1]) * 10;
+                        let a3 = parseInt(arrNumber[2]) * 1;
+                        return a1 + a2 + a3;
+                    }
+                    %>
+                        <input hidden id="nameapp-appversion" value="<%=appversions.nameApp%>">
+                        <%for(var i = 0; i<appversions.inforAppversion.length;i++){ %>
+                            <% 
+                        var d = appversions.inforAppversion[i].updatedDate;
+                        var number = appversions.inforAppversion.length - i - 1;
+                        var m = d.getMonth() + 1;
+                        var updated = d.getDate() + "/" + m + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " GMT";    
+                        var arr = updated.split(" ");
+                         %>
+                                <input hidden id="content-changelog-hiden<%=i%>" value="<%=appversions.inforAppversion[number].changeLog%>">
+                                <input id="time-ready<%=i%>" type="hidden" value="<%=d%>">
+                                <tr id="version<%=i%>" class="tr-content-appversion">
+                                    <td class="findcode">
+                                        <%=i + 1%>
+                                    </td>
+                                    <td class="table-nameapp findnameapp">
+                                        <%=appversions.nameApp%>
+                                            <% var numberappversion = appversions.inforAppversion[number].version.split(".")%>
+                                                <% if(setNumberVersion(appversions.inforAppversion[number].version) > countversion){%>
+                                                    <img class="new-appversion" src="/themes/img/appversion/iconnew.png">
+                                                    <%}%>
+                                                        <%if(setNumberVersion(appversions.inforAppversion[number].version) == countversion){%>
+                                                            <img class="feature-appversion" src="/themes/img/appversion/iconfeature.png">
+                                                            <%}%>
+                                    </td>
+
+                                    <td class="table-version findversion">
+                                        <%=appversions.inforAppversion[number].version%>
+                                    </td>
+                                    <td class="table-changelog findnote">
+
+                                        <span class="text-head-changelog">Release version
+                                            <%=appversions.inforAppversion[number].version%>
+                                        </span>
+                                        <br>
+                                        <% function trimSpace(str) {
+                                            return str.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, "").replace(/\s+/g, " ");
+                                        }
+                                        if(trimSpace(appversions.inforAppversion[number].changeLog).length < 100){
+                                        %>
+                                            <%=appversions.inforAppversion[number].changeLog%>
+                                                <%}else{%>
+                                                    <%=appversions.inforAppversion[number].changeLog.slice(0,100)%>
+                                                        <a id="more-changelog<%=i%>" data-toggle="modal" data-target="#myModal-appversion">[...more]</a>
+                                                        <%}%>
+                                    </td>
+                                    <td class="table-time-appversion finddate">
+
+                                        <span>
+                                            <%=arr[0]%>
+                                        </span>
+                                        <br>
+                                        <span>
+                                            <%=arr[1]%>
+                                                <%=arr[2]%>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <%if(setNumberVersion(appversions.inforAppversion[number].version) <= countversion){%>
+                                            <button class="btn-deploy" readonly>DEPLOYED</button>
+                                            <%}else{%>
+                                                <button class="btn-blue-deploy btn-deploy-app-dash" onclick="clickdeployapp('<%=appversions.idApp%>','<%=appversions.inforAppversion[number].version %>','<%=appuse.idApp%>');">DEPLOY</button>
+                                                <%}%>
+                                    </td>
+                                </tr>
+                                <%}%>
+
+                                    </tbody>
+                </table>
+                <span class="showing-footer1">Showing 1-
+                    <span id="number-show-footer"></span> of
+
+                <span class="number-items" href="#"></span>
+
+                <span class="number-items"></span>
+
+                </span>
+                <div class="example">
+                    <div class="container">
+                        <div class="pagination-table-appversion row">
+                            <ul class="pagination">
+                                <li class="edit-li-pagination">
+                                    <a class="number-items"></a>
+                                </li>
+                                <li class="limitsuperback">
+                                    <a class="limitpagination">
+                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="superback">
+                                    <a>
+                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="backpage">
+                                    <a>
+                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="limitback">
+                                    <a class="limitpagination">
+                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="thispage">
+
+                                    </a>
+                                </li>
+                                <li class="edit-li-pagination">
+                                    <a class="numberpage">
+                                    </a>
+                                </li>
+                                <li class="limitnext">
+                                    <a class="limitpagination">
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="nextpage">
+                                    <a>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="supernext">
+                                    <a>
+                                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="limitsupernext">
+                                    <a class="limitpagination">
+                                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container ">
+        <div class="modal fade" id="myModal-appversion" role="dialog">
+            <div class="modal-dialog  ">
+                <div class="modal-content1">
+                    <div class="dialogdeleteapp">
+                        <div class="dialogdeleteapp-head-history">
+                        </div>
+                        <!-- <form id="form-note-history" onsubmit="return false"> -->
+                        <div id="text-changelog" class="textarea-history">
+                            <span class="text-head-changelog headlog"></span>
+                            <br>
+                            <span class="content-changelog"></span>
+                        </div>
+                        <div class="dialogdeleteapp-foot-history">
+                            <!-- <button id="cancel-histoty" class="float-right btn-gray margin-btn" >Cancel</button> -->
+                            <button class="float-right btn-blue" id="close-appversion" data-dismiss="modal" aria-label="Close">Close</button>
+                        </div>
+                        <!-- </form> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ========================DIALOG CHOOSE PLATFORM===================== -->
     <div id="dialog-noti-choose-android-dashboard">
         <div class="content-noti-choose-platform-dashboard">
@@ -97,8 +439,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-feedback input-error">
                                         <label class="control-label"> Create a secure password for your keystore *</label>
-                                        <input class="form-control input-form-info" placeholder="" type="password" displaytext=" Key Store Password" id="keystore"
-                                            name="keystore" value="taydotech" />
+                                        <input class="form-control input-form-info" placeholder="" type="password" displaytext=" Key Store Password" id="keystore" name="keystore" value="taydotech" />
                                         <span class="form-control-feedback" aria-hidden="true">
                                             <img class="seticoneye-build iconerr" id="icon-eye-build" src="/themes/img/login/iconeye1.png" alt="deployapp.net">
                                             <img class="seticoneye-build iconerr" id="icon-eye-hide-build" src="/themes/img/login/iconeyehide.png" alt="deployapp.net">
@@ -108,32 +449,28 @@
                                     <div class="form-group has-feedback input-error">
                                         <label class=" control-label"> Confirm a secure password for your keystore * </label>
                                         <div class="">
-                                            <input class="form-control input-form-info" type="password" placeholder="" displaytext="Key Store Confirm Password " id="confirmkeystore"
-                                                name="confirmkeystore" value="taydotech" />
+                                            <input class="form-control input-form-info" type="password" placeholder="" displaytext="Key Store Confirm Password " id="confirmkeystore" name="confirmkeystore" value="taydotech" />
                                             <span id="icon-err-confirmkeystore" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback input-error">
                                         <label class=" control-label"> First and last name * </label>
                                         <div class="">
-                                            <input class="form-control input-form-info" type="text" id="CN" placeholder="" displaytext="First and last name" name="CN"
-                                                value="taydo tech" />
+                                            <input class="form-control input-form-info" type="text" id="CN" placeholder="" displaytext="First and last name" name="CN" value="taydo tech" />
                                             <span id="icon-err-CN" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback input-error">
                                         <label class="control-label"> Organizational unit * </label>
                                         <div class="">
-                                            <input class="form-control input-form-info" type="text" id="OU" placeholder="" displaytext="Organizational unit" name="OU"
-                                                value="taydotech" />
+                                            <input class="form-control input-form-info" type="text" id="OU" placeholder="" displaytext="Organizational unit" name="OU" value="taydotech" />
                                             <span id="icon-err-OU" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback input-error">
                                         <label class=" control-label"> Organizational * </label>
                                         <div class="">
-                                            <input class="form-control input-form-info" type="text" id="O" placeholder="" displaytext="Organizational" name="O" value="taydotech"
-                                            />
+                                            <input class="form-control input-form-info" type="text" id="O" placeholder="" displaytext="Organizational" name="O" value="taydotech" />
                                             <span id="icon-err-O" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
@@ -143,32 +480,28 @@
                                     <div class="form-group has-feedback input-error">
                                         <label class=" control-label"> City or location * </label>
                                         <div class="">
-                                            <input class="form-control input-form-info" type="text" id="L" placeholder="" displaytext="City or location" name="L" value="HaNoi"
-                                            />
+                                            <input class="form-control input-form-info" type="text" id="L" placeholder="" displaytext="City or location" name="L" value="HaNoi" />
                                             <span id="icon-err-L" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback input-error">
                                         <label class=" control-label"> State or Province *</label>
                                         <div class="">
-                                            <input class="form-control input-form-info" type="text" id="ST" placeholder="" displaytext="State or Province" name="ST"
-                                                value="VietNam" />
+                                            <input class="form-control input-form-info" type="text" id="ST" placeholder="" displaytext="State or Province" name="ST" value="VietNam" />
                                             <span id="icon-err-ST" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback input-error">
                                         <label class=" control-label"> Two-letter country *</label>
                                         <div class="">
-                                            <input type="text" class="form-control input-form-info" id="C" placeholder="" displaytext="Two-letter country" name="C" value="VN"
-                                            />
+                                            <input type="text" class="form-control input-form-info" id="C" placeholder="" displaytext="Two-letter country" name="C" value="VN" />
                                             <span id="icon-err-C" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback input-error">
                                         <label class=" control-label"> Alias name *</label>
                                         <div class="">
-                                            <input type="text" class="form-control input-form-info" placeholder="" displaytext="Alias name" id="alias" name="alias" value="taydotech"
-                                            />
+                                            <input type="text" class="form-control input-form-info" placeholder="" displaytext="Alias name" id="alias" name="alias" value="taydotech" />
                                             <span id="icon-err-alias" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
@@ -213,8 +546,7 @@
 
                                 <div class="form-group has-feedback input-error">
                                     <label class="control-label"> Password for your keystore *</label>
-                                    <input class="form-control input-form-info" placeholder="" type="password" displaytext=" Key Store Password" id="password_keystore"
-                                        name="password_keystore" value="" />
+                                    <input class="form-control input-form-info" placeholder="" type="password" displaytext=" Key Store Password" id="password_keystore" name="password_keystore" value="" />
                                     <span class="form-control-feedback" aria-hidden="true">
                                         <img class="seticoneye-build iconerr" id="icon-eye-build-update" src="/themes/img/login/iconeye1.png" alt="deployapp.net">
                                         <img class="seticoneye-build iconerr" id="icon-eye-hide-build-update" src="/themes/img/login/iconeyehide.png" alt="deployapp.net">
@@ -225,8 +557,7 @@
                                 <div class="form-group has-feedback input-error">
                                     <label class="control-label"> Alias name *</label>
                                     <div class="">
-                                        <input type="text" class="form-control input-form-info" id="alias_name" placeholder="" displaytext="Alias" name="alias" value=""
-                                        />
+                                        <input type="text" class="form-control input-form-info" id="alias_name" placeholder="" displaytext="Alias" name="alias" value="" />
                                         <span id="icon-err-alias-name" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                     </div>
                                 </div>
@@ -466,350 +797,13 @@
     <!-- ======================================================= -->
 
 
-    <div id="navigate-text">
-        <a class="colora" href="/dashboard">
-            <span>Home</span>
-        </a>
-        <span class="setarrownavigate">
-            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
-        </span>
-        <span id="text-href">App Version</span>
-    </div>
-    </div>
 
-    <div class="xcontent clsmenu">
-        <div id="title-detail" class="row row1">
-            <div id="title-appversion" class="content-title-detail has-feedback">
-                <span class="textmyapp">App Version</span>
-                <span class="setsearch">
-                    <input type="text" onkeyup="searchappversion()" id="inputsearchapp1" name="search" placeholder="Search...">
-                    <span class="form-control-feedback2" aria-hidden="true">
-                        <img src="/themes/img/dashboard/iconsearch.png">
-                    </span>
-                </span>
-            </div>
-        </div>
-
-
-
-        <div id="filter-table-appversion" class="row row1">
-            <span class="table-show">Show</span>
-            <div id="filter-number" class="btn-group">
-                <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <span id="span-show-number" class="span-button-select">18</span>
-                    <span class="caret arow-button-select"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li id="show9">
-                        <a>9 Per page</a>
-                    </li>
-                    <li id="show18">
-                        <a>18 Per page</a>
-                    </li>
-                    <li id="show27">
-                        <a>27 Per page</a>
-                    </li>
-                    <li id="show36">
-                        <a>36 Per page</a>
-                    </li>
-                </ul>
-            </div>
-            <div id="filter-date" class="btn-group">
-                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span id="span-selcect-date" class="span-button-select">All Dates</span>
-                    <span class="caret arow-button-select"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li id="select-date-1">
-                        <a>Hours Ago</a>
-                    </li>
-                    <li id="select-date-2">
-                        <a>Yesterday</a>
-                    </li>
-                    <li id="select-date-3">
-                        <a>Last Weed</a>
-                    </li>
-                    <li id="select-date-4">
-                        <a>All Dates</a>
-                    </li>
-                    <li role="separator" class="divider"></li>
-                    <li id="select-date-5">
-                        <input hidden id="fillter-date-custom" value="">
-                        <a>Custom...</a>
-                    </li>
-                </ul>
-            </div>
-            <div id="filter-status" class="btn-group">
-                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span id="span-selcect-status" class="span-button-select">New</span>
-                    <span class="caret arow-button-select"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li id="slect-status-1">
-                        <a>New</a>
-                    </li>
-                    <li id="slect-status-2">
-                        <a>Feature</a>
-                    </li>
-                    <li id="slect-status-3">
-                        <a>All</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="pagination-table-appversion1 row">
-                <ul class="pagination">
-                    <li class="edit-li-pagination">
-                        <a class="number-items"></a>
-                    </li>
-                    <li class="limitsuperback">
-                        <a class="limitpagination">
-                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                        </a>
-                    </li>
-                    <li class="superback">
-                        <a>
-                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                        </a>
-                    </li>
-                    <li class="backpage">
-                        <a>
-                            <i class="fa fa-angle-left" aria-hidden="true"></i>
-                        </a>
-                    </li>
-                    <li class="limitback">
-                        <a class="limitpagination">
-                            <i class="fa fa-angle-left" aria-hidden="true"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="thispage">
-
-                        </a>
-                    </li>
-                    <li class="edit-li-pagination">
-                        <a class="numberpage">
-                        </a>
-                    </li>
-                    <li class="limitnext">
-                        <a class="limitpagination">
-                            <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        </a>
-                    </li>
-                    <li class="nextpage">
-                        <a>
-                            <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        </a>
-                    </li>
-                    <li class="supernext">
-                        <a>
-                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                        </a>
-                    </li>
-                    <li class="limitsupernext">
-                        <a class="limitpagination">
-                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="row row1">
-            <div id="content-appversion">
-                <table id="table-appversion">
-                    <tr id="title-table-header">
-                        <th width="7.6%">#</th>
-                        <th width="20%">App Name
-                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
-                        </th>
-                        <th width="12.2%">Version
-                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
-                        </th>
-                        <th width="34.9%">Changelog
-                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
-                        </th>
-                        <th width="15%">Updated
-                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
-                        </th>
-                        <th width="10.3%"></th>
-                    </tr>
-                    <%
-                    function setNumberVersion(a) {
-                        let arrNumber = a.split(".");
-                        let a1 = parseInt(arrNumber[0]) * 100;
-                        let a2 = parseInt(arrNumber[1]) * 10;
-                        let a3 = parseInt(arrNumber[2]) * 1;
-                        return a1 + a2 + a3;
-                    }
-                    %>
-                        <input hidden id="nameapp-appversion" value="<%=appversions.nameApp%>">
-                        <%for(var i = 0; i<appversions.inforAppversion.length;i++){ %>
-                            <% 
-                        var d = appversions.inforAppversion[i].updatedDate;
-                        var number = appversions.inforAppversion.length - i - 1;
-                        var m = d.getMonth() + 1;
-                        var updated = d.getDate() + "/" + m + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " GMT";    
-                        var arr = updated.split(" ");
-                         %>
-                                <input hidden id="content-changelog-hiden<%=i%>" value="<%=appversions.inforAppversion[number].changeLog%>">
-                                <input id="time-ready<%=i%>" type="hidden" value="<%=d%>">
-                                <tr id="version<%=i%>" class="tr-content-appversion">
-                                    <td class="findcode">
-                                        <%=i + 1%>
-                                    </td>
-                                    <td class="table-nameapp findnameapp">
-                                        <%=appversions.nameApp%>
-                                            <% var numberappversion = appversions.inforAppversion[number].version.split(".")%>
-                                                <% if(setNumberVersion(appversions.inforAppversion[number].version) > countversion){%>
-                                                    <img class="new-appversion" src="/themes/img/appversion/iconnew.png">
-                                                    <%}%>
-                                                        <%if(setNumberVersion(appversions.inforAppversion[number].version) == countversion){%>
-                                                            <img class="feature-appversion" src="/themes/img/appversion/iconfeature.png">
-                                                            <%}%>
-                                    </td>
-
-                                    <td class="table-version findversion">
-                                        <%=appversions.inforAppversion[number].version%>
-                                    </td>
-                                    <td class="table-changelog findnote">
-
-                                        <span class="text-head-changelog">Release version
-                                            <%=appversions.inforAppversion[number].version%>
-                                        </span>
-                                        <br>
-                                        <% function trimSpace(str) {
-                                            return str.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, "").replace(/\s+/g, " ");
-                                        }
-                                        if(trimSpace(appversions.inforAppversion[number].changeLog).length < 100){
-                                        %>
-                                            <%=appversions.inforAppversion[number].changeLog%>
-                                                <%}else{%>
-                                                    <%=appversions.inforAppversion[number].changeLog.slice(0,100)%>
-                                                        <a id="more-changelog<%=i%>" data-toggle="modal" data-target="#myModal-appversion">[...more]</a>
-                                                        <%}%>
-                                    </td>
-                                    <td class="table-time-appversion finddate">
-
-                                        <span>
-                                            <%=arr[0]%>
-                                        </span>
-                                        <br>
-                                        <span>
-                                            <%=arr[1]%>
-                                                <%=arr[2]%>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <%if(setNumberVersion(appversions.inforAppversion[number].version) <= countversion){%>
-                                            <button class="btn-deploy" readonly>DEPLOYED</button>
-                                            <%}else{%>
-                                                <button class="btn-blue-deploy btn-deploy-app-dash" onclick="clickdeployapp('<%=appversions.idApp%>','<%=appversions.inforAppversion[number].version %>','<%=appuse.idApp%>');">DEPLOY</button>
-                                                <%}%>
-                                    </td>
-                                </tr>
-                                <%}%>
-
-                                    </tbody>
-                </table>
-                <span class="showing-footer1">Showing 1-
-                    <span id="number-show-footer"></span> of
-
-                    <span class="number-items" href="#"></span>
-
-                    <span class="number-items"></span>
-
-                </span>
-                <div class="example">
-                    <div class="container">
-                        <div class="pagination-table-appversion row">
-                            <ul class="pagination">
-                                <li class="edit-li-pagination">
-                                    <a class="number-items"></a>
-                                </li>
-                                <li class="limitsuperback">
-                                    <a class="limitpagination">
-                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="superback">
-                                    <a>
-                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="backpage">
-                                    <a>
-                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="limitback">
-                                    <a class="limitpagination">
-                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="thispage">
-
-                                    </a>
-                                </li>
-                                <li class="edit-li-pagination">
-                                    <a class="numberpage">
-                                    </a>
-                                </li>
-                                <li class="limitnext">
-                                    <a class="limitpagination">
-                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="nextpage">
-                                    <a>
-                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="supernext">
-                                    <a>
-                                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="limitsupernext">
-                                    <a class="limitpagination">
-                                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container ">
-        <div class="modal fade" id="myModal-appversion" role="dialog">
-            <div class="modal-dialog  ">
-                <div class="modal-content1">
-                    <div class="dialogdeleteapp">
-                        <div class="dialogdeleteapp-head-history">
-                        </div>
-                        <!-- <form id="form-note-history" onsubmit="return false"> -->
-                        <div id="text-changelog" class="textarea-history">
-                            <span class="text-head-changelog headlog"></span>
-                            <br>
-                            <span class="content-changelog"></span>
-                        </div>
-                        <div class="dialogdeleteapp-foot-history">
-                            <!-- <button id="cancel-histoty" class="float-right btn-gray margin-btn" >Cancel</button> -->
-                            <button class="float-right btn-blue" id="close-appversion" data-dismiss="modal" aria-label="Close">Close</button>
-                        </div>
-                        <!-- </form> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     </div>
     </div>
     </div>
+
+
     <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/appversion/appversion.js"></script>
     <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/appversion/pagination.js"></script>
     <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/appversion/buildandroid.js"></script>

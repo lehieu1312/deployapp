@@ -138,7 +138,7 @@ $(document).ready(() => {
                             $("#content-modal-cart-id").append(
                                 `<div class="item-product-in-cart">
                             <div class="left-content-product-in-cart">
-                               <img src="/themes/img/app-dashboard/${data.cart[i].cart.image}">
+                               <img src="/themes/img/appdashboard/${data.cart[i].cart.image}">
                             </div>
                             <div class="right-content-product-in-cart">
                                 <span>${data.cart[i].cart.nameApp}</span></br>

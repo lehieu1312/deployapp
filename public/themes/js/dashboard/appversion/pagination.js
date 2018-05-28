@@ -91,10 +91,10 @@ $(document).ready(() => {
             $(".supernext").show();
             $(".limitsupernext").hide();
         }
-        amount = setamount * (numberpage - 1);
+        amount = setamount * numberpage;
         $('.thispage').text(xnumber);
         for (let i = 0; i < manguse.length; i++) {
-            if (i >= amount) {
+            if (i >= amount - setamount) {
                 $('#version' + manguse[i]).show();
             } else {
                 $('#version' + manguse[i]).hide();

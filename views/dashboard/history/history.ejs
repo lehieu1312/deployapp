@@ -170,13 +170,13 @@
                         var updated = d.getDate() + "/" + m + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " GMT";    
                         var arr = updated.split(" ");
                          %>
+                            <input id="history-app" hidden value="<%=history[number].idApp%>">
+                            <input id="time-ready<%=i%>" type="hidden" value="<%=d%>">
                             <tr id="version<%=i%>" class="tr-content-appversion findcode">
                                 <td>
-                                    <input id="history-app" hidden value="<%=history[number].idApp%>">
                                     <%= i + 1%>
                                 </td>
                                 <td class="table-time-appversion finddate">
-                                    <input id="time-ready<%=i%>" type="hidden" value="<%=d%>">
                                     <span>
                                         <%=arr[0]%>
                                     </span>

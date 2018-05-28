@@ -226,9 +226,12 @@
                                     <%var m = d.getMonth() + 1%>
                                         <%var updated = d.getDate() + "/" + m + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " GMT";%>
                                             <%var arr = updated.split(" ")%>
+                                                <input id="idapp-using" hidden value="<%=appuse.idApp%>">
+                                                <input id="time-ready<%=i%>" type="hidden" value="<%=d%>">
+                                                <input class="getstatuspayment" hidden value=" <%=myorder[i].status%>">
+                                                <input class="getcodeorder" hidden value=" <%=myorder[i].order.codeOrder%>">
                                                 <tr id="version<%=i%>" class="tr-content-appversion">
                                                     <td class="findcode">
-                                                        <input id="idapp-using" hidden value="<%=appuse.idApp%>">
                                                         <a class="colora" href="/dashboard/myorder/detail/<%=appuse.idApp%>?codeorder=<%=myorder[i].order.codeOrder%>">
                                                             <%="#"+myorder[i].order.codeOrder%>
                                                         </a>
@@ -240,7 +243,6 @@
                                                             </span>
                                                     </td>
                                                     <td class="table-time-appversion finddate">
-                                                        <input id="time-ready<%=i%>" type="hidden" value="<%=d%>">
                                                         <span>
                                                             <%=arr[0]%>
                                                         </span>
@@ -263,8 +265,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="dropdown">
-                                                            <input class="getstatuspayment" hidden value=" <%=myorder[i].status%>">
-                                                            <input class="getcodeorder" hidden value=" <%=myorder[i].order.codeOrder%>">
+
                                                             <% switch(myorder[i].order.statusOrder){
                                                         case 1:%>
                                                                 <span class="paddingstatus orderblue statuspayment" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

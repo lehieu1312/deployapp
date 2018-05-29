@@ -229,20 +229,21 @@ $(document).ready(function() {
 
     function checkAppSetting() {
         var checkApp = true;
-        if ($('#idapp').val() == '') {
-            $('#idapp').attr('placeholder', 'This ID uniquely identifies your app on the device and in Google Play, like: com.example.myapp');
-            $('#idapp').addClass('input-holder').addClass('border-bottom-red');
+
+        if ($('#packageid').val() == '') {
+            $('#packageid').attr('placeholder', 'This ID uniquely identifies your app on the device and in Google Play, like: com.example.myapp');
+            $('#packageid').addClass('input-holder').addClass('border-bottom-red');
             checkValid = false;
-        } else if (validPackageID($('#idapp').val()) == false) {
-            $('#idapp').val('');
-            $('#idapp').attr('placeholder', 'This ID uniquely identifies your app on the device and in Google Play, like: com.example.myapp');
-            $('#idapp').addClass('input-holder').addClass('border-bottom-red');
+        } else if (validPackageID($('#packageid').val()) == false) {
+            $('#packageid').val('');
+            $('#packageid').attr('placeholder', 'This ID uniquely identifies your app on the device and in Google Play, like: com.example.myapp');
+            $('#packageid').addClass('input-holder').addClass('border-bottom-red');
             //   $(this).find('#icon-err').removeClass('display-none').addClass('display-inline');
             checkValid = false;
 
             // $(this).focus();
         } else {
-            $('#idapp').removeClass('input-holder').removeClass('border-bottom-red');
+            $('#packageid').removeClass('input-holder').removeClass('border-bottom-red');
             //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
         }
         if ($('#appname').val() == "") {

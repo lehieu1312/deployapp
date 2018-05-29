@@ -86,7 +86,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
         ///////////Get Value AppSettings//////////////////
         var dataSettings = await AppSettingModels.findOne({ idApp: idAppUser }).exec();
         console.log('dataSettings: ' + dataSettings);
-        packageID = Base64js.decode(dataSettings.idApp);
+        packageID = dataSettings.packageIDApp;
         console.log(packageID);
         nameApp = dataSettings.nameApp;
         versionApp = dataSettings.version;

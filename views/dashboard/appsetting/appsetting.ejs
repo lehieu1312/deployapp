@@ -29,10 +29,10 @@
 
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Package ID *</label>
-                            <input type="text" class="resetinputlogin" id="idapp" name="idapp" value="<%=appuse.appID%>">
+                            <input type="text" class="resetinputlogin" id="packageid" name="packageid" value="<%if(appSetting){%><%=appSetting.packageIDApp %><%}%>">
                             <span class="form-control-feedback" aria-hidden="true">
                                 <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
-                                <input type="hidden" value="<%=appSetting._id%>" name="appid">
+                                <input type="hidden" value="<%=appSetting.idApp%>" name="idapp" id="idapp">
                             </span>
                         </div>
                         <div class="form-group has-feedback">

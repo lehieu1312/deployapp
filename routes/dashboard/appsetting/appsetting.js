@@ -61,9 +61,9 @@ router.post("/appsettings", checkAdmin, (req, res) => {
     try {
         // console.log(JSON.stringify(req.body));
         // console.log('da vao');
+        req.check('idapp', 'ID app is required').notEmpty();
+        req.check('packageid', 'Application Identifier is required').notEmpty();
         req.check('appname', 'Application name is required').notEmpty();
-        req.check('idapp', 'Application Identifier is required').notEmpty();
-        req.check('appid', 'ID app is required').notEmpty();
         // req.check('version', 'Confirm keystore does not match the keystore.').equals(req.body.keystore);
         req.check('version', 'Version is required').notEmpty();
         req.check('description', 'Description is required').notEmpty();
@@ -98,7 +98,7 @@ router.post("/appsettings", checkAdmin, (req, res) => {
         console.log(req.body.appid);
 
         appsettingModels.findOne({
-                _id: req.body.appid,
+                idApp: req.body.idapp,
                 status: true
             }).then((dataOne) => {
                 if (dataOne) {
@@ -106,7 +106,8 @@ router.post("/appsettings", checkAdmin, (req, res) => {
                     console.log('vao update app');
                     console.log(req.body.idapp.trim());
                     console.log(base64js.Base64.encode(req.body.idapp));
-                    dataOne.idApp = base64js.Base64.encode(req.body.idapp.trim());
+
+                    dataOne.packageIDApp = req.body.packageid.trim();
                     dataOne.nameApp = req.body.appname.trim();
                     dataOne.version = req.body.version.trim();
                     dataOne.description = req.body.description.trim();

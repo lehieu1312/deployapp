@@ -369,6 +369,7 @@ router.get('/checkout/ok/process', (req, res) => {
                                     var new_app_setting = new app_setting({
                                         idApp: base64_custom.Base64.encode(id_inforapp),
                                         idUser: req.session.iduser,
+                                        packageIDApp: id_inforapp,
                                         dateCreate: new Date(),
                                         status: true
                                     })

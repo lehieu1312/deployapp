@@ -18,6 +18,7 @@ var Inforapp = require('../../models/inforapp');
 var TrafficModel = require('../../models/traffic');
 var infor_app_admin = require('../../models/inforappadmin');
 var notifiUserModels = require('../../models/notificationuser');
+var appsetting_models = require('../../models/appsettings');
 var order = require("../../models/order");
 var hostServer = libSetting.hostServer;
 var fs = require('fs');
@@ -301,8 +302,12 @@ router.post("/dashboard/deleteapp", (req, res) => {
                             TrafficModel.remove({
                                 idApp: req.body.idApp
                             }).then(() => {
-                                return res.json({
-                                    status: "1"
+                                appsetting_models.remove({
+                                    idApp: req.body.idApp
+                                }).then(() => {
+                                    return res.json({
+                                        status: "1"
+                                    })
                                 })
                             })
                         })

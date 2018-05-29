@@ -116,11 +116,9 @@ $(document).ready(function () {
 
 
     }
-    if (pathArray[2] == "appsetting") {
+    if (pathArray[2] == "appsettings") {
         hoverarrow[3].style.color = "#00afee"
         hovertext[3].style.color = "#00afee"
-
-
     }
     if (pathArray[2] == "myorder") {
         hoverarrow[4].style.color = "#00afee"

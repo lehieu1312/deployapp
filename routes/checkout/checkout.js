@@ -336,7 +336,7 @@ router.get('/checkout/ok/process', (req, res) => {
                                     installed: getdata.installed + data_session_cart[i].count
                                 }).exec();
                                 for (let j = 0; j < data_session_cart[i].count; j++) {
-                                    let id_inforapp = "com.taydo.app" + Date.now();
+                                    let id_inforapp = "com.taydotech.app" + Date.now();
 
                                     await User.update({
                                         id: req.session.iduser,

@@ -239,11 +239,11 @@ $(document).ready(() => {
 
 })
 
-function enableApps(idApp) {
+function enableApp(idApp) {
     // alert(idApps);
-    $('#mymodal-enableapps').modal('show');
+    $('#mymodal-enableapp').modal('show');
     $('#enable-ok').click(() => {
-        $("#mymodal-enableapps").modal('hide');
+        $("#mymodal-enableapp").modal('hide');
         $('#loading').show();
         $.ajax({
             type: "POST",

@@ -74,17 +74,19 @@ function makeid() {
 
 function filtercart(a) {
     var b = [];
-    while (a.length > 0) {
-        let c = a.filter(function (el) {
-            return el == a[0]
-        });
-        b.push({
-            id: c[0],
-            count: c.length
-        });
-        a = a.filter(function (el) {
-            return el != a[0]
-        });
+    if (a != []) {
+        while (a.length > 0) {
+            let c = a.filter(function (el) {
+                return el == a[0]
+            });
+            b.push({
+                id: c[0],
+                count: c.length
+            });
+            a = a.filter(function (el) {
+                return el != a[0]
+            });
+        }
     }
     return b;
 }

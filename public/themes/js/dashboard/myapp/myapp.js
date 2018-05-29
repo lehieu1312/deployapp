@@ -15,7 +15,7 @@ $(document).ready(() => {
     $("#deploy-detail-content").click(() => {
         $(".delete-menumore").hide();
     })
-    if ($(".div-list-myapp").length < 6) {
+    if ($(".div-list-myapp").length <= 6) {
         $('.iconloadmore').hide();
         $('#text-showing-myapp').text($(".div-list-myapp").length)
     }

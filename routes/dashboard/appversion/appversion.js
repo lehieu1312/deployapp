@@ -17,6 +17,7 @@ var Country = require('../../../models/country');
 var hostServer = libSetting.hostServer;
 var Appversion = require('../../../models/appversionadmin');
 var appversionUser = require('../../../models/appversionuser');
+var appsetting_model = require("../../../models/appsettings");
 var fs = require('fs');
 var Inforapp = require('../../../models/inforapp');
 
@@ -43,79 +44,176 @@ function setStringVersion(a) {
     return a1 + "." + a2 + "." + a3;
 }
 
+
+
 router.get('/appversion/:idapp', checkAdmin, (req, res) => {
     try {
-
-        appversionUser.find({
-            idApp: req.params.idapp,
-            status: true
-        }).then((data) => {
-            if (data.length > 0) {
-                for (let i = 0; i < data.length; i++) {
-                    data[i].versionAdmin = setNumberVersion(data[i].versionAdmin);
-                }
-                data.sort(function (a, b) {
-                    return b.versionAdmin - a.versionAdmin;
-                });
-                Inforapp.findOne({
+        appsetting_model.findOne({
+            idApp: req.params.idapp
+        }).then(setting => {
+            if (setting.idApp &&
+                setting.packageIDApp &&
+                setting.idUser &&
+                setting.version &&
+                setting.nameApp &&
+                setting.description &&
+                setting.emailApp &&
+                setting.authHref &&
+                setting.auth &&
+                setting.oneSignalID &&
+                setting.oneSignalUserID &&
+                setting.oneSignalAppID &&
+                setting.oneSignalAPIKey &&
+                setting.ggAnalytic
+            ) {
+                appversionUser.find({
                     idApp: req.params.idapp,
-                    "idUser.idUser": req.session.iduser,
                     status: true
-                }).then((data1) => {
-                    if (data1) {
-                        Appversion.findOne({
-                            idApp: data[0].idAppAdmin,
-                            status: true
-                        }, (err, count) => {
-                            if (err) throw err;
-                            // console.log(count)
-                            var appuse = {
-                                idApp: data1.idApp,
-                                nameApp: data1.nameApp
-                            }
-
-                            res.render('./dashboard/appversion/appversion', {
-                                title: "App Version",
-                                appversions: count,
-                                appuse: appuse,
-                                countversion: data[0].versionAdmin
-                            })
+                }).then((data) => {
+                    if (data.length > 0) {
+                        for (let i = 0; i < data.length; i++) {
+                            data[i].versionAdmin = setNumberVersion(data[i].versionAdmin);
+                        }
+                        data.sort(function (a, b) {
+                            return b.versionAdmin - a.versionAdmin;
                         });
+                        Inforapp.findOne({
+                            idApp: req.params.idapp,
+                            "idUser.idUser": req.session.iduser,
+                            status: true
+                        }).then((data1) => {
+                            if (data1) {
+                                Appversion.findOne({
+                                    idApp: data[0].idAppAdmin,
+                                    status: true
+                                }, (err, count) => {
+                                    if (err) throw err;
+                                    // console.log(count)
+                                    var appuse = {
+                                        idApp: data1.idApp,
+                                        nameApp: data1.nameApp
+                                    }
+                                    res.render('./dashboard/appversion/appversion', {
+                                        title: "App Version",
+                                        appversions: count,
+                                        appuse: appuse,
+                                        countversion: data[0].versionAdmin,
+                                        checkSetting: "true"
+                                    })
+                                });
+                            } else {
+                                res.redirect("/dashboard/404")
+                            }
+                        })
                     } else {
-                        res.redirect("/dashboard/404")
+                        Inforapp.findOne({
+                            idApp: req.params.idapp,
+                            "idUser.idUser": req.session.iduser,
+                            status: true
+                        }).then((data1) => {
+                            if (data1) {
+                                Appversion.findOne({
+                                    idApp: data1.idAppAdmin,
+                                    status: true
+                                }, (err, count) => {
+                                    if (err) throw err;
+                                    // console.log(count)
+                                    var appuse = {
+                                        idApp: data1.idApp,
+                                        nameApp: data1.nameApp
+                                    }
+                                    res.render('./dashboard/appversion/appversion', {
+                                        title: "App Version",
+                                        appversions: count,
+                                        appuse: appuse,
+                                        countversion: "",
+                                        checkSetting: "true"
+                                    })
+                                });
+                            } else {
+                                res.redirect("/dashboard/404")
+                            }
+                        })
                     }
+
                 })
             } else {
-                Inforapp.findOne({
+
+                appversionUser.find({
                     idApp: req.params.idapp,
-                    "idUser.idUser": req.session.iduser,
                     status: true
-                }).then((data1) => {
-                    if (data1) {
-                        Appversion.findOne({
-                            idApp: data1.idAppAdmin,
-                            status: true
-                        }, (err, count) => {
-                            if (err) throw err;
-                            // console.log(count)
-                            var appuse = {
-                                idApp: data1.idApp,
-                                nameApp: data1.nameApp
-                            }
-                            res.render('./dashboard/appversion/appversion', {
-                                title: "App Version",
-                                appversions: count,
-                                appuse: appuse,
-                                countversion: ""
-                            })
+                }).then((data) => {
+                    if (data.length > 0) {
+                        for (let i = 0; i < data.length; i++) {
+                            data[i].versionAdmin = setNumberVersion(data[i].versionAdmin);
+                        }
+                        data.sort(function (a, b) {
+                            return b.versionAdmin - a.versionAdmin;
                         });
+                        Inforapp.findOne({
+                            idApp: req.params.idapp,
+                            "idUser.idUser": req.session.iduser,
+                            status: true
+                        }).then((data1) => {
+                            if (data1) {
+                                Appversion.findOne({
+                                    idApp: data[0].idAppAdmin,
+                                    status: true
+                                }, (err, count) => {
+                                    if (err) throw err;
+                                    // console.log(count)
+                                    var appuse = {
+                                        idApp: data1.idApp,
+                                        nameApp: data1.nameApp
+                                    }
+
+                                    res.render('./dashboard/appversion/appversion', {
+                                        title: "App Version",
+                                        appversions: count,
+                                        appuse: appuse,
+                                        countversion: data[0].versionAdmin,
+                                        checkSetting: "false"
+                                    })
+                                });
+                            } else {
+                                res.redirect("/dashboard/404")
+                            }
+                        })
                     } else {
-                        res.redirect("/dashboard/404")
+                        Inforapp.findOne({
+                            idApp: req.params.idapp,
+                            "idUser.idUser": req.session.iduser,
+                            status: true
+                        }).then((data1) => {
+                            if (data1) {
+                                Appversion.findOne({
+                                    idApp: data1.idAppAdmin,
+                                    status: true
+                                }, (err, count) => {
+                                    if (err) throw err;
+                                    // console.log(count)
+                                    var appuse = {
+                                        idApp: data1.idApp,
+                                        nameApp: data1.nameApp
+                                    }
+                                    res.render('./dashboard/appversion/appversion', {
+                                        title: "App Version",
+                                        appversions: count,
+                                        appuse: appuse,
+                                        countversion: "",
+                                        checkSetting: "false"
+                                    })
+                                });
+                            } else {
+                                res.redirect("/dashboard/404")
+                            }
+                        })
                     }
+
                 })
             }
-
         })
+
 
 
         // console.log(req.params.idapp)

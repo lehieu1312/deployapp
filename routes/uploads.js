@@ -145,10 +145,11 @@ router.post('/upload', urlencodeParser, function(req, res, next) {
                             ////// Check project cordova////////////////////
                             // ----------------------------------------------------------------------------------------
                             ////Read folder uploaded
-                            var folder = fs.readdirSync(path.join(appRoot, 'public', 'temporary', dbNameFolder));
+                            var folder;
+                            folder = fs.readdirSync(path.join(appRoot, 'public', 'temporary', dbNameFolder));
 
                             //////// Check folder type 1 ////////////////////
-                            if (folder.length > 1) {
+                            if (folder.length > 2) {
                                 console.log('List Folder 1: ' + folder);
                                 dbPathRootFolder = dbNameFolder;
                                 dbTypeFolder = 1;
@@ -160,6 +161,14 @@ router.post('/upload', urlencodeParser, function(req, res, next) {
                                 }
                             } else {
                                 /////////// Check folder type 2 ////////////////
+                                // if (fs.existsSync(path.join(appRoot, 'public', 'temporary', dbPathRootFolder, '__MACOSX'))) {
+                                //     console.log('vao check MACOS');
+                                //     fs.rmdirSync(path.join(appRoot, 'public', 'temporary', dbPathRootFolder, '__MACOSX'));
+                                // } else {
+                                //     console.log('khong vao check MACOS');
+                                //     return res.json({ status: "3", content: "The file is not a Cordova's project" });
+                                // }
+                                // folder = fs.readdirSync(path.join(appRoot, 'public', 'temporary', dbNameFolder));
                                 var fApp = folder[0];
                                 dbTypeFolder = 2;
                                 console.log('Type Folder 2');
@@ -276,6 +285,7 @@ router.post('/upload', urlencodeParser, function(req, res, next) {
                             // res.cookie('cokkieFileUploaded', arrFileName, { maxAge: 259200000, httpOnly: true })
 
                             ///////// Insert infomation in db /////////////////////
+                            // Infomation.insertMany
                             let infomation = new Infomation({
                                 keyFolder: dbNameFolder,
                                 typeApp: dbTypeApp,

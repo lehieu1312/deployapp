@@ -229,6 +229,22 @@ $(document).ready(function() {
 
     function checkAppSetting() {
         var checkApp = true;
+        if ($('#idapp').val() == '') {
+            $('#idapp').attr('placeholder', 'This ID uniquely identifies your app on the device and in Google Play, like: com.example.myapp');
+            $('#idapp').addClass('input-holder').addClass('border-bottom-red');
+            checkValid = false;
+        } else if (validPackageID($('#idapp').val()) == false) {
+            $('#idapp').val('');
+            $('#idapp').attr('placeholder', 'This ID uniquely identifies your app on the device and in Google Play, like: com.example.myapp');
+            $('#idapp').addClass('input-holder').addClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-none').addClass('display-inline');
+            checkValid = false;
+
+            // $(this).focus();
+        } else {
+            $('#idapp').removeClass('input-holder').removeClass('border-bottom-red');
+            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        }
         if ($('#appname').val() == "") {
             $('#appname').val('');
             $('#appname').attr('placeholder', 'Can not be empty');
@@ -400,10 +416,11 @@ $(document).ready(function() {
     $('#btn-save-setting-app').click(function() {
         // alert('1');
         // alert(checkAppSetting());
+
         if (checkAppSetting() == true) {
             // $('#loading').show();
             var obj = {};
-
+            console.log('send form');
             // $('.form-group').find('.help-block').html('');
             // $('.form-group').removeClass('has-error').addClass('has-success');
             // $(".spinner").fadeIn();

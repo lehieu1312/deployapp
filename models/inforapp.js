@@ -1,6 +1,7 @@
 let mongoose = require('mongoose');
 
 let inforappChema = mongoose.Schema({
+    id: String,
     idApp: String,
     idUser: [{
         idUser: String,

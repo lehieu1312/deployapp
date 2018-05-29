@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 let appsettingschema = new Schema({
     idApp: String,
+    packageIDApp: String,
     idUser: String,
     version: String,
     nameApp: String,

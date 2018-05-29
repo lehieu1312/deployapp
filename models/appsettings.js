@@ -19,7 +19,7 @@ let appsettingschema = new Schema({
     dateFormat: String,
     oneSignalID: String,
     oneSignalUserID: String,
-    oneSignalAppID: String,
+    // oneSignalAppID: String,
     oneSignalAPIKey: String,
     ggAnalytic: String,
     adModAndroidBanner: String,

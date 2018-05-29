@@ -305,15 +305,15 @@ $(document).ready(function() {
             $('#auth').removeClass('input-holder').removeClass('border-bottom-red');
             //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
         }
-        if ($('#onesignalappid').val() == "") {
-            $('#onesignalappid').val('');
-            $('#onesignalappid').attr('placeholder', 'Can not be empty');
-            $('#onesignalappid').addClass('input-holder').addClass('border-bottom-red');
-            checkApp = false;
-        } else {
-            $('#onesignalappid').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
-        }
+        // if ($('#onesignalappid').val() == "") {
+        //     $('#onesignalappid').val('');
+        //     $('#onesignalappid').attr('placeholder', 'Can not be empty');
+        //     $('#onesignalappid').addClass('input-holder').addClass('border-bottom-red');
+        //     checkApp = false;
+        // } else {
+        //     $('#onesignalappid').removeClass('input-holder').removeClass('border-bottom-red');
+        //     //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
+        // }
         if ($('#onesignalapikey').val() == "") {
             $('#onesignalapikey').val('');
             $('#onesignalapikey').attr('placeholder', 'Can not be empty');

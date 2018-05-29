@@ -70,7 +70,7 @@ router.post("/appsettings", checkAdmin, (req, res) => {
         req.check('email', 'Email is required').notEmpty();
         req.check('href', 'Href is required').notEmpty();
         req.check('auth', 'Auth is required').notEmpty();
-        req.check('onesignalappid', 'Onesignal App ID is required').notEmpty();
+        // req.check('onesignalappid', 'Onesignal App ID is required').notEmpty();
         req.check('onesignalapikey', 'Onesignal API Key is required').notEmpty();
         req.check('wpurl', 'Wordpress Url is required').notEmpty();
         req.check('wpperpage', 'Wordpress Per Page is required').notEmpty();
@@ -121,7 +121,7 @@ router.post("/appsettings", checkAdmin, (req, res) => {
                     dataOne.dateFormat = req.body.dateformat.trim();
                     dataOne.oneSignalID = req.body.onesignalid.trim();
                     dataOne.oneSignalUserID = req.body.onesignaluserid.trim();
-                    dataOne.oneSignalAppID = req.body.onesignalappid.trim();
+                    // dataOne.oneSignalAppID = req.body.onesignalappid.trim();
                     dataOne.oneSignalAPIKey = req.body.onesignalapikey.trim();
                     dataOne.ggAnalytic = req.body.gganalytic.trim();
                     dataOne.adModAndroidBanner = req.body.admodeandroidbanner.trim();
@@ -160,7 +160,7 @@ router.post("/appsettings", checkAdmin, (req, res) => {
                                 dateFormat: req.body.dateformat.trim(),
                                 oneSignalID: req.body.onesignalid.trim(),
                                 oneSignalUserID: req.body.onesignaluserid.trim(),
-                                oneSignalAppID: req.body.onesignalappid.trim(),
+                                // oneSignalAppID: req.body.onesignalappid.trim(),
                                 oneSignalAPIKey: req.body.onesignalapikey.trim(),
                                 ggAnalytic: req.body.gganalytic.trim(),
                                 adModAndroidBanner: req.body.admodeandroidbanner.trim(),

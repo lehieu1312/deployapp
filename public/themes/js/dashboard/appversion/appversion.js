@@ -1,7 +1,14 @@
 $(document).ready(() => {
     if ($("#value-setting").val() == "false") {
-        window.location.href = "/dashboard/appsettings/" + $("#app-setting").val();
+        $("#myModal-checksettting").modal("show");
     }
+
+    $("#delete-ok").click(() => {
+        window.location.href = "/dashboard/appsettings/" + $("#app-setting").val();
+    })
+    $('#myModal-checksettting').on('hidden.bs.modal', function () {
+        window.location.href = "/dashboard/appsettings/" + $("#app-setting").val();
+    });
 
     if (window.location.pathname.toLowerCase() == "/dashboard/appversion") {
         $('#app-used-menuleft').css("background", "#00afee");

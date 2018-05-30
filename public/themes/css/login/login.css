@@ -3,7 +3,6 @@
     font-family: "OpenSans-Regular";
 }
 
-
 /* #deploy-content {
     min-height: 550px;
     margin-top: 75px;
@@ -42,7 +41,6 @@ label {
     font-family: "OpenSans-Semibold";
 }
 
-
 /* .btn-lg {
     padding: 8px 8px;
     font-size: 13px;
@@ -53,7 +51,6 @@ label {
 input[type="submit"] {
     font-family: "OpenSans-Semibold";
 }
-
 
 /* text-decoration: underline;  */
 
@@ -85,7 +82,6 @@ input[type="submit"] {
     }
 }
 
-
 /* @media (max-width: 992px){
     .formlogin1{
         padding-left: 20px;
@@ -106,7 +102,6 @@ input[type="submit"] {
     border-bottom: 1px solid #dedede;
     width: 100%;
 }
-
 
 /* input:focus{
     border-bottom: 1px solid #00afee;
@@ -343,7 +338,6 @@ input {
     float: right;
 }
 
-
 /* #brremember{
     display: none;
 } */
@@ -408,7 +402,7 @@ input[type=checkbox]:checked+label {
     height: 4.5px;
     background: transparent;
     top: 3px;
-    left: 3.6px;
+    left: 3px;
     border: 2px solid #ffffff;
     border-top: none;
     border-right: none;

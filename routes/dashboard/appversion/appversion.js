@@ -51,7 +51,7 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
         appsetting_model.findOne({
             idApp: req.params.idapp
         }).then(setting => {
-            if (setting.idApp &&
+            if (
                 setting.packageIDApp &&
                 setting.idUser &&
                 setting.version &&
@@ -62,7 +62,6 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
                 setting.auth &&
                 setting.oneSignalID &&
                 setting.oneSignalUserID &&
-                setting.oneSignalAppID &&
                 setting.oneSignalAPIKey &&
                 setting.ggAnalytic
             ) {

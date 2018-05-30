@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    if (window.location.pathname.toLowerCase() == "/dashboard/appversion") {
+
+        $('#appversion').css('color', '#00afee')
+    }
+
     $(".far-notification").click((event) => {
         $('.item-notification').toggle();
         event.stopPropagation();
@@ -80,7 +85,6 @@ $(document).ready(function () {
 
     if (pathArray[1] == "dashboard" && pathArray[2] == null) {
 
-
     }
     if (pathArray[1] == "checkout" && pathArray[2] == null) {
 
@@ -88,9 +92,10 @@ $(document).ready(function () {
     }
     if (pathArray[2] == "appversion") {
         // hoversubmenu[0].style.display = "none"
-        hoverarrow[0].style.color = "#00afee"
-        hovertext[0].style.color = "#00afee"
-
+        hoverarrow[0].style.color = "#00afee";
+        hovertext[0].style.color = "#00afee";
+        $('#app-used-menuleft').css("background", "#00afee");
+        $('#app-used-menuleft').css('color', '#fff')
 
     }
     if (pathArray[2] == "editprofile") {
@@ -98,33 +103,36 @@ $(document).ready(function () {
 
 
     }
-    if (pathArray[2] == "dashboard") {
-        // hoverarrow[1].style.color = "#00afee"
-        // hovertext[1].style.color = "#00afee"
 
-
-    }
     if (pathArray[2] == "history") {
-        hoverarrow[1].style.color = "#00afee"
-        hovertext[1].style.color = "#00afee"
+        hoverarrow[1].style.color = "#00afee";
+        hovertext[1].style.color = "#00afee";
+        $('#app-used-menuleft').css("background", "#00afee");
+        $('#app-used-menuleft').css('color', '#fff')
 
 
     }
     if (pathArray[2] == "myteam") {
-        hoverarrow[2].style.color = "#00afee"
-        hovertext[2].style.color = "#00afee"
+        hoverarrow[2].style.color = "#00afee";
+        hovertext[2].style.color = "#00afee";
+        $('#app-used-menuleft').css("background", "#00afee");
+        $('#app-used-menuleft').css('color', '#fff')
 
 
     }
     if (pathArray[2] == "appsettings") {
-        hoverarrow[3].style.color = "#00afee"
-        hovertext[3].style.color = "#00afee"
+        hoverarrow[3].style.color = "#00afee";
+        hovertext[3].style.color = "#00afee";
+        $('#app-used-menuleft').css("background", "#00afee");
+        $('#app-used-menuleft').css('color', '#fff')
 
 
     }
     if (pathArray[2] == "myorder") {
-        hoverarrow[4].style.color = "#00afee"
-        hovertext[4].style.color = "#00afee"
+        hoverarrow[4].style.color = "#00afee";
+        hovertext[4].style.color = "#00afee";
+        $('#app-used-menuleft').css("background", "#00afee");
+        $('#app-used-menuleft').css('color', '#fff')
         if (pathArray[2] != "detail") {
 
         } else {
@@ -149,18 +157,27 @@ $(document).ready(function () {
     if (pathArray[2] == "traffic") {
         hoverarrow[5].style.color = "#00afee"
         hovertext[5].style.color = "#00afee"
-
+        $('#app-used-menuleft').css("background", "#00afee");
+        $('#app-used-menuleft').css('color', '#fff')
 
     }
     if (pathArray[2] == "notification") {
         hoverarrow[6].style.color = "#00afee"
         hovertext[6].style.color = "#00afee"
-
+        $('#app-used-menuleft').css("background", "#00afee");
+        $('#app-used-menuleft').css('color', '#fff')
 
     }
-    // console.log(pathArray)
+    if (pathArray[1] == "affiliate") {
+        $('#app-used-affilite').css("background", "#00afee");
+        $('#app-used-affilite').css('color', '#fff')
 
+    }
+    if (pathArray[1] == "membership") {
+        $('#membership').css("background", "#00afee");
+        $('#membership').css('color', '#fff')
 
+    }
 });
 
 function trimSpace(str) {

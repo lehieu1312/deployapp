@@ -272,7 +272,7 @@ input::placeholder {
     padding-left: 20px;
     border: none;
     background: none;
-    width: 300px;
+    width: 320px;
     border-bottom: solid 1px #cdcdcd;
     margin-right: 15px;
 }
@@ -286,6 +286,7 @@ button {
 }
 
 .setsearch {
+    margin-right: 11px;
     float: right;
 }
 
@@ -502,7 +503,7 @@ button {
 } */
 
 #content-myapp {
-    margin-top: 35px;
+    margin-top: 42px;
     width: 100%;
 }
 
@@ -681,6 +682,10 @@ button {
 
 .advertise-app {
     width: 100%;
+}
+
+#advertise-app {
+    margin-top: -10px;
 }
 
 .group-advertise {

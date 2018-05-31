@@ -382,8 +382,9 @@ router.post("/canceliconbackgroundnotification/:idApp", (req, res) => {
 
 router.post('/save-data-notification/:idApp', (req, res) => {
     try {
-        var data = JSON.parse(Object.getOwnPropertyNames(req.body)[0]);
-        // console.log(data)
+        // console.log(req)
+        var data = req.body;
+        console.log(data)
         var nametitle = data.title['country'];
         var namecontent = data.content['country'];
         let query = {
@@ -462,8 +463,8 @@ router.post('/send-notification/:idApp', (req, res) => {
                                     });
                                     myNoti.viewNotification(getdata.id, function (err, httpResponse, data) {
                                         let datanoti = JSON.parse(data);
-                                        console.log("datanoti:");
-                                        console.log(datanoti);
+                                        // console.log("datanoti:");
+                                        // console.log(datanoti);
                                         if (datanoti.errors) {
                                             res.render("error", {
                                                 title: "Error",
@@ -522,7 +523,7 @@ router.post('/send-notification/:idApp', (req, res) => {
                         included_segments: result.sendToUser,
                         excluded_segments: result.excludesendToUser
                     };
-                    if (result.include_player_ids.length > 0) {
+                    if (result.include_player_ids !== null) {
                         message.include_player_ids = result.include_player_ids
                     }
                     sendNotification(message).then(() => {

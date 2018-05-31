@@ -631,27 +631,7 @@ $(document).ready(() => {
     })
     //-----------------------------------------------------------
 
-
-
-    $("#save-notification").click(() => {
-        if (checknotification() == true) {
-            $('#loading').show();
-            $.when(savenoti()).then(() => {
-                $('#loading').hide();
-                $('#successPopup').show(500);
-                $(".contenemail").text("");
-                $(".contenemail").text("Saved !");
-                $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
-                    $("#success-alert").slideUp(1000);
-                    $('.successPopup').hide();
-                });
-            })
-        }
-    });
-
-
     function checknotification() {
-
         if (trimSpace(title[Object.getOwnPropertyNames(title)[0]]) == "") {
             $('#loading').hide()
             $('#errPopup').show();
@@ -685,11 +665,44 @@ $(document).ready(() => {
         return true;
     }
 
-    $("#send-notification").click(() => {
+    $("#save-notification").click(() => {
         if (checknotification() == true) {
             $('#loading').show();
-            $.when(savenoti(),
-                (() => {
+            $.when(savenoti()).then(() => {
+                $('#loading').hide();
+                $('#successPopup').show(500);
+                $(".contenemail").text("");
+                $(".contenemail").text("Saved !");
+                $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                    $("#success-alert").slideUp(1000);
+                    $('.successPopup').hide();
+                });
+            })
+        }
+    });
+
+
+  
+
+    $("#send-notification").click(() => {
+        console.log({title,
+            content,
+            colorTitle,
+            colorContent,
+            colorLed,
+            colorAccent,
+            internalLink: [{
+                typeUrl,
+                url
+            }],
+            sendToUser,
+            exclude,
+            devices_test})
+        if (checknotification() == true) {
+            $('#loading').show();
+            $.when(
+                savenoti()
+            ).then(() => {
                     $.ajax({
                         url: "/dashboard/send-notification/" + idApp,
                         data: {
@@ -711,17 +724,16 @@ $(document).ready(() => {
                                 });
                             }
                         }
+                    }).always(()=>{
+                        $('#loading').hide();
+                        $('#successPopup').show(500);
+                        $(".contenemail").text("");
+                        $(".contenemail").text("Sent !");
+                        $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                            $("#success-alert").slideUp(1000);
+                            $('.successPopup').hide();
+                        });
                     })
-                })()
-            ).then(() => {
-                $('#loading').hide();
-                $('#successPopup').show(500);
-                $(".contenemail").text("");
-                $(".contenemail").text("Sent !");
-                $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
-                    $("#success-alert").slideUp(1000);
-                    $('.successPopup').hide();
-                });
             })
         }
     })
@@ -855,7 +867,7 @@ $(document).ready(() => {
             (() => {
                 $.ajax({
                     url: "/dashboard/save-data-notification/" + idApp,
-                    data: JSON.stringify({
+                    data: {
                         title,
                         content,
                         colorTitle,
@@ -870,7 +882,7 @@ $(document).ready(() => {
                         exclude,
                         devices_test
 
-                    }),
+                    },
                     dataType: "json",
                     async: false,
                     type: 'POST',

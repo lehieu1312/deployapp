@@ -23,10 +23,11 @@ var listBuildingModels = require('../../../models/listbuilding');
 var UsersModels = require('../../../models/user');
 var base64 = require('../../../lib/base64');
 var libSetting = require('../../../lib/setting');
+var routerPlatformDashboard = require('./platforms');
 var hostServer = libSetting.hostServer;
 var sumBuild = libSetting.totalBuilding;
 
-
+router.use('/', routerPlatformDashboard);
 
 router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
     try {

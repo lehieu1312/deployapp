@@ -879,3 +879,15 @@ textarea {
 .bgstatuscancel {
     background: rgb(220, 20, 60);
 }
+
+#filter-number li {
+    cursor: pointer;
+}
+
+#filter-date {
+    cursor: pointer;
+}
+
+#filter-status li {
+    cursor: pointer;
+}

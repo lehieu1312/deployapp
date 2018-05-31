@@ -1,5 +1,16 @@
 $(document).ready(function () {
 
+
+    $(".delete-menumore").each(function (i) {
+        $(this).find("a")
+            .mouseenter(() => {
+                $(this).find(".imgicondelete").attr("src", "/themes/img/dashboard/icondeleteactive.png");
+            })
+            .mouseleave(() => {
+                $(this).find(".imgicondelete").attr("src", "/themes/img/dashboard/icondelete.png");
+            })
+    })
+
     if (window.location.pathname.toLowerCase() == "/dashboard/appversion") {
 
         $('#appversion').css('color', '#00afee')

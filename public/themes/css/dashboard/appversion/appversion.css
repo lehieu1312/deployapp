@@ -13,7 +13,7 @@
 
 #text-changelog {
     height: 170px;
-    padding: 0 15px 10px 15px;
+    padding: 10px 15px 10px 21px;
     width: 100%;
     background: white;
     overflow-y: scroll;
@@ -890,4 +890,13 @@ textarea {
 
 #filter-status li {
     cursor: pointer;
+}
+
+.more-changelog {
+    cursor: pointer;
+    color: #00afee;
+}
+
+.more-changelog:hover {
+    color: #00afee !important;
 }

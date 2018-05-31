@@ -221,7 +221,7 @@
                                             <%=appversions.inforAppversion[number].changeLog%>
                                                 <%}else{%>
                                                     <%=appversions.inforAppversion[number].changeLog.slice(0,100)%>
-                                                        <a id="more-changelog<%=i%>" data-toggle="modal" data-target="#myModal-appversion">[...more]</a>
+                                                        <a id="more-changelog<%=i%>" class="more-changelog" data-toggle="modal" data-target="#myModal-appversion">[...more]</a>
                                                         <%}%>
                                     </td>
                                     <td class="table-time-appversion finddate">

@@ -267,6 +267,7 @@ router.post('/platform-dash', async(req, res) => {
                             console.log('arrFile: ' + result['root']['file']);
                             var arrFile = result['root']['file'];
                             console.log('arr: ' + arrFile);
+                            console.log(JSON.stringify(arrFile));
                             // return res.render('info-app', { fKeyFolder, title: 'Mobile App Builder For iOS and Android' });
                             return res.json({ status: 1, keyFolder: idAppUser, arrFileParams: arrFile });
                         });

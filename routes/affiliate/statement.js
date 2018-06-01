@@ -102,13 +102,22 @@ router.get("/affiliate/statements", checkAdmin, (req, res) => {
             }).sort({
                 dateCreate: -1
             }).then((data_affiliate) => {
-                if(data_affiliate > 0){
-                    res.render('./affiliate/statement', {
-                        title: 'Statements',
-                        money: data_affiliate[0].blance,
-                        history: data,
-                        appuse: "",
-                    });
+                if(data_affiliate){
+                    if(data_affiliate.length > 0){
+                        res.render('./affiliate/statement', {
+                            title: 'Statements',
+                            money: data_affiliate[0].blance,
+                            history: data,
+                            appuse: "",
+                        });
+                    }else{
+                        res.render('./affiliate/statement', {
+                            title: 'Statements',
+                            money: 0,
+                            history: data,
+                            appuse: "",
+                        });
+                    }
                 }else{
                     res.render('./affiliate/statement', {
                         title: 'Statements',

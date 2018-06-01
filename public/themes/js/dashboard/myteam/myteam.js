@@ -87,6 +87,12 @@ $(document).ready(() => {
             $('#loading').hide();
         });
     })
+    $('#myModa-adduser').on('hidden.bs.modal', function() {
+        $(".textarea-adduser").removeClass("textarea-err");
+        $(".textarea-adduser").attr({
+            "placeholder": "Email address"
+        });
+    });
 
     $('#form-adduser').submit(() => {
         if (checkformadduser() == true) {

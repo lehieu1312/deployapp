@@ -150,17 +150,23 @@
                 <table id="table-appversion">
                     <tr id="title-table-header">
                         <th width="7.6%">#</th>
-                        <th width="16%">Date
-                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                        <th width="12.2%">Date
+                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                         </th>
-                        <th width="22.2%">Deployed
-                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                        <th width="12.2%">Updated
+                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                        </th>
+                        <th width="16%">Deployed
+                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                         </th>
                         <th width="12.2%">Version
-                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                         </th>
-                        <th width="42%">Note
-                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                        <th width="16%">Platform
+                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                        </th>
+                        <th width="23.8%">Note
+                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                         </th>
                     </tr>
                     <%for(var i = 0; i<history.length ;i++){ %>
@@ -169,6 +175,11 @@
                         var m = d.getMonth() + 1;
                         var updated = d.getDate() + "/" + m + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " GMT";    
                         var arr = updated.split(" ");
+
+                        var d1 = history[number].dateUpdate;
+                        var m1 = d1.getMonth() + 1;
+                        var updated1 = d1.getDate() + "/" + m1 + "/" + d1.getFullYear() + " " + d1.getHours() + ":" + d1.getMinutes() + ":" + d1.getSeconds() + " GMT";    
+                        var arr1 = updated1.split(" ");
                          %>
                             <input id="history-app" hidden value="<%=history[number].idApp%>">
                             <input id="time-ready<%=i%>" type="hidden" value="<%=d%>">
@@ -186,11 +197,24 @@
                                             <%=arr[2]%>
                                     </span>
                                 </td>
+                                <td class="table-time-appversion finddate">
+                                    <span>
+                                        <%=arr1[0]%>
+                                    </span>
+                                    <br>
+                                    <span>
+                                        <%=arr1[1]%>
+                                            <%=arr[2]%>
+                                    </span>
+                                </td>
                                 <td class="table-nameapp findnameapp">
                                     <%=appuse.nameApp%>
                                 </td>
                                 <td class="table-version findversion">
                                     <%=history[number].version%>
+                                </td>
+                                <td class="table-version findversion">
+                                    <%=history[number].platform%>
                                 </td>
                                 <td class="table-changelog findnote">
                                     <% if(history[number].note != ""){ %>
@@ -290,8 +314,8 @@
                                 <form id="form-note-history" onsubmit="return false">
                                     <textarea placeholder="Your content..." rows="5" class="textarea-history"></textarea>
                                     <div class="dialogdeleteapp-foot-history">
-                                        <button id="cancel-histoty" class="float-right btn-gray margin-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
                                         <button type="submit" class="float-right btn-blue" id="done-histoty">Done</button>
+                                        <button id="cancel-histoty" class="float-right btn-gray margin-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
                                     </div>
                                 </form>
                             </div>

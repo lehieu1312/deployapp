@@ -1295,6 +1295,7 @@ router.get('/editprofile', checkAdmin, (req, res) => {
                             address: result.address,
                             country: data.countryName,
                             valuecountry: result.country,
+                            codeShare: result.codeShare,
                             zipcode: result.zipcode,
                             picture: urlimg,
                             appuse: ""
@@ -1323,6 +1324,7 @@ router.get('/editprofile', checkAdmin, (req, res) => {
                         address: result.address,
                         country: data.countryName,
                         valuecountry: result.country,
+                        codeShare: result.codeShare,
                         zipcode: result.zipcode,
                         picture: urlimg,
                         appuse: ""

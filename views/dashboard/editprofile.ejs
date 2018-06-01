@@ -54,10 +54,12 @@
                         <li class="active" id="edit-personal">
                             <a href="#personal" class="edit-a-profile" data-toggle="tab">Personal Info</a>
                         </li>
-                        <li id="change-pass">
+                        <li  id="edit-changepass">
                             <a href="#change" data-toggle="tab">Change Password</a>
                         </li>
-
+                        <li id="edit-sharecode">
+                            <a href="#sharecode" data-toggle="tab">Share Code</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="tab-content clearfix">
@@ -400,10 +402,32 @@
 
                         </div>
                     </div>
+                    <input type="hidden" id="val-codeshare" value="<%=codeShare%>">
+                    <div class="tab-pane" id="sharecode">
+                            <!-- <form id="form-changepass" onsubmit="return false"> -->
+                        <div class="col-sm-6 ">
+                            <div class="form-group has-feedback">
+                                   <strong>My Code :</strong> <span><%=codeShare%></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                    <label class="control-label" for="inputSuccess2">Url *</label>
+                                    <input type="text" id="choose-url" class="resetinputlogin">
+                                    <span class="form-control-feedback" aria-hidden="true">
+                                        <img class="seticoneye iconerr icon" id="iconerrurl" src="" alt="">
+                                    </span>
+                                </div>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <div class="form-group has-feedback">
+                               <strong>Link Share :</strong> <span id="link-share"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row row1 set-group-btn">
                 <div class="group-submit row row1">
+                    <input id="btn-create" class="setcolorfontinput setcolorloginbackround btn btn-lg-editprofile display-none" type="button" value="Create">
                     <input id="btn-editprofile" class="setcolorfontinput setcolorloginbackround btn btn-lg-editprofile" type="submit" value="Save Change">
                     <input id="btn-editprofile-reset" class=" setcolorfontinput setcolorloginbackround btn btn-white" type="button" value="Reset">
                 </div>

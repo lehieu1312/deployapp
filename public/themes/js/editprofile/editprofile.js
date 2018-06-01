@@ -1,4 +1,59 @@
 $(document).ready(function () {
+
+    var regex_pattern = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+
+
+    $("#edit-sharecode").click(()=>{
+        $("#btn-editprofile-reset").hide();
+        $("#btn-editprofile").hide();
+        $("#btn-create").show();
+    });
+    $("#edit-changepass").click(()=>{
+        $("#btn-editprofile-reset").show();
+        $("#btn-editprofile").show();
+        $("#btn-create").hide();
+    });
+    $("#edit-personal").click(()=>{
+        $("#btn-editprofile-reset").show();
+        $("#btn-editprofile").show();
+        $("#btn-create").hide();
+    });
+
+    $("#btn-create").click(()=>{
+        console.log($("#choose-url").val().split("/"));
+        if(regex_pattern.test($("#choose-url").val())== true){
+            if($("#choose-url").val().toUpperCase().indexOf(hostSeverSocket.toUpperCase()) > -1){
+                console.log($("#choose-url").val().split("?"))
+                if($("#choose-url").val().split("?").length > 1){
+                    $("#link-share").text("");
+                    var url_share =   $("#choose-url").val() + "&&codeshare="  + $("#val-codeshare").val();
+                    $("#link-share").text(url_share);
+                }else{
+                    $("#link-share").text("");
+                    var url_share =   $("#choose-url").val() + "?codeshare="  + $("#val-codeshare").val();
+                    $("#link-share").text(url_share);
+                }
+            }else{
+                $("#choose-url").val("");
+                $("#choose-url").attr({
+                    "class": "resetinputloginerr",
+                    "placeholder": "Your url does not belong my host."
+                });
+                iconerrurl.attr("src", "/themes/img/login/iconerr.png");
+                $("#choose-url").focus();  
+            }
+        }else{
+            $("#choose-url").val("");
+            $("#choose-url").attr({
+                "class": "resetinputloginerr",
+                "placeholder": "Your url is not correct."
+            });
+            iconerrurl.attr("src", "/themes/img/login/iconerr.png");
+            $("#choose-url").focus();  
+        }
+    })
+
+
     var password = $('[name = "passnew"]');
     var confirmpass = $('[name = "passretype"]');
     var oldpass = $('[name = "passcurrent"]');

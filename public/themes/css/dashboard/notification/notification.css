@@ -31,10 +31,16 @@
 }
 
 .span-compose-message {
+    padding-left: 15px;
     font-size: 16px;
     color: #444459;
     font-family: 'OpenSans-Regular';
     padding-bottom: 25px;
+}
+
+.span-compose-message img {
+    padding-right: 6px;
+    margin-bottom: 3px;
 }
 
 .select-product {

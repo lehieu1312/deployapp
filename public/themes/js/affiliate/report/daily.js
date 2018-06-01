@@ -10,7 +10,7 @@ function ajax_daily_traffic(date_start, date_end) {
         //         return Math.floor(a / 60 / 60) + "h" + Math.floor((a / 60) % 60) + "m" + Math.floor(a % 60) + "s";
         //     }
         // } else {
-        return Math.floor(a / 60) + "m" + Math.floor(a % 60) + "s";
+        return Math.floor(a / 60) + "m " + Math.floor(a % 60) + "s";
         // }
     }
     $.post(

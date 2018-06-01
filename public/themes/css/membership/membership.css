@@ -89,9 +89,13 @@
 }
 
 .choose-membership {
+    padding: 2px 23px 2px 23px;
     color: #00afee;
     border: solid 1px #00afee;
     background: #fff;
+}
+.active-membership .header-content-membership{
+    height: 85px;
 }
 
 .choose-membership:hover {
@@ -107,5 +111,9 @@
     border-color: #cecece;
     padding-top: 10px;
 }
-
+.content-membersip-services span{
+    text-decoration-line: underline;
+    text-decoration-style:dotted;
+    text-decoration-color: #cecece;
+}
 /* ff6253 a1c600 */

@@ -68,11 +68,17 @@ router.post('/getaccount', (req, res) => {
                         }
                     }
                 } else {
-                    res.redirect("/login");
+                    return res.json({
+                        picture: "/themes/img/dashboard/avatar.png",
+                        fullname: "No Name"
+                    })
                 }
             })
         } else {
-            res.redirect("/login");
+            return res.json({
+                picture: "/themes/img/dashboard/avatar.png",
+                fullname: "No Name"
+            })
         }
     } catch (error) {
         console.log(error + "")

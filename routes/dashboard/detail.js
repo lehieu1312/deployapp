@@ -158,6 +158,7 @@ router.post('/updatestatusnotiforuser', (req, res) => {
 router.get('/dashboard', checkAdmin, (req, res) => {
         try {
             console.log('------------------------------------------------------');
+            console.log(req.session);
             User.findOne({
                 id: req.session.iduser,
                 status: true

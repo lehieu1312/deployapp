@@ -370,6 +370,7 @@ router.post('/deleteuser', checkAdmin, async(req, res) => {
 });
 router.get('/login/:id', checkAdmin, async(req, res) => {
     try {
+        console.log('--------------------Login from admin-----------------');
         console.log(req.params);
         var idUser = req.params.id;
         console.log(idUser);

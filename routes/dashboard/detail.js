@@ -42,31 +42,37 @@ router.post('/getaccount', (req, res) => {
         if (req.session.iduser) {
             User.findOne({
                 id: req.session.iduser,
+                blocked: true,
                 status: true
             }, (err, data) => {
                 if (err) {
                     console.log(err)
                 }
-                if (!data.picture) {
-                    return res.json({
-                        picture: "/themes/img/dashboard/avatar.png",
-                        fullname: data.firstname + " " + data.lastname
-                    })
-                } else {
-                    if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/profile/' + data.picture))) {
-                        return res.json({
-                            picture: "/themes/img/profile/" + data.picture,
-                            fullname: data.firstname + " " + data.lastname
-                        })
-                    } else {
+                if (data) {
+                    if (!data.picture) {
                         return res.json({
                             picture: "/themes/img/dashboard/avatar.png",
                             fullname: data.firstname + " " + data.lastname
                         })
+                    } else {
+                        if (fs.existsSync(path.join(appRoot, 'public', 'themes/img/profile/' + data.picture))) {
+                            return res.json({
+                                picture: "/themes/img/profile/" + data.picture,
+                                fullname: data.firstname + " " + data.lastname
+                            })
+                        } else {
+                            return res.json({
+                                picture: "/themes/img/dashboard/avatar.png",
+                                fullname: data.firstname + " " + data.lastname
+                            })
+                        }
                     }
-
+                } else {
+                    res.redirect("/login");
                 }
             })
+        } else {
+            res.redirect("/login");
         }
     } catch (error) {
         console.log(error + "")

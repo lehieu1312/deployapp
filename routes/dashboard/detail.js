@@ -7,7 +7,7 @@ var appRoot = require('app-root-path');
 appRoot = appRoot.toString();
 var request = require('request');
 var multer = require('multer')
-// var upload = multer({ dest: 'uploads/' });
+    // var upload = multer({ dest: 'uploads/' });
 var app = express();
 var md5 = require('md5');
 var User = require('../../models/user');
@@ -117,25 +117,25 @@ router.post('/updatestatusnotiforuser', (req, res) => {
     try {
         console.log(req.body);
         notifiUserModels.update({
-            id: req.body.id
-        }, {
-            $set: {
-                status: true
-            }
-        }).then(() => {
-            return res.send('Success.');
-        })
-        // if (req.session.iduser) {
-        //     return notifiUserModels.find({
-        //         idUser: req.session.iduser,
-        //         status: false
-        //     }).count().then((dataNumberNoti) => {
-        //         return notifiUserModels.find({
-        //             idUser: req.session.iduser
-        //         }).then((dataNoti) => {
-        //             console.log('number noti: ' + dataNumberNoti);
-        //             return res.json({ number: dataNumberNoti, data: dataNoti });
-        //         })
+                id: req.body.id
+            }, {
+                $set: {
+                    status: true
+                }
+            }).then(() => {
+                return res.send('Success.');
+            })
+            // if (req.session.iduser) {
+            //     return notifiUserModels.find({
+            //         idUser: req.session.iduser,
+            //         status: false
+            //     }).count().then((dataNumberNoti) => {
+            //         return notifiUserModels.find({
+            //             idUser: req.session.iduser
+            //         }).then((dataNoti) => {
+            //             console.log('number noti: ' + dataNumberNoti);
+            //             return res.json({ number: dataNumberNoti, data: dataNoti });
+            //         })
 
         //     });
         // }
@@ -150,98 +150,98 @@ router.post('/updatestatusnotiforuser', (req, res) => {
 });
 // 
 router.get('/dashboard', checkAdmin, (req, res) => {
-    try {
-        // console.log('idusernoti: ' );
-        User.findOne({
-            id: req.session.iduser,
-            status: true
-        }).then((data) => {
-            var myapps = [];
-            async function getmyapp() {
-                var today = moment().startOf('day')
-                var tomorrow = moment(today).add(1, 'days')
-                try {
-                    for (let i = 0; i < data.myapp.length; i++) {
-                        await TrafficModel.find({
-                            idApp: data.myapp[i].idApp,
-                            status: true
-                        }).then((result) => {
-                            if (result == []) {
-                                var userOnline = [];
-                                var appToday = [];
-                                var useIos = [];
-                                var useAndroid = [];
-                                myapps[i] = {
+        try {
+            console.log('------Vao dashboard--------- ');
+            User.findOne({
+                id: req.session.iduser,
+                status: true
+            }).then((data) => {
+                var myapps = [];
+                async function getmyapp() {
+                    var today = moment().startOf('day')
+                    var tomorrow = moment(today).add(1, 'days')
+                    try {
+                        for (let i = 0; i < data.myapp.length; i++) {
+                            await TrafficModel.find({
                                     idApp: data.myapp[i].idApp,
-                                    nameApp: data.myapp[i].nameApp,
-                                    userOnline: userOnline.length,
-                                    useToday: appToday.length,
-                                    useIos: useIos.length,
-                                    useAndroid: useAndroid.length
-                                }
-                            } else {
-                                var userOnline = result.filter(function (el) {
-                                    return el.dateOutSession == null;
-                                })
-                                var appToday = result.filter(function (el) {
-                                    return el.dateAccess - today >= 0 &&
-                                        el.dateAccess - today <= 86400000
-                                })
-                                var useIos = result.filter(function (el) {
-                                    return el.platform == "ios" &&
-                                        el.dateAccess - today >= 0 &&
-                                        el.dateAccess - today <= 86400000
-                                });
-                                var useAndroid = result.filter(function (el) {
-                                    return el.platform == "android" &&
-                                        el.dateAccess - today >= 0 &&
-                                        el.dateAccess - today <= 86400000
-                                });
-                                // console.log(useIos)
-                                myapps[i] = {
-                                    idApp: data.myapp[i].idApp,
-                                    nameApp: data.myapp[i].nameApp,
-                                    userOnline: userOnline.length,
-                                    useToday: appToday.length,
-                                    useIos: useIos.length,
-                                    useAndroid: useAndroid.length
-                                }
-                            }
-                            // console.log(result)
+                                    status: true
+                                }).then((result) => {
+                                    if (result == []) {
+                                        var userOnline = [];
+                                        var appToday = [];
+                                        var useIos = [];
+                                        var useAndroid = [];
+                                        myapps[i] = {
+                                            idApp: data.myapp[i].idApp,
+                                            nameApp: data.myapp[i].nameApp,
+                                            userOnline: userOnline.length,
+                                            useToday: appToday.length,
+                                            useIos: useIos.length,
+                                            useAndroid: useAndroid.length
+                                        }
+                                    } else {
+                                        var userOnline = result.filter(function(el) {
+                                            return el.dateOutSession == null;
+                                        })
+                                        var appToday = result.filter(function(el) {
+                                            return el.dateAccess - today >= 0 &&
+                                                el.dateAccess - today <= 86400000
+                                        })
+                                        var useIos = result.filter(function(el) {
+                                            return el.platform == "ios" &&
+                                                el.dateAccess - today >= 0 &&
+                                                el.dateAccess - today <= 86400000
+                                        });
+                                        var useAndroid = result.filter(function(el) {
+                                            return el.platform == "android" &&
+                                                el.dateAccess - today >= 0 &&
+                                                el.dateAccess - today <= 86400000
+                                        });
+                                        // console.log(useIos)
+                                        myapps[i] = {
+                                            idApp: data.myapp[i].idApp,
+                                            nameApp: data.myapp[i].nameApp,
+                                            userOnline: userOnline.length,
+                                            useToday: appToday.length,
+                                            useIos: useIos.length,
+                                            useAndroid: useAndroid.length
+                                        }
+                                    }
+                                    // console.log(result)
 
-                        })
-                        // }
-                        // })
+                                })
+                                // }
+                                // })
+                        }
+                    } catch (error) {
+                        res.redirect("/dashboard/404")
                     }
-                } catch (error) {
-                    res.redirect("/dashboard/404")
+                    infor_app_admin.find({
+                        status: true
+                    }).then((apps_admin) => {
+                        return res.render("./dashboard/detail", {
+                            title: "Dashboard",
+                            myapps,
+                            appAdmin: apps_admin,
+                            appuse: ""
+                        });
+                    })
+
                 }
-                infor_app_admin.find({
-                    status: true
-                }).then((apps_admin) => {
-                    return res.render("./dashboard/detail", {
-                        title: "Dashboard",
-                        myapps,
-                        appAdmin: apps_admin,
-                        appuse: ""
-                    });
-                })
+                getmyapp();
+            })
 
-            }
-            getmyapp();
-        })
+        } catch (error) {
+            console.log(error + "")
+            res.render("error", {
+                title: "Error",
+                error: error + ""
+            })
+        }
 
-    } catch (error) {
-        console.log(error + "")
-        res.render("error", {
-            title: "Error",
-            error: error + ""
-        })
-    }
-
-})
-// router.get('/dashboard/app', checkAdmin, (req, res) => {
-//     if (req.session.iduser) {
+    })
+    // router.get('/dashboard/app', checkAdmin, (req, res) => {
+    //     if (req.session.iduser) {
 
 //     }
 // })
@@ -346,14 +346,14 @@ router.post("/dashboard/deleteapp", (req, res) => {
 function filtercart(a) {
     var b = [];
     while (a.length > 0) {
-        let c = a.filter(function (el) {
+        let c = a.filter(function(el) {
             return el == a[0]
         });
         b.push({
             id: c[0],
             count: c.length
         });
-        a = a.filter(function (el) {
+        a = a.filter(function(el) {
             return el != a[0]
         });
     }

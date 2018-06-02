@@ -161,6 +161,7 @@ router.get('/dashboard', checkAdmin, (req, res) => {
         console.log(req.session);
         User.findOne({
             id: req.session.iduser,
+            blocked: false,
             status: true
         }).then((data) => {
             console.log(data)

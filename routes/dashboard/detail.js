@@ -215,6 +215,7 @@ router.get('/dashboard', checkAdmin, (req, res) => {
                                 // })
                         }
                     } catch (error) {
+                        console.log(error);
                         res.redirect("/dashboard/404")
                     }
                     infor_app_admin.find({

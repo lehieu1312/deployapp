@@ -157,11 +157,12 @@ router.post('/updatestatusnotiforuser', (req, res) => {
 // 
 router.get('/dashboard', checkAdmin, (req, res) => {
     try {
-        // console.log('idusernoti: ' );
+        console.log('------------------------------------------------------');
         User.findOne({
             id: req.session.iduser,
             status: true
         }).then((data) => {
+            console.log(data.myapp)
             var myapps = [];
             async function getmyapp() {
                 var today = moment().startOf('day')

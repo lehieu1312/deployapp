@@ -38,9 +38,9 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
         var packageID, nameApp, versionApp, descriptionApp, emailApp, hrefApp, authApp;
         var wordpressUrl, wordpressPerPage, requestTimeOut, targetBlank, dateFormat, onesignalID, ggAnalytic, adModAndroidBanner, adModeAndroidInterstitial, adModiOsBanner, adModiOSInterstitial;
         ////////////////Check Value Form///////////////
-        req.check('platform', 'Platform is required').notEmpty();
-        req.check('version', 'Version is required').notEmpty();
-        req.check('idapp', 'ID App is required').notEmpty();
+        // req.check('platform', 'Platform is required').notEmpty();
+        req.check('versionadmin', 'Version is required').notEmpty();
+        req.check('idappadmin', 'ID App is required').notEmpty();
         req.check('idappuser', 'ID App User is required').notEmpty();
         req.check('confirmkeystore', 'Confirm keystore does not match the keystore.').equals(req.body.keystore);
         req.check('CN', 'First and last name is required').notEmpty();
@@ -58,9 +58,9 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
             return res.json({ status: "2", content: errors });
         }
         //////////////Get Value Form////////////////
-        platformsApp = req.body.platform;
-        versionAppAdmin = req.body.version;
-        idAppServerAdmin = req.body.idapp;
+        // platformsApp = req.body.platform;
+        versionAppAdmin = req.body.versionadmin;
+        idAppServerAdmin = req.body.idappadmin;
         idAppUser = req.body.idappuser;
         OU = req.body.OU;
         CN = req.body.CN;
@@ -73,40 +73,40 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
         alias = req.body.alias;
         /////////////////////////////////////
         // sKeyFolder = req.body.cKeyFolder;
-        console.log(idAppServerAdmin);
-        console.log(versionAppAdmin);
-        idAppUserDecode = Base64js.decode(idAppUser);
-        console.log(idAppUserDecode);
+        // console.log(idAppServerAdmin);
+        // console.log(versionAppAdmin);
+        // idAppUserDecode = Base64js.decode(idAppUser);
+        // console.log(idAppUserDecode);
         //{ inforAppversion: { $elemMatch: { version: versionAppAdmin } }
-        var dataAppVersionAdmin = await AppVersionAdminModels.findOne({ idApp: idAppServerAdmin }, { inforAppversion: { $elemMatch: { version: versionAppAdmin } } }).exec();
-        console.log('dataAppVersionAdmin: ' + dataAppVersionAdmin);
-        console.log('inforAppversion: ' + dataAppVersionAdmin.inforAppversion[0].version);
-        console.log('nameFile: ' + dataAppVersionAdmin.inforAppversion[0].nameFile);
-        //////////////
-        nameFileCodeAdmin = dataAppVersionAdmin.inforAppversion[0].nameFile;
+        // var dataAppVersionAdmin = await AppVersionAdminModels.findOne({ idApp: idAppServerAdmin }, { inforAppversion: { $elemMatch: { version: versionAppAdmin } } }).exec();
+        // console.log('dataAppVersionAdmin: ' + dataAppVersionAdmin);
+        // console.log('inforAppversion: ' + dataAppVersionAdmin.inforAppversion[0].version);
+        // console.log('nameFile: ' + dataAppVersionAdmin.inforAppversion[0].nameFile);
+        // //////////////
+        // nameFileCodeAdmin = dataAppVersionAdmin.inforAppversion[0].nameFile;
         ///////////Get Value AppSettings//////////////////
         var dataSettings = await AppSettingModels.findOne({ idApp: idAppUser }).exec();
-        console.log('dataSettings: ' + dataSettings);
-        packageID = dataSettings.packageIDApp;
-        console.log(packageID);
+        // console.log('dataSettings: ' + dataSettings);
+        // packageID = dataSettings.packageIDApp;
+        // console.log(packageID);
         nameApp = dataSettings.nameApp;
         versionApp = dataSettings.version;
-        descriptionApp = dataSettings.description;
-        emailApp = dataSettings.emailApp;
-        hrefApp = dataSettings.authHref;
-        authApp = dataSettings.auth;
+        // descriptionApp = dataSettings.description;
+        // emailApp = dataSettings.emailApp;
+        // hrefApp = dataSettings.authHref;
+        // authApp = dataSettings.auth;
 
-        wordpressUrl = dataSettings.wpUrl;
-        wordpressPerPage = dataSettings.wpPerPage;
-        requestTimeOut = dataSettings.requestTimeout;
-        targetBlank = dataSettings.targetBlank;
-        dateFormat = dataSettings.dateFormat;
-        onesignalID = dataSettings.oneSignalID;
-        ggAnalytic = dataSettings.ggAnalytic;
-        adModAndroidBanner = dataSettings.adModAndroidBanner;
-        adModeAndroidInterstitial = dataSettings.adModeAndroidInterstitial;
-        adModiOsBanner = dataSettings.adModeIosBaner;
-        adModiOSInterstitial = dataSettings.adModeIosInterstitial;
+        // wordpressUrl = dataSettings.wpUrl;
+        // wordpressPerPage = dataSettings.wpPerPage;
+        // requestTimeOut = dataSettings.requestTimeout;
+        // targetBlank = dataSettings.targetBlank;
+        // dateFormat = dataSettings.dateFormat;
+        // onesignalID = dataSettings.oneSignalID;
+        // ggAnalytic = dataSettings.ggAnalytic;
+        // adModAndroidBanner = dataSettings.adModAndroidBanner;
+        // adModeAndroidInterstitial = dataSettings.adModeAndroidInterstitial;
+        // adModiOsBanner = dataSettings.adModeIosBaner;
+        // adModiOSInterstitial = dataSettings.adModeIosInterstitial;
 
         ///// Get Email Of User////////
         console.log(req.session.iduser);
@@ -484,184 +484,187 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                 });
             }
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        var pathSourceCodeAdmin = path.join(appRoot, 'public', 'sourcecodeapp', nameFileCodeAdmin);
-        if (fs.existsSync(pathSourceCodeAdmin)) {
-            /////// Extract File Source from admin////////////////
-            console.log('..........Extracting file source code admin........');
-            if (fs.existsSync(path.join(appRoot, 'public', 'project', idAppUser))) {
-                fse.removeSync(path.join(appRoot, 'public', 'project', idAppUser));
-            }
-            extract(pathSourceCodeAdmin, { dir: path.join(appRoot, 'public', 'project', idAppUser) }, async function(err, zipdata) {
-                if (err) {
-                    console.log('Extract fail: ' + err);
-                    return res.json({ status: 3, content: "Error extract file: " + err + '' });
-                } else {
-                    ////////Check Replace File In Setting App///////////////
-                    //////Create file config.xml/////////////
-                    var pathFileConfigExample = path.join(appRoot, 'public', 'project', idAppUser, 'config-example.xml');
-                    var pathFileConfigMain = path.join(appRoot, 'public', 'project', idAppUser, 'config.xml');
-                    if (fs.existsSync(pathFileConfigExample)) {
-                        console.log('check config.');
-                        var dataConfig = fs.readFileSync(pathFileConfigExample);
-                        console.log(dataConfig);
-                        console.log(packageID);
-                        var resultConfig = dataConfig.toString().replace('PACKAGE_ID', packageID);
-                        resultConfig = resultConfig.replace('APP_VERSION', versionApp);
-                        resultConfig = resultConfig.replace('APP_NAME', nameApp);
-                        resultConfig = resultConfig.replace('APP_DESCRIPTION', descriptionApp);
-                        resultConfig = resultConfig.replace('APP_EMAIL', emailApp);
-                        resultConfig = resultConfig.replace('AUTH_HREF', hrefApp);
-                        resultConfig = resultConfig.replace('APP_AUTHOR', authApp);
-                        console.log(resultConfig);
-                        fse.writeFileSync(pathFileConfigMain, resultConfig);
-                        // fse.copySync(pathFileConfigExample, pathFileConfigMain);
-                    }
-                    ///////////////Create file setting.js///////////////////
-                    var pathFileSettingExample = path.join(appRoot, 'public', 'project', idAppUser, 'src', 'assets', 'js', 'settings-example.js');
-                    var pathFileSettingsMain = path.join(appRoot, 'public', 'project', idAppUser, 'src', 'assets', 'js', 'settings.js');
-                    if (fs.existsSync(pathFileSettingExample)) {
-                        console.log('check setting.');
-                        var dataSettings = fs.readFileSync(pathFileSettingExample);
-                        console.log(dataSettings);
-                        var result = dataSettings.toString().replace('WORDPRESS_URL', wordpressUrl);
-                        result = result.replace('WORDPRESS_PER_PAGE', wordpressPerPage);
-                        result = result.replace('REQUEST_TIMEOUT', requestTimeOut);
-                        result = result.replace('OPEN_TARGET_BLANK', targetBlank);
-                        result = result.replace('DATE_FORMAT', dateFormat);
-                        result = result.replace('ONESIGNAL_APP_ID', onesignalID);
-                        result = result.replace('GOOGLE_ANALYTICS', ggAnalytic);
-                        result = result.replace('ADMOB_ANDROID_BANNER', adModAndroidBanner);
-                        result = result.replace('ADMOB_ANDROID_INTERSTITIAL', adModeAndroidInterstitial);
-                        result = result.replace('ADMOB_IOS_BANNER', adModiOsBanner);
-                        result = result.replace('ADMOB_IOS_INTERSTITIAL', adModiOSInterstitial);
-                        // console.log(result);
-                        fse.writeFileSync(pathFileSettingsMain, result);
+            // var pathSourceCodeAdmin = path.join(appRoot, 'public', 'sourcecodeapp', nameFileCodeAdmin);
+            // if (fs.existsSync(pathSourceCodeAdmin)) {
+            //     /////// Extract File Source from admin////////////////
+            //     console.log('..........Extracting file source code admin........');
+            //     if (fs.existsSync(path.join(appRoot, 'public', 'project', idAppUser))) {
+            //         fse.removeSync(path.join(appRoot, 'public', 'project', idAppUser));
+            //     }
+            //     extract(pathSourceCodeAdmin, { dir: path.join(appRoot, 'public', 'project', idAppUser) }, async function(err, zipdata) {
+            //         if (err) {
+            //             console.log('Extract fail: ' + err);
+            //             return res.json({ status: 3, content: "Error extract file: " + err + '' });
+            //         } else {
+            //             ////////Check Replace File In Setting App///////////////
+            //             //////Create file config.xml/////////////
+            //             var pathFileConfigExample = path.join(appRoot, 'public', 'project', idAppUser, 'config-example.xml');
+            //             var pathFileConfigMain = path.join(appRoot, 'public', 'project', idAppUser, 'config.xml');
+            //             if (fs.existsSync(pathFileConfigExample)) {
+            //                 console.log('check config.');
+            //                 var dataConfig = fs.readFileSync(pathFileConfigExample);
+            //                 console.log(dataConfig);
+            //                 console.log(packageID);
+            //                 var resultConfig = dataConfig.toString().replace('PACKAGE_ID', packageID);
+            //                 resultConfig = resultConfig.replace('APP_VERSION', versionApp);
+            //                 resultConfig = resultConfig.replace('APP_NAME', nameApp);
+            //                 resultConfig = resultConfig.replace('APP_DESCRIPTION', descriptionApp);
+            //                 resultConfig = resultConfig.replace('APP_EMAIL', emailApp);
+            //                 resultConfig = resultConfig.replace('AUTH_HREF', hrefApp);
+            //                 resultConfig = resultConfig.replace('APP_AUTHOR', authApp);
+            //                 console.log(resultConfig);
+            //                 fse.writeFileSync(pathFileConfigMain, resultConfig);
+            //                 // fse.copySync(pathFileConfigExample, pathFileConfigMain);
+            //             }
+            //             ///////////////Create file setting.js///////////////////
+            //             var pathFileSettingExample = path.join(appRoot, 'public', 'project', idAppUser, 'src', 'assets', 'js', 'settings-example.js');
+            //             var pathFileSettingsMain = path.join(appRoot, 'public', 'project', idAppUser, 'src', 'assets', 'js', 'settings.js');
+            //             if (fs.existsSync(pathFileSettingExample)) {
+            //                 console.log('check setting.');
+            //                 var dataSettings = fs.readFileSync(pathFileSettingExample);
+            //                 console.log(dataSettings);
+            //                 var result = dataSettings.toString().replace('WORDPRESS_URL', wordpressUrl);
+            //                 result = result.replace('WORDPRESS_PER_PAGE', wordpressPerPage);
+            //                 result = result.replace('REQUEST_TIMEOUT', requestTimeOut);
+            //                 result = result.replace('OPEN_TARGET_BLANK', targetBlank);
+            //                 result = result.replace('DATE_FORMAT', dateFormat);
+            //                 result = result.replace('ONESIGNAL_APP_ID', onesignalID);
+            //                 result = result.replace('GOOGLE_ANALYTICS', ggAnalytic);
+            //                 result = result.replace('ADMOB_ANDROID_BANNER', adModAndroidBanner);
+            //                 result = result.replace('ADMOB_ANDROID_INTERSTITIAL', adModeAndroidInterstitial);
+            //                 result = result.replace('ADMOB_IOS_BANNER', adModiOsBanner);
+            //                 result = result.replace('ADMOB_IOS_INTERSTITIAL', adModiOSInterstitial);
+            //                 // console.log(result);
+            //                 fse.writeFileSync(pathFileSettingsMain, result);
 
-                        // var outFile = fs.writeFileSync(pathFilePrimary, result);
-                    }
-                    try {
-                        console.log('--------------------------------------------------------');
-                        console.log('============== Deployapp App From Source Code Admin =============');
-                        console.log('--------------------------------------------------------');
-                        console.log('-------Checking Build-------');
-                        return checkBuilding(sumBuild, idAppUser)
-                            .then(() => {
-                                process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
-                                console.log('...Access file...');
-                                return commandLine('chmod', ['-R', '777', './']);
-                            })
-                            .then(() => {
-                                process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
-                                console.log('Start rebuild...');
-                                return commandLine('npm', ['rebuild', 'node-sass']);
-                            })
-                            .then(() => {
-                                console.log('...Add platform...');
-                                var cmdRelease = 'ionic';
-                                var argv;
-                                argv = ['platform', 'add', 'android'];
-                                process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
-                                return commandLine(cmdRelease, argv);
-                            }).then(() => {
-                                console.log('...Build Android Debug...');
-                                var cmd = 'ionic';
-                                // var cmd = 'cordova';
-                                var argvBuild = ['build', 'android', '--prod'];
-                                process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
-                                return commandLine(cmd, argvBuild);
-                            }).then(() => {
-                                console.log('...Copy File Apk Unsign...');
-                                return copyFileApkDebug(path.join(appRoot, 'public', 'project', idAppUser), path.join(appRoot, 'public', 'backupapk'), idAppUser, nameApp);
-                            }).then(() => {
-                                console.log('...Build Android Release...');
-                                var cmdRelease = 'ionic';
-                                // var cmdRelease = 'cordova';
-                                var argv = ['build', 'android', '--release', '--prod'];
-                                process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
-                                return commandLine(cmdRelease, argv);
-                            }).then(() => {
-                                console.log('...Copy File Apk Sign....');
-                                return copyFileApkToSignDash(path.join(appRoot, 'public', 'project', idAppUser), path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp);
-                            }).then(() => {
-                                console.log('...Generate Key...');
-                                return generatesKeyStore(path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp, CN, OU, O, L, ST, C, keystore, alias);
-                            }).then(() => {
-                                console.log('...Generate Keystore File txt...');
-                                return genKeyStoreText(path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp, keystore, CN, OU, O, L, ST, C, alias);
-                            }).then(() => {
-                                console.log('...Sign App.....');
-                                // res.send('Sign app...');
-                                return jarSignerApp(path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp, keystore, alias);
-                            }).then(() => {
-                                console.log('...Zip File....');
-                                console.log(path.join(appRoot, 'public', 'backupapk', idAppUser));
-                                return zipAlignApp(path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp, nameApp);
-                            }).then(() => {
-                                console.log('===Update database===');
-                                // var hostName = req.headers.host;
-                                var slinkDebug = path.join('static', 'debug', idAppUser, versionApp, nameApp + '-debug.apk');
-                                var slinkSigned = path.join('static', 'signed', idAppUser, versionApp, nameApp + '.apk');
-                                slinkDebug = slinkDebug.replace(/ /g, '%20');
-                                slinkDebug = slinkDebug.replace("\\", "/");
-                                slinkSigned = slinkSigned.replace(/ /g, '%20');
-                                slinkSigned = slinkSigned.replace("\\", "/");
-                                slinkDebug = hostServer + '/' + slinkDebug;
-                                slinkSigned = hostServer + '/' + slinkSigned;
-                                console.log(slinkDebug);
-                                console.log(slinkSigned);
-                                var sLinkKeyStore = hostServer + '/download-keystore/' + idAppUser + '/' + versionApp;
-                                var sLinkKeyStoreText = hostServer + '/download-keystoretxt/' + idAppUser + '/' + versionApp;
+        //                 // var outFile = fs.writeFileSync(pathFilePrimary, result);
+        //             }
+        // .then(() => {
+        //     process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
+        //     console.log('...Access file...');
+        //     return commandLine('chmod', ['-R', '777', './']);
+        // })
+        // .then(() => {
+        //     process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
+        //     console.log('Start rebuild...');
+        //     return commandLine('npm', ['rebuild', 'node-sass']);
+        // })
+        // .then(() => {
+        //     console.log('...Add platform...');
+        //     var cmdRelease = 'ionic';
+        //     var argv;
+        //     argv = ['platform', 'add', 'android'];
+        //     process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
+        //     return commandLine(cmdRelease, argv);
+        // })
 
-                                var idAppDB = idAppUser;
-                                var idAppAdminDB = idAppServerAdmin;
-                                var versionAdminDB = versionAppAdmin;
-                                var dateCreateDB = Date.now();
-                                var versionUserDB = versionApp;
-                                var linkApkDebugDB = slinkDebug;
-                                var linkApkSignedDB = slinkSigned;
-                                var linkKeyStoreDB = sLinkKeyStore;
-                                var linkKeyStoreTextDB = sLinkKeyStoreText;
-                                console.log(req.session);
-                                // var userDeployappDB
+        try {
+            console.log('--------------------------------------------------------');
+            console.log('============== Deployapp App From Source Code Admin =============');
+            console.log('--------------------------------------------------------');
+            console.log('-------Checking Build-------');
+            return checkBuilding(sumBuild, idAppUser)
+                .then(() => {
+                    console.log('...Build Android Debug...');
+                    var cmd = 'ionic';
+                    // var cmd = 'cordova';
+                    var argvBuild = ['build', 'android', '--prod'];
+                    process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
+                    return commandLine(cmd, argvBuild);
+                }).then(() => {
+                    console.log('...Copy File Apk Unsign...');
+                    return copyFileApkDebug(path.join(appRoot, 'public', 'project', idAppUser), path.join(appRoot, 'public', 'backupapk'), idAppUser, nameApp);
+                }).then(() => {
+                    console.log('...Build Android Release...');
+                    var cmdRelease = 'ionic';
+                    // var cmdRelease = 'cordova';
+                    var argv = ['build', 'android', '--release', '--prod'];
+                    process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
+                    return commandLine(cmdRelease, argv);
+                }).then(() => {
+                    console.log('...Copy File Apk Sign....');
+                    return copyFileApkToSignDash(path.join(appRoot, 'public', 'project', idAppUser), path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp);
+                }).then(() => {
+                    console.log('...Generate Key...');
+                    return generatesKeyStore(path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp, CN, OU, O, L, ST, C, keystore, alias);
+                }).then(() => {
+                    console.log('...Generate Keystore File txt...');
+                    return genKeyStoreText(path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp, keystore, CN, OU, O, L, ST, C, alias);
+                }).then(() => {
+                    console.log('...Sign App.....');
+                    // res.send('Sign app...');
+                    return jarSignerApp(path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp, keystore, alias);
+                }).then(() => {
+                    console.log('...Zip File....');
+                    console.log(path.join(appRoot, 'public', 'backupapk', idAppUser));
+                    return zipAlignApp(path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp, nameApp);
+                }).then(() => {
+                    console.log('===Update database===');
+                    // var hostName = req.headers.host;
+                    var slinkDebug = path.join('static', 'debug', idAppUser, versionApp, nameApp + '-debug.apk');
+                    var slinkSigned = path.join('static', 'signed', idAppUser, versionApp, nameApp + '.apk');
+                    slinkDebug = slinkDebug.replace(/ /g, '%20');
+                    slinkDebug = slinkDebug.replace("\\", "/");
+                    slinkSigned = slinkSigned.replace(/ /g, '%20');
+                    slinkSigned = slinkSigned.replace("\\", "/");
+                    slinkDebug = hostServer + '/' + slinkDebug;
+                    slinkSigned = hostServer + '/' + slinkSigned;
+                    console.log(slinkDebug);
+                    console.log(slinkSigned);
+                    var sLinkKeyStore = hostServer + '/download-keystore/' + idAppUser + '/' + versionApp;
+                    var sLinkKeyStoreText = hostServer + '/download-keystoretxt/' + idAppUser + '/' + versionApp;
 
-                                // var value = { linkDebug: slinkDebug, linkSigned: slinkSigned, linkKeyStore: sLinkKeyStore, linkKeyStoretxt: sLinkKeyStoreText, stepBuild: 'builded', buildNewApp: true };
-                                return updateDBAppversionUser(idAppDB, idAppAdminDB, versionAdminDB, versionUserDB, linkApkDebugDB, linkApkSignedDB, linkKeyStoreDB, linkKeyStoreTextDB);
-                                // return sendLinkMail(mailCustomer, slinkDebug, slinkSigned, sAppName)
-                            }).then((resValue) => {
-                                console.log('Start send mail');
-                                console.log(resValue);
-                                return sendLinkMail(emailUser, resValue.linkApkDebug, resValue.linkApkSigned, resValue.linkKeyStore, nameApp, resValue.version, resValue.dateCreate);
-                                // sendLinkMail = (emailReceive, linkAppDebug, linkAppSigned, fLinkKeyStore, App, fVersionApp, dateApp)
-                                // resolve({ linkApkDebug: fLinkApkDebugDB, linkApkSigned: linkApkSignedDB, linkKeyStore: linkKeyStoreDB, version: fVersionUserDB, dateCreate: dateCreateDB });
-                            }).then(() => {
-                                console.log('Success');
-                                return res.json({ status: 1, content: "Success." });
-                            }).catch((ex) => {
-                                console.log('========================= ERROR =========================================');
-                                console.log('Lỗi Tổng: ' + ex);
-                                listBuildingModels.remove({ keyFolder: idAppUser }, function(err, kq) {
-                                    if (err) {
-                                        return res.json({ status: 3, content: err + '' });
-                                    }
-                                    try {
-                                        fse.removeSync(path.join(appRoot, 'public', 'project', idAppUser));
-                                        return res.json({ status: 3, content: ex + '' });
-                                    } catch (error) {
-                                        return res.json({ status: 3, content: error + '' });
-                                    }
-                                });
-                            });
+                    var idAppDB = idAppUser;
+                    var idAppAdminDB = idAppServerAdmin;
+                    var versionAdminDB = versionAppAdmin;
+                    var dateCreateDB = Date.now();
+                    var versionUserDB = versionApp;
+                    var linkApkDebugDB = slinkDebug;
+                    var linkApkSignedDB = slinkSigned;
+                    var linkKeyStoreDB = sLinkKeyStore;
+                    var linkKeyStoreTextDB = sLinkKeyStoreText;
+                    console.log(req.session);
+                    // var userDeployappDB
 
-                    } catch (error) {
-                        return res.json({ status: 3, content: error + '' });
-                    }
-                    // return res.json({ status: 1, content: 'success' });
-                }
-            });
+                    // var value = { linkDebug: slinkDebug, linkSigned: slinkSigned, linkKeyStore: sLinkKeyStore, linkKeyStoretxt: sLinkKeyStoreText, stepBuild: 'builded', buildNewApp: true };
+                    return updateDBAppversionUser(idAppDB, idAppAdminDB, versionAdminDB, versionUserDB, linkApkDebugDB, linkApkSignedDB, linkKeyStoreDB, linkKeyStoreTextDB);
+                    // return sendLinkMail(mailCustomer, slinkDebug, slinkSigned, sAppName)
+                }).then((resValue) => {
+                    console.log('Start send mail');
+                    console.log(resValue);
+                    return sendLinkMail(emailUser, resValue.linkApkDebug, resValue.linkApkSigned, resValue.linkKeyStore, nameApp, resValue.version, resValue.dateCreate);
+                    // sendLinkMail = (emailReceive, linkAppDebug, linkAppSigned, fLinkKeyStore, App, fVersionApp, dateApp)
+                    // resolve({ linkApkDebug: fLinkApkDebugDB, linkApkSigned: linkApkSignedDB, linkKeyStore: linkKeyStoreDB, version: fVersionUserDB, dateCreate: dateCreateDB });
+                }).then(() => {
+                    console.log('Success');
+                    return res.json({ status: 1, content: "Success." });
+                }).catch((ex) => {
+                    console.log('========================= ERROR =========================================');
+                    console.log('Lỗi Tổng: ' + ex);
+                    listBuildingModels.remove({ keyFolder: idAppUser }, function(err, kq) {
+                        if (err) {
+                            return res.json({ status: 3, content: err + '' });
+                        }
+                        try {
+                            fse.removeSync(path.join(appRoot, 'public', 'project', idAppUser));
+                            return res.json({ status: 3, content: ex + '' });
+                        } catch (error) {
+                            return res.json({ status: 3, content: error + '' });
+                        }
+                    });
+                });
 
-        } else {
-            return res.json({ status: 3, content: "Can't find source code from admin." });
+        } catch (error) {
+            return res.json({ status: 3, content: error + '' });
         }
+
+        // return res.json({ status: 1, content: 'success' });
+        //         }
+        //     });
+
+        // } else {
+        //     return res.json({ status: 3, content: "Can't find source code from admin." });
+        // }
 
 
         // nameFileCodeAdmin = dataAppVersionAdmin.inforAppversion[0];

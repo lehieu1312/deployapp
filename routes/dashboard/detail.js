@@ -224,7 +224,7 @@ router.get('/dashboard', checkAdmin, (req, res) => {
         })
 
     } catch (error) {
-        console.log(error + "")
+        console.log(error)
         res.render("error", {
             title: "Error",
             error: error + ""

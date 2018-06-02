@@ -60,13 +60,12 @@
                                     
                                         </label>
                                         <% if(arrFile[i]['field'][j]['$'].type=='string'){%>
-                                            <div class="arrFile[i][ 'field'][j][ '$'].rules">
+                                            <div class="arrFile[i]['field'][j]['$'].rules">
                                                 <% if(arrFile[i][ 'field'][j][ '$'].required=='true'){%>
-                                                    <input class="form-control " maxlength="<%=arrFile[i][ 'field'][j][ '$'].maxLength %>" required="<%=arrFile[i][ 'field'][j][ '$'].required %>" type="text" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>" rules="<%=arrFile[i][ 'field'][j][ '$'].rules %>"
-                                                        value="<%=arrFile[i][ 'field'][j][ '$'].Default %>" />
+                                                    <input class="form-control" maxlength="<%=arrFile[i]['field'][j][ '$'].maxLength %>" required="<%=arrFile[i]['field'][j]['$'].required %>" type="text" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>" rules="<%=arrFile[i]['field'][j]['$'].rules %>"
+                                                        value="<%=arrFile[i]['field'][j]['$'].Default %>" />
                                                     <%}else{%>
-                                                        <input class="form-control " maxlength="<%=arrFile[i][ 'field'][j][ '$'].maxLength %>" type="text" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>" rules="<%=arrFile[i][ 'field'][j][ '$'].rules %>" value="<%=arrFile[i][ 'field'][j][ '$'].Default %>"
-                                                        />
+                                                        <input class="form-control" maxlength="<%=arrFile[i]['field'][j]['$'].maxLength %>" type="text" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>" rules="<%=arrFile[i]['field'][j]['$'].rules %>" value="<%=arrFile[i]['field'][j]['$'].Default %>" />
                                                         <%}%>
                                                             <span id="icon-err" class="glyphicon glyphicon-remove form-control-feedback display-none"></span>
                                             </div>
@@ -74,10 +73,10 @@
                                             <%}else  if(arrFile[i]['field'][j]['$'].type=='boolean'){%>
                                                 <div class="">
                                                     <label class="radio-inline">
-                                                     <input type="radio" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>"  value="true" checked rules="<%=arrFile[i][ 'field'][j][ '$'].rules %>" /> true
+                                                     <input type="radio" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>"  value="true" checked rules="<%=arrFile[i]['field'][j]['$'].rules %>" /> true
                                                 </label>
                                                     <label class="radio-inline">
-                                                    <input type="radio" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>"  value="false" rules="<%=arrFile[i][ 'field'][j][ '$'].rules %>" /> false
+                                                    <input type="radio" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>"  value="false" rules="<%=arrFile[i]['field'][j]['$'].rules %>" /> false
                                                 </label>
                                                 </div>
 
@@ -85,31 +84,31 @@
                                                 <%}else  if(arrFile[i]['field'][j]['$'].type=='textarea'){%>
                                                     <div class=" ">
                                                         <% if(arrFile[i][ 'field'][j][ '$'].required=='true'){%>
-                                                            <textarea class="form-control" maxlength="<%=arrFile[i][ 'field'][j][ '$'].maxLength %>" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>" required="<%=arrFile[i][ 'field'][j][ '$'].required %>" rules="<%=arrFile[i][ 'field'][j][ '$'].rules %>" rows="5"
-                                                                value="<%=arrFile[i][ 'field'][j][ '$'].Default %>"></textarea>
+                                                            <textarea class="form-control" maxlength="<%=arrFile[i]['field'][j]['$'].maxLength %>" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>" required="<%=arrFile[i]['field'][j]['$'].required %>" rules="<%=arrFile[i]['field'][j]['$'].rules %>" rows="5"
+                                                                value="<%=arrFile[i]['field'][j]['$'].Default %>"></textarea>
                                                             <%}else{%>
-                                                                <textarea class="form-control" maxlength="<%=arrFile[i][ 'field'][j][ '$'].maxLength %>" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>" rules="<%=arrFile[i][ 'field'][j][ '$'].rules %>" rows="5" value="<%=arrFile[i][ 'field'][j][ '$'].Default %>"></textarea>
+                                                                <textarea class="form-control" maxlength="<%=arrFile[i]['field'][j]['$'].maxLength %>" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>" rules="<%=arrFile[i]['field'][j]['$'].rules %>" rows="5" value="<%=arrFile[i]['field'][j]['$'].Default %>"></textarea>
                                                                 <%}%>
                                                                     <span id="icon-err" class="glyphicon glyphicon-remove form-control-feedback display-none"></span>
                                                     </div>
                                                     <%}else  if(arrFile[i]['field'][j]['$'].type=='editor'){%>
                                                         <div class="">
                                                             <% if(arrFile[i][ 'field'][j][ '$'].required=='true'){%>
-                                                                <textarea class="form-control editor" maxlength="<%=arrFile[i][ 'field'][j][ '$'].maxLength %>" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>" required="<%=arrFile[i][ 'field'][j][ '$'].required %>" rules="<%=arrFile[i][ 'field'][j][ '$'].rules %>"
-                                                                    rows="10" value="<%=arrFile[i][ 'field'][j][ '$'].Default %>"></textarea>
+                                                                <textarea class="form-control editor" maxlength="<%=arrFile[i]['field'][j]['$'].maxLength %>" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>" required="<%=arrFile[i]['field'][j]['$'].required %>" rules="<%=arrFile[i]['field'][j]['$'].rules %>"
+                                                                    rows="10" value="<%=arrFile[i]['field'][j]['$'].Default %>"></textarea>
                                                                 <%}else{%>
-                                                                    <textarea class="form-control editor" maxlength="<%=arrFile[i][ 'field'][j][ '$'].maxLength %>" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>" rules="<%=arrFile[i][ 'field'][j][ '$'].rules %>" value="<%=arrFile[i][ 'field'][j][ '$'].Default %>"></textarea>
+                                                                    <textarea class="form-control editor" maxlength="<%=arrFile[i]['field'][j]['$'].maxLength %>" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>" rules="<%=arrFile[i]['field'][j]['$'].rules %>" value="<%=arrFile[i]['field'][j]['$'].Default %>"></textarea>
                                                                     <%}%>
                                                                         <span id="icon-err" class="glyphicon glyphicon-remove form-control-feedback display-none"></span>
                                                         </div>
                                                         <span id="icon-err" class="glyphicon glyphicon-remove form-control-feedback display-none"> </span>
                                                         <%}else{%>
                                                             <% if(arrFile[i][ 'field'][j][ '$'].required=='true'){%>
-                                                                <div class=""><input class="form-control" maxlength="<%=arrFile[i][ 'field'][j][ '$'].maxLength %>" required="<%=arrFile[i]['field'][j]['$'].required %>" type="<%=arrFile[i]['field'][j]['$'].type %>" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>"
-                                                                        rules="<%=arrFile[i][ 'field'][j][ '$'].rules %>" value="<%=arrFile[i][ 'field'][j][ '$'].Default %>" />
+                                                                <div class=""><input class="form-control" maxlength="<%=arrFile[i]['field'][j]['$'].maxLength %>" required="<%=arrFile[i]['field'][j]['$'].required %>" type="<%=arrFile[i]['field'][j]['$'].type %>" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>"
+                                                                        rules="<%=arrFile[i]['field'][j]['$'].rules %>" value="<%=arrFile[i]['field'][j]['$'].Default %>" />
                                                                     <%}else{%>
-                                                                        <div class=""><input class="form-control" maxlength="<%=arrFile[i][ 'field'][j][ '$'].maxLength %>" type="<%=arrFile[i]['field'][j]['$'].type %>" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>"
-                                                                                rules="<%=arrFile[i][ 'field'][j][ '$'].rules %>" value="<%=arrFile[i][ 'field'][j][ '$'].Default %>" />
+                                                                        <div class=""><input class="form-control" maxlength="<%=arrFile[i]['field'][j]['$'].maxLength %>" type="<%=arrFile[i]['field'][j]['$'].type %>" name="<%=path+'='+arrFile[i]['field'][j]['$'].name %>"
+                                                                                rules="<%=arrFile[i]['field'][j]['$'].rules %>" value="<%=arrFile[i]['field'][j]['$'].Default %>" />
                                                                             <%}%>
                                                                                 <span id="icon-err" class="glyphicon glyphicon-remove form-control-feedback display-none"></span>
                                                                         </div>

@@ -1102,8 +1102,10 @@ app.use(function(err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
     // render the error page
+    console.log(err);
+    console.log(err.message);
     res.status(err.status || 500);
-    res.render('error', {
+    return res.render('error', {
         title: 'Page Not Found'
     });
 });

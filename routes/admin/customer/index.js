@@ -380,6 +380,7 @@ router.get('/login/:id', checkAdmin, async(req, res) => {
                     req.session.fullname = dataFindUser.firstname + " " + dataFindUser.lastname;
                     req.session.iduser = dataFindUser.id;
                     req.session.cart = [];
+                    console.log(req.session);
                     console.log('---------Da check-----------');
                     return res.redirect('/dashboard');
                 } else {

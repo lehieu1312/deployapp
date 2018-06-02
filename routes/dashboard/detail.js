@@ -152,6 +152,7 @@ router.post('/updatestatusnotiforuser', (req, res) => {
 router.get('/dashboard', checkAdmin, (req, res) => {
         try {
             console.log('------Vao dashboard--------- ');
+            console.log(req.session);
             User.findOne({
                 id: req.session.iduser,
                 status: true
@@ -232,7 +233,7 @@ router.get('/dashboard', checkAdmin, (req, res) => {
             })
 
         } catch (error) {
-            console.log(error + "")
+            console.log(error)
             res.render("error", {
                 title: "Error",
                 error: error + ""

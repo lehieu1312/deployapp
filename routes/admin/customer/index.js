@@ -375,7 +375,7 @@ router.get('/login/:id', checkAdmin, async(req, res) => {
         var idUser = req.params.id;
         console.log(idUser);
         if (idUser) {
-            return userModels.findOne({ id: idUser }).then((dataFindUser) => {
+            return userModels.findOne({ id: idUser, status: true }).then((dataFindUser) => {
                 console.log(dataFindUser);
                 if (dataFindUser) {
                     req.session.fullname = dataFindUser.firstname + " " + dataFindUser.lastname;
@@ -385,7 +385,7 @@ router.get('/login/:id', checkAdmin, async(req, res) => {
                     console.log('---------Da check-----------');
                     return res.redirect('/dashboard');
                 } else {
-                    return res.json({ status: 3, msg: 'Not find user' });
+                    return res.json({ status: 3, msg: 'Account does not exist or is not active' });
                 }
             });
         } else {

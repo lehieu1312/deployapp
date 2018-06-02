@@ -28,10 +28,95 @@ var parser = new xml2js.Parser();
 appRoot = appRoot.toString();
 var router = express.Router();
 
+router.post('/setting-test', (req, res) => {
+    var pathParams = path.join(appRoot, 'public', 'sourcecodeapp', 'params.xml');
+    var dataFileParams = fs.readFileSync(pathParams);
+    console.log('req.body');
+    console.log(req.body);
+
+    parser.parseString(dataFileParams, function(err, result) {
+        if (err) {
+            console.log(err);
+            return res.json({ status: 3, msg: err + '' });
+        }
+        console.log('file params');
+        console.log('arrFile: ' + result['root']['file']);
+        var arrFile = result['root']['file'];
+        console.log('arr: ' + arrFile);
+        console.log(JSON.stringify(arrFile));
+        return res.json({ status: 1, arrFileParams: arrFile });
+    });
+});
+router.post('/setting-replace', (req, res) => {
+    console.log('req.body');
+    console.log(req.body);
+    return res.json({ status: 1, msg: 'Success' });
+
+});
+
+router.post('/setting-app', (req, res) => {
+    try {
+        console.log('req.body');
+        console.log(req.body);
+
+        var inputValue = req.body;
+        var arrCheckFile = [];
+        var idUser = req.body.iduser;
+        var platformApp = req.body.platform;
+        var versionAdmin = req.body.versionadmin;
+        var idAppAdmin = req.body.idappadmin;
+        var checkFile = true;
+        var msgFile = '';
+        async.forEachOf(inputValue, (value, key) => {
+            console.log('key: ' + key);
+            if (key != 'iduser' && key != 'platform' && key != 'versionadmin' && key != 'idappadmin') {
+                var fileNameDefault = key.split('=').shift().split('.').shift() + '-example' + '.' + key.split('=').shift().split('.').pop();
+                var fileNamePrimary = key.split('=').shift().split('.').shift() + '.' + key.split('=').shift().split('.').pop();
+                // console.log(fileNameDefault);
+                console.log(fileNamePrimary);
+                var fileNamePrimaryDemo = key.split('=').shift();
+                var keyMain = key.split('=').pop();
+                var pathFileDefault = path.join(appRoot, 'public', 'project', idUser, fileNameDefault);
+                var pathFilePrimary = path.join(appRoot, 'public', 'project', idUser, fileNamePrimary);
+                // console.log(pathFileDefault);
+                // console.log(pathFilePrimary);
+                if (arrCheckFile.indexOf(pathFilePrimary) == -1) {
+                    if (fs.existsSync(pathFileDefault)) {
+                        fse.copySync(pathFileDefault, pathFilePrimary);
+                        arrCheckFile.push(pathFilePrimary);
+                    } else {
+                        checkFile = false;
+                        msgFile = fileNameDefault;
+                        // return res.json({ status: "3", content: "The example file is not found: " + fileNameDefault });
+                    }
+                }
+                var data = fs.readFileSync(pathFilePrimary);
+                var result = data.toString().replace(key.split('=').pop(), inputValue[key]);
+                fs.writeFileSync(pathFilePrimary, result);
+                if (fileNamePrimary.indexOf('setting') != -1) {
+                    console.log('key api');
+                    var resultAPI = data.toString().replace('KEY_API_DEPLOY', idUser);
+                    fs.writeFileSync(pathFilePrimary, resultAPI);
+                }
+            }
+        });
+
+        if (checkFile == false) {
+            return res.json({ status: 3, content: "The example file is not found: " + msgFile });
+        } else {
+            return res.json({ status: 1, platformApp: platformApp, versionAdmin, idAppAdmin, idUser, msg: 'Success' });
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.json({ status: 3, msg: error + '' })
+    }
+});
+
 router.post('/platform-dash', async(req, res) => {
     try {
         var sTypeApp, sPathRootApp, sAppName;
-        var platformsApp, versionAppAdmin, idAppServerAdmin, nameFileCodeAdmin, idAppUser, idAppUserDecode, emailUser;
+        var platformApp, versionAppAdmin, idAppServerAdmin, nameFileCodeAdmin, idAppUser, idAppUserDecode, emailUser;
         var packageID, nameApp, versionApp, descriptionApp, emailApp, hrefApp, authApp;
         var wordpressUrl, wordpressPerPage, requestTimeOut, targetBlank, dateFormat, onesignalID, ggAnalytic, adModAndroidBanner, adModeAndroidInterstitial, adModiOsBanner, adModiOSInterstitial;
         ////////////////Check Value Form///////////////
@@ -48,14 +133,14 @@ router.post('/platform-dash', async(req, res) => {
             return res.json({ status: "2", content: errors });
         }
         //////////////Get Value Form////////////////
-        platformsApp = req.body.platform;
+        platformApp = req.body.platform;
         versionAppAdmin = req.body.versionadmin;
         idAppServerAdmin = req.body.idappadmin;
         idAppUser = req.body.idappuser;
 
         /////////////////////////////////////
         // sKeyFolder = req.body.cKeyFolder;
-        console.log(platformsApp);
+        console.log(platformApp);
         console.log(idAppServerAdmin);
         console.log(versionAppAdmin);
         console.log(idAppUser);
@@ -176,9 +261,10 @@ router.post('/platform-dash', async(req, res) => {
         if (fs.existsSync(pathSourceCodeAdmin)) {
             /////// Extract File Source from admin////////////////
             console.log('..........Extracting file source code admin........');
-            if (fs.existsSync(path.join(appRoot, 'public', 'project', idAppUser))) {
-                fse.removeSync(path.join(appRoot, 'public', 'project', idAppUser));
-            }
+            // if (fs.existsSync(path.join(appRoot, 'public', 'project', idAppUser))) {
+            //     console.log('...Da ton tai folder -> Dang xoa folder');
+            //     fse.removeSync(path.join(appRoot, 'public', 'project', idAppUser));
+            // }
             console.log('start extract');
             extract(pathSourceCodeAdmin, { dir: path.join(appRoot, 'public', 'project', idAppUser) }, async function(err, zipdata) {
                 if (err) {
@@ -247,7 +333,11 @@ router.post('/platform-dash', async(req, res) => {
                         console.log('...Add platform...');
                         var cmdRelease = 'ionic';
                         var argv;
-                        argv = ['platform', 'add', 'android'];
+                        if (platformApp == 'android')
+                            argv = ['platform', 'add', 'android'];
+                        else
+                            argv = ['platform', 'add', 'ios'];
+
                         process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
                         return commandLine(cmdRelease, argv);
                     }).then(() => {
@@ -269,7 +359,7 @@ router.post('/platform-dash', async(req, res) => {
                             console.log('arr: ' + arrFile);
                             console.log(JSON.stringify(arrFile));
                             // return res.render('info-app', { fKeyFolder, title: 'Mobile App Builder For iOS and Android' });
-                            return res.json({ status: 1, keyFolder: idAppUser, arrFileParams: arrFile });
+                            return res.json({ status: 1, keyFolder: idAppUser, versionAppAdmin, idAppAdmin: idAppServerAdmin, platformApp, arrFileParams: arrFile });
                         });
                         // res.json({ status: 1, keyFolder: idAppUser, });
                     })
@@ -295,6 +385,7 @@ router.post('/platform-dash', async(req, res) => {
         }
 
     } catch (error) {
+        console.log(error);
         res.json({ status: 3, msg: error + '' });
     }
 });

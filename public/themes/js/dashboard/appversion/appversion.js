@@ -67,9 +67,9 @@ $(document).ready(() => {
 function clickdeployapp(fIDAppAdmin, fVersionAdmin, idAppUser) {
     console.log(fIDAppAdmin);
     console.log(fVersionAdmin);
-    $('#idapp').val(fIDAppAdmin);
-    $('#version').val(fVersionAdmin);
-    $('#idappuser').val(idAppUser);
+    $('#idappadminplatform').val(fIDAppAdmin);
+    $('#versionadminlatform').val(fVersionAdmin);
+    $('#idappuserplatform').val(idAppUser);
     $('#dialog-noti-choose-android-dashboard').fadeIn();
     var platform = "";
     $("#ios").click(function() {
@@ -109,54 +109,90 @@ function clickdeployapp(fIDAppAdmin, fVersionAdmin, idAppUser) {
                 $('.errPopup').hide();
             });
         } else {
-            if (platform == 'android') {
-                $('#loading').show();
-                $.ajax({
-                    url: "/dashboard/platform-dash",
-                    type: "POST",
-                    data: {
-                        // email: $('#email').val(),
-                        platform: 'android',
-                        versionadmin: $('#version').val(),
-                        idappadmin: $('#idapp').val(),
-                        idappuser: $('#idappuser').val()
-                    },
-                    success: function(result) {
-                        if (result.status == 1) {
-                            $("#dialog-build-android-dashboard").fadeOut();
-                            // $('.successPopup').show();
-                            // $('.contenemail').html(result.content[0]['msg']);
-                            console.log(result);
-                            $('#dialog-noti-choose-android-dashboard').fadeOut();
-                            $("#dialog-build-android-dashboard").fadeIn();
-                        } else if (result.status == 2) {
-                            // alert(result.content[0]['msg']);
-                            console.log(JSON.stringify(result.content));
-                            $('.errPopup').show();
-                            $('.alert-upload').html(result.content[0]['msg']);
-                        } else if (result.status == 3) {
-                            $('.errPopup').show();
-                            $('.alert-upload').html(result.content);
-                        } else {
-                            $('.errPopup').show();
-                            $('.alert-upload').html('Oops, something went wrong');
+
+            $('#loading').show();
+            $.ajax({
+                url: "/dashboard/platform-dash",
+                type: "POST",
+                data: {
+                    platform: 'android',
+                    versionadmin: $('#versionadminlatform').val(),
+                    idappadmin: $('#idappadminplatform').val(),
+                    idappuser: $('#idappuserplatform').val()
+                },
+                success: function(result) {
+                    if (result.status == 1) {
+                        $("#dialog-build-android-dashboard").fadeOut();
+                        console.log(result);
+                        var arrFile = result.arrFileParams;
+                        $("#fmIDUser").val(result.keyFolder);
+                        $("#fmPlatform").val(result.platformApp);
+                        $("#fmversionadmin").val(result.versionAppAdmin);
+                        $("#fmidappadmin").val(result.idAppAdmin);
+
+                        for (var j = 0; j < arrFile[0].field.length; j++) {
+                            var type = arrFile[0]['field'][j]['$'].type;
+                            var required = arrFile[0]['field'][j]['$'].required;
+                            var rules = arrFile[0]['field'][j]['$'].rules;
+                            var maxLength = arrFile[0]['field'][j]['$'].maxLength;
+                            var vDefault = arrFile[0]['field'][j]['$'].Default;
+                            console.log(vDefault);
+                            var name = arrFile[0]['field'][j]['$'].name;
+                            var path = arrFile[0]['$'].path;
+                            $('#fmSetting').append(`<div class="form-group group-input-setting has-feedback input-error">
+                                <label class="control-label ">
+                                ` + arrFile[0]['field'][j]['$'].label + `
+                                </label>
+                                
+                                ` + (type == 'string' ? `
+                                <div class="` + rules + `">
+                                <input class="form-control" maxlength="` + maxLength + `" required="` + required + `" type="text" name="` + path + `=` + name + `" rules="` + rules + `"
+                                value="` + (typeof vDefault != 'undefined' ? vDefault : '') + `" />
+
+                                </div>
+                                  ` : '') + `` +
+                                (type == 'boolean' ? `
+                                  <div class="">
+                                  <label class="radio-inline">
+                                   <input type="radio" name="` + path + `=` + name + `"  value="true" checked rules="` + rules + `" /> true
+                              </label>
+                                  <label class="radio-inline">
+                                  <input type="radio" name="` + path + `=` + name + `"  value="false" rules="` + rules + `" /> false
+                              </label>
+                              </div>
+                                  ` : '') +
+                                `
+                                </div>`);
                         }
-                    },
-                    error: function(jqXHR, exception) {
-                            $('.errPopup').show();
-                            $('.alert-upload').html('Oops, something went wrong');
-                        }
-                        // timeout: 300000
-                }).always(function(data) {
-                    $('#loading').hide();
-                });
+
+                        $('#dialog-noti-choose-android-dashboard').fadeOut();
+                        $("#dialog-setting-app-dashboard").fadeIn();
+
+                    } else if (result.status == 2) {
+                        // alert(result.content[0]['msg']);
+                        console.log(JSON.stringify(result.content));
+                        $('.errPopup').show();
+                        $('.alert-upload').html(result.content[0]['msg']);
+                    } else if (result.status == 3) {
+                        $('.errPopup').show();
+                        $('.alert-upload').html(result.content);
+                    } else {
+                        $('.errPopup').show();
+                        $('.alert-upload').html('Oops, something went wrong');
+                    }
+                },
+                error: function(jqXHR, exception) {
+                        $('.errPopup').show();
+                        $('.alert-upload').html('Oops, something went wrong');
+                    }
+                    // timeout: 300000
+            }).always(function(data) {
+                $('#loading').hide();
+            });
 
 
 
-            } else {
-                $('#dialog-noti-choose-android-dashboard').fadeOut();
-                $("#dialog-build-ios-dashboard").fadeIn();
-            }
+
         }
     });
     $('#btn-close-platform-dash').click(function() {
@@ -164,6 +200,12 @@ function clickdeployapp(fIDAppAdmin, fVersionAdmin, idAppUser) {
         $('#dialog-noti-choose-android-dashboard').hide();
 
     });
+    $('#btn-close-setting-app-dash').click(function() {
+        platform = "";
+        $('#dialog-setting-app-dashboard').hide();
+
+    });
+
     $('#btn-close-deployapp-dash').click(function() {
         platform = "";
         $('#dialog-build-android-dashboard').hide();

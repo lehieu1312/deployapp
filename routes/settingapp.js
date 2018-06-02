@@ -130,9 +130,6 @@ router.post('/setting-app', async function(req, res, next) {
         rootPath = req.body.pathRoot;
         fkeyFolder = req.body.keyFolder;
         console.log(rootPath);
-        // async.each(inputValue, function(returnValue) {
-        //     console.log('returnValue: ' + returnValue);
-        // });
         let checkJSONFunction = (str) => {
 
             try {

@@ -230,15 +230,18 @@ $(document).ready(() => {
                 type: "POST",
                 data: {
                     amount: amount.val(),
-                    currency,
-                    method,
+                    currency: currency,
+                    method: method,
                     note: note.val(),
-                    balance
+                    balance: balance
                 },
-                error: function (request, error) {
-                    console.log(error);
-                    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                    console.log(request);
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log('jqXHR:');
+                    console.log(jqXHR);
+                    console.log('textStatus:');
+                    console.log(textStatus);
+                    console.log('errorThrown:');
+                    console.log(errorThrown);
                 },
                 success: function (data) {
                     if (data.status == "1") {

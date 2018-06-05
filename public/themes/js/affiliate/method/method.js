@@ -104,6 +104,11 @@ $(document).ready(() => {
                     accountNumber: accountnumber.val(),
                     method
                 },
+                error: function (request, error) {
+                    console.log(error);
+                    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                    console.log(request);
+                },
                 success: function (data) {
                     if (data.status == "1") {
                         window.location.href = "/affiliate/payment-method";

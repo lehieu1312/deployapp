@@ -235,6 +235,11 @@ $(document).ready(() => {
                     note: note.val(),
                     balance
                 },
+                error: function (request, error) {
+                    console.log(error);
+                    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                    console.log(request);
+                },
                 success: function (data) {
                     if (data.status == "1") {
                         $("#myModal-success-withdrawal").find(".content-success").html("");

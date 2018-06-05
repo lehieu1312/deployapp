@@ -230,13 +230,32 @@ text-cent-money {
     float: left;
 }
 
+.set-input-statement {
+    margin-right: 8px !important;
+}
+
 .download-csv-statement {
+    color: #00afee;
     cursor: pointer;
+    padding-right: 8px;
+}
+
+.download-csv-statement img {
+    margin-bottom: 3px;
+    padding-right: 5px;
+}
+
+.set-btn-statement {
+    padding: 6px 12px 6px 12px;
+}
+
+.download-csv-statement:hover {
+    color: #00afee;
 }
 
 .header-history-statement {
     margin-top: 10px;
-    padding: 0 5px 0 15px;
+    padding: 0 5px 0 19px;
     height: 25px;
 }
 

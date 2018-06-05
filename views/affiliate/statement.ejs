@@ -31,7 +31,7 @@
                     </div>
                     <div class="description-total-statements">Remaining balance in your account</div>
                     <div class="button-withdrawal-statements">
-                        <button class="btn-blue-deploy">
+                        <button class="btn-blue-deploy set-btn-statement">
                             <img src="/themes/img/affiliate/iconwithdrawal.png" alt="money"> Withdrawal
                         </button>
                     </div>
@@ -42,78 +42,94 @@
                     <div class="content-head-statistics ">
                         <span class="settext-h1-traffic ">History</span>
                         <span class="graytext-h3 floatright ">
-                            <a class="download-csv-statement" onclick="download_csv()"> Download CSV</a>
+                            <a class="download-csv-statement" onclick="download_csv()">
+                                <img src="/themes/img/affiliate/icondownload.png"> Download CSV</a>
                         </span>
                     </div>
-                    <div id="content-history-statement">
-                        <div class="header-history-statement">
-                            <div class="item-header-history-statement float-left">
-                                <span>All( 7) |</span>
-                                <span class="colora">Pending payment</span>( 1) |
-                                <span class="colora">Completed</span>( 1) |
-                                <span class="colora">Cancelled(</span>( 2) |
-                            </div>
-                            <div class="item-header-history-statement float-left">
-                                <div class="content-title-detail has-feedback">
-                                    <span class="setsearch">
-                                        <input type="text" onkeyup="searchappversion()" id="inputsearchapp1" name="search" placeholder="Search...">
-                                        <span class="form-control-feedback-statement" aria-hidden="true">
-                                            <img src="/themes/img/dashboard/iconsearch.png">
+                    <%
+                            var number_status1 = history.filter(function(el){
+                                return el.status = 1;
+                            })
+                            var number_status2 = history.filter(function(el){
+                                return el.status = 2;
+                            })
+                            var number_status3 = history.filter(function(el){
+                                return el.status = 3;
+                            })
+                    %>
+
+                        <div id="content-history-statement">
+                            <div class="header-history-statement">
+                                <div class="item-header-history-statement float-left">
+                                    <span>All( 7) |</span>
+                                    <span class="colora">Pending payment</span>
+                                    <%="("+number_status1.length +")"%> |
+                                        <span class="colora">Completed</span>
+                                        <%="("+number_status2.length +")"%> |
+                                            <span class="colora">Cancelled(</span>
+                                            <%="("+number_status3.length +")"%> |
+                                </div>
+                                <div class="item-header-history-statement float-left">
+                                    <div class="content-title-detail has-feedback">
+                                        <span class="setsearch">
+                                            <input type="text" onkeyup="searchappversion()" class="set-input-statement" id="inputsearchapp1" name="search" placeholder="Search...">
+                                            <span class="form-control-feedback-statement" aria-hidden="true">
+                                                <img src="/themes/img/dashboard/iconsearch.png">
+                                            </span>
                                         </span>
-                                    </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="filter-table-appversion" class="set-table-statement row row1">
-                            <span class="table-show">Show</span>
-                            <div id="filter-number" class="btn-group">
-                                <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <span id="span-show-number" class="span-button-select">18</span>
-                                    <span class="caret arow-button-select"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li id="show9">
-                                        <a href="javascript:void(0)">9 Per page</a>
-                                    </li>
-                                    <li id="show18">
-                                        <a href="javascript:void(0)">18 Per page</a>
-                                    </li>
-                                    <li id="show27">
-                                        <a href="javascript:void(0)">27 Per page</a>
-                                    </li>
-                                    <li id="show36">
-                                        <a href="javascript:void(0)">36 Per page</a>
-                                    </li>
+                            <div id="filter-table-appversion" class="set-table-statement row row1">
+                                <span class="table-show">Show</span>
+                                <div id="filter-number" class="btn-group">
+                                    <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <span id="span-show-number" class="span-button-select">18</span>
+                                        <span class="caret arow-button-select"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li id="show9">
+                                            <a href="javascript:void(0)">9 Per page</a>
+                                        </li>
+                                        <li id="show18">
+                                            <a href="javascript:void(0)">18 Per page</a>
+                                        </li>
+                                        <li id="show27">
+                                            <a href="javascript:void(0)">27 Per page</a>
+                                        </li>
+                                        <li id="show36">
+                                            <a href="javascript:void(0)">36 Per page</a>
+                                        </li>
 
-                                </ul>
-                            </div>
-                            <div id="filter-date" class="btn-group">
-                                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span id="span-selcect-date" class="span-button-select">All Dates</span>
-                                    <span class="caret arow-button-select"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li id="select-date-1">
-                                        <a href="javascript:void(0)">Hours Ago</a>
-                                    </li>
-                                    <li id="select-date-2">
-                                        <a href="javascript:void(0)">Yesterday</a>
-                                    </li>
-                                    <li id="select-date-3">
-                                        <a href="javascript:void(0)">Last Weed</a>
-                                    </li>
-                                    <li id="select-date-4">
-                                        <a href="javascript:void(0)">All Dates</a>
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li id="select-date-5">
-                                        <input hidden id="fillter-date-custom" value="">
-                                        <a href="javascript:void(0)">Custom...</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- <div id="filter-status" class="btn-group">
+                                    </ul>
+                                </div>
+                                <div id="filter-date" class="btn-group">
+                                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span id="span-selcect-date" class="span-button-select">All Dates</span>
+                                        <span class="caret arow-button-select"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li id="select-date-1">
+                                            <a href="javascript:void(0)">Hours Ago</a>
+                                        </li>
+                                        <li id="select-date-2">
+                                            <a href="javascript:void(0)">Yesterday</a>
+                                        </li>
+                                        <li id="select-date-3">
+                                            <a href="javascript:void(0)">Last Weed</a>
+                                        </li>
+                                        <li id="select-date-4">
+                                            <a href="javascript:void(0)">All Dates</a>
+                                        </li>
+                                        <li role="separator" class="divider"></li>
+                                        <li id="select-date-5">
+                                            <input hidden id="fillter-date-custom" value="">
+                                            <a href="javascript:void(0)">Custom...</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- <div id="filter-status" class="btn-group">
                                 <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span id="span-selcect-status" class="span-button-select">New</span>
                                     <span class="caret arow-button-select"></span>
@@ -130,235 +146,235 @@
                                     </li>
                                 </ul>
                             </div> -->
-                            <div class="pagination-table-appversion1 row">
-                                <ul class="pagination set-pagination-statement">
-                                    <li class="edit-li-pagination">
-                                        <a class="number-items" href="javascript:void(0)"></a>
-                                    </li>
-                                    <li class="limitsuperback">
-                                        <a class="limitpagination" href="javascript:void(0)">
-                                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                    <li class="superback">
-                                        <a href="javascript:void(0)">
-                                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                    <li class="backpage">
-                                        <a href="javascript:void(0)">
-                                            <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                    <li class="limitback">
-                                        <a class="limitpagination" href="javascript:void(0)">
-                                            <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="thispage" href="javascript:void(0)">
+                                <div class="pagination-table-appversion1 row">
+                                    <ul class="pagination set-pagination-statement">
+                                        <li class="edit-li-pagination">
+                                            <a class="number-items" href="javascript:void(0)"></a>
+                                        </li>
+                                        <li class="limitsuperback">
+                                            <a class="limitpagination" href="javascript:void(0)">
+                                                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li class="superback">
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li class="backpage">
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li class="limitback">
+                                            <a class="limitpagination" href="javascript:void(0)">
+                                                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="thispage" href="javascript:void(0)">
 
-                                        </a>
-                                    </li>
-                                    <li class="edit-li-pagination">
-                                        <a class="numberpage" href="javascript:void(0)">
-                                        </a>
-                                    </li>
-                                    <li class="limitnext">
-                                        <a class="limitpagination" href="javascript:void(0)">
-                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                    <li class="nextpage">
-                                        <a href="javascript:void(0)">
-                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                    <li class="supernext">
-                                        <a href="javascript:void(0)">
-                                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                    <li class="limitsupernext">
-                                        <a class="limitpagination" href="javascript:void(0)">
-                                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                                            </a>
+                                        </li>
+                                        <li class="edit-li-pagination">
+                                            <a class="numberpage" href="javascript:void(0)">
+                                            </a>
+                                        </li>
+                                        <li class="limitnext">
+                                            <a class="limitpagination" href="javascript:void(0)">
+                                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li class="nextpage">
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li class="supernext">
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li class="limitsupernext">
+                                            <a class="limitpagination" href="javascript:void(0)">
+                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row row1">
-                            <div id="content-appversion">
-                                <table id="table-appversion">
-                                    <tr id="title-table-header">
-                                        <th width="7.6%">#</th>
-                                        <th width="15%">Date
-                                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
-                                        </th>
-                                        <th width="22.2%">Content
-                                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
-                                        </th>
-                                        <th width="12.2%">Amount
-                                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
-                                        </th>
-                                        <th width="10%">Status
-                                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
-                                        </th>
-                                        <th width="10%">Blance
-                                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
-                                        </th>
-                                        <th width="25%">Note
-                                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
-                                        </th>
-                                        <th width="8%">
-                                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
-                                        </th>
-                                    </tr>
-                                    <%   let status = ["Pedding", "Complate", "Cancel"] %>
-                                        <% for(let i = 0; i < history.length; i ++){%>
-                                            <% var number = history.length - i - 1;
+                            <div class="row row1">
+                                <div id="content-appversion">
+                                    <table id="table-appversion">
+                                        <tr id="title-table-header">
+                                            <th width="7.6%">#</th>
+                                            <th width="15%">Date
+                                                <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                                            </th>
+                                            <th width="22.2%">Content
+                                                <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                                            </th>
+                                            <th width="12.2%">Amount
+                                                <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                                            </th>
+                                            <th width="10%">Status
+                                                <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                                            </th>
+                                            <th width="10%">Blance
+                                                <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                                            </th>
+                                            <th width="25%">Note
+                                                <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                                            </th>
+                                            <th width="8%">
+                                                <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                                            </th>
+                                        </tr>
+                                        <%   let status = ["Pedding", "Complate", "Cancel"] %>
+                                            <% for(let i = 0; i < history.length; i ++){%>
+                                                <% var number = history.length - i - 1;
                                                 var d = history[number].dateCreate;
                                                 var m = d.getMonth() + 1;
                                                 var updated = d.getDate() + "/" + m + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " GMT";    
                                                 var arr = updated.split(" ");
                                             %>
-                                                <input class="id-history" hidden value="<%=history[i].id%>">
-                                                <tr id="version<%=i%>" class="tr-content-appversion findcode">
-                                                    <td>
-                                                        <%=i+1%>
-                                                    </td>
-                                                    <td class="table-time-appversion finddate">
-                                                        <span>
-                                                            <%=arr[0]%>
-                                                        </span>
-                                                        <br>
-                                                        <span>
-                                                            <%=arr[1]%>
-                                                                <%=arr[2]%>
-                                                        </span>
-                                                    </td>
-                                                    <td class=" findnameapp">
-                                                        <%=history[i].content%>
-                                                    </td>
-                                                    <td class="table-version findversion">
-                                                        <%=history[i].amount%>
-                                                    </td>
-                                                    <td class="table-changelog findnote">
-                                                        <%=status[history[i].statusWithdraw]%>
-                                                    </td>
-                                                    <td>
-                                                        <%=history[i].blance%>
-                                                    </td>
-                                                    <td>
-                                                        <%=history[i].note%>
-                                                    </td>
-                                                    <td class="set-position-relative">
-                                                        <img class="setimg-head-myapp deleteuser" src="/themes/img/dashboard/iconmenumore.png">
-                                                        <div class="delete-user" style="display:none">
-                                                            <a href="#" data-toggle="modal" data-target="#mymodal-deleteuser">
-                                                                <div class="element-delete">
-                                                                    <img class="imgicondelete" src="/themes/img/affiliate/iconview.png">
-                                                                    <span>View</span>
+                                                    <input class="id-history" hidden value="<%=history[i].id%>">
+                                                    <tr id="version<%=i%>" class="tr-content-appversion findcode">
+                                                        <td>
+                                                            <%=i+1%>
+                                                        </td>
+                                                        <td class="table-time-appversion finddate">
+                                                            <span>
+                                                                <%=arr[0]%>
+                                                            </span>
+                                                            <br>
+                                                            <span>
+                                                                <%=arr[1]%>
+                                                                    <%=arr[2]%>
+                                                            </span>
+                                                        </td>
+                                                        <td class=" findnameapp">
+                                                            <%=history[i].content%>
+                                                        </td>
+                                                        <td class="table-version findversion">
+                                                            <%=history[i].amount%>
+                                                        </td>
+                                                        <td class="table-changelog findnote">
+                                                            <%=status[history[i].statusWithdraw]%>
+                                                        </td>
+                                                        <td>
+                                                            <%=history[i].blance%>
+                                                        </td>
+                                                        <td>
+                                                            <%=history[i].note%>
+                                                        </td>
+                                                        <td class="set-position-relative">
+                                                            <img class="setimg-head-myapp deleteuser" src="/themes/img/dashboard/iconmenumore.png">
+                                                            <div class="delete-user" style="display:none">
+                                                                <a href="#" data-toggle="modal" data-target="#mymodal-deleteuser">
+                                                                    <div class="element-delete">
+                                                                        <img class="imgicondelete" src="/themes/img/affiliate/iconview.png">
+                                                                        <span>View</span>
+                                                                    </div>
+                                                                </a>
+                                                                <div class="arrowmenuuser-left">
                                                                 </div>
-                                                            </a>
-                                                            <div class="arrowmenuuser-left">
+                                                                <div class="arrowmenuuser-left1">
+                                                                </div>
                                                             </div>
-                                                            <div class="arrowmenuuser-left1">
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <%}%>
-                                                    </tbody>
-                                </table>
+                                                        </td>
+                                                    </tr>
+                                                    <%}%>
+                                                        </tbody>
+                                    </table>
 
-                                <div class="example">
-                                    <div class="container">
-                                        <div class="pagination-table-appversion row">
-                                            <ul class="pagination set-pagination-statement">
-                                                <li class="edit-li-pagination">
-                                                    <a class="number-items" href="javascript:void(0)"></a>
-                                                </li>
-                                                <li class="limitsuperback">
-                                                    <a class="limitpagination" href="javascript:void(0)">
-                                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="superback">
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="backpage">
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="limitback">
-                                                    <a class="limitpagination" href="javascript:void(0)">
-                                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="thispage" href="javascript:void(0)">
+                                    <div class="example">
+                                        <div class="container">
+                                            <div class="pagination-table-appversion row">
+                                                <ul class="pagination set-pagination-statement">
+                                                    <li class="edit-li-pagination">
+                                                        <a class="number-items" href="javascript:void(0)"></a>
+                                                    </li>
+                                                    <li class="limitsuperback">
+                                                        <a class="limitpagination" href="javascript:void(0)">
+                                                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="superback">
+                                                        <a href="javascript:void(0)">
+                                                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="backpage">
+                                                        <a href="javascript:void(0)">
+                                                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="limitback">
+                                                        <a class="limitpagination" href="javascript:void(0)">
+                                                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="thispage" href="javascript:void(0)">
 
-                                                    </a>
-                                                </li>
-                                                <li class="edit-li-pagination">
-                                                    <a class="numberpage" href="javascript:void(0)">
-                                                    </a>
-                                                </li>
-                                                <li class="limitnext">
-                                                    <a class="limitpagination" href="javascript:void(0)">
-                                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="nextpage">
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="supernext">
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="limitsupernext">
-                                                    <a class="limitpagination" href="javascript:void(0)">
-                                                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                                        </a>
+                                                    </li>
+                                                    <li class="edit-li-pagination">
+                                                        <a class="numberpage" href="javascript:void(0)">
+                                                        </a>
+                                                    </li>
+                                                    <li class="limitnext">
+                                                        <a class="limitpagination" href="javascript:void(0)">
+                                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nextpage">
+                                                        <a href="javascript:void(0)">
+                                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="supernext">
+                                                        <a href="javascript:void(0)">
+                                                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="limitsupernext">
+                                                        <a class="limitpagination" href="javascript:void(0)">
+                                                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <span class="showing-footer">Showing 1-
-                                <span id="number-show-footer"></span> of
-                                <span class="number-items" href="javascript:void(0)"></span>
-                            </span>
-                            <div class="container ">
-                                <div class="modal fade" id="myModal" role="dialog">
-                                    <div class="modal-dialog  ">
-                                        <div class="modal-content1">
-                                            <div class="dialogdeleteapp">
-                                                <div class="dialogdeleteapp-head-history">
-                                                    Write
-                                                </div>
-                                                <form id="form-note-history" onsubmit="return false">
-                                                    <textarea placeholder="Your content..." rows="5" class="textarea-history"></textarea>
-                                                    <div class="dialogdeleteapp-foot-history">
-                                                        <button id="cancel-histoty" class="float-right btn-gray margin-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                                        <button type="submit" class="float-right btn-blue" id="done-histoty">Done</button>
+                                <span class="showing-footer">Showing 1-
+                                    <span id="number-show-footer"></span> of
+                                    <span class="number-items" href="javascript:void(0)"></span>
+                                </span>
+                                <div class="container ">
+                                    <div class="modal fade" id="myModal" role="dialog">
+                                        <div class="modal-dialog  ">
+                                            <div class="modal-content1">
+                                                <div class="dialogdeleteapp">
+                                                    <div class="dialogdeleteapp-head-history">
+                                                        Write
                                                     </div>
-                                                </form>
+                                                    <form id="form-note-history" onsubmit="return false">
+                                                        <textarea placeholder="Your content..." rows="5" class="textarea-history"></textarea>
+                                                        <div class="dialogdeleteapp-foot-history">
+                                                            <button id="cancel-histoty" class="float-right btn-gray margin-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                                            <button type="submit" class="float-right btn-blue" id="done-histoty">Done</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
     </div>

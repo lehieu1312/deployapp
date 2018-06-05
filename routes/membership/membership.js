@@ -175,6 +175,9 @@ router.get('/membership/checkout/ok/process', (req, res) => {
                         console.error(JSON.stringify(error));
                     } else {
                         var new_date = new Date();
+                        var expire_Day = new_date;
+                        expire_Day.setDate(new_date.getDate() + 30);
+
                         User.findOne({
                             id: req.session.iduser,
                             status: true
@@ -191,7 +194,7 @@ router.get('/membership/checkout/ok/process', (req, res) => {
                                         status: true
                                     }, {
                                         dateUpdate: new Date(),
-                                        expireDay: new_date.setDate(new_date.getDate() + 30),
+                                        expireDay: expire_Day,
                                         isMember: req.session.inforMembership.plan,
                                         amount: money,
                                         lastname: req.session.inforMembership.lastname,
@@ -212,9 +215,9 @@ router.get('/membership/checkout/ok/process', (req, res) => {
                                         email: req.session.inforMembership.email,
                                         isMember: req.session.inforMembership.plan,
                                         amount: money,
-                                        dateCreate: new_date,
-                                        dateUpdate: null,
-                                        expireDay: new_date.setDate(new_date.getDate() + 30),
+                                        dateCreate: new Date(),
+                                        dateUpdate: new Date(),
+                                        expireDay: expire_Day,
                                         blocked: false,
                                         status: true
                                     })

@@ -64,13 +64,12 @@
 }
 
 #table-appversion tr:nth-child(even) {
-    background: #fafafa!important;
+    background: #fafafa !important;
 }
 
 .table-appversionxxx tr:nth-child(even) {
-    background: #fafafa!important;
+    background: #fafafa !important;
 }
-
 
 td {
     padding-left: 10px;
@@ -122,7 +121,6 @@ table {
 } */
 
 .btn-blue-deploy {
-  
     font-family: 'OpenSans-Regular';
     color: white;
     border-radius: 2px;

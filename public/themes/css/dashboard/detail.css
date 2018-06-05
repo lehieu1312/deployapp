@@ -64,6 +64,11 @@ input::placeholder {
     font-family: 'OpenSans-Regular';
     font-size: 13px;
     color: #666666;
+    overflow-y: scroll;
+}
+
+#menu-detail::-webkit-scrollbar {
+    width: 0px;
 }
 
 #logo-small {

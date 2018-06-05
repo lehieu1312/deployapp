@@ -115,7 +115,7 @@ function clickdeployapp(fIDAppAdmin, fVersionAdmin, idAppUser) {
                 url: "/dashboard/platform-dash",
                 type: "POST",
                 data: {
-                    platform: 'android',
+                    platform: $('#platform').val(),
                     versionadmin: $('#versionadminlatform').val(),
                     idappadmin: $('#idappadminplatform').val(),
                     idappuser: $('#idappuserplatform').val()

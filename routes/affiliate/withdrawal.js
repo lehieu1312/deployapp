@@ -185,7 +185,6 @@ router.post("/affiliate/withdrawal/ok", (req, res) => {
                         id: req.session.iduser,
                         status: true
                     }).then(user => {
-
                         var query = {
                             id: makeid(),
                             idUser: req.session.iduser,

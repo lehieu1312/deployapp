@@ -105,15 +105,15 @@ router.post('/deployapp-ios-dash', multipartMiddleware, async(req, res) => {
 
         console.log(idAppServerAdmin);
         console.log(versionAppAdmin);
-        idAppUserDecode = Base64js.decode(idAppUser);
-        console.log(idAppUserDecode);
-        var dataAppVersionAdmin = await AppVersionAdminModels.findOne({ idApp: idAppServerAdmin }, { inforAppversion: { $elemMatch: { version: versionAppAdmin } } }).exec();
-        console.log('dataAppVersionAdmin: ' + dataAppVersionAdmin);
-        console.log('inforAppversion: ' + dataAppVersionAdmin.inforAppversion[0].version);
-        console.log('nameFile: ' + dataAppVersionAdmin.inforAppversion[0].nameFile);
-        //////////////
-        nameFileCodeAdmin = dataAppVersionAdmin.inforAppversion[0].nameFile;
-        console.log('nameFileCodeAdmin: ' + nameFileCodeAdmin);
+        console.log(idAppUser);
+        // idAppUserDecode = Base64js.decode(idAppUser);
+        // var dataAppVersionAdmin = await AppVersionAdminModels.findOne({ idApp: idAppServerAdmin }, { inforAppversion: { $elemMatch: { version: versionAppAdmin } } }).exec();
+        // console.log('dataAppVersionAdmin: ' + dataAppVersionAdmin);
+        // console.log('inforAppversion: ' + dataAppVersionAdmin.inforAppversion[0].version);
+        // console.log('nameFile: ' + dataAppVersionAdmin.inforAppversion[0].nameFile);
+        // //////////////
+        // nameFileCodeAdmin = dataAppVersionAdmin.inforAppversion[0].nameFile;
+        // console.log('nameFileCodeAdmin: ' + nameFileCodeAdmin);
         ///////////GET VALUE APP SETTINGS//////////////////
         var dataSettings = await AppSettingModels.findOne({ idApp: idAppUser }).exec();
         console.log('dataSettings: ' + dataSettings);
@@ -121,22 +121,23 @@ router.post('/deployapp-ios-dash', multipartMiddleware, async(req, res) => {
         console.log(packageID);
         nameApp = dataSettings.nameApp;
         versionApp = dataSettings.version;
-        descriptionApp = dataSettings.description;
-        emailApp = dataSettings.emailApp;
-        hrefApp = dataSettings.authHref;
-        authApp = dataSettings.auth;
 
-        wordpressUrl = dataSettings.wpUrl;
-        wordpressPerPage = dataSettings.wpPerPage;
-        requestTimeOut = dataSettings.requestTimeout;
-        targetBlank = dataSettings.targetBlank;
-        dateFormat = dataSettings.dateFormat;
-        onesignalID = dataSettings.oneSignalID;
-        ggAnalytic = dataSettings.ggAnalytic;
-        adModAndroidBanner = dataSettings.adModAndroidBanner;
-        adModeAndroidInterstitial = dataSettings.adModeAndroidInterstitial;
-        adModiOsBanner = dataSettings.adModeIosBaner;
-        adModiOSInterstitial = dataSettings.adModeIosInterstitial;
+        // descriptionApp = dataSettings.description;
+        // emailApp = dataSettings.emailApp;
+        // hrefApp = dataSettings.authHref;
+        // authApp = dataSettings.auth;
+
+        // wordpressUrl = dataSettings.wpUrl;
+        // wordpressPerPage = dataSettings.wpPerPage;
+        // requestTimeOut = dataSettings.requestTimeout;
+        // targetBlank = dataSettings.targetBlank;
+        // dateFormat = dataSettings.dateFormat;
+        // onesignalID = dataSettings.oneSignalID;
+        // ggAnalytic = dataSettings.ggAnalytic;
+        // adModAndroidBanner = dataSettings.adModAndroidBanner;
+        // adModeAndroidInterstitial = dataSettings.adModeAndroidInterstitial;
+        // adModiOsBanner = dataSettings.adModeIosBaner;
+        // adModiOSInterstitial = dataSettings.adModeIosInterstitial;
 
         ///// Get Email Of User////////
         console.log(req.session.iduser);

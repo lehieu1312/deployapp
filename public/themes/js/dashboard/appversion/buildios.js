@@ -139,10 +139,10 @@ $(document).ready(function() {
                 formData.append('certificatefile_adhoc', certificate_file_adhoc, certificate_file_adhoc.name);
                 formData.append('provisionfile_appstore', appstore_file, appstore_file.name);
                 formData.append('certificatefile_appstore', certificate_file_appstore, certificate_file_appstore.name);
-                formData.append('platform', $('#platform').val());
-                formData.append('version', $('#version').val());
-                formData.append('idapp', $('#idapp').val());
-                formData.append('idappuser', $('#idappuser').val());
+                formData.append('platform', $('#platformios').val());
+                formData.append('version', $('#versionadminios').val());
+                formData.append('idapp', $('#idappadminios').val());
+                formData.append('idappuser', $('#idappuserios').val());
 
             }
         } else {

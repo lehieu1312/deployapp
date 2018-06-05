@@ -106,6 +106,7 @@ router.post("/affiliate/payment-method/delete", (req, res) => {
 
 router.post("/affiliate/payment-method/add/ok", (req, res) => {
     try {
+        console.log("++++++++++++++++++++payment-method+++++++++++++++++++++++")
         if (req.body.method == "paypal") {
             affiliate_method_modal.findOne({
                 method: "paypal",

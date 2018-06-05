@@ -146,6 +146,8 @@ var sendLinkMail = (emailReceive, name, money) => {
 
 router.post("/affiliate/withdrawal/ok", (req, res) => {
     try {
+        console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
         function getBalance() {
             return new Promise((resolve, reject) => {
                 affiliate_withdrawal_modal.find({

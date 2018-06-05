@@ -122,7 +122,7 @@ $(document).ready(() => {
                 if (i == 3) {
                     $(this).click(() => {
                         currency = "AUD";
-                        $(".text-currency").text("");
+                        $(".text-currency").text("AUD");
                     })
                 }
 

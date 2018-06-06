@@ -333,13 +333,11 @@ router.post('/platform-dash', async(req, res) => {
                         console.log('...Add platform...');
                         var cmdRelease = 'ionic';
                         var argv;
-                        if (platformApp == 'android')
+                        if (platformApp == 'android') {
                             argv = ['platform', 'add', 'android'];
-                        else
-                            argv = ['platform', 'add', 'ios'];
-
-                        process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
-                        return commandLine(cmdRelease, argv);
+                            process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
+                            return commandLine(cmdRelease, argv);
+                        }
                     }).then(() => {
                         console.log('Added platforms');
 

@@ -49,6 +49,7 @@
     <!-- chart google -->
     <!-- <script type="text/javascript " charset="utf-8 " src="/themes/js/dashboard/traffic/chartgg.js "></script> -->
     <!-- chart anychart -->
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/dashboard/advertisement.js"></script>
 
     <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/notification/bootstrap-colorpicker.min.js"></script>
     <script type="text/javascript " charset="utf-8 " src="/themes/js/dashboard/chartjs/anychart/anychart-base.min.js"></script>
@@ -170,6 +171,16 @@
                 add_and_removeProduct();
                 remove_all_product();
             })
+            if (document.getElementById("testadblock") == undefined) {
+                console.log(document.getElementById("testadblock"))
+                $("#myModal-adblock").modal("show");
+                $('#myModal-adblock').on('hidden.bs.modal', function () {
+                    location.reload();
+                });
+                $("#btn-adblock").click(() => {
+                    location.reload();
+                })
+            }
         });
     </script>
 </head>
@@ -226,6 +237,32 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+    <div class="container ">
+        <div class="modal fade" id="myModal-adblock" role="dialog">
+            <div class="modal-dialog  ">
+                <div class="modal-content1">
+                    <div class="dialogdeleteapp">
+                        <div class="modal-success-head">
+                            <div class="set-img-iconcheck set-icon-adblock">
+                                <img src="/themes/img/checkout/iconadblock.png" alt="Checkout">
+                            </div>
+                            <div class="text-thank-you">
+                                <span>Adblock Detected</span>
+                            </div>
+                            <div class="content-success contemt-adblock">
+                                <span>We have detected that you are using an adblock browser plugin to disable advertising from
+                                    loading on our website. In order to view this page, we request that you disaple adblock
+                                    in plugin settings.</span>
+                            </div>
+                        </div>
+                        <div class="modal-success-foot">
+                            <button id="btn-adblock" class="btn-blue-deploy set-color-adblock">Yes, I Understand</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

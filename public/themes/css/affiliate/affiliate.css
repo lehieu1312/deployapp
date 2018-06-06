@@ -245,12 +245,28 @@ text-cent-money {
     padding-right: 5px;
 }
 
+.set-icon-adblock {
+    height: 68px;
+}
+
+.contemt-adblock {
+    padding: 5px 40px 0 40px;
+}
+
 .set-btn-statement {
     padding: 6px 12px 6px 12px;
 }
 
 .download-csv-statement:hover {
     color: #00afee;
+}
+
+.set-color-adblock {
+    background: #ef5350;
+}
+
+.set-color-adblock:hover {
+    background: #d9423f;
 }
 
 .header-history-statement {

@@ -11,20 +11,20 @@ var Base64js = require('js-base64').Base64;
 
 router.post('/accessproductpage', multipartMiddleware, (req, res) => {
     try {
-        var reqIDApp = req.body.idapp;
-        console.log('reqIDApp: ' + reqIDApp);
+        var reqAPIKey = req.body.apikey;
+        console.log('reqAPIKey: ' + reqAPIKey);
         var sNameApp = req.body.nameapp;
         var sIDProduct = req.body.idproduct;
         var sNameProduct = req.body.nameproduct;
         var sSessionProduct = req.body.sessionproduct;
 
         var sImage;
-        if (!reqIDApp || !sNameApp || !sIDProduct || !sNameProduct || !sSessionProduct) {
+        if (!reqAPIKey || !sNameApp || !sIDProduct || !sNameProduct || !sSessionProduct) {
             res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
         } else {
-            var sIDApp = libBase64.Base64.encode(reqIDApp);
+            // var sIDApp = libBase64.Base64.encode(reqAPIKey);
             InforAppModel.findOne({
-                idApp: sIDApp
+                idApp: reqAPIKey
             }).then((data) => {
                 console.log(data);
                 if (data) {
@@ -33,7 +33,7 @@ router.post('/accessproductpage', multipartMiddleware, (req, res) => {
                     else
                         sImage = '';
                     var productStatisticData = new ProductStatisticModels({
-                        idApp: sIDApp,
+                        idApp: reqAPIKey,
                         nameApp: sNameApp,
                         idProduct: sIDProduct,
                         name: sNameProduct,
@@ -66,16 +66,16 @@ router.post('/accessproductpage', multipartMiddleware, (req, res) => {
 
 router.get('/outproductpage', multipartMiddleware, (req, res) => {
     try {
-        var reqIDApp = req.query.idapp;
-        console.log('reqIDApp: ' + reqIDApp);
+        var reqAPIKey = req.query.apikey;
+        console.log('reqAPIKey: ' + reqAPIKey);
         var sIDProduct = req.query.idproduct;
         var sSessionProduct = req.query.sessionproduct;
 
         var sImage;
-        if (!reqIDApp || !sIDProduct || !sSessionProduct) {
+        if (!reqAPIKey || !sIDProduct || !sSessionProduct) {
             res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
         } else {
-            var sIDApp = libBase64.Base64.encode(reqIDApp);
+            // var sIDApp = libBase64.Base64.encode(reqIDApp);
             InforAppModel.findOne({
                 idApp: sIDApp
             }).then((data) => {

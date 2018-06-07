@@ -25,7 +25,7 @@
         <div class="row row1">
             <div id="content-appsetting">
                 <form method="POST" action="" id="fSettingApps">
-                    <div class="col-sm-6 ">
+                    <div class="col-sm-12 ">
 
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Package ID *</label>
@@ -77,7 +77,13 @@
                                 <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
                             </span>
                         </div>
-
+                        <div class="form-group has-feedback">
+                            <label class="control-label" for="inputSuccess2">Onesignal ID *</label>
+                            <input type="text" class="resetinputlogin" id="onesignalid" name="onesignalid" value="<%if(appSetting){%><%=appSetting.oneSignalID %><%}%>">
+                            <span class="form-control-feedback" aria-hidden="true">
+                                <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
+                            </span>
+                        </div>
                         <div class="form-group has-feedback">
                             <label class="control-label" for="inputSuccess2">Onesignal API Key *</label>
                             <input type="text" class="resetinputlogin" id="onesignalapikey" name="onesignalapikey" value="<%if(appSetting){%><%=appSetting.oneSignalAPIKey %><%}%>">
@@ -93,94 +99,15 @@
                             </span>
                         </div>
 
-                    </div>
-                    <div class="col-sm-6">
                         <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">Wordpress Url *</label>
-                            <input type="text" class="resetinputlogin" id="wpurl" name="wpurl" value="<%if(appSetting){%><%=appSetting.wpUrl %><%}%>">
-                            <span class="form-control-feedback" aria-hidden="true">
-                                <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
-                            </span>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">Wordpress Per Page *</label>
-                            <input type="number" class="resetinputlogin" min=0 id="wpperpage" name="wpperpage" value="<%if(appSetting){%><%=appSetting.wpPerPage %><%}%>">
-                            <span class="form-control-feedback" aria-hidden="true">
-                                <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
-                            </span>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">Request Time Out *</label>
-                            <input type="number" class="resetinputlogin" min=0 id="reqtimeout" name="reqtimeout" value="<%if(appSetting){%><%=appSetting.requestTimeout %><%}%>">
-                            <span class="form-control-feedback" aria-hidden="true">
-                                <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
-                            </span>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">Open Target Blank *</label>
-                            <!-- <input type="number" class="resetinputlogin" id="" name="wpperpage"> -->
-                            <div>
-                                <label>
-                                    <input type="radio" value="true" id="optionsRadios1" <%if(appSetting && appSetting.targetBlank){%>checked
-                                    <%}%> name="isblank">True
-                                        <input type="radio" value="false" id="optionsRadios2" <%if(!appSetting){%> checked
-                                        <%}else{if(!appSetting.targetBlank){%>checked
-                                            <%}}%> name="isblank">False</label>
-                            </div>
-                            <span class="form-control-feedback" aria-hidden="true">
-                                <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
-                            </span>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">Date Format *</label>
-                            <input type="text" class="resetinputlogin" id="dateformat" name="dateformat" value="<%if(appSetting){%><%=appSetting.dateFormat %><%}%>">
-                            <span class="form-control-feedback" aria-hidden="true">
-                                <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
-                            </span>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">Onesignal ID *</label>
-                            <input type="text" class="resetinputlogin" id="onesignalid" name="onesignalid" value="<%if(appSetting){%><%=appSetting.oneSignalID %><%}%>">
-                            <span class="form-control-feedback" aria-hidden="true">
-                                <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
-                            </span>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">Google analytic *</label>
-                            <input type="text" class="resetinputlogin" id="gganalytic" name="gganalytic" value="<%if(appSetting){%><%=appSetting.ggAnalytic %><%}%>">
-                            <span class="form-control-feedback" aria-hidden="true">
-                                <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
-                            </span>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">AdMode Android Banner</label>
-                            <input type="text" class="resetinputlogin" id="admodeandroidbanner" name="admodeandroidbanner" value="<%if(appSetting){%><%=appSetting.adModAndroidBanner %><%}%>">
-                            <span class="form-control-feedback" aria-hidden="true">
-                                <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
-                            </span>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">AdMode Android Interstitial</label>
-                            <input type="text" class="resetinputlogin" id="admodeandroidinterstitial" name="admodeandroidinterstitial" value="<%if(appSetting){%><%=appSetting.adModeAndroidInterstitial %><%}%>">
-                            <span class="form-control-feedback" aria-hidden="true">
-                                <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
-                            </span>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">AdMode iOS Banner</label>
-                            <input type="text" class="resetinputlogin" id="admodeiosbanner" name="admodeiosbanner" value="<%if(appSetting){%><%=appSetting.adModeIosBaner %><%}%>">
-                            <span class="form-control-feedback" aria-hidden="true">
-                                <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
-                            </span>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="inputSuccess2">AdMode iOS Interstitial</label>
-                            <input type="text" class="resetinputlogin" id="admodeiosinterstitial" name="admodeiosinterstitial" value="<%if(appSetting){%><%=appSetting.adModeIosInterstitial %><%}%>">
+                            <label class="control-label" for="inputSuccess2">API Deploy Key</label>
+                            <input type="text" class="resetinputlogin" id="apideployapp" readonly name="apideployapp" value="<%if(appSetting){%><%=appSetting.idApp %><%}%>">
                             <span class="form-control-feedback" aria-hidden="true">
                                 <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
                             </span>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <div class="col-sm-12 div-btn-infoapp text-center">
                             <!-- onclick="send_data_setting()" -->

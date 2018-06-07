@@ -14,7 +14,7 @@ var Base64js = require('js-base64').Base64;
 router.get('/appaccess', (req, res) => {
     try {
 
-        var reqIDApp = req.query.idapp;
+        var reqAPIKey = req.query.apikey;
         console.log('reqIDApp: ' + reqIDApp);
 
         var nameApp = req.query.nameapp;
@@ -67,7 +67,7 @@ router.get('/appaccess', (req, res) => {
         console.log(checkIsHome);
 
 
-        if (!reqIDApp || !nameApp || !platform || !sessionIdUser || !pageAccess || !sessionAccessPage || !sCountry || !checkIsHome) {
+        if (!reqAPIKey || !nameApp || !platform || !sessionIdUser || !pageAccess || !sessionAccessPage || !sCountry || !checkIsHome) {
             res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
         } else {
             var arrCountry = '';
@@ -80,15 +80,15 @@ router.get('/appaccess', (req, res) => {
             });
             if (arrCountry == "")
                 return res.json({ status: 3, msg: 'Country không xác định' });
-            console.log('arrCountry: ' + arrCountry);
-            var idApp = libBase64.Base64.encode(reqIDApp);
+            // console.log('arrCountry: ' + arrCountry);
+            // var idApp = libBase64.Base64.encode(reqIDApp);
             InforAppModel.findOne({
-                idApp: idApp
+                idApp: reqAPIKey
             }).then((data) => {
                 console.log(data);
                 if (data) {
                     var trafficData = new TrafficModel({
-                        idApp: idApp,
+                        idApp: reqAPIKey,
                         nameApp: data.nameApp,
                         idCustomer: sIDCustomer,
                         nameCustomer: sNameCustomer,
@@ -126,7 +126,7 @@ router.get('/appaccess', (req, res) => {
                             $and: [{
                                 dateOutSession: null
                             }, {
-                                idApp: idApp
+                                idApp: reqAPIKey
                             }]
                         }).count().exec((err, data) => {
                             if (err) {
@@ -135,7 +135,7 @@ router.get('/appaccess', (req, res) => {
                             }
                             console.log('data: ' + data);
                             req.io.sockets.emit('server-send-user-online', {
-                                idApp: idApp,
+                                idApp: reqAPIKey,
                                 userOnline: data
                             });
                         });
@@ -166,9 +166,9 @@ router.get('/appaccess', (req, res) => {
 router.get('/pageaccess', (req, res) => {
     try {
 
-        var reqIDApp = req.query.idapp;
-        console.log('reqIDApp: ' + reqIDApp);
-        var idApp = libBase64.Base64.encode(reqIDApp);
+        var reqAPIKey = req.query.apikey;
+        console.log('reqAPIKey: ' + reqAPIKey);
+        // var idApp = libBase64.Base64.encode(reqIDApp);
         // var nameApp = req.query.nameapp;
         // var platform = req.query.platform;
         var sSessionIdUser = req.query.sessionid;
@@ -181,16 +181,16 @@ router.get('/pageaccess', (req, res) => {
         var sIDCustomer, sNameCustomer, sEmailCustomer, sPlatforms,
             sPhoneCustomer, sAddCustomer, sTimeAccess, sDateOutAccess, sPageTimeAccess, sPageDateOutAccess;
 
-        if (!idApp || !sSessionIdUser || !pageAccess || !sessionAccessPage || !checkIsHome) {
+        if (!reqAPIKey || !sSessionIdUser || !pageAccess || !sessionAccessPage || !checkIsHome) {
             res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
         } else {
             InforAppModel.findOne({
-                idApp: idApp
+                idApp: reqAPIKey
             }).then((data) => {
                 console.log(data);
                 if (data) {
                     TrafficModel.update({
-                        idApp: idApp,
+                        idApp: reqAPIKey,
                         sessionIdUser: sSessionIdUser
                     }, {
                         "$push": {
@@ -234,9 +234,9 @@ router.get('/pageaccess', (req, res) => {
 router.get('/outapp', (req, res) => {
     try {
 
-        var reqIDApp = req.query.idapp;
-        console.log('reqIDApp: ' + reqIDApp);
-        var idApp = libBase64.Base64.encode(reqIDApp);
+        var reqAPIKey = req.query.apikey;
+        console.log('reqAPIKey: ' + reqAPIKey);
+        // var idApp = libBase64.Base64.encode(reqIDApp);
         // var nameApp = req.query.nameapp;
         // var platform = req.query.platform;
         var sSessionIdUser = req.query.sessionid;
@@ -247,24 +247,24 @@ router.get('/outapp', (req, res) => {
         // var checkIsHome = req.body.ishome;
         ///////////////////////
 
-        if (!idApp || !sSessionIdUser) {
+        if (!reqAPIKey || !sSessionIdUser) {
             res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
         } else {
             InforAppModel.findOne({
-                idApp: idApp
+                idApp: reqAPIKey
             }).then(async(data) => {
                 console.log(data);
                 var sDateOut = Date.now();
 
                 if (data) {
                     TrafficModel.findOne({
-                        idApp: idApp,
+                        idApp: reqAPIKey,
                         sessionIdUser: sSessionIdUser
                     }).then((dataOne) => {
                         if (dataOne) {
                             var sTimeAccess = sDateOut - dataOne.dateAccess;
                             TrafficModel.update({
-                                idApp: idApp,
+                                idApp: reqAPIKey,
                                 sessionIdUser: sSessionIdUser
                             }, {
                                 "$set": {
@@ -276,7 +276,7 @@ router.get('/outapp', (req, res) => {
                                     $and: [{
                                         dateOutSession: null
                                     }, {
-                                        idApp: idApp
+                                        idApp: reqAPIKey
                                     }]
                                 }).count().exec((err, data) => {
                                     if (err) {
@@ -285,7 +285,7 @@ router.get('/outapp', (req, res) => {
                                     }
                                     console.log('data: ' + data);
                                     req.io.sockets.emit('server-send-user-online', {
-                                        idApp: idApp,
+                                        idApp: reqAPIKey,
                                         userOnline: data
                                     });
                                 });
@@ -322,9 +322,9 @@ router.get('/outapp', (req, res) => {
 router.get('/outpage', (req, res) => {
     try {
 
-        var reqIDApp = req.query.idapp;
-        console.log('reqIDApp: ' + reqIDApp);
-        var idApp = libBase64.Base64.encode(reqIDApp);
+        var reqAPIKey = req.query.apikey;
+        console.log('reqAPIKey: ' + reqAPIKey);
+        // var idApp = libBase64.Base64.encode(reqIDApp);
         // var nameApp = req.query.nameapp;
         // var platform = req.query.platform;
         var sSessionIdUser = req.query.sessionid;
@@ -335,24 +335,24 @@ router.get('/outpage', (req, res) => {
         // var checkIsHome = req.body.ishome;
         ///////////////////////
 
-        if (!idApp || !sSessionIdUser || !sessionAccessPage) {
+        if (!reqAPIKey || !sSessionIdUser || !sessionAccessPage) {
             res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
         } else {
             InforAppModel.findOne({
-                idApp: idApp
+                idApp: reqAPIKey
             }).then(async(data) => {
                 // console.log(data);
                 var sDateOut = Date.now();
                 if (data) {
                     TrafficModel.findOne({
-                        idApp: idApp,
+                        idApp: reqAPIKey,
                         sessionIdUser: sSessionIdUser
                     }).then((dataOne) => {
                         if (dataOne) {
                             console.log('dataOne: ' + dataOne)
                             var sTimeAccess = sDateOut - dataOne.dateAccess;
                             TrafficModel.update({
-                                idApp: idApp,
+                                idApp: reqAPIKey,
                                 sessionIdUser: sSessionIdUser,
                                 pageAccess: { $elemMatch: { sessionAccess: { $eq: sessionAccessPage } } }
                             }, {

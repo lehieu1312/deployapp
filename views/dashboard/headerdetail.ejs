@@ -23,7 +23,7 @@
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/notification/notification.css">
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/sentnotification/sentnotification.css">
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/appversion/appversion.css">
-    <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/appversion/appversion_deployapp.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/appversion/appversion_deployapp.css"> -->
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/datetimepicker.css">
     <link rel="stylesheet" type="text/css" href="/themes/css/dashboard/notification/bootstrap-colorpicker.min.css">
     <link rel="stylesheet" type="text/css" href="/themes/css/affiliate/affiliate.css">
@@ -130,7 +130,7 @@
                 function (data) {
                     let tong = 0;
                     // console.log(data.cart[0].cart.idApp)
-                    $("#number-product-in-cart").text(data.cart.length);
+                    $(".number-product-in-cart").text(data.cart.length);
                     if (data.cart.length > 0) {
                         $("#number-product-to-cart").text(data.cart.length);
                         $("#number-product-to-cart").show();
@@ -221,7 +221,7 @@
             <div class="content-cart">
                 <div class="header-modal-cart">
                     <span>Shopping Cart
-                        <span id="number-product-in-cart">2</span>
+                        <span id="number-product-in-cart" class="number-product-in-cart">2</span>
                     </span>
                     <img data-dismiss="modal" aria-label="Close" src="/themes/img/dashboard/iconclose.png">
                 </div>

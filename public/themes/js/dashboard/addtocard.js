@@ -23,14 +23,14 @@ function removeProduct(idApp) {
         success: function () {
 
         }
-    })
+    });
 }
 
 function remove_all_product() {
     var total_price_product = document.getElementsByClassName("total-price-product");
     $(".content-modal-cart").find(".item-product-in-cart").each(function (i) {
         $(this).find(".set-icon-delte-app-checkout").click(() => {
-            console.log($(this).find(".number-product").text())
+            console.log($(this).find(".number-product").text());
             $(this).hide();
             $(".total-price-product").text("$" + (Number(trimSpace(total_price_product[0].textContent).split("$")[1]) - Number($(this).find(".price-hidden").val()) * Number($(this).find(".number-product").text())))
             $.ajax({
@@ -45,9 +45,9 @@ function remove_all_product() {
 
                     }
                 }
-            })
-        })
-    })
+            });
+        });
+    });
 }
 
 
@@ -70,16 +70,16 @@ function add_and_removeProduct() {
                 $(".total-price-product").text("$" + (Number(trimSpace(total_price_product[0].textContent).split("$")[1]) - Number(price_hidden[i].value)))
                 removeProduct(idApp_hidden[i].value)
             }
-        })
-    })
+        });
+    });
     $('.add-product').each(function (i) {
         $(this).click(() => {
             number_product[i].innerHTML = Number(number_product[i].textContent) + 1;
             price_product[i].innerHTML = "$" + (price_hidden[i].value) * (Number(number_product[i].textContent));
             $(".total-price-product").text("$" + (Number(trimSpace(total_price_product[0].textContent).split("$")[1]) + Number(price_hidden[i].value)))
-            addProduct(idApp_hidden[i].value)
-        })
-    })
+            addProduct(idApp_hidden[i].value);
+        });
+    });
 }
 
 $(document).ready(() => {
@@ -129,6 +129,7 @@ $(document).ready(() => {
                         let tong = 0;
                         $("#content-modal-cart-id").html("");
                         if (data.cart.length > 0) {
+                            $(".number-product-in-cart").text(data.cart.length);
                             $("#number-product-to-cart").text(data.cart.length);
                             $("#number-product-to-cart").show();
                         } else {
@@ -158,7 +159,7 @@ $(document).ready(() => {
                                 </div>
                             </div>
                             <img class="set-icon-delte-app-checkout" src="/themes/img/checkout/icondeletesmallv2.png">
-                        </div>`)
+                        </div>`);
                             tong = tong + data.cart[i].cart.price * data.cart[i].count;
                         }
                         $(".total-price-product").text("$" + tong);
@@ -169,7 +170,7 @@ $(document).ready(() => {
                 $("#modal-cart").modal('show');
                 add_and_removeProduct();
                 remove_all_product();
-            })
-        })
-    })
-})
+            });
+        });
+    });
+});

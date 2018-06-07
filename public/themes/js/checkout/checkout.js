@@ -9,7 +9,7 @@ $(document).ready(() => {
         success: function (data) {
             if (data.status == "1") {
                 $(".set-div-promo").hide();
-                $(".total-price-product").text("$" + data.message)
+                $(".total-price-product").text("$" + data.message);
             }
         }
     })
@@ -249,7 +249,7 @@ $(document).ready(() => {
                         ${"-$" + Math.round(data.message*Number(trimSpace(total_price_product[0].textContent).split("$")[1])/100)}
                         </span>`)
                     $(".set-div-promo").show();
-                    $(".total-price-product").text("$" + (Number(trimSpace(total_price_product[0].textContent).split("$")[1]) - Math.round(data.message * Number(trimSpace(total_price_product[0].textContent).split("$")[1]) / 100)))
+                    $(".total-price-product").text("$" + (Number(trimSpace(total_price_product[0].textContent).split("$")[1]) - Math.round(data.message * Number(trimSpace(total_price_product[0].textContent).split("$")[1]) / 100)));
                     $('#successPopup').show(500);
                     $(".contenemail").text("");
                     $(".contenemail").text("successful");
@@ -278,7 +278,7 @@ $(document).ready(() => {
                     success: function (data) {
                         if (data.status == "1") {
                             $(".set-div-promo").hide();
-                            $(".total-price-product").text("$" + data.message)
+                            $(".total-price-product").text("$" + data.message);
                         }
                     }
                 })
@@ -319,9 +319,9 @@ $(document).ready(() => {
                 }
             }).always(() => {
                 $("#loading").hide();
-            })
+            });
         }
-    })
+    });
 
 
-})
+});

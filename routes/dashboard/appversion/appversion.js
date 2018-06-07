@@ -6,7 +6,7 @@ var path = require('path');
 var appRoot = require('app-root-path');
 appRoot = appRoot.toString();
 var request = require('request');
-var multer = require('multer')
+var multer = require('multer');
 // var upload = multer({ dest: 'uploads/' })
 var app = express();
 var md5 = require('md5');
@@ -39,8 +39,8 @@ function setNumberVersion(a) {
 
 function setStringVersion(a) {
     let a1 = Math.floor(a / 100);
-    let a2 = Math.floor((a - a1 * 100) / 10)
-    let a3 = Math.floor(a - a1 * 100 - a2 * 10)
+    let a2 = Math.floor((a - a1 * 100) / 10);
+    let a3 = Math.floor(a - a1 * 100 - a2 * 10);
     return a1 + "." + a2 + "." + a3;
 }
 
@@ -91,14 +91,14 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
                                     var appuse = {
                                         idApp: data1.idApp,
                                         nameApp: data1.nameApp
-                                    }
+                                    };
                                     res.render('./dashboard/appversion/appversion', {
                                         title: "App Version",
                                         appversions: count,
                                         appuse: appuse,
                                         countversion: data[0].versionAdmin,
                                         checkSetting: "true"
-                                    })
+                                    });
                                 });
                             } else {
                                 res.redirect("/dashboard/404")
@@ -120,19 +120,19 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
                                     var appuse = {
                                         idApp: data1.idApp,
                                         nameApp: data1.nameApp
-                                    }
+                                    };
                                     res.render('./dashboard/appversion/appversion', {
                                         title: "App Version",
                                         appversions: count,
                                         appuse: appuse,
                                         countversion: "",
                                         checkSetting: "true"
-                                    })
+                                    });
                                 });
                             } else {
                                 res.redirect("/dashboard/404")
                             }
-                        })
+                        });
                     }
 
                 })
@@ -164,7 +164,7 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
                                     var appuse = {
                                         idApp: data1.idApp,
                                         nameApp: data1.nameApp
-                                    }
+                                    };
 
                                     res.render('./dashboard/appversion/appversion', {
                                         title: "App Version",
@@ -172,10 +172,10 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
                                         appuse: appuse,
                                         countversion: data[0].versionAdmin,
                                         checkSetting: "false"
-                                    })
+                                    });
                                 });
                             } else {
-                                res.redirect("/dashboard/404")
+                                res.redirect("/dashboard/404");
                             }
                         })
                     } else {
@@ -204,7 +204,7 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
                                     })
                                 });
                             } else {
-                                res.redirect("/dashboard/404")
+                                res.redirect("/dashboard/404");
                             }
                         })
                     }

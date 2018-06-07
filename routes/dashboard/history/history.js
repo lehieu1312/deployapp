@@ -6,7 +6,7 @@ var path = require('path');
 var appRoot = require('app-root-path');
 appRoot = appRoot.toString();
 var request = require('request');
-var multer = require('multer')
+var multer = require('multer');
 // var upload = multer({ dest: 'uploads/' })
 var app = express();
 var md5 = require('md5');
@@ -36,7 +36,7 @@ router.get('/history/:idapp', checkAdmin, (req, res) => {
             "idUser.idUser": req.session.iduser,
             status: true
         }).then((data) => {
-            console.log(data)
+            console.log(data);
             if (data) {
                 Appversionuser.find({
                     idApp: req.params.idapp,
@@ -47,7 +47,7 @@ router.get('/history/:idapp', checkAdmin, (req, res) => {
                     appuse = {
                         idApp: data.idApp,
                         nameApp: data.nameApp
-                    }
+                    };
                     if (err) throw err;
                     async function renderhistory() {
                         for (let i = 0; i < count.length; i++) {
@@ -56,10 +56,10 @@ router.get('/history/:idapp', checkAdmin, (req, res) => {
                                 "inforAppversion.version": count[i].versionAdmin,
                                 status: true
                                 // status: true
-                            }).exec()
+                            }).exec();
                             console.log(getdatauser)
                             if (getdatauser != null) {
-                                console.log("avx")
+                                // console.log("avx");
                                 dateversion[i] = count[i];
 
                             }
@@ -70,12 +70,12 @@ router.get('/history/:idapp', checkAdmin, (req, res) => {
                             title: "History",
                             history: dateversion,
                             appuse: appuse
-                        })
+                        });
                     }
                     renderhistory();
                 });
             } else {
-                res.redirect("/dashboard/404")
+                res.redirect("/dashboard/404");
             }
         })
 
@@ -101,14 +101,14 @@ router.post("/getnotehistory", (req, res) => {
             return res.json({
                 status: "1",
                 message: req.body.idApp
-            })
+            });
         })
     } catch (error) {
-        console.log(error + "")
+        console.log(error + "");
         res.render("error", {
             title: "Error",
             error: error + ""
-        })
+        });
     }
 
 })

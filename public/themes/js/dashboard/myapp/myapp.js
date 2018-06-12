@@ -9,27 +9,27 @@ $(document).ready(() => {
     for (let i = 0; i < a.length; i++) {
         a[i].addEventListener("click", () => {
             $('#tag-a-appversion').attr("href", "/appversion?app=" + idapp[i].value);
-        })
+        });
     }
-    $("#text-href").text("My app")
+    $("#text-href").text("My app");
     $("#deploy-detail-content").click(() => {
         $(".delete-menumore").hide();
     })
     if ($(".div-list-myapp").length <= 6) {
         $('.iconloadmore').hide();
-        $('#text-showing-myapp').text($(".div-list-myapp").length)
+        $('#text-showing-myapp').text($(".div-list-myapp").length);
     }
 
     var number = 6;
     $('#loadmore').click(() => {
-        number = number + 2;
+        number = number + 3;
     });
     for (var i = 0; i <= $(".div-list-myapp").length; i++) {
         (function (j) {
             $('img[id=' + j + ']').click((event) => {
                 $('div[id=' + j + ']').toggle();
                 event.stopPropagation();
-            })
+            });
         })(i);
         (function (j) {
             $('div[id=' + j + ']').click((event) => {
@@ -71,9 +71,9 @@ $(document).ready(() => {
                     // .always(function (data) {
                     //     $('#loading').hide();
                     // });
-                })
+                });
 
-            })
+            });
         })(i);
         (function (j) {
             if (j >= number) {
@@ -82,7 +82,7 @@ $(document).ready(() => {
         })(i);
         (function (j) {
             $('#loadmore').click(() => {
-                if (j <= number) {
+                if (j < number) {
                     $('div[id=app' + j + ']').show();
                 } else {
                     $('div[id=app' + j + ']').hide();
@@ -93,11 +93,9 @@ $(document).ready(() => {
             });
         })(i);
     }
-
-
-})
+});
 
 socket.on("server-send-user-online", (data) => {
     $(".userapponline" + data.idApp).html('');
-    $(".userapponline" + data.idApp).html(data.userOnline)
+    $(".userapponline" + data.idApp).html(data.userOnline);
 })

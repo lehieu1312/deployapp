@@ -49,7 +49,7 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
             idApp,
             status: true
         }).then((setting) => {
-            if(setting.oneSignalAPIKey && setting.oneSignalID){
+            if (setting.oneSignalAPIKey && setting.oneSignalID) {
                 var APIuserAll = new OneSignal.Client({
                     app: {
                         appAuthKey: setting.oneSignalAPIKey,
@@ -62,17 +62,18 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                         res.render("error", {
                             title: "Error",
                             error: err + ""
-                        })
+                        });
                     }
-    
+                    console.log("data:" + data);
+
                     let getdata = JSON.parse(data);
-    
+
                     if (getdata.errors) {
-    
+
                         res.render("error", {
                             title: "Error",
                             error: getdata.errors + ""
-                        })
+                        });
                     } else {
                         let play_user = getdata.players;
                         let get_device_tes = [];
@@ -103,10 +104,10 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                                         test_type: play_user[i].test_type,
                                         ip: play_user[i].ip,
                                         status: true,
-                                    })
+                                    });
                                 }
                                 resolve(get_device_tes)
-                            })
+                            });
                         }
                         // update information for old player
                         function updatePlayer(a) {
@@ -117,9 +118,8 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                                     appId: setting.oneSignalID
                                 }
                             });
-    
                             for (let i = 0; i < a.length; i++) {
-                                APIuser.viewDevice(a[i].id, function (err, httpResponse, data) {
+                                APIuser.viewDevice(a[i].id, (err, httpResponse, data) => {
                                     let getdataxx = JSON.parse(data);
                                     userplayers.update({
                                         id: a[i].id
@@ -128,14 +128,9 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                                         playtime: getdataxx.playtime,
                                         amount_spent: getdataxx.amount_spent,
                                         badge_count: getdataxx.badge_count
-                                    })
-                                })
+                                    });
+                                });
                             }
-                            // resolve({
-                            //     status: 1,
-                            //     message: "ok"
-                            // })
-                            // })
                         }
                         // get users don't save to database
                         function get_user_new(a, b) {
@@ -150,7 +145,7 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                                 resolve(a)
                             })
                         }
-    
+
                         get_all_player().then((players) => {
                             userplayers.find({
                                 idApp,
@@ -183,21 +178,20 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                                                 },
                                                 data: user_playser,
                                                 language: language_device
-                                            })
-                                        })
-                                    })
-    
+                                            });
+                                        });
+                                    });
+
                                 } else {
                                     console.log("User :");
                                     (() => {
-                                        return new Promise((resolve, reject) => {
-                                            updatePlayer(users_deploy).then(() => {
-                                                get_user_new(players, users_deploy).then((user_new) => {
-                                                    userplayers.insertMany(user_new)
-                                                    resolve(user_new);
-                                                })
+                                        return new Promise(function (resolve, reject) {
+                                            updatePlayer(users_deploy);
+                                            get_user_new(players, users_deploy).then((user_new) => {
+                                                userplayers.insertMany(user_new);
+                                                resolve(user_new);
                                             });
-                                        })
+                                        });
                                     })().then(() => {
                                         userplayers.find({
                                             idApp,
@@ -213,7 +207,8 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                                                     }
                                                 }
                                             }
-                                            // console.log(language_device);
+                                            console.log("user_playser:");
+                                            console.log(user_playser);
                                             // console.log(language_device.length);
                                             res.render("./dashboard/notification/allusers", {
                                                 title: "All Users",
@@ -223,16 +218,16 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                                                 },
                                                 data: user_playser,
                                                 language: language_device
-                                            })
-                                        })
-                                    })
+                                            });
+                                        });
+                                    });
                                 }
-                            })
-                        })
+                            });
+                        });
                     }
                 });
             }
-        })
+        });
 
     } catch (error) {
         console.log(error + "");
@@ -243,7 +238,7 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
     }
 
 
-})
+});
 
 
 router.put("/notification/alluser/edituser", (req, res) => {

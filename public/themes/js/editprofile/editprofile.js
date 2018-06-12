@@ -332,9 +332,9 @@ $(document).ready(function () {
                         } else if (data.status == "1") {
                             firstname.val(data.user.firstname);
                             lastname.val(data.user.lastname);
-                            email.val(data.user.username);
+                            email.val(data.user.email);
                             address.val(data.user.address);
-                            zipcode.val(data.user.szipcode);
+                            zipcode.val(data.user.zipcode);
                             country.val(data.user.country);
                             country.text(data.country);
                             $('#successPopup').show(500);

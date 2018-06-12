@@ -23,6 +23,7 @@ let userOnesignalSchema = mongoose.Schema({
     test_type: Number,
     isTest: Boolean,
     ip: String,
+    status: Boolean
 });
 
 let usersonesignal = module.exports = mongoose.model('usersonesignals', userOnesignalSchema);

@@ -19,8 +19,7 @@
         <div id="filter-table-appversion" class="row row1">
             <span class="table-show">Show</span>
             <div id="filter-number" class="btn-group">
-                <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
+                <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span id="span-show-number" class="span-button-select">18</span>
                     <span class="caret arow-button-select"></span>
                 </button>
@@ -201,23 +200,23 @@
                     %>
                         <%for(var i = 0; i<data.length ;i++){ %>
                             <% let message = Object.getOwnPropertyNames(data[i].contentNotification)[0]%>
-                                <tr id="version<%=i%>" class="tr-content-appversion findcode">
-                                    <td>
-                                        <%= i + 1%>
-                                    </td>
-                                    <td class="table-time-appversion finddate">
-                                        <span class="status-sent-notification">Delivered</span>
-                                    </td>
-                                    <td class="findnameapp">
-                                        <%
+                                <%
                                     let d = data[i].dateCreate;
                                     let m = d.getMonth() + 1;
                                     let updated = d.getDate() + "/" + m + "/" + d.getFullYear() + "," + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-                                  
+                                
                                     var timeOld = Math.floor((dateNow-d)/86400000);
                                     var hoursOld = Math.floor(((dateNow-d)%86400000)/3600000)
-                                  
-                                    %>
+                            
+                                %>
+                                    <tr id="version<%=i%>" class="tr-content-appversion findcode">
+                                        <td>
+                                            <%= i + 1%>
+                                        </td>
+                                        <td class="table-time-appversion finddate">
+                                            <span class="status-sent-notification">Delivered</span>
+                                        </td>
+                                        <td class="findnameapp">
                                             <span>
                                                 <%=updated%>
                                             </span>
@@ -226,96 +225,96 @@
                                                 <%=timeOld%> days,
                                                     <%=hoursOld%> hours ago
                                             </span>
-                                    </td>
-                                    <td class="table-version findversion">
-                                        <%=data[i].contentNotification[message]%>
-                                    </td>
-                                    <td class="table-changelog findnote">
-                                        <%
-                                    let all = (data[i].successful + data[i].failed + data[i].remaining);
-                                    let Delivered = (data[i].successful*100/all).toFixed(1)+ "%";
-                                    let failed = (data[i].failed*100/all).toFixed(1) + "%";
-                                    let invalid = (data[i].remaining*100/all).toFixed(1) + "%";
-                                    %>
-                                            <div class="left-progress-sent-noti">
-                                                <div class="progress-sent-noti">
-                                                    <div class="progress-bar progress-bar-success" style="width:<%=Delivered%>">
+                                        </td>
+                                        <td class="table-version findversion">
+                                            <%=data[i].contentNotification[message]%>
+                                        </td>
+                                        <td class="table-changelog findnote">
+                                            <%
+                                                let all = (data[i].successful + data[i].failed + data[i].remaining);
+                                                let Delivered = (data[i].successful*100/all).toFixed(1)+ "%";
+                                                let failed = (data[i].failed*100/all).toFixed(1) + "%";
+                                                let invalid = (data[i].remaining*100/all).toFixed(1) + "%";
+                                                %>
+                                                <div class="left-progress-sent-noti">
+                                                    <div class="progress-sent-noti">
+                                                        <div class="progress-bar progress-bar-success" style="width:<%=Delivered%>">
+                                                        </div>
+                                                        <div class="progress-bar progress-bar-warning " style="width:<%=failed%>">
+                                                        </div>
+                                                        <div class="progress-bar progress-bar-danger" style="width:<%=invalid%>">
+                                                        </div>
                                                     </div>
-                                                    <div class="progress-bar progress-bar-warning " style="width:<%=failed%>">
-                                                    </div>
-                                                    <div class="progress-bar progress-bar-danger" style="width:<%=invalid%>">
+                                                    <div class="tooltip-sent-noti">
+                                                        <div class="header-sent-noti">
+                                                            <div class="title-tooltip">
+                                                                <span class="title-sent-noti">Dellvery Statistics</span>
+                                                            </div>
+                                                            <div class="content-tooltip">
+                                                                <div class="sub-tooltip">
+                                                                    <img class="set-img-tooltip-noti" src="/themes/img/sentnotification/delivered.png">
+                                                                    <span>
+                                                                        <%=data[i].successful+" Delivered"%>
+                                                                            <span>
+                                                                                <%="(" +Delivered + ")" %>
+                                                                            </span>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="sub-tooltip">
+                                                                    <img class="set-img-tooltip-noti" src="/themes/img/sentnotification/failed.png">
+                                                                    <span>
+                                                                        <%=data[i].failed+" Failed " %>
+                                                                            <span>
+                                                                                <%="(" +failed + ")" %>
+                                                                            </span>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="sub-tooltip">
+                                                                    <img class="set-img-tooltip-noti" src="/themes/img/sentnotification/invalid.png">
+                                                                    <span>
+                                                                        <%=data[i].remaining+" Invalid" %>
+                                                                            <span>
+                                                                                <%="(" +invalid + ")" %>
+                                                                            </span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="footer-sent-noti">
+                                                            <div class="arrow-down-noti-1">
+                                                            </div>
+                                                            <div class="arrow-down-noti-2">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="tooltip-sent-noti">
-                                                    <div class="header-sent-noti">
-                                                        <div class="title-tooltip">
-                                                            <span class="title-sent-noti">Dellvery Statistics</span>
-                                                        </div>
-                                                        <div class="content-tooltip">
-                                                            <div class="sub-tooltip">
-                                                                <img class="set-img-tooltip-noti" src="/themes/img/sentnotification/delivered.png">
-                                                                <span>
-                                                                    <%=data[i].successful+" Delivered"%>
-                                                                        <span>
-                                                                            <%="(" +Delivered + ")" %>
-                                                                        </span>
-                                                                </span>
-                                                            </div>
-                                                            <div class="sub-tooltip">
-                                                                <img class="set-img-tooltip-noti" src="/themes/img/sentnotification/failed.png">
-                                                                <span>
-                                                                    <%=data[i].failed+" Failed " %>
-                                                                        <span>
-                                                                            <%="(" +failed + ")" %>
-                                                                        </span>
-                                                                </span>
-                                                            </div>
-                                                            <div class="sub-tooltip">
-                                                                <img class="set-img-tooltip-noti" src="/themes/img/sentnotification/invalid.png">
-                                                                <span>
-                                                                    <%=data[i].remaining+" Invalid" %>
-                                                                        <span>
-                                                                            <%="(" +invalid + ")" %>
-                                                                        </span>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="footer-sent-noti">
-                                                        <div class="arrow-down-noti-1">
-                                                        </div>
-                                                        <div class="arrow-down-noti-2">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                    </td>
-                                    <td class="">
-                                        <%=data[i].successful%>
-                                    </td>
-                                    <td class="">
-                                        <%= (data[i].converted*100/data[i].successful).toFixed(1)+ "%"%>
-                                    </td>
-                                    <td class="set-position-relative">
-                                        <input class="value-id-noti" hidden value="<%=data[i].idNotification%>">
-                                        <img class="setimg-head-myapp deleteuser" src="/themes/img/dashboard/iconmenumore.png">
-                                        <div class="delete-noti" style="display: none;">
-                                            <a href="#" data-toggle="modal" data-target="#mymodal-delete-noti">
-                                                <div class="element-delete">
-                                                    <img class="imgicondelete" src="/themes/img/dashboard/icondelete.png">
-                                                    <span>Delete</span>
+                                        </td>
+                                        <td class="">
+                                            <%=data[i].successful%>
+                                        </td>
+                                        <td class="">
+                                            <%= (data[i].converted*100/data[i].successful).toFixed(1)+ "%"%>
+                                        </td>
+                                        <td class="set-position-relative">
+                                            <input class="value-id-noti" hidden value="<%=data[i].idNotification%>">
+                                            <img class="setimg-head-myapp deleteuser" src="/themes/img/dashboard/iconmenumore.png">
+                                            <div class="delete-noti" style="display: none;">
+                                                <a href="#" data-toggle="modal" data-target="#mymodal-delete-noti">
+                                                    <div class="element-delete">
+                                                        <img class="imgicondelete" src="/themes/img/dashboard/icondelete.png">
+                                                        <span>Delete</span>
+                                                    </div>
+                                                </a>
+                                                <div class="arrowmenuuser-left">
                                                 </div>
-                                            </a>
-                                            <div class="arrowmenuuser-left">
+                                                <div class="arrowmenuuser-left1">
+                                                </div>
                                             </div>
-                                            <div class="arrowmenuuser-left1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <%}%>
-                                    </tbody>
+                                        </td>
+                                    </tr>
+                                    <%}%>
+                                        </tbody>
                 </table>
 
                 <div class="example">

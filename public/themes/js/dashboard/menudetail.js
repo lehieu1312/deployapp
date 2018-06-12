@@ -8,12 +8,11 @@ $(document).ready(function () {
             })
             .mouseleave(() => {
                 $(this).find(".imgicondelete").attr("src", "/themes/img/dashboard/icondelete.png");
-            })
-    })
+            });
+    });
 
     if (window.location.pathname.toLowerCase() == "/dashboard/appversion") {
-
-        $('#appversion').css('color', '#00afee')
+        $('#appversion').css('color', '#00afee');
     }
 
     $(".far-notification").click((event) => {
@@ -89,8 +88,8 @@ $(document).ready(function () {
 
 
     // set local
-    var hoverarrow = document.getElementsByClassName('set-span-arrow-right')
-    var hovertext = document.getElementsByClassName('subspantextmenu1')
+    var hoverarrow = document.getElementsByClassName('set-span-arrow-right');
+    var hovertext = document.getElementsByClassName('subspantextmenu1');
     var pathArray = window.location.pathname.split('/');
     // console.log(pathArray)
 
@@ -99,14 +98,39 @@ $(document).ready(function () {
     }
     if (pathArray[1] == "checkout" && pathArray[2] == null) {
 
-
     }
+    var item_affiliate = document.getElementsByClassName("item-affiliate");
+
+    if (pathArray[1] == "affiliate") {
+        $(".item-affiliate").show();
+        if (pathArray[2] == "report") {
+            // hoversubmenu[0].style.display = "none"
+            item_affiliate[0].style.color = "#00afee";
+            item_affiliate[0].getElementsByClassName("spantextmenu")[0].style.color = "#00afee";
+        }
+        if (pathArray[2] == "statements") {
+            // hoversubmenu[0].style.display = "none"
+            item_affiliate[1].style.color = "#00afee";
+            item_affiliate[1].getElementsByClassName("spantextmenu")[0].style.color = "#00afee";
+        }
+        if (pathArray[2] == "withdrawal") {
+            // hoversubmenu[0].style.display = "none"
+            item_affiliate[2].style.color = "#00afee";
+            item_affiliate[2].getElementsByClassName("spantextmenu")[0].style.color = "#00afee";
+        }
+        if (pathArray[2] == "payment-method") {
+            // hoversubmenu[0].style.display = "none"
+            item_affiliate[3].style.color = "#00afee";
+            item_affiliate[3].getElementsByClassName("spantextmenu")[0].style.color = "#00afee";
+        }
+    }
+
     if (pathArray[2] == "appversion") {
         // hoversubmenu[0].style.display = "none"
         hoverarrow[0].style.color = "#00afee";
         hovertext[0].style.color = "#00afee";
         $('#app-used-menuleft').css("background", "#00afee");
-        $('#app-used-menuleft').css('color', '#fff')
+        $('#app-used-menuleft').css('color', '#fff');
 
     }
     if (pathArray[2] == "editprofile") {
@@ -119,7 +143,7 @@ $(document).ready(function () {
         hoverarrow[1].style.color = "#00afee";
         hovertext[1].style.color = "#00afee";
         $('#app-used-menuleft').css("background", "#00afee");
-        $('#app-used-menuleft').css('color', '#fff')
+        $('#app-used-menuleft').css('color', '#fff');
 
 
     }
@@ -127,7 +151,7 @@ $(document).ready(function () {
         hoverarrow[2].style.color = "#00afee";
         hovertext[2].style.color = "#00afee";
         $('#app-used-menuleft').css("background", "#00afee");
-        $('#app-used-menuleft').css('color', '#fff')
+        $('#app-used-menuleft').css('color', '#fff');
 
 
     }
@@ -135,7 +159,7 @@ $(document).ready(function () {
         hoverarrow[3].style.color = "#00afee";
         hovertext[3].style.color = "#00afee";
         $('#app-used-menuleft').css("background", "#00afee");
-        $('#app-used-menuleft').css('color', '#fff')
+        $('#app-used-menuleft').css('color', '#fff');
 
 
     }
@@ -143,7 +167,7 @@ $(document).ready(function () {
         hoverarrow[4].style.color = "#00afee";
         hovertext[4].style.color = "#00afee";
         $('#app-used-menuleft').css("background", "#00afee");
-        $('#app-used-menuleft').css('color', '#fff')
+        $('#app-used-menuleft').css('color', '#fff');
         if (pathArray[2] != "detail") {
 
         } else {
@@ -166,27 +190,27 @@ $(document).ready(function () {
     }
 
     if (pathArray[2] == "traffic") {
-        hoverarrow[5].style.color = "#00afee"
-        hovertext[5].style.color = "#00afee"
+        hoverarrow[5].style.color = "#00afee";
+        hovertext[5].style.color = "#00afee";
         $('#app-used-menuleft').css("background", "#00afee");
-        $('#app-used-menuleft').css('color', '#fff')
+        $('#app-used-menuleft').css('color', '#fff');
 
     }
     if (pathArray[2] == "notification") {
-        hoverarrow[6].style.color = "#00afee"
-        hovertext[6].style.color = "#00afee"
+        hoverarrow[6].style.color = "#00afee";
+        hovertext[6].style.color = "#00afee";
         $('#app-used-menuleft').css("background", "#00afee");
-        $('#app-used-menuleft').css('color', '#fff')
+        $('#app-used-menuleft').css('color', '#fff');
 
     }
     if (pathArray[1] == "affiliate") {
         $('#app-used-affilite').css("background", "#00afee");
-        $('#app-used-affilite').css('color', '#fff')
+        $('#app-used-affilite').css('color', '#fff');
 
     }
     if (pathArray[1] == "membership") {
         $('#membership').css("background", "#00afee");
-        $('#membership').css('color', '#fff')
+        $('#membership').css('color', '#fff');
 
     }
 });

@@ -9,7 +9,6 @@
         <span id="text-href">App Version</span>
     </div>
     </div>
-
     <div class="xcontent clsmenu">
         <div id="title-detail" class="row row1">
             <div id="title-appversion" class="content-title-detail has-feedback">
@@ -22,15 +21,12 @@
                 </span>
             </div>
         </div>
-
-
         <input type="hidden" id="value-setting" value="<%=checkSetting%>">
         <input type="hidden" id="app-setting" value="<%=appuse.idApp%>">
         <div id="filter-table-appversion" class="row row1">
             <span class="table-show">Show</span>
             <div id="filter-number" class="btn-group">
-                <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
+                <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span id="span-show-number" class="span-button-select">18</span>
                     <span class="caret arow-button-select"></span>
                 </button>
@@ -148,43 +144,43 @@
                 </ul>
             </div>
         </div>
-        <div class="row row1">
-            <div id="content-appversion">
-                <table id="table-appversion">
-                    <tr id="title-table-header">
-                        <th width="7.6%">#</th>
-                        <th width="22%">App Name
-                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
-                        </th>
-                        <th width="12.2%">Version
-                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
-                        </th>
-                        <th width="34.9%">Changelog
-                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
-                        </th>
-                        <th width="13%">Updated
-                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
-                        </th>
-                        <th width="10.3%"></th>
-                    </tr>
-                    <%
-                    function setNumberVersion(a) {
-                        let arrNumber = a.split(".");
-                        let a1 = parseInt(arrNumber[0]) * 100;
-                        let a2 = parseInt(arrNumber[1]) * 10;
-                        let a3 = parseInt(arrNumber[2]) * 1;
-                        return a1 + a2 + a3;
-                    }
-                    %>
-                        <input hidden id="nameapp-appversion" value="<%=appversions.nameApp%>">
-                        <%for(var i = 0; i<appversions.inforAppversion.length;i++){ %>
+        <%
+        function setNumberVersion(a) {
+            let arrNumber = a.split(".");
+            let a1 = parseInt(arrNumber[0]) * 100;
+            let a2 = parseInt(arrNumber[1]) * 10;
+            let a3 = parseInt(arrNumber[2]) * 1;
+            return a1 + a2 + a3;
+        }
+        %>
+            <input hidden id="nameapp-appversion" value="<%=appversions.nameApp%>">
+            <div class="row row1">
+                <div id="content-appversion">
+                    <table id="table-appversion">
+                        <tr id="title-table-header">
+                            <th width="7.6%">#</th>
+                            <th width="22%">App Name
+                                <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                            </th>
+                            <th width="12.2%">Version
+                                <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                            </th>
+                            <th width="32.9%">Changelog
+                                <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                            </th>
+                            <th width="13%">Updated
+                                <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                            </th>
+                            <th width="12.3%"></th>
+                        </tr>
+                        <%for(let i = 0; i<appversions.inforAppversion.length;i++){ %>
                             <% 
-                        var d = appversions.inforAppversion[i].updatedDate;
-                        var number = appversions.inforAppversion.length - i - 1;
-                        var m = d.getMonth() + 1;
-                        var updated = d.getDate() + "/" + m + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " GMT";    
-                        var arr = updated.split(" ");
-                         %>
+                                    var d = appversions.inforAppversion[i].updatedDate;
+                                    var number = appversions.inforAppversion.length - i - 1;
+                                    var m = d.getMonth() + 1;
+                                    var updated = d.getDate() + "/" + m + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + " GMT";    
+                                    var arr = updated.split(" ");
+                                %>
                                 <input hidden id="content-changelog-hiden<%=i%>" value="<%=appversions.inforAppversion[number].changeLog%>">
                                 <input id="time-ready<%=i%>" type="hidden" value="<%=d%>">
                                 <tr id="version<%=i%>" class="tr-content-appversion">
@@ -201,29 +197,28 @@
                                                             <img class="feature-appversion" src="/themes/img/appversion/iconfeature.png">
                                                             <%}%>
                                     </td>
-
                                     <td class="table-version findversion">
                                         <%=appversions.inforAppversion[number].version%>
                                     </td>
                                     <td class="table-changelog findnote">
-
                                         <span class="text-head-changelog">Release version
                                             <%=appversions.inforAppversion[number].version%>
                                         </span>
                                         <br>
                                         <% function trimSpace(str) {
                                             return str.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, "").replace(/\s+/g, " ");
-                                        }
-                                        if(trimSpace(appversions.inforAppversion[number].changeLog).length < 100){
-                                        %>
-                                            <%=appversions.inforAppversion[number].changeLog%>
-                                                <%}else{%>
-                                                    <%=appversions.inforAppversion[number].changeLog.slice(0,100)%>
-                                                        <a id="more-changelog<%=i%>" class="more-changelog" data-toggle="modal" data-target="#myModal-appversion">[...more]</a>
-                                                        <%}%>
+                                        }%>
+
+                                            <% if(trimSpace(appversions.inforAppversion[number].changeLog).length < 100){ %>
+                                                <%=appversions.inforAppversion[number].changeLog%>
+                                                    <%}else{%>
+                                                        <%=appversions.inforAppversion[number].changeLog.slice(0,100)%>
+                                                            <a id="more-changelog<%=i%>" class="more-changelog" data-toggle="modal" data-target="#myModal-appversion">[...more]</a>
+                                                            <%}%>
+
+
                                     </td>
                                     <td class="table-time-appversion finddate">
-
                                         <span>
                                             <%=arr[0]%>
                                         </span>
@@ -242,78 +237,74 @@
                                     </td>
                                 </tr>
                                 <%}%>
-                                    </tbody>
-                </table>
-                <span class="showing-footer1">Showing 1-
-                    <span id="number-show-footer"></span> of
+                    </table>
+                    <span class="showing-footer1">Showing 1-
+                        <span id="number-show-footer"></span> of
+                        <span class="number-items" href="#"></span>
+                        <span class="number-items"></span>
+                    </span>
+                    <div class="example">
+                        <div class="container">
+                            <div class="pagination-table-appversion row">
+                                <ul class="pagination">
+                                    <li class="edit-li-pagination">
+                                        <a class="number-items"></a>
+                                    </li>
+                                    <li class="limitsuperback">
+                                        <a class="limitpagination">
+                                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="superback">
+                                        <a>
+                                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="backpage">
+                                        <a>
+                                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="limitback">
+                                        <a class="limitpagination">
+                                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="thispage">
 
-                    <span class="number-items" href="#"></span>
-
-                    <span class="number-items"></span>
-
-                </span>
-                <div class="example">
-                    <div class="container">
-                        <div class="pagination-table-appversion row">
-                            <ul class="pagination">
-                                <li class="edit-li-pagination">
-                                    <a class="number-items"></a>
-                                </li>
-                                <li class="limitsuperback">
-                                    <a class="limitpagination">
-                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="superback">
-                                    <a>
-                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="backpage">
-                                    <a>
-                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="limitback">
-                                    <a class="limitpagination">
-                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="thispage">
-
-                                    </a>
-                                </li>
-                                <li class="edit-li-pagination">
-                                    <a class="numberpage">
-                                    </a>
-                                </li>
-                                <li class="limitnext">
-                                    <a class="limitpagination">
-                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="nextpage">
-                                    <a>
-                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="supernext">
-                                    <a>
-                                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li class="limitsupernext">
-                                    <a class="limitpagination">
-                                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                            </ul>
+                                        </a>
+                                    </li>
+                                    <li class="edit-li-pagination">
+                                        <a class="numberpage">
+                                        </a>
+                                    </li>
+                                    <li class="limitnext">
+                                        <a class="limitpagination">
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nextpage">
+                                        <a>
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="supernext">
+                                        <a>
+                                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="limitsupernext">
+                                        <a class="limitpagination">
+                                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 
     <div class="container ">
@@ -325,8 +316,7 @@
                         </div>
                         <!-- <form id="form-note-history" onsubmit="return false"> -->
                         <div id="text-changelog" class="textarea-history">
-                            <span class="text-head-changelog headlog"></span>
-                            <br>
+                            <div class="text-head-changelog headlog"></div>
                             <span class="content-changelog"></span>
                         </div>
                         <div class="dialogdeleteapp-foot-history">
@@ -362,8 +352,7 @@
                                         <div class="text-info-platform">Build your project for testing on android device</div>
                                     </div>
                                     <div class="col-xs-2 padding-0">
-                                        <img class="img-responsive icon-row-platform" alt="android platforms" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNS4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNDMuOTQzcHgiIGhlaWdodD0iNTJweCIgdmlld0JveD0iMCAwIDQzLjk0MyA1MiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNDMuOTQzIDUyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGZpbGw9IiNBNEM2MzkiIGQ9Ik0zLjI1MywxNi4yNzFDMS40NTYsMTYuMjcxLDAsMTcuNTQ0LDAsMTkuMTE4djEyLjE3NWMwLDEuNTcyLDEuNDU3LDIuODQ5LDMuMjUzLDIuODQ5DQoJCWMxLjc5NSwwLDMuMjUzLTEuMjc1LDMuMjUzLTIuODQ5VjE5LjExOEM2LjUwNywxNy41NDUsNS4wNDksMTYuMjcxLDMuMjUzLDE2LjI3MXogTTI3Ljg2MSw0LjM2NGwyLjg0NC0yLjgzNQ0KCQljMC4zNTItMC4zNTEsMC4zNTItMC45MTUsMC0xLjI2N2MtMC4zNTMtMC4zNS0wLjkxOC0wLjM1LTEuMjcxLDBsLTMuNDk5LDMuNDkzQzI0LjY4NCwzLjQ1LDIzLjM2NCwzLjI4LDIxLjk5LDMuMjgNCgkJYy0xLjM1NiwwLTIuNjY2LDAuMTY4LTMuOTAyLDAuNDY2bC0zLjQ5My0zLjQ4M2MtMC4zNTMtMC4zNS0wLjkxOS0wLjM1LTEuMjcxLDBjLTAuMzUxLDAuMzUxLTAuMzUxLDAuOTE3LDAsMS4yNjhsMi44MjksMi44MTkNCgkJYy00LjcyLDEuODExLTcuOTk5LDUuNzM0LTcuOTk5LDEwLjI5NWMwLDAuMDU2LDI3LjY2OCwwLjAwMywyNy42NjgsMEMzNS44MjQsMTAuMDk1LDMyLjU2Myw2LjE4MSwyNy44NjEsNC4zNjR6IE0xNy45MjEsMTEuMzk2DQoJCWMtMC45LDAtMS42MjctMC43MjYtMS42MjctMS42MjVjMC0wLjg5NiwwLjcyNy0xLjYyNSwxLjYyNy0xLjYyNWMwLjg5OSwwLDEuNjI3LDAuNzI5LDEuNjI3LDEuNjI1DQoJCUMxOS41NSwxMC42NjksMTguODE2LDExLjM5NiwxNy45MjEsMTEuMzk2eiBNMjYuMDU5LDExLjM5NmMtMC44OTksMC0xLjYyOC0wLjcyNi0xLjYyOC0xLjYyNWMwLTAuODk2LDAuNzI5LTEuNjI1LDEuNjI4LTEuNjI1DQoJCXMxLjYyOCwwLjcyOSwxLjYyOCwxLjYyNUMyNy42ODcsMTAuNjY5LDI2Ljk1OCwxMS4zOTYsMjYuMDU5LDExLjM5NnogTTQwLjY5MSwxNi4yNzFjLTEuNzk3LDAtMy4yNTYsMS4yNzItMy4yNTYsMi44NDd2MTIuMTc1DQoJCWMwLDEuNTcyLDEuNDU5LDIuODQ5LDMuMjU2LDIuODQ5YzEuNzk2LDAsMy4yNTEtMS4yNzYsMy4yNTEtMi44NDlWMTkuMTE4QzQzLjk0MiwxNy41NDUsNDIuNDg0LDE2LjI3MSw0MC42OTEsMTYuMjcxeg0KCQkgTTguMTU1LDM1Ljc1MWMwLDIuNjg2LDIuMTc5LDQuODYsNC44NjYsNC44Njl2OC41MzJjMCwxLjU3MiwxLjQ1NywyLjg0OCwzLjI1MywyLjg0OGMxLjc5NSwwLDMuMjUxLTEuMjc0LDMuMjUxLTIuODQ4VjQwLjYyDQoJCWg0Ljg5MXY4LjUzMmMwLDEuNTcyLDEuNDU2LDIuODQ4LDMuMjUzLDIuODQ4YzEuNzk1LDAsMy4yNTItMS4yNzQsMy4yNTItMi44NDhWNDAuNjJoMC4wMjFjMi42OTcsMCw0Ljg4My0yLjE4MSw0Ljg4My00Ljg2OQ0KCQlWMTYuMjY2SDguMTU4djE5LjQ4NUg4LjE1NUw4LjE1NSwzNS43NTF6Ii8+DQo8L2c+DQo8L3N2Zz4NCg=="
-                                        />
+                                        <img class="img-responsive icon-row-platform" alt="android platforms" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNS4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNDMuOTQzcHgiIGhlaWdodD0iNTJweCIgdmlld0JveD0iMCAwIDQzLjk0MyA1MiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNDMuOTQzIDUyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGZpbGw9IiNBNEM2MzkiIGQ9Ik0zLjI1MywxNi4yNzFDMS40NTYsMTYuMjcxLDAsMTcuNTQ0LDAsMTkuMTE4djEyLjE3NWMwLDEuNTcyLDEuNDU3LDIuODQ5LDMuMjUzLDIuODQ5DQoJCWMxLjc5NSwwLDMuMjUzLTEuMjc1LDMuMjUzLTIuODQ5VjE5LjExOEM2LjUwNywxNy41NDUsNS4wNDksMTYuMjcxLDMuMjUzLDE2LjI3MXogTTI3Ljg2MSw0LjM2NGwyLjg0NC0yLjgzNQ0KCQljMC4zNTItMC4zNTEsMC4zNTItMC45MTUsMC0xLjI2N2MtMC4zNTMtMC4zNS0wLjkxOC0wLjM1LTEuMjcxLDBsLTMuNDk5LDMuNDkzQzI0LjY4NCwzLjQ1LDIzLjM2NCwzLjI4LDIxLjk5LDMuMjgNCgkJYy0xLjM1NiwwLTIuNjY2LDAuMTY4LTMuOTAyLDAuNDY2bC0zLjQ5My0zLjQ4M2MtMC4zNTMtMC4zNS0wLjkxOS0wLjM1LTEuMjcxLDBjLTAuMzUxLDAuMzUxLTAuMzUxLDAuOTE3LDAsMS4yNjhsMi44MjksMi44MTkNCgkJYy00LjcyLDEuODExLTcuOTk5LDUuNzM0LTcuOTk5LDEwLjI5NWMwLDAuMDU2LDI3LjY2OCwwLjAwMywyNy42NjgsMEMzNS44MjQsMTAuMDk1LDMyLjU2Myw2LjE4MSwyNy44NjEsNC4zNjR6IE0xNy45MjEsMTEuMzk2DQoJCWMtMC45LDAtMS42MjctMC43MjYtMS42MjctMS42MjVjMC0wLjg5NiwwLjcyNy0xLjYyNSwxLjYyNy0xLjYyNWMwLjg5OSwwLDEuNjI3LDAuNzI5LDEuNjI3LDEuNjI1DQoJCUMxOS41NSwxMC42NjksMTguODE2LDExLjM5NiwxNy45MjEsMTEuMzk2eiBNMjYuMDU5LDExLjM5NmMtMC44OTksMC0xLjYyOC0wLjcyNi0xLjYyOC0xLjYyNWMwLTAuODk2LDAuNzI5LTEuNjI1LDEuNjI4LTEuNjI1DQoJCXMxLjYyOCwwLjcyOSwxLjYyOCwxLjYyNUMyNy42ODcsMTAuNjY5LDI2Ljk1OCwxMS4zOTYsMjYuMDU5LDExLjM5NnogTTQwLjY5MSwxNi4yNzFjLTEuNzk3LDAtMy4yNTYsMS4yNzItMy4yNTYsMi44NDd2MTIuMTc1DQoJCWMwLDEuNTcyLDEuNDU5LDIuODQ5LDMuMjU2LDIuODQ5YzEuNzk2LDAsMy4yNTEtMS4yNzYsMy4yNTEtMi44NDlWMTkuMTE4QzQzLjk0MiwxNy41NDUsNDIuNDg0LDE2LjI3MSw0MC42OTEsMTYuMjcxeg0KCQkgTTguMTU1LDM1Ljc1MWMwLDIuNjg2LDIuMTc5LDQuODYsNC44NjYsNC44Njl2OC41MzJjMCwxLjU3MiwxLjQ1NywyLjg0OCwzLjI1MywyLjg0OGMxLjc5NSwwLDMuMjUxLTEuMjc0LDMuMjUxLTIuODQ4VjQwLjYyDQoJCWg0Ljg5MXY4LjUzMmMwLDEuNTcyLDEuNDU2LDIuODQ4LDMuMjUzLDIuODQ4YzEuNzk1LDAsMy4yNTItMS4yNzQsMy4yNTItMi44NDhWNDAuNjJoMC4wMjFjMi42OTcsMCw0Ljg4My0yLjE4MSw0Ljg4My00Ljg2OQ0KCQlWMTYuMjY2SDguMTU4djE5LjQ4NUg4LjE1NUw4LjE1NSwzNS43NTF6Ii8+DQo8L2c+DQo8L3N2Zz4NCg==" />
                                     </div>
                                 </div>
                             </a>
@@ -378,8 +367,7 @@
                                         <div class="text-info-platform">Build your project for testing on iOS device</div>
                                     </div>
                                     <div class="col-xs-2 padding-0">
-                                        <img class="img-responsive icon-row-platform" alt="apple platforms" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNS4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkNhcGFfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSI0Mi4zNHB4IiBoZWlnaHQ9IjUycHgiIHZpZXdCb3g9IjAgMCA0Mi4zNCA1MiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNDIuMzQgNTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPHBhdGggZmlsbD0iI0M3QzhDOCIgZD0iTTM1LjM2MywyNy42M2MtMC4wNjUtNi41ODUsNS4zNzEtOS43NDQsNS42MTMtOS45MDFjLTMuMDU0LTQuNDctNy44MTMtNS4wODItOS41MDktNS4xNTINCgkJYy00LjA0OS0wLjQxLTcuOSwyLjM4NC05Ljk1NywyLjM4NGMtMi4wNDksMC01LjIyMS0yLjMyNC04LjU3OS0yLjI2M2MtNC40MTQsMC4wNjYtOC40ODMsMi41NjYtMTAuNzU3LDYuNTINCgkJQy0yLjQxLDI3LjE3NSwxLDM4Ljk2Myw1LjQ2OSw0NS40MTdjMi4xODUsMy4xNTgsNC43ODksNi43MDcsOC4yMDksNi41OGMzLjI5My0wLjEzMiw0LjUzNy0yLjEzMSw4LjUxOS0yLjEzMQ0KCQljMy45NzksMCw1LjEwMSwyLjEzMSw4LjU4NCwyLjA2NWMzLjU0NC0wLjA2Niw1Ljc4OC0zLjIyMSw3Ljk1Ny02LjM5YzIuNTA5LTMuNjY0LDMuNTQxLTcuMjEzLDMuNjAzLTcuMzk2DQoJCUM0Mi4yNjIsMzguMTExLDM1LjQzMiwzNS40OTYsMzUuMzYzLDI3LjYzeiBNMjguODE2LDguMzA1QzMwLjYyOSw2LjEwMiwzMS44NTUsMy4wNDgsMzEuNTIxLDANCgkJYy0yLjYxNCwwLjEwNS01Ljc4MiwxLjc0MS03LjY1OCwzLjkzOGMtMS42ODMsMS45NDktMy4xNTUsNS4wNjEtMi43NjEsOC4wNDdDMjQuMDIxLDEyLjIxMSwyNi45OTksMTAuNTAxLDI4LjgxNiw4LjMwNXoiLz4NCjwvZz4NCjwvc3ZnPg0K"
-                                        />
+                                        <img class="img-responsive icon-row-platform" alt="apple platforms" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNS4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkNhcGFfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSI0Mi4zNHB4IiBoZWlnaHQ9IjUycHgiIHZpZXdCb3g9IjAgMCA0Mi4zNCA1MiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNDIuMzQgNTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPHBhdGggZmlsbD0iI0M3QzhDOCIgZD0iTTM1LjM2MywyNy42M2MtMC4wNjUtNi41ODUsNS4zNzEtOS43NDQsNS42MTMtOS45MDFjLTMuMDU0LTQuNDctNy44MTMtNS4wODItOS41MDktNS4xNTINCgkJYy00LjA0OS0wLjQxLTcuOSwyLjM4NC05Ljk1NywyLjM4NGMtMi4wNDksMC01LjIyMS0yLjMyNC04LjU3OS0yLjI2M2MtNC40MTQsMC4wNjYtOC40ODMsMi41NjYtMTAuNzU3LDYuNTINCgkJQy0yLjQxLDI3LjE3NSwxLDM4Ljk2Myw1LjQ2OSw0NS40MTdjMi4xODUsMy4xNTgsNC43ODksNi43MDcsOC4yMDksNi41OGMzLjI5My0wLjEzMiw0LjUzNy0yLjEzMSw4LjUxOS0yLjEzMQ0KCQljMy45NzksMCw1LjEwMSwyLjEzMSw4LjU4NCwyLjA2NWMzLjU0NC0wLjA2Niw1Ljc4OC0zLjIyMSw3Ljk1Ny02LjM5YzIuNTA5LTMuNjY0LDMuNTQxLTcuMjEzLDMuNjAzLTcuMzk2DQoJCUM0Mi4yNjIsMzguMTExLDM1LjQzMiwzNS40OTYsMzUuMzYzLDI3LjYzeiBNMjguODE2LDguMzA1QzMwLjYyOSw2LjEwMiwzMS44NTUsMy4wNDgsMzEuNTIxLDANCgkJYy0yLjYxNCwwLjEwNS01Ljc4MiwxLjc0MS03LjY1OCwzLjkzOGMtMS42ODMsMS45NDktMy4xNTUsNS4wNjEtMi43NjEsOC4wNDdDMjQuMDIxLDEyLjIxMSwyNi45OTksMTAuNTAxLDI4LjgxNiw4LjMwNXoiLz4NCjwvZz4NCjwvc3ZnPg0K" />
                                     </div>
                                 </div>
                             </a>
@@ -441,8 +429,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-feedback input-error">
                                         <label class="control-label"> Create a secure password for your keystore *</label>
-                                        <input class="form-control input-form-info" placeholder="" type="password" displaytext=" Key Store Password" id="keystore"
-                                            name="keystore" value="taydotech" />
+                                        <input class="form-control input-form-info" placeholder="" type="password" displaytext=" Key Store Password" id="keystore" name="keystore" value="taydotech" />
                                         <span class="form-control-feedback" aria-hidden="true">
                                             <img class="seticoneye-build iconerr" id="icon-eye-build" src="/themes/img/login/iconeye1.png" alt="deployapp.net">
                                             <img class="seticoneye-build iconerr" id="icon-eye-hide-build" src="/themes/img/login/iconeyehide.png" alt="deployapp.net">
@@ -452,32 +439,28 @@
                                     <div class="form-group has-feedback input-error">
                                         <label class=" control-label"> Confirm a secure password for your keystore * </label>
                                         <div class="">
-                                            <input class="form-control input-form-info" type="password" placeholder="" displaytext="Key Store Confirm Password " id="confirmkeystore"
-                                                name="confirmkeystore" value="taydotech" />
+                                            <input class="form-control input-form-info" type="password" placeholder="" displaytext="Key Store Confirm Password " id="confirmkeystore" name="confirmkeystore" value="taydotech" />
                                             <span id="icon-err-confirmkeystore" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback input-error">
                                         <label class=" control-label"> First and last name * </label>
                                         <div class="">
-                                            <input class="form-control input-form-info" type="text" id="CN" placeholder="" displaytext="First and last name" name="CN"
-                                                value="taydo tech" />
+                                            <input class="form-control input-form-info" type="text" id="CN" placeholder="" displaytext="First and last name" name="CN" value="taydo tech" />
                                             <span id="icon-err-CN" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback input-error">
                                         <label class="control-label"> Organizational unit * </label>
                                         <div class="">
-                                            <input class="form-control input-form-info" type="text" id="OU" placeholder="" displaytext="Organizational unit" name="OU"
-                                                value="taydotech" />
+                                            <input class="form-control input-form-info" type="text" id="OU" placeholder="" displaytext="Organizational unit" name="OU" value="taydotech" />
                                             <span id="icon-err-OU" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback input-error">
                                         <label class=" control-label"> Organizational * </label>
                                         <div class="">
-                                            <input class="form-control input-form-info" type="text" id="O" placeholder="" displaytext="Organizational" name="O" value="taydotech"
-                                            />
+                                            <input class="form-control input-form-info" type="text" id="O" placeholder="" displaytext="Organizational" name="O" value="taydotech" />
                                             <span id="icon-err-O" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
@@ -487,32 +470,28 @@
                                     <div class="form-group has-feedback input-error">
                                         <label class=" control-label"> City or location * </label>
                                         <div class="">
-                                            <input class="form-control input-form-info" type="text" id="L" placeholder="" displaytext="City or location" name="L" value="HaNoi"
-                                            />
+                                            <input class="form-control input-form-info" type="text" id="L" placeholder="" displaytext="City or location" name="L" value="HaNoi" />
                                             <span id="icon-err-L" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback input-error">
                                         <label class=" control-label"> State or Province *</label>
                                         <div class="">
-                                            <input class="form-control input-form-info" type="text" id="ST" placeholder="" displaytext="State or Province" name="ST"
-                                                value="VietNam" />
+                                            <input class="form-control input-form-info" type="text" id="ST" placeholder="" displaytext="State or Province" name="ST" value="VietNam" />
                                             <span id="icon-err-ST" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback input-error">
                                         <label class=" control-label"> Two-letter country *</label>
                                         <div class="">
-                                            <input type="text" class="form-control input-form-info" id="C" placeholder="" displaytext="Two-letter country" name="C" value="VN"
-                                            />
+                                            <input type="text" class="form-control input-form-info" id="C" placeholder="" displaytext="Two-letter country" name="C" value="VN" />
                                             <span id="icon-err-C" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback input-error">
                                         <label class=" control-label"> Alias name *</label>
                                         <div class="">
-                                            <input type="text" class="form-control input-form-info" placeholder="" displaytext="Alias name" id="alias" name="alias" value="taydotech"
-                                            />
+                                            <input type="text" class="form-control input-form-info" placeholder="" displaytext="Alias name" id="alias" name="alias" value="taydotech" />
                                             <span id="icon-err-alias" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                         </div>
                                     </div>
@@ -545,8 +524,7 @@
                                         <!-- <input type="hidden" id="keyIDFolder" name="keyIDFolder" value=""> -->
                                         <label class="custom-file-upload">
                                             <!-- <i class="fa fa-cloud-upload"></i>  -->
-                                            <input class="form-control input-file-build-ios input-form-info" type="file" displaytext="keystore" id="keystore-update"
-                                                name="keystore-update" value="" accept=".keystore" />
+                                            <input class="form-control input-file-build-ios input-form-info" type="file" displaytext="keystore" id="keystore-update" name="keystore-update" value="" accept=".keystore" />
                                             <img src="/themes/img/icon-choose-file.png" class="img-choose-file-ios" alt="choose file"> &nbsp;
                                             <span class="text-choose-file"> Choose a File</span>
                                         </label>
@@ -557,8 +535,7 @@
 
                                 <div class="form-group has-feedback input-error">
                                     <label class="control-label"> Password for your keystore *</label>
-                                    <input class="form-control input-form-info" placeholder="" type="password" displaytext=" Key Store Password" id="password_keystore"
-                                        name="password_keystore" value="" />
+                                    <input class="form-control input-form-info" placeholder="" type="password" displaytext=" Key Store Password" id="password_keystore" name="password_keystore" value="" />
                                     <span class="form-control-feedback" aria-hidden="true">
                                         <img class="seticoneye-build iconerr" id="icon-eye-build-update" src="/themes/img/login/iconeye1.png" alt="deployapp.net">
                                         <img class="seticoneye-build iconerr" id="icon-eye-hide-build-update" src="/themes/img/login/iconeyehide.png" alt="deployapp.net">
@@ -569,8 +546,7 @@
                                 <div class="form-group has-feedback input-error">
                                     <label class="control-label"> Alias name *</label>
                                     <div class="">
-                                        <input type="text" class="form-control input-form-info" id="alias_name" placeholder="" displaytext="Alias" name="alias" value=""
-                                        />
+                                        <input type="text" class="form-control input-form-info" id="alias_name" placeholder="" displaytext="Alias" name="alias" value="" />
                                         <span id="icon-err-alias-name" class="glyphicon glyphicon-err form-control-feedback display-none"></span>
                                     </div>
                                 </div>
@@ -630,8 +606,7 @@
                                         <div class="">
                                             <label class="custom-file-upload">
                                                 <!-- <i class="fa fa-cloud-upload"></i>  -->
-                                                <input class="form-control input-file-build-ios input-form-info " type="file" displaytext="adhoc" id="provision-adhoc" name="provision-adhoc"
-                                                    value="" accept=".mobileprovision" />
+                                                <input class="form-control input-file-build-ios input-form-info " type="file" displaytext="adhoc" id="provision-adhoc" name="provision-adhoc" value="" accept=".mobileprovision" />
                                                 <img src="/themes/img/icon-choose-file.png" class="img-choose-file-ios" alt="choose file"> &nbsp;
                                                 <span class="text-choose-file"> Choose a File</span>
                                             </label>
@@ -654,8 +629,7 @@
 
                                         <div class="">
                                             <label class="custom-file-upload">
-                                                <input class="form-control input-file-build-ios input-form-info" type="file" displaytext="certificate" id="certificate-file-adhoc"
-                                                    name="certificate-file-adhoc" value="" accept=".p12" />
+                                                <input class="form-control input-file-build-ios input-form-info" type="file" displaytext="certificate" id="certificate-file-adhoc" name="certificate-file-adhoc" value="" accept=".p12" />
                                                 <img src="/themes/img/icon-choose-file.png" class="img-choose-file-ios" alt="choose file"> &nbsp;
                                                 <span class="text-choose-file"> Choose a File</span>
                                             </label>
@@ -688,8 +662,7 @@
                                         <div class="">
                                             <label class="custom-file-upload">
                                                 <!-- <i class="fa fa-cloud-upload"></i>  -->
-                                                <input class="form-control input-file-build-ios input-form-info" type="file" displaytext="appstore" id="provision-appstore"
-                                                    name="provision-appstore" value="" accept=".mobileprovision" />
+                                                <input class="form-control input-file-build-ios input-form-info" type="file" displaytext="appstore" id="provision-appstore" name="provision-appstore" value="" accept=".mobileprovision" />
                                                 <img src="/themes/img/icon-choose-file.png" class="img-choose-file-ios" alt="choose file"> &nbsp;
                                                 <span class="text-choose-file"> Choose a File</span>
                                             </label>
@@ -711,8 +684,7 @@
                                         </div>
                                         <div class="input-choose-file">
                                             <label class="custom-file-upload">
-                                                <input class="form-control  input-file-build-ios input-form-info" type="file" displaytext="certificate" id="certificate-file-appstore"
-                                                    name="certificate-file-appstore" value="" accept=".p12" />
+                                                <input class="form-control  input-file-build-ios input-form-info" type="file" displaytext="certificate" id="certificate-file-appstore" name="certificate-file-appstore" value="" accept=".p12" />
                                                 <img src="/themes/img/icon-choose-file.png" class="img-choose-file-ios" alt="choose file"> &nbsp;
                                                 <span class="text-choose-file"> Choose a File</span>
                                             </label>

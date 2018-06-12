@@ -1,6 +1,7 @@
 let mongoose = require('mongoose');
 
 let order = mongoose.Schema({
+    id: String,
     idApp: String,
     nameApp: String,
     codeOrder: String,
@@ -19,6 +20,7 @@ let order = mongoose.Schema({
     phoneNumberUser: Number,
     addressUser: String,
     product: [{
+        id: String,
         idProduct: String,
         image: String,
         nameProduct: String,

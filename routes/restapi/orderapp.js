@@ -2,177 +2,234 @@ var express = require('express');
 var router = express.Router();
 var TrafficModel = require('../../models/traffic');
 var InforAppModel = require('../../models/inforapp');
-var OrderOfApp = require('../../models/userofapp')
+var OrderOfAppModels = require('../../models/orderofapp')
 var multipart = require('connect-multiparty');
 var async = require('async');
+var md5 = require('md5');
 
 var multipartMiddleware = multipart();
 
-router.post('/addneworder', (req, res) => {
+router.post('/vieworder', multipartMiddleware, (req, res) => {
+    console.log(req.body);
+    if (req.body.product) {
+        for (var i = 0; i < req.body.product.length; i++) {
+            console.log(req.body.product[i]);
+        }
+    }
+    res.json({ status: 1, msg: "success" });
+});
+router.post('/addneworder', multipartMiddleware, (req, res) => {
     try {
         console.log(req.body)
-        console.log(typeof req.body.ten)
-        var arrProd = Array(req.body.ten);
-        console.log(typeof arrProd);
-        console.log(arrProd[0]);
-        // async.each(arrProd[0], (item) => {
-        //     console.log(item);
-        // })
-        var idApp, nameApp, idOrder, codeOrder, nameCustomer, email, address, phoneNumber, addressShip, dateCreate, note;
-        var discount, feeShip, feeVat, totalMonney, methodPayment, methodOrder, curency, statusOrder, status;
-        var product, idProduct, nameProduct, productCode, size, color, image, price, quantity;
-        if (req.body.idapp) {
-            idApp = req.body.idapp;
+
+
+        var sApiKey, sNameApp, sIDOrder, sCodeOrder, sNameCustomer, sEmail, sAddress, sPhoneNumber, sAddressShip, sDateCreate, sNote;
+        var sDiscount, sFeeShip, sFeeVat, sTotalMonney, sMethodPayment, sMethodOrder, sCurency, sStatusOrder, sStatus;
+        var sProduct, sIDProduct, sNameProduct, sProductCode, sSize, sColor, sImage, sPrice, sQuantity;
+        if (req.body.apikey) {
+            sApiKey = req.body.apikey;
         } else {
-            idApp = null;
+            sApiKey = null;
         }
         if (req.body.nameapp) {
-            nameApp = req.body.nameapp;
+            sNameApp = req.body.nameapp;
         } else {
-            nameApp = null;
+            sNameApp = null;
         }
         if (req.body.idorder) {
-            idOrder = req.body.idorder;
+            sIDOrder = req.body.idorder;
         } else {
-            idOrder = null;
+            sIDOrder = null;
         }
         if (req.body.codeorder) {
-            codeOrder = req.body.codeorder;
+            sCodeOrder = req.body.codeorder;
         } else {
-            codeOrder = null;
+            sCodeOrder = null;
         }
         if (req.body.namecustomer) {
-            nameCustomer = req.body.namecustomer;
+            sNameCustomer = req.body.namecustomer;
         } else {
-            nameCustomer = null;
+            sNameCustomer = null;
         }
         if (req.body.email) {
-            email = req.body.email;
+            sEmail = req.body.email;
         } else {
-            email = null;
+            sEmail = null;
         }
         if (req.body.address) {
-            address = req.body.address;
+            sAddress = req.body.address;
         } else {
-            address = null;
+            sAddress = null;
         }
         if (req.body.phonenumber) {
-            phoneNumber = req.body.phonenumber;
+            sPhoneNumber = req.body.phonenumber;
         } else {
-            phoneNumber = null;
+            sPhoneNumber = null;
         }
         if (req.body.addressship) {
-            addressShip = req.body.addressship;
+            sAddressShip = req.body.addressship;
         } else {
-            addressShip = null;
+            sAddressShip = null;
         }
         if (req.body.note) {
-            note = req.body.note;
+            sNote = req.body.note;
         } else {
-            note = null;
+            sNote = null;
         }
-        dateCreate = new Date();
+        sDateCreate = new Date();
         if (req.body.discount) {
-            discount = req.body.discount;
+            sDiscount = req.body.discount;
         } else {
-            discount = null;
+            sDiscount = null;
         }
         if (req.body.feeship) {
-            feeShip = req.body.feeship;
+            sFeeShip = req.body.feeship;
         } else {
-            feeShip = null;
+            sFeeShip = null;
         }
         if (req.body.feevat) {
-            feeVat = req.body.feevat;
+            sFeeVat = req.body.feevat;
         } else {
-            feeVat = null;
+            sFeeVat = null;
         }
-        if (req.body.totalMonney) {
-            totalMonney = req.body.totalMonney;
+        if (req.body.totalmoney) {
+            sTotalMonney = req.body.totalmoney;
         } else {
-            totalMonney = null;
+            sTotalMonney = null;
         }
         if (req.body.methodpayment) {
-            methodPayment = req.body.methodpayment;
+            sMethodPayment = req.body.methodpayment;
         } else {
-            methodPayment = null;
+            sMethodPayment = null;
+        }
+        if (req.body.methodorder) {
+            sMethodOrder = req.body.methodorder;
+        } else {
+            sMethodOrder = null;
         }
         if (req.body.curency) {
-            curency = req.body.curency;
+            sCurency = req.body.curency;
         } else {
-            curency = null;
+            sCurency = null;
         }
         if (req.body.statusorder) {
-            statusOrder = req.body.statusorder;
+            sStatusOrder = req.body.statusorder;
         } else {
-            statusOrder = null;
+            sStatusOrder = null;
         }
         if (req.body.product) {
-            product = req.body.product;
+            sProduct = req.body.product;
         } else {
-            product = null;
+            sProduct = null;
         }
-        if (!idApp || !nameApp || !idOrder || !codeOrder || !nameCustomer || !email || !address || !phoneNumber || !addressShip || !feeShip || !feeVat || !totalMonney || !methodPayment || !statusOrder || !product) {
-            res.json({
+        console.log(sApiKey);
+        console.log(sNameApp);
+        console.log(sIDOrder);
+        console.log(sCodeOrder);
+        console.log(sNameCustomer);
+        console.log(sEmail);
+        console.log(sAddress);
+        console.log(sPhoneNumber);
+        console.log(sAddressShip);
+        console.log(sFeeShip);
+        console.log(sFeeVat);
+        console.log(sTotalMonney);
+        console.log(sMethodPayment);
+        console.log(sStatusOrder);
+
+        console.log(sProduct);
+        if (!sApiKey || !sNameApp || !sIDOrder || !sCodeOrder || !sNameCustomer || !sEmail || !sAddress || !sPhoneNumber || !sAddressShip || !sFeeShip || !sFeeVat || !sTotalMonney || !sMethodPayment || !sStatusOrder || !sProduct) {
+            return res.json({
                 status: 3,
                 msg: 'Lỗi: Điều kiện không đủ'
             });
         } else {
-            for (let i = 0; i < product.length; i++) {
-                if (!product[i].idProduct || !product[i].nameProduct || !product[i].productCode || !product[i].size || !product[i].color || !product[i].price || !product[i].quantity) {
-                    res.json({
-                        status: 3,
-                        msg: 'Lỗi: Điều kiện của sản phẩm không đủ'
-                    });
+            (async() => {
+                for (let i = 0; i < sProduct.length; i++) {
+                    console.log(sProduct[i]);
+                    console.log(sProduct[i].idproduct);
+                    console.log(sProduct[i].nameproduct);
+                    if (!sProduct[i].idproduct || !sProduct[i].nameproduct || !sProduct[i].codeproduct || !sProduct[i].image || !sProduct[i].size || !sProduct[i].color || !sProduct[i].price || !sProduct[i].quantity) {
+                        return res.json({
+                            status: 3,
+                            msg: 'Lỗi: Điều kiện của sản phẩm không đủ'
+                        });
+                    }
                 }
-            }
+            })
+
             InforAppModel.findOne({
-                idApp,
-                status: true
-            }).then((infor) => {
-                if (infor) {
-                    var order = new OrderOfApp({
-                        idApp,
-                        nameApp,
-                        idOrder,
-                        codeOrder,
-                        nameCustomer,
-                        email,
-                        address,
-                        phoneNumber,
-                        addressShip,
-                        dateCreate,
-                        note,
-                        discount,
-                        feeShip,
-                        feeVat,
-                        product,
-                        totalMonney,
-                        methodPayment,
-                        methodOrder,
-                        curency,
-                        statusOrder,
+                idApp: sApiKey
+            }).then((checkInfor) => {
+                console.log('insert');
+                if (checkInfor) {
+                    var orderData = new OrderOfAppModels({
+                        id: md5(Date.now()),
+                        idApp: sApiKey,
+                        nameApp: sNameApp,
+                        idOrder: sIDOrder,
+                        codeOrder: sCodeOrder,
+                        nameCustomer: sNameCustomer,
+                        email: sEmail,
+                        address: sAddress,
+                        phoneNumber: sPhoneNumber,
+                        addressShip: sAddressShip,
+                        dateCreate: sDateCreate,
+                        note: sNote,
+                        discount: sDiscount,
+                        feeShip: sFeeShip,
+                        feeVat: sFeeVat,
+                        product: [],
+                        totalMonney: sTotalMonney,
+                        methodPayment: sMethodPayment,
+                        methodOrder: sMethodOrder,
+                        curency: sCurency,
+                        statusOrder: sStatusOrder,
                         status: true
                     });
-                    order.save((err, data) => {
+                    orderData.save((err, data) => {
                         if (err) {
                             return res.json({
                                 status: "3",
                                 msg: err + ''
                             });
                         }
+                        console.log('----------');
+                        console.log(data);
+                        (async() => {
+                            for (var i = 0; i < sProduct.length; i++) {
+                                await OrderOfAppModels.update({ id: data.id }, {
+                                    $push: {
+                                        product: {
+                                            id: md5(Date.now()),
+                                            idProduct: sProduct[i].idproduct,
+                                            image: sProduct[i].image,
+                                            nameProduct: sProduct[i].nameproduct,
+                                            size: sProduct[i].size,
+                                            color: sProduct[i].color,
+                                            productCode: sProduct[i].codeproduct,
+                                            price: sProduct[i].price,
+                                            quantity: sProduct[i].quantity
+                                        }
+                                    }
+                                }, {
+                                    safe: true,
+                                    upsert: false
+                                }).exec();
+                            }
+                        })()
+
                         res.json({
                             status: 1,
                             msg: 'Thêm thành công bản ghi'
                         });
                     });
                 } else {
-                    res.json({
+                    return res.json({
                         status: 2,
                         msg: 'Không tồn tại app trên server.'
                     });
                 }
-
             });
         }
     } catch (error) {
@@ -182,6 +239,5 @@ router.post('/addneworder', (req, res) => {
             msg: 'Lỗi: ' + error + ''
         });
     }
-
 });
 module.exports = router;

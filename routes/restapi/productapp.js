@@ -16,10 +16,11 @@ router.post('/accessproductpage', multipartMiddleware, (req, res) => {
         var sNameApp = req.body.nameapp;
         var sIDProduct = req.body.idproduct;
         var sNameProduct = req.body.nameproduct;
+        var sCodeProduct = req.body.codeproduct;
         var sSessionProduct = req.body.sessionproduct;
 
         var sImage;
-        if (!reqAPIKey || !sNameApp || !sIDProduct || !sNameProduct || !sSessionProduct) {
+        if (!reqAPIKey || !sNameApp || !sIDProduct || !sNameProduct || !sSessionProduct || !sCodeProduct) {
             res.json({ status: 3, msg: 'Lỗi: Điều kiện không đủ' });
         } else {
             // var sIDApp = libBase64.Base64.encode(reqAPIKey);
@@ -36,6 +37,7 @@ router.post('/accessproductpage', multipartMiddleware, (req, res) => {
                         idApp: reqAPIKey,
                         nameApp: sNameApp,
                         idProduct: sIDProduct,
+                        codeProduct: sCodeProduct,
                         name: sNameProduct,
                         image: sImage,
                         sessionProduct: sSessionProduct,
@@ -77,13 +79,13 @@ router.get('/outproductpage', multipartMiddleware, (req, res) => {
         } else {
             // var sIDApp = libBase64.Base64.encode(reqIDApp);
             InforAppModel.findOne({
-                idApp: sIDApp
+                idApp: reqAPIKey
             }).then((data) => {
                 // console.log(data);
                 if (data) {
 
                     ProductStatisticModels.findOne({
-                        idApp: sIDApp,
+                        idApp: reqAPIKey,
                         idProduct: sIDProduct,
                         sessionProduct: sSessionProduct
                     }).then((data) => {
@@ -94,7 +96,7 @@ router.get('/outproductpage', multipartMiddleware, (req, res) => {
                             var sTimeAccess = sDateOut - data.dateAccess;
 
                             ProductStatisticModels.update({
-                                idApp: sIDApp,
+                                idApp: reqAPIKey,
                                 idProduct: sIDProduct,
                                 sessionProduct: sSessionProduct
                             }, {

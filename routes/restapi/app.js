@@ -420,6 +420,5 @@ router.post('/inserarray', multipartMiddleware, (req, res) => {
             msg: 'Lỗi: ' + error + ''
         });
     }
-
 });
 module.exports = router;

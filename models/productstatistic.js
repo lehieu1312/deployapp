@@ -3,6 +3,7 @@ let mongoose = require('mongoose');
 let ProductStatisticChema = mongoose.Schema({
     idApp: String,
     nameApp: String,
+    codeProduct: String,
     idProduct: String,
     name: String,
     image: String,

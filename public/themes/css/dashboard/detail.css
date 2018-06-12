@@ -65,6 +65,7 @@ input::placeholder {
     font-size: 13px;
     color: #666666;
     overflow-y: scroll;
+    padding-bottom: 80px;
 }
 
 #menu-detail::-webkit-scrollbar {

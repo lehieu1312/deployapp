@@ -94,7 +94,11 @@ $(document).ready(function () {
     // console.log(pathArray)
 
     if (pathArray[1] == "dashboard" && pathArray[2] == null) {
-
+        $("#myapp").css("background", "#00afee");
+        $("#myapp").find(".imgfirst").hide();
+        $("#myapp").find(".imglast").show();
+        document.getElementById("myapp").style.color = "#00afee";
+        document.getElementById("myapp").getElementsByClassName("spantextmenu")[0].style.color = "#fff";
     }
     if (pathArray[1] == "checkout" && pathArray[2] == null) {
 
@@ -204,11 +208,15 @@ $(document).ready(function () {
 
     }
     if (pathArray[1] == "affiliate") {
+        $("#app-used-affilite").find(".imgfirst").hide();
+        $("#app-used-affilite").find(".imglast").show();
         $('#app-used-affilite').css("background", "#00afee");
         $('#app-used-affilite').css('color', '#fff');
 
     }
     if (pathArray[1] == "membership") {
+        $("#membership").find(".imgfirst").hide();
+        $("#membership").find(".imglast").show();
         $('#membership').css("background", "#00afee");
         $('#membership').css('color', '#fff');
 

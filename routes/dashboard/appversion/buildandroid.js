@@ -425,6 +425,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                         versionAdmin: fVersionAdminDB,
                         version: fVersionUserDB,
                         dateCreate: dateCreateDB,
+                        dateUpdate: dateCreateDB,
                         linkApkDebug: fLinkApkDebugDB,
                         linkApkSigned: linkApkSignedDB,
                         linkKeyStore: linkKeyStoreDB,

@@ -320,57 +320,69 @@ router.post("/affiliate/report/sale-traffic", (req, res) => {
                 dateCreate: -1
             }).exec();
 
-            var weekly = await data_old.filter((e) => {
-                return e.dateCreate > date_now - 7 * 86400000 &&
-                    e.dateCreate < date_now
-            })
-            var monthly = await data_old.filter((e) => {
-                return e.dateCreate > date_now - 30 * 86400000 &&
-                    e.dateCreate < date_now
-            })
+            if (data_old.length > 0) {
+                var weekly = await data_old.filter((e) => {
+                    return e.dateCreate > date_now - 7 * 86400000 &&
+                        e.dateCreate < date_now
+                })
+                var monthly = await data_old.filter((e) => {
+                    return e.dateCreate > date_now - 30 * 86400000 &&
+                        e.dateCreate < date_now
+                })
 
-            var count_days = Math.ceil((date_now - user_use.dateCreate) / 86400000);
-            console.log(data_old[0].blance);
-            var real_time = await (data_old[0].blance / count_days).toFixed(2);
+                var count_days = Math.ceil((date_now - user_use.dateCreate) / 86400000);
+                // console.log(data_old[0].blance);
+                var real_time = await (data_old[0].blance / count_days).toFixed(2);
 
-            if (time_end != 0) {
-                for (let i = 0; i < time_start; i++) {
-                    let getdata = await affiliate_modal.find({
-                        idUser: req.session.iduser,
-                        dateCreate: {
-                            $gte: time_end - (i + 1) * 86400000,
-                            $lt: time_end - (i) * 86400000
-                        },
-                        status: true
-                    }, {
-                        money: 1
-                    }).exec();
-                    sale_use.push(getdata);
+                if (time_end != 0) {
+                    for (let i = 0; i < time_start; i++) {
+                        let getdata = await affiliate_modal.find({
+                            idUser: req.session.iduser,
+                            dateCreate: {
+                                $gte: time_end - (i + 1) * 86400000,
+                                $lt: time_end - (i) * 86400000
+                            },
+                            status: true
+                        }, {
+                            money: 1
+                        }).exec();
+                        sale_use.push(getdata);
+                    }
+                } else {
+                    for (let i = 0; i < time_start; i++) {
+                        let getdata = await affiliate_modal.find({
+                            idUser: req.session.iduser,
+                            dateCreate: {
+                                $gte: date_now - (i + 1) * 86400000,
+                                $lt: date_now - (i) * 86400000
+                            },
+                            status: true
+                        }, {
+                            money: 1
+                        }).exec();
+                        sale_use.push(getdata);
+                    }
                 }
+
+                return res.json({
+                    statistics: {
+                        weekly: weekly.length,
+                        monthly: monthly.length,
+                        year: real_time
+                    },
+                    sale: sale_use
+                })
             } else {
-                for (let i = 0; i < time_start; i++) {
-                    let getdata = await affiliate_modal.find({
-                        idUser: req.session.iduser,
-                        dateCreate: {
-                            $gte: date_now - (i + 1) * 86400000,
-                            $lt: date_now - (i) * 86400000
-                        },
-                        status: true
-                    }, {
-                        money: 1
-                    }).exec();
-                    sale_use.push(getdata);
-                }
+                return res.json({
+                    statistics: {
+                        weekly: 0,
+                        monthly: 0,
+                        year: 0
+                    },
+                    sale: [0, 0, 0, 0, 0, 0, 0]
+                })
             }
 
-            return res.json({
-                statistics: {
-                    weekly: weekly.length,
-                    monthly: monthly.length,
-                    year: real_time
-                },
-                sale: sale_use
-            })
         }
         data_sale_traffic();
     } catch (error) {

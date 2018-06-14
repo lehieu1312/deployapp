@@ -10,7 +10,13 @@ function ajaxsss(numberdate, numberend) {
     }
     $.post(linkstatistic, {},
         (data) => {
-            console.log(data)
+            function setNaN(a) {
+                if (isNaN(a) == true) {
+                    return 0;
+                } else {
+                    return a;
+                }
+            }
             $(".system-session").html("");
             let numberandroi = 0;
             let numberios = 0;
@@ -32,7 +38,7 @@ function ajaxsss(numberdate, numberend) {
             <span class="light-large-gray">${ numberios.toFixed(1) + "%"}</span>
             <br>
             <span class="${colorios.color}">
-                <img class="settihg-arrow" src="/themes/img/traffic/${colorios.arrow}">${Math.abs(centios)+"%"}
+                <img class="settihg-arrow" src="/themes/img/traffic/${colorios.arrow}">${setNaN(Math.abs(centios))+"%"}
             </span>
         </div>
         <div class="sub-session-system">
@@ -44,7 +50,7 @@ function ajaxsss(numberdate, numberend) {
             <span class="light-large-gray">${numberandroi.toFixed(1) + "%"}</span>
             <br>
             <span class="${colorandroid.color}">
-                <img class="settihg-arrow" src="/themes/img/traffic/${colorandroid.arrow}">${Math.abs(centandroid) + "%"}
+                <img class="settihg-arrow" src="/themes/img/traffic/${colorandroid.arrow}">${setNaN(Math.abs(centandroid)) + "%"}
             </span>
         </div>`)
 

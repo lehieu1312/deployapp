@@ -3,6 +3,25 @@ $(document).ready(() => {
     $.post(
         linkstatistic, {},
         function (data) {
+            function setNaN(a) {
+                if (isNaN(a) == true) {
+                    return 0;
+                } else {
+                    return a;
+                }
+            }
+            var dataChart = [
+                data.android,
+                data.ios
+            ]
+            console.log(data.android);
+            console.log(data.ios);
+            if (data.android == 0 && data.ios == 0) {
+                dataChart = [
+                    1,
+                    1
+                ]
+            }
             let rgtn = document.getElementById("chart-rightnow").getContext("2d")
             let rightnow = new Chart(rgtn, {
                 type: 'doughnut', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
@@ -10,10 +29,7 @@ $(document).ready(() => {
                     labels: ['Ios', 'Android'],
                     datasets: [{
                         label: 'Population',
-                        data: [
-                            data.android,
-                            data.ios
-                        ],
+                        data: dataChart,
                         //backgroundColor:'green',
                         backgroundColor: [
                             '#00afee',
@@ -38,9 +54,7 @@ $(document).ready(() => {
                     elements: {
                         center: {
                             text: data.android + data.ios,
-                            color: '#444459', // Default is #000000
-                            // fontStyle: 'Arial', // Default is Arial
-                            // sidePadding: 20
+                            color: '#444459',
                         }
                     }
                 }
@@ -59,6 +73,10 @@ $(document).ready(() => {
                         var sidePaddingCalculated = (sidePadding / 100) * (rightnow.innerRadius * 2)
 
                         ctx.font = "65px " + fontStyle;
+
+                        if ((data.android + data.ios) < 10) {
+                            ctx.font = "150px " + fontStyle;
+                        }
 
 
                         var stringWidth = ctx.measureText(txt).width;
@@ -87,8 +105,8 @@ $(document).ready(() => {
             });
             var numberandroid = Math.round(data.android / (data.android + data.ios) * 100);
             var numberios = Math.round(data.ios / (data.android + data.ios) * 100);
-            $(".set-Percent-android").text(numberandroid + "%");
-            $(".set-Percent-ios").text(numberios + "%");
+            $(".set-Percent-android").text(setNaN(numberandroid) + "%");
+            $(".set-Percent-ios").text(setNaN(numberios) + "%");
             $(".quantily-ios").text(data.ios);
             $(".quantily-android").text(data.android);
             for (let i = data.page.length - 1; i >= 0; i--) {

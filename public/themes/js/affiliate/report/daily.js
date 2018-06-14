@@ -13,6 +13,15 @@ function ajax_daily_traffic(date_start, date_end) {
         return Math.floor(a / 60) + "m " + Math.floor(a % 60) + "s";
         // }
     }
+
+    function setNaN(a) {
+        if (isNaN(a) == true) {
+            return 0;
+        } else {
+            return a;
+        }
+    }
+
     $.post(
         url, {},
         function (data) {
@@ -30,7 +39,7 @@ function ajax_daily_traffic(date_start, date_end) {
                     </div>
                     <div class="item-earning-by-time">
                     <div>Bounce Rate</div>
-                    <div class="light-large-gray">${(data.userStatistics.bounceRate/data.userStatistics.session)*100 + "%"}</div>
+                    <div class="light-large-gray">${setNaN((data.userStatistics.bounceRate/data.userStatistics.session)*100) + "%"}</div>
                     </div>
                     <div class="item-earning-by-time">
                     <div>Session Duration</div>

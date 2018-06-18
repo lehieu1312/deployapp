@@ -150,14 +150,11 @@
     margin-top: 40px;
 }
 
-.seticoneye-edit {
-    width: 94%;
-}
 
 .setarrowcountryeditprofile {
     position: absolute;
     top: 24px;
-    right: 15px;
+    right: 4px;
     display: block;
     height: 34px;
     line-height: 34px;

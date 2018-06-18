@@ -41,6 +41,10 @@ var multipartMiddleware = multipart();
 var app = express();
 var server = http.Server(app);
 var io = require('socket.io')(server);
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
 app.use(function (req, res, next) {
     req.io = io;
     next();
@@ -50,8 +54,7 @@ app.use(function (req, res, next) {
 //     //io.sockets.emit
 //     io.sockets.emit('SERVER-SEND-DATA', 'server');
 // });
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+
 // app.set('devMode', true);
 
 // socketapp = require('./lib/socketapp');

@@ -19,6 +19,7 @@
 }
 
 #billing {
+    padding-left: 8px;
     min-height: 450px;
     background: white;
     border: solid 1px #ececec;
@@ -35,10 +36,11 @@
     background: white;
     border: solid 1px #ececec;
     border-radius: 2px;
+    padding-left: 8px;
 }
 
 .set-title-billing {
-    padding: 23px;
+    padding: 23px 15px;
     height: 61px;
     font-size: 16px;
     color: #444459;
@@ -46,7 +48,7 @@
 }
 
 .set-title-payment {
-    padding: 18px;
+    padding: 18px 14px;
     height: 61px;
     font-size: 16px;
     color: #444459;
@@ -110,6 +112,7 @@
     font-family: 'OpenSans-Regular';
     font-size: 13px;
     color: #666666;
+    padding-left: 4px;
 }
 
 .div-title-payment {

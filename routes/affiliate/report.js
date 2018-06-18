@@ -90,77 +90,99 @@ router.get("/affiliate/report", checkAdmin, (req, res) => {
         // ------------------------------------------------
         function affiliate_earning() {
             return new Promise((resolve, reject) => {
-                affiliate_modal.find({
+
+                withdraws_modal.find({
                     idUser: req.session.iduser,
                     status: true
-                }, {
-                    money: 1,
-                    blance: 1,
-                    dateCreate: 1
                 }).sort({
                     dateCreate: -1
-                }).then((data) => {
-                    console.log("data: " + JSON.stringify(data))
-                    if (data.length > 0) {
-                        var date_now = new Date();
-                        var early_day = data.filter((el) => {
-                            return el.dateCreate > date_now.setHours(0, 0, 0, 0)
-                        })
-                        // ------------------------------------------------
-                        var yesterday = data.filter((el) => {
-                            return el.dateCreate < date_now.setHours(0, 0, 0, 0) &&
-                                el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000
-                        })
-                        // ------------------------------------------------
-                        var yesterday_old = data.filter((el) => {
-                            return el.dateCreate < date_now.setHours(0, 0, 0, 0) - 86400000 &&
-                                el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 2
-                        })
-                        // ------------------------------------------------
-                        var last_7_days = data.filter((el) => {
-                            return el.dateCreate < date_now.setHours(0, 0, 0, 0) &&
-                                el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 7
-                        })
-                        // ------------------------------------------------
-                        var last_7_days_old = data.filter((el) => {
-                            return el.dateCreate < date_now.setHours(0, 0, 0, 0) - 86400000 * 7 &&
-                                el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 14
-                        })
-                        // ------------------------------------------------
-                        var last_30_days = data.filter((el) => {
-                            return el.dateCreate < date_now.setHours(0, 0, 0, 0) &&
-                                el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 30
-                        })
-                        // ------------------------------------------------
-                        var last_30_days_old = data.filter((el) => {
-                            return el.dateCreate < date_now.setHours(0, 0, 0, 0) - 86400000 * 30 &&
-                                el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 60
-                        })
-                        // ------------------------------------------------
-                        console.log(early_day);
-                        resolve({
-                            total: data[0].blance,
-                            early_day: sum_affiliate(early_day),
-                            yesterday: sum_affiliate(yesterday),
-                            yesterday_old: sum_affiliate(yesterday_old),
-                            last_7_days: sum_affiliate(last_7_days),
-                            last_7_days_old: sum_affiliate(last_7_days_old),
-                            last_30_days: sum_affiliate(last_30_days),
-                            last_30_days_old: sum_affiliate(last_30_days_old)
-                        })
-                    } else {
-                        resolve({
-                            total: 0,
-                            early_day: sum_affiliate(0),
-                            yesterday: sum_affiliate(0),
-                            yesterday_old: sum_affiliate(0),
-                            last_7_days: sum_affiliate(0),
-                            last_7_days_old: sum_affiliate(0),
-                            last_30_days: sum_affiliate(0),
-                            last_30_days_old: sum_affiliate(0)
-                        })
-                    }
-                })
+                }).limit(1).then((withdraws_data) => {
+                    affiliate_modal.find({
+                        idUser: req.session.iduser,
+                        status: true
+                    }, {
+                        money: 1,
+                        blance: 1,
+                        dateCreate: 1
+                    }).sort({
+                        dateCreate: -1
+                    }).then((data) => {
+                        var total;
+                        console.log("data: " + JSON.stringify(data))
+                        if (data.length > 0) {
+                            console.log("withdraws data:");
+                            console.log(withdraws_data);
+                            if (withdraws_data.length > 0) {
+                                total = withdraws_data[0].blance;
+                            } else {
+                                total = data[0].blance;
+                            }
+                            var date_now = new Date();
+                            var early_day = data.filter((el) => {
+                                return el.dateCreate > date_now.setHours(0, 0, 0, 0)
+                            })
+                            // ------------------------------------------------
+                            var yesterday = data.filter((el) => {
+                                return el.dateCreate < date_now.setHours(0, 0, 0, 0) &&
+                                    el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000
+                            })
+                            // ------------------------------------------------
+                            var yesterday_old = data.filter((el) => {
+                                return el.dateCreate < date_now.setHours(0, 0, 0, 0) - 86400000 &&
+                                    el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 2
+                            })
+                            // ------------------------------------------------
+                            var last_7_days = data.filter((el) => {
+                                return el.dateCreate < date_now.setHours(0, 0, 0, 0) &&
+                                    el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 7
+                            })
+                            // ------------------------------------------------
+                            var last_7_days_old = data.filter((el) => {
+                                return el.dateCreate < date_now.setHours(0, 0, 0, 0) - 86400000 * 7 &&
+                                    el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 14
+                            })
+                            // ------------------------------------------------
+                            var last_30_days = data.filter((el) => {
+                                return el.dateCreate < date_now.setHours(0, 0, 0, 0) &&
+                                    el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 30
+                            })
+                            // ------------------------------------------------
+                            var last_30_days_old = data.filter((el) => {
+                                return el.dateCreate < date_now.setHours(0, 0, 0, 0) - 86400000 * 30 &&
+                                    el.dateCreate > date_now.setHours(0, 0, 0, 0) - 86400000 * 60
+                            })
+                            // ------------------------------------------------
+                            console.log(early_day);
+                            resolve({
+                                total: total,
+                                early_day: sum_affiliate(early_day),
+                                yesterday: sum_affiliate(yesterday),
+                                yesterday_old: sum_affiliate(yesterday_old),
+                                last_7_days: sum_affiliate(last_7_days),
+                                last_7_days_old: sum_affiliate(last_7_days_old),
+                                last_30_days: sum_affiliate(last_30_days),
+                                last_30_days_old: sum_affiliate(last_30_days_old)
+                            })
+                        } else {
+                            if (withdraws_data.length > 0) {
+                                total = withdraws_data[0].blance;
+                            } else {
+                                total = 0;
+                            }
+                            resolve({
+                                total: total,
+                                early_day: sum_affiliate(0),
+                                yesterday: sum_affiliate(0),
+                                yesterday_old: sum_affiliate(0),
+                                last_7_days: sum_affiliate(0),
+                                last_7_days_old: sum_affiliate(0),
+                                last_30_days: sum_affiliate(0),
+                                last_30_days_old: sum_affiliate(0)
+                            })
+                        }
+                    })
+                });
+
             })
         }
         affiliate_earning().then((traffic_affiliate) => {

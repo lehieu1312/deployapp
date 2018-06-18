@@ -112,7 +112,7 @@ function ajax_sale_traffic(date_start, date_end) {
                     bodyLines.forEach(function (body, i) {
                         // console.log("body:" + body[i])
                         var editbody = body[0].split(":")[1];
-                        var span = '<span class="tooltip-sale-traffic-key"><img class="setimgtooltip" src="/themes/img/traffic/user.png"></span>';
+                        var span = '<span class="tooltip-sale-traffic-key"><img class="setimgtooltip" src="/themes/img/traffic/cart.png"></span>';
                         innerHtml += '<tr><td>' + span + editbody + '</td></tr>';
                     });
                     innerHtml += '</tbody>';

@@ -78,7 +78,15 @@ router.get("/notification/sentnotification/:idApp", checkAdmin, (req, res) => {
                             for (let i = 0; i < id_noti.length; i++) {
                                 await new Promise(function (resolve, reject) {
                                     myNoti.viewNotification(id_noti[i].idNotification, function (err, httpResponse, data) {
+                                     
+                                        if(err){
+                                            res.render("error", {
+                                                title: "Error",
+                                                error: err + ""
+                                            });
+                                        }
                                         let datanoti = JSON.parse(data);
+                                        console.log(data);
                                         if (datanoti.errors) {
 
                                             res.render("error", {

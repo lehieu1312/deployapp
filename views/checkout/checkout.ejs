@@ -482,11 +482,11 @@
                                                 <%="$" + cart[i].cart.cost%>
                                             </span>
                                             <div class="border-add-product">
-                                                <div class="set-btn-cart float-left reduce-product">-</div>
+                                                <div class="set-btn-cart float-left reduce-product"><span class="removeitem">-</span></div>
                                                 <div class="set-input-add-product float-left number-product">
                                                     <%=cart[i].count%>
                                                 </div>
-                                                <div class="set-btn-cart float-left add-product">+</div>
+                                                <div class="set-btn-cart float-left add-product"><span  class="additem">+</span></div>
                                                 <div class="float-right">
                                                     <span class="price-product">
                                                         <%="$" + cart[i].cart.price*cart[i].count%>
@@ -515,11 +515,11 @@
                     <div class="col-sm-12">
                         <img src="/themes/img/checkout/iconpromocode.png">
                         <span class="set-text-promo-code">
-                            PROMO CODE
+                            PROMO CODE:
                         </span>
                     </div>
                     <div class="form-group has-feedback col-sm-8 div-input-promo-code">
-                        <input autocomplete="off" type="text" class="resetinputlogin" id="promo-code" name="promo">
+                        <input autocomplete="off" type="text" class="resetinputlogin" id="promo-code" name="promo" placeholder="Enter your coupon code...">
                         <span class="form-control-feedback" aria-hidden="true">
                             <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
                         </span>

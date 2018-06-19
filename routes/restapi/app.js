@@ -15,7 +15,6 @@ router.get('/appaccess', (req, res) => {
     try {
 
         var reqAPIKey = req.query.apikey;
-        console.log('reqIDApp: ' + reqIDApp);
 
         var nameApp = req.query.nameapp;
         var platform = req.query.platform;

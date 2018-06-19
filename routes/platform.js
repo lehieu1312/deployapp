@@ -173,12 +173,10 @@ router.post('/platforms', urlencodeParser, async function(req, res) {
                     // if (fs.existsSync(path.join(pathProjectTemp, 'src'))) fse.copySync(path.join(pathProjectTemp, 'src'), path.join(pathProjectApp, 'src'));
                 }
                 console.log(fPlatforms);
-                if (fPlatforms === 'ios') {
-                    console.log('Remove folder node_nodules');
-                    if (fs.existsSync(path.join(pathProjectApp, 'node_modules'))) {
-                        fse.removeSync(path.join(pathProjectApp, 'node_modules'));
-                        console.log('Removed node_modules.');
-                    }
+                console.log('Remove folder node_nodules');
+                if (fs.existsSync(path.join(pathProjectApp, 'node_modules'))) {
+                    fse.removeSync(path.join(pathProjectApp, 'node_modules'));
+                    console.log('Removed node_modules.');
                 }
 
                 // console.log('pa: ' + path.join(pathProjectApp, 'platforms'));
@@ -462,6 +460,13 @@ router.post('/platforms', urlencodeParser, async function(req, res) {
                 process.chdir(path.join(appRoot, 'public', 'project', pKeyFolder));
                 console.log('Access file...');
                 return commandLine('chmod', ['-R', '777', './']);
+            })
+            .then(function() {
+                if (sPlatform == 'android') {
+                    process.chdir(path.join(appRoot, 'public', 'project', pKeyFolder));
+                    console.log('Start rebuild...');
+                    return commandLine('npm', ['install']);
+                }
             })
             .then(function() {
                 process.chdir(path.join(appRoot, 'public', 'project', pKeyFolder));

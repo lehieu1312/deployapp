@@ -221,7 +221,7 @@ router.post('/userlogin', multipartMiddleware, (req, res) => {
         return res.json({ status: 3, msg: error + '' });
     }
 });
-router.post('/userlogout', (req, res) => {
+router.post('/userlogout', multipartMiddleware, (req, res) => {
     try {
         console.log(req.body);
         var reqAPIKey = req.body.apikey;

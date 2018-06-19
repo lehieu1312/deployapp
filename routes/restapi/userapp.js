@@ -223,6 +223,7 @@ router.post('/userlogin', multipartMiddleware, (req, res) => {
 });
 router.post('/userlogout', (req, res) => {
     try {
+        console.log(req.body);
         var reqAPIKey = req.body.apikey;
         console.log('reqAPIKey: ' + reqAPIKey);
 

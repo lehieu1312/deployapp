@@ -3,6 +3,7 @@ $(document).ready(() => {
     $.post(
         linkstatistic, {},
         function (data) {
+            console.log(data);
             function setNaN(a) {
                 if (isNaN(a) == true) {
                     return 0;

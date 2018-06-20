@@ -82,9 +82,9 @@ router.post('/getaccount', (req, res) => {
         }
     } catch (error) {
         console.log(error + "")
-        res.render("error", {
-            title: "Error",
-            error: error + ""
+        return res.json({
+            picture: "/themes/img/dashboard/avatar.png",
+            fullname: "No Name"
         })
     }
 

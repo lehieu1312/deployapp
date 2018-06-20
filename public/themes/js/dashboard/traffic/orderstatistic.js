@@ -28,7 +28,7 @@ function ajaxorderstatistic(numberdate) {
                 labels: setdate,
                 datasets: [{
                         label: 'Order',
-                        data: data.orderstatistic[0],
+                        data: data.orderstatistic[0].reverse(),
                         borderColor: '#f44336',
                         pointBackgroundColor: "#f44336",
                         pointStyle: 'rect',
@@ -36,7 +36,7 @@ function ajaxorderstatistic(numberdate) {
                         fill: false,
                     }, {
                         label: 'Users',
-                        data: data.orderstatistic[1],
+                        data: data.orderstatistic[1].reverse(),
                         backgroundColor: '#f2f9ff',
                         borderColor: '#00afee',
                         pointStyle: 'rect',

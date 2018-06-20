@@ -20,6 +20,10 @@ var withDrawModels = require('../../../models/withdraw');
 
 router.get('/', checkAdmin, (req, res) => {
     try {
+        req.session.breadcrumbs = [
+            { name: "Admin", url: "admin" },
+            { name: "Withdraw", url: "admin/withdraw" }
+        ];
         withDrawModels.find().sort({ dateCreate: -1 }).then((dataWithdraw) => {
             res.render('admin/withdraw/index', { dataWithdraw, moment, title: "Withdraw" });
         });

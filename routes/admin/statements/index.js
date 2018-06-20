@@ -18,6 +18,10 @@ var orderModels = require('../../../models/order');
 
 router.get('/', checkAdmin, async(req, res) => {
     try {
+        req.session.breadcrumbs = [
+            { name: "Admin", url: "admin" },
+            { name: "Statement", url: "admin/statement" }
+        ];
         var arrData = [];
         var arrDataMath = [];
         var sRevenue = 0,

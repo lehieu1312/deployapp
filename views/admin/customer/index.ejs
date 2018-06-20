@@ -8,12 +8,7 @@
                 <button type="submit" class="btn-blue" id="adduser" data-toggle="modal" data-target="#myModa-adduser">
                 <img class="seticonadd" src="/themes/img/admin/add.png"> Add User</button>
 
-                <span class="setsearch">
-                <input type="text" onkeyup="searchFunc()" id="inputsearch-customer" name="search" placeholder="Search...">
-                <span class="form-control-feedback2 icon-search-top" aria-hidden="true">
-                    <img src="/themes/img/admin/search.png">
-                </span>
-                </span>
+
             </div>
         </div>
         <div class="showall row row1">
@@ -29,10 +24,10 @@
 
         <div id="filter-table-appversion" class="row row1">
             <div class="filter-left">
-                <span class="table-show">Show</span>
+                <span class="table-show">Show: </span>
                 <div id="filter-number" class="btn-group">
                     <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber btn-shownum-perpage" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span id="span-show-number" class="span-button-select">9</span>
+                        <span id="span-show-number" class="span-button-select">9</span> &nbsp;
                         <span class="caret arow-button-select"></span>
                     </button>
                     <ul class="dropdown-menu ">
@@ -121,7 +116,7 @@
         <div class="row row1">
             <div id="content-appversion">
                 <div class="multi-option">
-                    <div class="input-group ">
+                    <div class="input-group box-bulk-actions">
                         <button data-toggle="dropdown" class="btn btn-white dropmenu-multi-option" type="button" aria-expanded="true">Bulk actions <span class="caret"></span></button>
                         <ul class="dropdown-menu">
                             <li>
@@ -133,9 +128,15 @@
                             </li>
                         </ul>
                     </div>
-
+                    <div class="box-search">
+                        <span class="setsearch">
+                                <img src="/themes/img/admin/search.png" class="img-search-text">
+                            <input type="text" onkeyup="searchFunc()" id="inputsearch-customer" name="search" placeholder="Search...">                            
+                        </span>
+                    </div>
                 </div>
 
+                <hr>
                 <table id="table-appversion">
                     <tr id="title-table-header">
                         <th width="5.8%"><input type="checkbox" id="checkboxall"></th>
@@ -182,7 +183,7 @@
                                         <span><%=item.lastname%></span>
                                     </td>
                                     <td class="table-changelog">
-                                        <span><%=item.email%></span>
+                                        <span class="color-email-customer"><%=item.email%></span>
                                     </td>
                                     <td class="table-time-appversion finddate">
                                         <span><%=moment(item.dateCreate).format('DD/MM/YYYY HH:mm:ss')%></span>
@@ -200,8 +201,8 @@
                                                 <div class="element-delete">
                                                     <div class="box-edit-customer box-option-customer">
                                                         <div class="left-box-item">
-                                                            <img class="imgicondelete" src="/themes/img/admin/edit.png">
-                                                            <span>Edit</span>
+                                                            <img class="imgicondelete" src="/themes/img/admin/iconedit.png">
+                                                            <span class="text-none">Edit</span>
                                                         </div>
                                                     </div>
                                             </a>
@@ -209,8 +210,8 @@
                                                 <a href="javascript:void(0)" class="unblock-user" onclick="unblockUser('<%=item.id%>')">
                                                     <div class="box-edit-customer box-option-customer">
                                                         <div class="left-box-item">
-                                                            <img class="imgicondelete" src="/themes/img/admin/unblock.png">
-                                                            <span>Unblock</span>
+                                                            <img class="imgicondelete" src="/themes/img/admin/iconunblock.png">
+                                                            <span class="text-none">Unblock</span>
                                                         </div>
                                                     </div>
                                                 </a>
@@ -218,8 +219,8 @@
                                                     <a href="javascript:void(0)" onclick="blockUser('<%=item.id%>')">
                                                         <div class="box-edit-customer box-option-customer">
                                                             <div class="left-box-item">
-                                                                <img class="imgicondelete" src="/themes/img/admin/block.png">
-                                                                <span>Block</span>
+                                                                <img class="imgicondelete" src="/themes/img/admin/iconblock.png">
+                                                                <span class="text-none">Block</span>
                                                             </div>
                                                         </div>
                                                     </a>
@@ -227,8 +228,8 @@
                                                         <a href="javascript:void(0)" onclick="deleteUser('<%=item.id%>')">
                                                             <div class="box-edit-customer box-option-customer">
                                                                 <div class="left-box-item">
-                                                                    <img class="imgicondelete" src="/themes/img/admin/delete.png">
-                                                                    <span>Delete</span>
+                                                                    <img class="imgicondelete iicon-delete" src="/themes/img/admin/icondelete.png">
+                                                                    <span class="text-none">Delete</span>
                                                                 </div>
                                                             </div>
                                                         </a>
@@ -405,10 +406,10 @@
                                         Add a User
                                     </div>
                                     <form id="form-adduser" onsubmit="return false">
-                                        <textarea placeholder="Email address" rows="1" class="textarea-adduser" id="input-add-customer"></textarea>
+                                        <textarea placeholder="Enter your email address..." rows="1" class="textarea-adduser" id="input-add-customer"></textarea>
                                         <div class="dialogdeleteapp-foot-history ">
-                                            <button id="cancel-adduser" class="float-right btn-gray margin-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
                                             <button type="submit" class="float-right btn-blue" id="adduser">Add user</button>
+                                            <button id="cancel-adduser" class="float-right btn-gray margin-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
                                         </div>
                                     </form>
                                 </div>

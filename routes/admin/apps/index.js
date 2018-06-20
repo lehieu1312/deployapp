@@ -20,6 +20,10 @@ var appVersionAdminModels = require('../../../models/appversionadmin');
 ////////////////Index apps
 router.get('/', checkAdmin, (req, res) => {
     try {
+        req.session.breadcrumbs = [
+            { name: "Admin", url: "admin" },
+            { name: "Apps", url: "admin/apps" }
+        ];
         inforAppAdminModels.find().sort({ dateCreate: -1 }).then((dataApps) => {
             // console.log(dataApps);
             res.render('admin/apps/index', { dataApps, moment, title: "Apps" });
@@ -35,6 +39,11 @@ router.get('/', checkAdmin, (req, res) => {
 ///////Redirect page add app
 router.get('/add', checkAdmin, (req, res) => {
     try {
+        req.session.breadcrumbs = [
+            { name: "Admin", url: "admin" },
+            { name: "Apps", url: "admin/apps" },
+            { name: "Add", url: "admin/apps/add" }
+        ];
         res.render('admin/apps/add', { title: "Add Apps" });
     } catch (error) {
         console.log(error);
@@ -106,6 +115,11 @@ router.post('/addapp', checkAdmin, multipartMiddleware, async(req, res) => {
 ///////Redirect page EDIT app
 router.get('/edit/:id', checkAdmin, (req, res) => {
     try {
+        req.session.breadcrumbs = [
+            { name: "Admin", url: "admin" },
+            { name: "Apps", url: "admin/apps" },
+            { name: "Edit", url: "admin/apps/edit/" + req.params.id }
+        ];
         inforAppAdminModels.findOne({ idApp: req.params.id }).then((dataApp) => {
             console.log(dataApp);
             if (dataApp) {
@@ -352,6 +366,11 @@ router.post('/deleteapp', checkAdmin, async(req, res) => {
 ////////////////Index appversion
 router.get('/version/:idApp', checkAdmin, (req, res) => {
     try {
+        req.session.breadcrumbs = [
+            { name: "Admin", url: "admin" },
+            { name: "Apps", url: "admin/apps" },
+            { name: "Version", url: "admin/apps/version/" + req.params.idApp }
+        ];
         var sIDApp = req.params.idApp;
 
         appVersionAdminModels.findOne({ idApp: sIDApp }).sort({ dateCreate: -1 }).then((dataAppVersion) => {
@@ -368,6 +387,12 @@ router.get('/version/:idApp', checkAdmin, (req, res) => {
 ////////////////GEt Add Appversion /////////////////
 router.get('/version/add/:idApp', checkAdmin, async(req, res) => {
     try {
+        req.session.breadcrumbs = [
+            { name: "Admin", url: "admin" },
+            { name: "Apps", url: "admin/apps" },
+            { name: "Version", url: "admin/apps/version/" + req.params.idApp },
+            { name: "Add", url: "admin/apps/version/add/" + req.params.idApp }
+        ];
         var sIDApp = req.params.idApp;
         var checkAppExists = await inforAppAdminModels.findOne({ idApp: sIDApp }).exec();
         res.render('admin/appversion/add', { sIDApp, appName: checkAppExists.nameApp, title: "Add Version Apps" });

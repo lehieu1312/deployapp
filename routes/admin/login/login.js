@@ -70,6 +70,25 @@ router.post("/login/tk", (req, res) => {
     })
 })
 
+router.post("/getinforuseradmin", (req, res) => {
+    try {
+        if (req.session.iduseradmin) {
+            userAdminModel.findOne({ id: req.session.iduseradmin }).then((data) => {
+                if (data) {
+                    console.log('-----------------------------------------------------');
+                    console.log(data);
+                    return res.json({ status: 1, fullname: data.fullname });
+                }
+            });
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.json({ status: 1, msg: "Error: " + error + '' });
+    }
+
+})
+
 function checkAdmin(req, res, next) {
     if (req.session.iduseradmin) {
         next();

@@ -21,6 +21,10 @@ var sendNotiUserModels = require('../../../models/notificationuser');
 
 router.get('/', checkAdmin, (req, res) => {
     try {
+        req.session.breadcrumbs = [
+            { name: "Admin", url: "admin" },
+            { name: "Membership", url: "admin/membership" }
+        ];
         membershipModels.find().sort({ dateCreate: -1 }).then((dataMemberShipModels) => {
             res.render('admin/membership/index', { dataMemberShipModels, moment, title: "Membership" });
         });

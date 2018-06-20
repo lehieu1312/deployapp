@@ -260,6 +260,14 @@ input::placeholder {
     color: #22baf0;
 }
 
+#navigate-text .text-none {
+    color: #919191;
+}
+
+a .text-none {
+    color: #666;
+}
+
 .setarrownavigate {
     color: #cdcdcd;
     padding-left: 7px;
@@ -801,7 +809,7 @@ button {
 }
 
 .modal-content1 {
-    margin-top: 150px;
+    margin-top: 45%;
 }
 
 .dialogdeleteapp-foot {
@@ -1382,4 +1390,14 @@ a:hover .menumore-listmyapp {
     padding: 6px 24px 6px 24px;
     background: #22baf0;
     border: none;
+}
+
+#span-selcect-date {
+    float: left;
+}
+
+.arow-button-select {
+    float: right;
+    position: relative;
+    top: 8px;
 }

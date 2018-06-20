@@ -39,6 +39,7 @@ function genderCodeShare() {
 
 router.get('/', checkAdmin, (req, res) => {
     try {
+        req.session.breadcrumbs = [{ name: "Admin", url: "admin" }, { name: "Customer", url: "admin/customer" }];
         console.log('abc');
         var condition = req.query.con;
         if (condition == "affiliate") {
@@ -397,6 +398,11 @@ router.get('/login/:id', checkAdmin, async(req, res) => {
 });
 router.get('/edit/:id', checkAdmin, async(req, res) => {
     try {
+        req.session.breadcrumbs = [
+            { name: "Admin", url: "admin" },
+            { name: "Customer", url: "admin/customer" },
+            { name: "Edit", url: "admin/customer/edit/" + req.params.id }
+        ];
         console.log(req.params);
         var idUser = req.params.id;
         console.log(idUser);

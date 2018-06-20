@@ -116,6 +116,7 @@
                         <div id="user-deploy">
                             <div class="showmenuaccount">
                                 <span class="setspanfullname showmenuuser showmenuaccount">
+                                    
                                 </span>
                                 <img class="showmenuuser showmenuaccount imgavatarsmall" src="/themes/img/dashboard/avatar.png" alt="deployapp">
                                 <img class="setarrow showmenuuser showmenuaccount" src="/themes/img/login/iconarrow.png" alt="deployapp">
@@ -174,9 +175,16 @@
                         $('.showmenuaccount').click((event) => {
                             $('#menuaccount').toggle();
                             event.stopPropagation();
-                        })
+                        });
                         $(body).click(() => {
                             $('#menuaccount').hide();
-                        })
+                        });
+
+                        $.post(
+                            "/admin/getinforuseradmin", {},
+                            function(data) {
+                                $('.setspanfullname').text(data.fullname);
+                            }
+                        )
                     })
                 </script>

@@ -13,10 +13,25 @@ var devMode = libSetting.devMode;
 
 router.get('/', checkAdmin, (req, res) => {
     try {
+        req.session.breadcrumbs = [
+            { name: "Admin", url: "admin" },
+        ];
         res.render('admin/index', { title: "Administrator" });
 
     } catch (error) {
         return res.render('error', { error, title: "ERROR-PAGE" });
+    }
+});
+
+router.post('/getbreadcrumb', (req, res) => {
+    try {
+        if (req.session.breadcrumbs) {
+            res.json({ status: 1, breadcrumbs: req.session.breadcrumbs });
+        }
+        // res.render('admin/index', { title: "Administrator" });
+
+    } catch (error) {
+        return res.json({ status: 3, error: error + '' });
     }
 });
 

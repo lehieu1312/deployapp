@@ -151,6 +151,7 @@ router.post("/rightnow/:idApp", (req, res) => {
                         pageAccess: getdata[i].pageAccess[j].page
                     })
                 }
+
             }
             // console.log(arraypagex);
             var setpage = filtercustom(arraypagex);

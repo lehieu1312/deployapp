@@ -123,7 +123,7 @@ $(document).ready(() => {
         $('#loading').show();
         $.ajax({
             type: "POST",
-            url: "/deleteorder",
+            url: "/dashboard/deleteorder",
             dataType: "json",
             data: {
                 codeOrder,
@@ -131,7 +131,7 @@ $(document).ready(() => {
             },
             success: (data) => {
                 if (data.status == "1") {
-                    window.location.href = "/myorder/" + data.message;
+                    window.location.href = "/dashboard/myorder/" + data.message;
                 }
             }
         }).always(function (data) {

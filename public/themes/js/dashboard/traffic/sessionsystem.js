@@ -67,7 +67,7 @@ function ajaxsss(numberdate, numberend) {
             let sessionsystem = new Chart(sss, {
                 type: 'doughnut', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
                 data: {
-                    labels: ['Ios', 'Android'],
+                    labels: [ 'Android','Ios'],
                     datasets: [{
                         label: 'Population',
                         data: [

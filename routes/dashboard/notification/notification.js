@@ -454,39 +454,43 @@ router.post('/send-notification/:idApp', (req, res) => {
                                     let getdata = JSON.parse(data);
                                     console.log("getdata:");
                                     console.log(getdata);
-                                    var myNoti = new OneSignal.Client({
-                                        userAuthKey: setting.oneSignalUserID,
-                                        app: {
-                                            appAuthKey: setting.oneSignalAPIKey,
-                                            appId: setting.oneSignalID
-                                        }
-                                    });
-                                    myNoti.viewNotification(getdata.id, function (err, httpResponse, data) {
-                                        let datanoti = JSON.parse(data);
-                                        // console.log("datanoti:");
-                                        // console.log(datanoti);
-                                        if (datanoti.errors) {
-                                            res.render("error", {
-                                                title: "Error",
-                                                error: datanoti.errors + ""
-                                            })
-                                        }
-                                        if (httpResponse.statusCode === 200 && !err) {
-                                            var notiArrays = [];
-                                            notification.update({
-                                                idApp: setting.idApp,
-                                                status: false
-                                            }, {
-                                                idNotification: getdata.id,
-                                                successful: datanoti.successful,
-                                                failed: datanoti.failed,
-                                                converted: datanoti.converted,
-                                                remaining: datanoti.remaining,
-                                            }).then(() => {
-                                                resolve(datanoti);
-                                            })
-                                        }
-                                    });
+                                    if(getdata.errors){
+                                       reject(getdata.errors)
+                                    }else{
+                                        var myNoti = new OneSignal.Client({
+                                            userAuthKey: setting.oneSignalUserID,
+                                            app: {
+                                                appAuthKey: setting.oneSignalAPIKey,
+                                                appId: setting.oneSignalID
+                                            }
+                                        });
+                                        myNoti.viewNotification(getdata.id, function (err, httpResponse, data) {
+                                            let datanoti = JSON.parse(data);
+                                            // console.log("datanoti:");
+                                            // console.log(datanoti);
+                                            if (datanoti.errors) {
+                                                res.render("error", {
+                                                    title: "Error",
+                                                    error: datanoti.errors + ""
+                                                })
+                                            }
+                                            if (httpResponse.statusCode === 200 && !err) {
+                                                var notiArrays = [];
+                                                notification.update({
+                                                    idApp: setting.idApp,
+                                                    status: false
+                                                }, {
+                                                    idNotification: getdata.id,
+                                                    successful: datanoti.successful,
+                                                    failed: datanoti.failed,
+                                                    converted: datanoti.converted,
+                                                    remaining: datanoti.remaining,
+                                                }).then(() => {
+                                                    resolve(datanoti);
+                                                })
+                                            }
+                                        });
+                                    }
                                 })
 
                             });
@@ -526,7 +530,8 @@ router.post('/send-notification/:idApp', (req, res) => {
                     if (result.include_player_ids !== null) {
                         message.include_player_ids = result.include_player_ids
                     }
-                    sendNotification(message).then(() => {
+                    sendNotification(message)
+                    .then(() => {
                         notification.update({
                             idApp: setting.idApp,
                             status: false
@@ -539,6 +544,12 @@ router.post('/send-notification/:idApp', (req, res) => {
                                 message: "ok"
                             })
                         });
+                    })
+                    .catch((err1)=>{
+                        return res.json({
+                            status: 2,
+                            message: "The information of your onesignal information is bad. please to appetting app to edit"
+                        })
                     })
                 } else {
                     return res.json({

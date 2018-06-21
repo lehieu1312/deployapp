@@ -682,7 +682,7 @@ $(document).ready(() => {
     });
 
 
-
+var statussent = true;
 
     $("#send-notification").click(() => {
         console.log({
@@ -718,23 +718,27 @@ $(document).ready(() => {
                             window.location.href = "/dashboard/notification/" + idApp
                         }
                         if (data.status == 2) {
+                            statussent = false;
                             $('.errPopup').show();
                             $('.alert-upload').text(data.message);
                             $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function () {
                                 $("#danger-alert").slideUp(1000);
                                 $('.errPopup').hide();
                             });
+
                         }
                     }
                 }).always(() => {
                     $('#loading').hide();
-                    $('#successPopup').show(500);
-                    $(".contenemail").text("");
-                    $(".contenemail").text("Sent !");
-                    $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
-                        $("#success-alert").slideUp(1000);
-                        $('.successPopup').hide();
-                    });
+                    if(statussent == true){
+                        $('#successPopup').show(500);
+                        $(".contenemail").text("");
+                        $(".contenemail").text("Sent !");
+                        $("#success-alert").fadeTo(5000, 1000).slideUp(1000, function () {
+                            $("#success-alert").slideUp(1000);
+                            $('.successPopup').hide();
+                        });
+                    }
                 })
             })
         }

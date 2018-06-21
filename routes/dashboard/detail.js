@@ -102,7 +102,7 @@ router.post('/getnumbernoti', (req, res) => {
                 }).sort({
                     dateCreate: -1
                 }).then((dataNoti) => {
-                    console.log('number noti: ' + dataNumberNoti);
+                    // console.log('number noti: ' + dataNumberNoti);
                     return res.json({
                         number: dataNumberNoti,
                         data: dataNoti
@@ -157,15 +157,15 @@ router.post('/updatestatusnotiforuser', (req, res) => {
 // 
 router.get('/dashboard', checkAdmin, (req, res) => {
     try {
-        console.log('------------------------------------------------------');
-        console.log(req.session);
+        // console.log('------------------------------------------------------');
+        // console.log(req.session);
         User.findOne({
             id: req.session.iduser,
             blocked: false,
             status: true
         }).then((data) => {
-            console.log(data)
-            console.log(data.myapp)
+            // console.log(data)
+            // console.log(data.myapp)
             if (data) {
                 var myapps = [];
                 async function getmyapp() {

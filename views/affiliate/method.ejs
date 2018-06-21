@@ -134,11 +134,11 @@
                                         <%= method[i].method%>
                                     </td>
                                     <td class="table-version findnameapp">
-                                        <%= settime(method[i].dateCreate)%>
+                                        <%=method[i].dateCreate.toLocaleString()%>
                                     </td>
                                     <td class="table-changelog findnote">
                                         <% if(method[i].dateUpdate != null){ %>
-                                            <%=settime(method[i].dateUpdate)%>
+                                            <%=method[i].dateUpdate.toLocaleString()%>
                                                 <%}%>
                                     </td>
                                     <td class="set-position-relative">

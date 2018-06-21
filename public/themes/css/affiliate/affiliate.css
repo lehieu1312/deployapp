@@ -376,7 +376,10 @@ text-cent-money {
 }
 
 .item-content-withdrawal {
-    padding: 20px 0 0 0;
+    padding: 20px 0 0 10px;
+}
+.item-content-withdrawal .has-feedback{
+    padding-left: 15px;
 }
 
 .textarea-withdrawal {

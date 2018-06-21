@@ -187,14 +187,9 @@
                                     <%= i + 1%>
                                 </td>
                                 <td class="table-time-appversion finddate">
-                                    <span>
-                                        <%=arr[0]%>
-                                    </span>
+                                    <span><%=arr[0]%></span>
                                     <br>
-                                    <span>
-                                        <%=arr[1]%>
-                                            <%=arr[2]%>
-                                    </span>
+                                    <span><%=arr[1]%><%=arr[2]%></span>
                                 </td>
                                 <td class="table-time-appversion finddate">
                                     <span>
@@ -209,12 +204,8 @@
                                 <td class="table-nameapp findnameapp">
                                     <%=appuse.nameApp%>
                                 </td>
-                                <td class="table-version findversion">
-                                    <%=history[number].version%>
-                                </td>
-                                <td class="table-version findversion">
-                                    <%=history[number].platform%>
-                                </td>
+                                <td class="table-version findversion"><%=history[number].version%></td>
+                                <td class="table-version findversion"><%=history[number].platform%></td>
                                 <td class="table-changelog findnote">
                                     <% if(history[number].note != ""){ %>
                                         <span class="note-table-history">

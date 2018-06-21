@@ -63,13 +63,24 @@ function makeid() {
     return text;
 }
 
+
+
+function settimelocal(a){
+    var d = a;
+    var offset = (new Date().getTimezoneOffset() / 60) * -1;
+    var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+    var nd = new Date(utc + (3600000*offset));
+    return
+}
+
 router.get("/affiliate/payment-method", checkAdmin, (req, res) => {
     try {
         affiliate_method_modal.find({
             idUser: req.session.iduser,
             status: true
         }).then((data) => {
-            console.log("data:" + JSON.stringify(data));
+            console.log(data);
+            console.log(data[0].dateCreate);
             res.render("./affiliate/method", {
                 title: "Payment Methods",
                 method: data,
@@ -125,7 +136,7 @@ router.post("/affiliate/payment-method/add/ok", (req, res) => {
                         return res.json({
                             status: "1"
                         })
-                    })
+                    });
                 } else {
                     let quety_method = {
                         idMethod: makeid(),
@@ -137,10 +148,10 @@ router.post("/affiliate/payment-method/add/ok", (req, res) => {
                         bankReceipt: "paypal",
                         bank: "paypal",
                         bankBranch: "paypal",
-                        dateUpdate: null,
+                        dateUpdate: new Date(),
                         dateCreate: new Date(),
                         status: true
-                    }
+                    };
                     var new_method = new affiliate_method_modal(quety_method);
                     new_method.save().then(() => {
                         return res.json({

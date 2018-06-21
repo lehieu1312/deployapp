@@ -76,6 +76,7 @@ router.get("/notification/sentnotification/:idApp", checkAdmin, (req, res) => {
                         });
                         (async () => {
                             for (let i = 0; i < id_noti.length; i++) {
+                                await new Promise(function (resolve, reject) {
                                     myNoti.viewNotification(id_noti[i].idNotification, function (err, httpResponse, data) {
                                         if(err){
                                             res.render("error", {
@@ -86,29 +87,29 @@ router.get("/notification/sentnotification/:idApp", checkAdmin, (req, res) => {
                                         let datanoti = JSON.parse(data);
                                         console.log(data);
                                         if (datanoti.errors) {
-                                            res.render("./dashboard/notification/sentnotification", {
-                                                title: "Sent Notification",
-                                                appuse: {
-                                                    idApp: setting.idApp,
-                                                    nameApp: setting.nameApp
-                                                },
-                                                data: "",
-                                                err: "The information of your onesignal information is bad. please to appetting app to edit"
-                                            })
+                                            res.render("error", {
+                                                title: "Error",
+                                                error: datanoti.errors + ""
+                                            });
                                         } else {
-                                                notification.update({
-                                                dApp: setting.idApp,
+                                            // console.log(datanoti)
+                                            notification.update({
+                                                idApp: setting.idApp,
                                                 status: true,
                                                 idNotification: id_noti[i].idNotification
-                                                }, {
-                                                    successful: datanoti.successful,
-                                                    failed: datanoti.failed,
-                                                    // failed: 77,
-                                                    converted: datanoti.converted,
-                                                    remaining: datanoti.remaining
-                                                }).exec()
+                                            }, {
+                                                successful: datanoti.successful,
+                                                failed: datanoti.failed,
+                                                // failed: 77,
+                                                converted: datanoti.converted,
+                                                remaining: datanoti.remaining
+                                            }).then((datax) => {
+                                                resolve(data);
+                                            })
                                         }
                                     })
+                                })
+
                             }
                             let data_noti = await notification.find({
                                 idApp: req.params.idApp,
@@ -132,8 +133,7 @@ router.get("/notification/sentnotification/:idApp", checkAdmin, (req, res) => {
                                 idApp: setting.idApp,
                                 nameApp: setting.nameApp
                             },
-                            data: "",
-                            err: "You need to add the onesignal information in appsetting"
+                            data: ""
                         })
                     }
 

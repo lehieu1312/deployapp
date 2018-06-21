@@ -119,11 +119,14 @@
                     <tbody>
                         <%
                               function settime(a){
+                                let offset = (new Date().getTimezoneOffset() / 60) * -1 ;
+                                a = new Date(a + offset*3600000);
                                 let month = a.getMonth() + 1;
                                 let text = a.getDate() + "/" + month + "/" + a.getFullYear() + " " + a.getHours()+ ":" + a.getMinutes() + ":" + a.getSeconds();
                                 return text;
                             }
                              %>
+                             <input type="hidden" value="<%=(new Date().getTimezoneOffset() / 60) * -1 %>">
                             <%for(var i = 0; i< method.length;i++){ %>
                                 <input type="hidden" class="id-method-use" value="<%= method[i].idMethod%>">
                                 <tr id="version<%=i%>" class="tr-content-appversion set-method-affiliate">
@@ -134,11 +137,11 @@
                                         <%= method[i].method%>
                                     </td>
                                     <td class="table-version findnameapp">
-                                        <%=method[i].dateCreate.toLocaleString()%>
+                                        <%= settime(method[i].dateCreate)%>
                                     </td>
                                     <td class="table-changelog findnote">
                                         <% if(method[i].dateUpdate != null){ %>
-                                            <%=method[i].dateUpdate.toLocaleString()%>
+                                            <%=settime(method[i].dateUpdate)%>
                                                 <%}%>
                                     </td>
                                     <td class="set-position-relative">

@@ -64,18 +64,13 @@ router.post("/appsettings", checkAdmin, (req, res) => {
         req.check('idapp', 'ID app is required').notEmpty();
         req.check('packageid', 'Application Identifier is required').notEmpty();
         req.check('appname', 'Application name is required').notEmpty();
-        // req.check('version', 'Confirm keystore does not match the keystore.').equals(req.body.keystore);
         req.check('version', 'Version is required').notEmpty();
         req.check('description', 'Description is required').notEmpty();
         req.check('email', 'Email is required').notEmpty();
         req.check('href', 'Href is required').notEmpty();
         req.check('auth', 'Auth is required').notEmpty();
-        // req.check('onesignalappid', 'Onesignal App ID is required').notEmpty();
+
         req.check('onesignalapikey', 'Onesignal API Key is required').notEmpty();
-        req.check('wpurl', 'Wordpress Url is required').notEmpty();
-        req.check('wpperpage', 'Wordpress Per Page is required').notEmpty();
-        req.check('reqtimeout', 'Request Time Out is required').notEmpty();
-        req.check('dateformat', 'Date Format is required').notEmpty();
         req.check('onesignalid', 'Onesignal ID is required').notEmpty();
         req.check('onesignaluserid', 'Onesignal User ID is required').notEmpty();
         // oneSignalUserID
@@ -105,7 +100,7 @@ router.post("/appsettings", checkAdmin, (req, res) => {
                     console.log(req.body.appname);
                     console.log('vao update app');
                     console.log(req.body.idapp.trim());
-                    console.log(base64js.Base64.encode(req.body.idapp));
+                    // console.log(base64js.Base64.encode(req.body.idapp));
 
                     dataOne.packageIDApp = req.body.packageid.trim();
                     dataOne.nameApp = req.body.appname.trim();
@@ -114,20 +109,12 @@ router.post("/appsettings", checkAdmin, (req, res) => {
                     dataOne.emailApp = req.body.email.trim();
                     dataOne.authHref = req.body.href.trim();
                     dataOne.auth = req.body.auth.trim();
-                    dataOne.wpUrl = req.body.wpurl.trim();
-                    dataOne.wpPerPage = req.body.wpperpage.trim();
-                    dataOne.requestTimeout = req.body.reqtimeout.trim();
-                    dataOne.targetBlank = req.body.isblank;
-                    dataOne.dateFormat = req.body.dateformat.trim();
+
                     dataOne.oneSignalID = req.body.onesignalid.trim();
                     dataOne.oneSignalUserID = req.body.onesignaluserid.trim();
                     // dataOne.oneSignalAppID = req.body.onesignalappid.trim();
                     dataOne.oneSignalAPIKey = req.body.onesignalapikey.trim();
-                    dataOne.ggAnalytic = req.body.gganalytic.trim();
-                    dataOne.adModAndroidBanner = req.body.admodeandroidbanner.trim();
-                    dataOne.adModeAndroidInterstitial = req.body.admodeandroidinterstitial.trim();
-                    dataOne.adModeIosBaner = req.body.admodeiosbanner.trim();
-                    dataOne.adModeIosInterstitial = req.body.admodeiosinterstitial.trim();
+
                     dataOne.dateUpdate = Date.now();
                     dataOne.status = true;
                     dataOne.save().then(() => {

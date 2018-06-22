@@ -1379,7 +1379,7 @@ a:hover .menumore-listmyapp {
     float: left;
     padding: 17px 0px 17px 7px;
     width: 178px;
-    height: 100%;
+    height: 65%;
 }
 
 .set-text-olde-price {
@@ -1427,6 +1427,7 @@ a:hover .menumore-listmyapp {
 
 .border-add-product {
     margin-top: 10px;
+    margin-left: 89px;
 }
 
 .btn-blue-checkout {

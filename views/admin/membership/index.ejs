@@ -128,7 +128,6 @@
                         <th width="10%">Actions
                         </th>
                     </tr>
-                    <tbody>
                         <%var dem =1;%>
                             <%dataMemberShipModels.forEach((item)=>{%>
                                 <tr class="tr-content-appversion trrecord">
@@ -156,7 +155,6 @@
                                 </tr>
 
                                 <%dem++})%>
-                    </tbody>
                 </table>
 
             </div>
@@ -322,7 +320,7 @@
                                 <form id="form-adduser">
                                     <input type="hidden" value="" id="idusersendnoti">
                                     <input type="text" placeholder="Title..." name="titlenoti" id="titlenoti" class="title-notification-dialog">
-                                    <textarea placeholder="Enter your content" rows="1" class="textarea-send-noti" id="contentsendnoti"></textarea>
+                                    <textarea placeholder="Enter your content..." rows="1" class="textarea-send-noti" id="contentsendnoti"></textarea>
                                     <div class="dialogdeleteapp-foot-history ">
                                         <button type="button" class="float-right btn-blue" id="sendnotitouser">
                                            <img src="/themes/img/admin/sendnoti.png" class="img-plane-noti" alt="Send notification">&nbsp; Send</button>

@@ -91,7 +91,6 @@ $(document).ready(function () {
     var hoverarrow = document.getElementsByClassName('set-span-arrow-right');
     var hovertext = document.getElementsByClassName('subspantextmenu1');
     var pathArray = window.location.pathname.split('/');
-    // console.log(pathArray)
 
     if (pathArray[1] == "dashboard" && pathArray[2] == null) {
         $("#myapp").css("background", "#00afee");

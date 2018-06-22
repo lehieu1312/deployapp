@@ -1,7 +1,7 @@
 .btn-send-notifi {
     margin-right: 15px;
     font-family: 'OpenSans-Regular';
-    padding: 5px 15px 5px 15px;
+    padding: 4px 6px 4px 9px;
     color: rgb(0, 175, 238);
     background: white;
     border-radius: 3px;
@@ -12,7 +12,12 @@
     background: rgb(0, 175, 238);
     color: #fff;
 }
-
+#titlenoti::placeholder{
+    color: #666666;
+}
+.textarea-send-noti::placeholder{
+    color: #cdcdcd;
+}
 .img-notification-second,
 .img-notification-first {
     padding-bottom: 2px;
@@ -48,7 +53,7 @@
     font-family: 'OpenSans-Regular';
     color: white;
     border-radius: 2px;
-    padding: 5px 17px 5px 16px;
+    padding: 6px 12px 6px 8px;
     background: #22baf0;
     border: none;
 }

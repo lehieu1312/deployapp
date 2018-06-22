@@ -676,6 +676,11 @@ canvas {
     margin-left: 7px;
     border: solid 1px #cecece;
 }
+.setpagination2 .sub-pagination:hover{
+    color: #fff;
+    background: #00afee;
+    border: solid 1px  #00afee;
+}
 
 .sub-pagination1 {
     cursor: pointer;

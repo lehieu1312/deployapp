@@ -51,14 +51,20 @@ function ajaxproduct(numberdate, numberend) {
                     </tr>`
                     )
                 } else {
+                    var urlimg = "";
+                    if(data.setdata[i][0].image){
+                        urlimg = data.setdata[i][0].image;
+                    }else{
+                        urlimg = "/themes/img/productorder/songoku.png"
+                    }
                     $("#content-productstatictis").append(
                         ` <tr>
                             <td width="10% ">
                             <a class="colora ">${data.setdata[i][0].idProduct}</a>
                         </td>
-                        <td width="46% " style="padding-right: 30px ">
+                        <td width="48% " style="padding-right: 30px ">
                             <div width="20% " class="floatleft ">
-                                <img class=" set-img-produc-trafic " src="/themes/img/productorder/${data.setdata[i][0].image}">
+                                <img class=" set-img-produc-trafic " src="${urlimg}">
                             </div>
                             <div width="80% " class=" ">
                                 <span>${data.setdata[i][0].name}</span>

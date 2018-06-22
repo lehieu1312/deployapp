@@ -486,6 +486,7 @@ textarea {
     border-radius: 2px;
     padding: 5.5px;
     box-shadow: 0px 1px 1px #b1b5b9;
+    color: #666666;
 }
 
 .orderblue {
@@ -919,4 +920,7 @@ textarea {
 
 .more-changelog:hover {
     color: #00afee !important;
+}
+.selectstatuspayment li {
+    cursor: pointer;
 }

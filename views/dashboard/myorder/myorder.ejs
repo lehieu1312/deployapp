@@ -55,21 +55,20 @@
             }
         %>
             <div class="showall row row1">
-                <span>All(
-                    <%=myorder.length%>) |</span>
-                <span class="colora">Pending payment</span>
+                <span>All <%= "(" + myorder.length + ")"%> |</span>
+                <span class="colora"> Pending payment</span>
                 <%= "("+ Pending +")" %> |
-                    <span class="colora">Processing</span>
+                    <span class="colora"> Processing</span>
                     <%= "("+Processing+")" %> |
-                        <span class="colora">On Hold</span>
+                        <span class="colora"> On Hold</span>
                         <%="("+ onhold +")"%> |
-                            <span class="colora">Completed</span>
+                            <span class="colora"> Completed</span>
                             <%="("+Completed+")"%> |
-                                <span class="colora">Cancelled(</span>
+                                <span class="colora"> Cancelled(</span>
                                 <%="("+Cancelled+")"%> |
-                                    <span class="colora">Refunded</span>
+                                    <span class="colora"> Refunded</span>
                                     <%="("+Refunded+")"%> |
-                                        <span class="colora">Failed</span>
+                                        <span class="colora"> Failed</span>
                                         <%="("+Failed+")"%>
             </div>
             <div id="filter-table-appversion" class="row row1">
@@ -219,7 +218,6 @@
                             <td width="4%">
                             </td>
                         </tr>
-                        <tbody>
                             <%for(var i = 0;i<myorder.length;i++){ %>
                                 <%var d = myorder[i].order.dateCreate%>
                                     <%var m = d.getMonth() + 1%>
@@ -236,7 +234,7 @@
                                                         </a>
                                                     </td>
                                                     <td class="findnameapp">
-                                                        <%=myorder[i].order.nameCustomer%>
+                                                        <%=myorder[i].order.nameCustomer%><br>
                                                             <span class="colora">
                                                                 <%=myorder[i].order.email%>
                                                             </span>
@@ -376,7 +374,6 @@
                                                     </td>
                                                 </tr>
                                                 <%}%>
-                        </tbody>
                     </table>
                     <div class="example">
                         <div class="container">

@@ -112,7 +112,7 @@ $(document).ready(function() {
     }
 
     function validateForm_setting_app() {
-        var checkValid = true;
+        var checkValid;
         // $(".form-group").each(function() {
         var rules = $(this).find('input').attr("rules");
         var require = $(this).find('input').prop("required");
@@ -238,13 +238,9 @@ $(document).ready(function() {
             $('#packageid').val('');
             $('#packageid').attr('placeholder', 'This ID uniquely identifies your app on the device and in Google Play, like: com.example.myapp');
             $('#packageid').addClass('input-holder').addClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-none').addClass('display-inline');
             checkValid = false;
-
-            // $(this).focus();
         } else {
             $('#packageid').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
         }
         if ($('#appname').val() == "") {
             $('#appname').val('');
@@ -253,7 +249,6 @@ $(document).ready(function() {
             checkApp = false;
         } else {
             $('#appname').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
         }
         if ($('#version').val() == "") {
             $('#version').val('');
@@ -262,7 +257,6 @@ $(document).ready(function() {
             checkApp = false;
         } else {
             $('#version').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
         }
         if ($('#description').val() == "") {
             $('#description').val('');
@@ -271,7 +265,6 @@ $(document).ready(function() {
             checkApp = false;
         } else {
             $('#description').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
         }
         if ($('#email').val() == "") {
             $('#email').val('');
@@ -285,17 +278,21 @@ $(document).ready(function() {
             checkApp = false;
         } else {
             $('#email').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
         }
         if ($('#href').val() == "") {
             $('#href').val('');
             $('#href').attr('placeholder', 'Can not be empty');
             $('#href').addClass('input-holder').addClass('border-bottom-red');
             checkApp = false;
+        } else if (ValidURL($('#href').val()) == false) {
+            $('#href').val('');
+            $('#href').attr('placeholder', 'Enter valid URL to your wordpress, like: http(s)://your_website.com');
+            $('#href').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
         } else {
             $('#href').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
         }
+
         if ($('#auth').val() == "") {
             $('#auth').val('');
             $('#auth').attr('placeholder', 'Can not be empty');
@@ -303,17 +300,8 @@ $(document).ready(function() {
             checkApp = false;
         } else {
             $('#auth').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
         }
-        // if ($('#onesignalappid').val() == "") {
-        //     $('#onesignalappid').val('');
-        //     $('#onesignalappid').attr('placeholder', 'Can not be empty');
-        //     $('#onesignalappid').addClass('input-holder').addClass('border-bottom-red');
-        //     checkApp = false;
-        // } else {
-        //     $('#onesignalappid').removeClass('input-holder').removeClass('border-bottom-red');
-        //     //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
-        // }
+
         if ($('#onesignalapikey').val() == "") {
             $('#onesignalapikey').val('');
             $('#onesignalapikey').attr('placeholder', 'Can not be empty');
@@ -321,17 +309,9 @@ $(document).ready(function() {
             checkApp = false;
         } else {
             $('#onesignalapikey').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
         }
-        if ($('#auth').val() == "") {
-            $('#auth').val('');
-            $('#auth').attr('placeholder', 'Can not be empty');
-            $('#auth').addClass('input-holder').addClass('border-bottom-red');
-            checkApp = false;
-        } else {
-            $('#auth').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
-        }
+
+
         if ($('#onesignalappid').val() == "") {
             $('#onesignalappid').val('');
             $('#onesignalappid').attr('placeholder', 'Can not be empty');
@@ -339,59 +319,9 @@ $(document).ready(function() {
             checkApp = false;
         } else {
             $('#onesignalappid').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
         }
-        if ($('#onesignalapikey').val() == "") {
-            $('#onesignalapikey').val('');
-            $('#onesignalapikey').attr('placeholder', 'Can not be empty');
-            $('#onesignalapikey').addClass('input-holder').addClass('border-bottom-red');
-            checkApp = false;
-        } else {
-            $('#onesignalapikey').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
-        }
-        if ($('#wpurl').val() == "") {
-            $('#wpurl').val('');
-            $('#wpurl').attr('placeholder', 'Can not be empty');
-            $('#wpurl').addClass('input-holder').addClass('border-bottom-red');
-            checkApp = false;
-        } else if (ValidURL($('#wpurl').val()) == false) {
-            $('#wpurl').val('');
-            $('#wpurl').attr('placeholder', 'Enter valid URL to your wordpress, like: http(s)://your_website.com');
-            $('#wpurl').addClass('input-holder').addClass('border-bottom-red');
-            checkApp = false;
-        } else {
-            $('#wpurl').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
-        }
-        if ($('#wpperpage').val() == "") {
-            $('#wpperpage').val('');
-            $('#wpperpage').attr('placeholder', 'Can not be empty');
-            $('#wpperpage').addClass('input-holder').addClass('border-bottom-red');
-            checkApp = false;
-        } else if (isNumber($('#wpperpage').val()) == false) {
-            $('#wpperpage').val('');
-            $('#wpperpage').attr('placeholder', 'Enter number');
-            $('#wpperpage').addClass('input-holder').addClass('border-bottom-red');
-            checkApp = false;
-        } else {
-            $('#wpperpage').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
-        }
-        if ($('#reqtimeout').val() == "") {
-            $('#reqtimeout').val('');
-            $('#reqtimeout').attr('placeholder', 'Can not be empty');
-            $('#reqtimeout').addClass('input-holder').addClass('border-bottom-red');
-            checkApp = false;
-        } else if (isNumber($('#reqtimeout').val()) == false) {
-            $('#reqtimeout').val('');
-            $('#reqtimeout').attr('placeholder', 'Enter number');
-            $('#reqtimeout').addClass('input-holder').addClass('border-bottom-red');
-            checkApp = false;
-        } else {
-            $('#reqtimeout').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
-        }
+
+
         if ($('#onesignalid').val() == "") {
             $('#onesignalid').val('');
             $('#onesignalid').attr('placeholder', 'Can not be empty');
@@ -399,7 +329,6 @@ $(document).ready(function() {
             checkApp = false;
         } else {
             $('#onesignalid').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
         }
         if ($('#onesignalapikey').val() == "") {
             $('#onesignalapikey').val('');
@@ -408,23 +337,25 @@ $(document).ready(function() {
             checkApp = false;
         } else {
             $('#onesignalapikey').removeClass('input-holder').removeClass('border-bottom-red');
-            //   $(this).find('#icon-err').removeClass('display-inline').addClass('display-none');
         }
+        if ($('#onesignaluserid').val() == "") {
+            $('#onesignaluserid').val('');
+            $('#onesignaluserid').attr('placeholder', 'Can not be empty');
+            $('#onesignaluserid').addClass('input-holder').addClass('border-bottom-red');
+            checkApp = false;
+        } else {
+            $('#onesignaluserid').removeClass('input-holder').removeClass('border-bottom-red');
+        }
+        if (checkApp == false)
+            return false;
 
-        return checkApp;
+        return true;
     }
     //   btn-setting-app
     $('#btn-save-setting-app').click(function() {
-        // alert('1');
-        // alert(checkAppSetting());
-
         if (checkAppSetting() == true) {
-            // $('#loading').show();
             var obj = {};
             console.log('send form');
-            // $('.form-group').find('.help-block').html('');
-            // $('.form-group').removeClass('has-error').addClass('has-success');
-            // $(".spinner").fadeIn();
             $.ajax({
                 url: "/dashboard/appsettings",
                 type: "POST",

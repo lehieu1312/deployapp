@@ -13,16 +13,31 @@
     <div class="xcontent clsmenu">
         <h1>Administrator</h1>
         <span>
+            -------------
+            <br>
             <%=strDate %>
         </span>
         <br>
         <span>
+                -------------
+                <br>
             <%=strDate.toLocaleString() %> 
         </span>
         <br>
-        <span>
-            <%=strDate.getTimezoneOffset() %> 
-        </span>
+        <%var offset = new Date().getTimezoneOffset();%>
+            <span>
+                    -------------
+                    <br>
+                <%=(offset/60)*-1%>
+            </span>
+            <br>
+            <span>
+                    -------------
+                    <br>
+                <%var setDate=new Date(strDate)%>
+                <%=setDate%>
+                
+            </span>
 
     </div>
     </div>

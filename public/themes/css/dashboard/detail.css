@@ -1401,14 +1401,16 @@ a:hover .menumore-listmyapp {
 }
 .set-btn-cart .removeitem{
     position: absolute;
+    font-family: 'OpenSans-Light';
     font-size: 25px;
     top: -11px;
     left: 5px;
 }
 .set-btn-cart .additem{
     position: absolute;
+    font-family: 'OpenSans-Light';
     font-size: 20px;
-    top: -5.5px;
+    top: -4.5px;
     left: 3.5px;
 }
 

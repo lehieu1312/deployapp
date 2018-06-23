@@ -33,7 +33,7 @@ var server = http.Server(app);
 var paypal = require("paypal-rest-sdk");
 var country = require("../../lib/country");
 
-
+var moment = require("moment");
 
 
 function checkAdmin(req, res, next) {
@@ -75,12 +75,13 @@ function settimelocal(a){
 
 router.get("/affiliate/payment-method", checkAdmin, (req, res) => {
     try {
+        moment.locale();
         affiliate_method_modal.find({
             idUser: req.session.iduser,
             status: true
         }).then((data) => {
-            console.log(data);
-            console.log(data[0].dateCreate);
+            console.log(moment.locale());
+            console.log(moment(data[0].dateCreate));
             res.render("./affiliate/method", {
                 title: "Payment Methods",
                 method: data,

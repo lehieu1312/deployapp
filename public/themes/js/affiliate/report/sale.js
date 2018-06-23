@@ -69,7 +69,7 @@ function ajax_sale_traffic(date_start, date_end) {
                     setdate[i - 1].setDate(numDay - setarraydate[i - 1]);
                     setdate[i - 1].setHours(23, 59, 59, 999);
                     setdate[i - 1] = setdate[i - 1].toDateString().split(" ");
-                    setdate[i - 1] = setdate[i - 1][2] + " " + setdate[i - 1][1];
+                    setdate[i - 1] = setdate[i - 1][0] +" "+ setdate[i - 1][2] + " " + setdate[i - 1][1];
                 }
                 return setdate;
 

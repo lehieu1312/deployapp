@@ -149,15 +149,15 @@ $(document).ready(() => {
                                 ${"$" + data.cart[i].cart.price}
                                 </span>
                                 <span class="set-text-olde-price">${"$" + data.cart[i].cart.cost}</span>
+                                </div>
                                 <div class="border-add-product">
-                                    <div class="set-btn-cart float-left reduce-product">-</div>
+                                    <div class="set-btn-cart float-left reduce-product"><span class="removeitem">-</span></div>
                                     <div class="set-input-add-product float-left number-product">${data.cart[i].count}</div>
-                                    <div class="set-btn-cart float-left add-product">+</div>
+                                    <div class="set-btn-cart float-left add-product"><span  class="additem">+</span></div>
                                     <div class="float-right">
                                     <span class="price-product">${"$" + data.cart[i].cart.price*data.cart[i].count}</span>
                                     </div>
                                 </div>
-                            </div>
                             <img class="set-icon-delte-app-checkout" src="/themes/img/checkout/icondeletesmallv2.png">
                         </div>`);
                             tong = tong + data.cart[i].cart.price * data.cart[i].count;

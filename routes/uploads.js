@@ -195,7 +195,6 @@ router.post('/upload', urlencodeParser, function(req, res, next) {
                                     fs.existsSync(path.join(appRoot, 'public', 'temporary', dbPathRootFolder, 'package.json')) &&
                                     fs.existsSync(path.join(appRoot, 'public', 'temporary', dbPathRootFolder, 'tsconfig.json')) &&
                                     fs.existsSync(path.join(appRoot, 'public', 'temporary', dbPathRootFolder, 'tslint.json')) &&
-                                    fs.existsSync(path.join(appRoot, 'public', 'temporary', dbPathRootFolder, 'node_modules')) &&
                                     // fs.existsSync(path.join(appRoot, 'public', 'temporary', dbPathRootFolder, 'hooks')) &&
                                     fs.existsSync(path.join(appRoot, 'public', 'temporary', dbPathRootFolder, 'resources')))
                                     dbTypeApp = 2;

@@ -369,7 +369,7 @@ router.post('/platform-dash', async(req, res) => {
                                 return res.json({ status: 3, content: err + '' });
                             }
                             try {
-                                fse.removeSync(path.join(appRoot, 'public', 'project', idAppUser));
+                                // fse.removeSync(path.join(appRoot, 'public', 'project', idAppUser));
                                 return res.json({ status: 3, content: ex + '' });
                             } catch (error) {
                                 return res.json({ status: 3, content: error + '' });

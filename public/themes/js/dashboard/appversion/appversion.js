@@ -68,18 +68,17 @@ function clickdeployapp(fIDAppAdmin, fVersionAdmin, idAppUser) {
     console.log(fIDAppAdmin);
     console.log(fVersionAdmin);
     $('#idappadminplatform').val(fIDAppAdmin);
-    $('#versionadminlatform').val(fVersionAdmin);
+    $('#versionadminplatform').val(fVersionAdmin);
     $('#idappuserplatform').val(idAppUser);
     $('#dialog-noti-choose-android-dashboard').fadeIn();
     var platform = "";
     $("#ios").click(function() {
-        $('#platformval').val('ios');
         $(".pl-ios").addClass("platform-active");
         $(".tile-pl-ios").css("color", "#00afee")
         $(".pl-android").removeClass("platform-active");
         $(".tile-pl-android").css("color", "#6e7786");
         platform = 'ios';
-        $('#platform').val(platform);
+        $('#platformchoose').val(platform);
         // alert(platform);
     });
     $("#android").click(function() {
@@ -92,7 +91,7 @@ function clickdeployapp(fIDAppAdmin, fVersionAdmin, idAppUser) {
         // $(".pl-android").addClass("platform-active");
         $(".tile-pl-ios").css("color", "#6e7786")
         platform = 'android';
-        $('#platform').val(platform);
+        $('#platformchoose').val(platform);
         // alert(platform);
         //Do stuff when clicked
     });
@@ -115,8 +114,8 @@ function clickdeployapp(fIDAppAdmin, fVersionAdmin, idAppUser) {
                 url: "/dashboard/platform-dash",
                 type: "POST",
                 data: {
-                    platform: $('#platform').val(),
-                    versionadmin: $('#versionadminlatform').val(),
+                    platform: $('#platformchoose').val(),
+                    versionadmin: $('#versionadminplatform').val(),
                     idappadmin: $('#idappadminplatform').val(),
                     idappuser: $('#idappuserplatform').val()
                 },

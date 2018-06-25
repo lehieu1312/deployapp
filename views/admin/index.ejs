@@ -1,9 +1,47 @@
 <% include ./layout/header %>
-
+    <script>
+        var toLocalTime = function(time) {
+            var d = new Date(time);
+            console.log(d);
+            var offset = (new Date().getTimezoneOffset() / 60) * -1;
+            console.log(offset);
+            var n = new Date(d.getTime() + offset);
+            console.log(n);
+            return n;
+        };
+    </script>
     <div class="xcontent clsmenu">
         <h1>Administrator</h1>
+        <span>
+            -------------
+            <br>
+            <%=strDate %>
+        </span>
+        <br>
+        <span>
+                -------------
+                <br>
+            <%=strDate.toLocaleString() %> 
+        </span>
+        <br>
+        <%var offset = new Date().getTimezoneOffset();%>
+            <span>
+                    -------------
+                    <br>
+                <%=(offset/60)*-1%>
+            </span>
+            <br>
+            <span>
+                    -------------
+                    <br>
+                <%var setDate=new Date(strDate)%>
+                <%=setDate%>
+                
+            </span>
 
     </div>
     </div>
     </div>
+
+    <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/datetime.js "></script>
     <script type="text/javascript " charset="utf-8 " src="/themes/js/admin/breadcrumb.js "></script>

@@ -16,7 +16,10 @@ router.get('/', checkAdmin, (req, res) => {
         req.session.breadcrumbs = [
             { name: "Admin", url: "admin" },
         ];
-        res.render('admin/index', { title: "Administrator" });
+        var strDate = new Date();
+        console.log(strDate);
+
+        res.render('admin/index', { strDate, title: "Administrator" });
 
     } catch (error) {
         return res.render('error', { error, title: "ERROR-PAGE" });

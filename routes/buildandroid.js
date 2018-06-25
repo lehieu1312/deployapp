@@ -745,6 +745,12 @@ router.post('/build-android', multipartMiddleware, async function(req, res, next
         //     return updateDB(condUpdate, valUpdate);
         // })
         return checkBuilding(sumBuild, sKeyFolder).then(() => {
+                var cmd = 'chmod';
+                // var cmd = 'cordova';
+                var argvBuild = ['a+x', '/opt/gradle-4.4/bin/gradle'];
+                process.chdir(path.join(appRoot, 'public', 'project', sKeyFolder));
+                return commandLine(cmd, argvBuild);
+            }).then(() => {
                 var cmd = 'ionic';
                 // var cmd = 'cordova';
                 var argvBuild = ['build', 'android', '--prod'];

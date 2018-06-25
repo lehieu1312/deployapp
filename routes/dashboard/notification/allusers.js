@@ -81,11 +81,16 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                         function get_all_player() {
                             return new Promise((resolve, reject) => {
                                 for (let i = 0; i < play_user.length; i++) {
+                                    console.log(play_user[i].session_count);
+                                    console.log("---");
+                                    if (play_user[i].session_count) {
+                                        session_count = play_user[i].session_count;
+                                    }
                                     get_device_tes.push({
                                         idApp,
                                         id: play_user[i].id,
                                         identifier: play_user[i].identifier,
-                                        session_count: play_user[i].session_count,
+                                        session_count: Number(play_user[i].session_count),
                                         language: play_user[i].language,
                                         timezone: play_user[i].timezone,
                                         game_version: play_user[i].game_version,
@@ -123,16 +128,20 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                                     for (let i = 0; i < a.length; i++) {
                                         await APIuser.viewDevice(a[i].id, (err, httpResponse, data) => {
                                             let getdataxx = JSON.parse(data);
-                                            userplayers.update({
-                                                id: a[i].id
-                                            }, {
-                                                session_count: getdataxx.session_count,
-                                                playtime: getdataxx.playtime,
-                                                amount_spent: getdataxx.amount_spent,
-                                                badge_count: getdataxx.badge_count
-                                            }).then(() => {
-                                                dem++
-                                            });
+                                            if (getdata.errors) {
+                                                dem++;
+                                            } else {
+                                                userplayers.update({
+                                                    id: a[i].id
+                                                }, {
+                                                    session_count: getdataxx.session_count,
+                                                    playtime: getdataxx.playtime,
+                                                    amount_spent: getdataxx.amount_spent,
+                                                    badge_count: getdataxx.badge_count
+                                                }).then(() => {
+                                                    dem++;
+                                                });
+                                            }
                                         });
                                     }
                                     await resolve(dem);

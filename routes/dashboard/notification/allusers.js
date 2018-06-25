@@ -261,7 +261,7 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
 });
 
 
-router.put("/notification/alluser/edituser", (req, res) => {
+router.post("/notification/alluser/edituser", (req, res) => {
     try {
         userplayers.update({
             id: req.body.id

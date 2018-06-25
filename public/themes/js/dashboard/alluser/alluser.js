@@ -17,7 +17,7 @@ $(document).ready(() => {
                     id: idUser[i].value
                 },
                 dataType: "json",
-                type: 'PUT',
+                type: 'POST',
                 success: function (data) {
                     if (data.status == 1) {
                         console.log("ok");

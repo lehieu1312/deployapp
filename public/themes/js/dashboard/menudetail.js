@@ -21,6 +21,7 @@ $(document).ready(function () {
     })
 
     $(".far-affiliate").click((event) => {
+        $('.far-affiliate').find("#arowwx").toggleClass("arrow-top");
         $(".arrow-top-afiliate").toggle();
         $(".arrow-affiliate").toggle();
         $('.item-affiliate').toggle();
@@ -81,8 +82,7 @@ $(document).ready(function () {
         $('.setarrowmenu').css('display', 'inline');
     })
     $('#app-used-menuleft').click(() => {
-        $('#arowwx').toggle();
-        $('.arrow-top').toggle();
+        $('#app-used-menuleft').find("#arowwx").toggleClass("arrow-top");
         $('.submenuleft-edit').toggle();
     })
 
@@ -134,7 +134,7 @@ $(document).ready(function () {
         hovertext[0].style.color = "#00afee";
         $('#app-used-menuleft').css("background", "#00afee");
         $('#app-used-menuleft').css('color', '#fff');
-
+        document.getElementById("app-used-menuleft").getElementsByClassName("caret")[0].style.color = "#fff";
     }
     if (pathArray[2] == "editprofile") {
         // hoversubmenu[0].style.display = "none"
@@ -147,7 +147,7 @@ $(document).ready(function () {
         hovertext[1].style.color = "#00afee";
         $('#app-used-menuleft').css("background", "#00afee");
         $('#app-used-menuleft').css('color', '#fff');
-
+        document.getElementById("app-used-menuleft").getElementsByClassName("caret")[0].style.color = "#fff";
 
     }
     if (pathArray[2] == "myteam") {
@@ -155,7 +155,7 @@ $(document).ready(function () {
         hovertext[2].style.color = "#00afee";
         $('#app-used-menuleft').css("background", "#00afee");
         $('#app-used-menuleft').css('color', '#fff');
-
+        document.getElementById("app-used-menuleft").getElementsByClassName("caret")[0].style.color = "#fff";
 
     }
     if (pathArray[2] == "appsettings") {
@@ -163,7 +163,7 @@ $(document).ready(function () {
         hovertext[3].style.color = "#00afee";
         $('#app-used-menuleft').css("background", "#00afee");
         $('#app-used-menuleft').css('color', '#fff');
-
+        document.getElementById("app-used-menuleft").getElementsByClassName("caret")[0].style.color = "#fff";
 
     }
     if (pathArray[2] == "myorder") {
@@ -171,6 +171,7 @@ $(document).ready(function () {
         hovertext[4].style.color = "#00afee";
         $('#app-used-menuleft').css("background", "#00afee");
         $('#app-used-menuleft').css('color', '#fff');
+        document.getElementById("app-used-menuleft").getElementsByClassName("caret")[0].style.color = "#fff";
         if (pathArray[2] != "detail") {
 
         } else {
@@ -197,28 +198,27 @@ $(document).ready(function () {
         hovertext[5].style.color = "#00afee";
         $('#app-used-menuleft').css("background", "#00afee");
         $('#app-used-menuleft').css('color', '#fff');
-
+        document.getElementById("app-used-menuleft").getElementsByClassName("caret")[0].style.color = "#fff";
     }
     if (pathArray[2] == "notification") {
         hoverarrow[6].style.color = "#00afee";
         hovertext[6].style.color = "#00afee";
         $('#app-used-menuleft').css("background", "#00afee");
         $('#app-used-menuleft').css('color', '#fff');
-
+        document.getElementById("app-used-menuleft").getElementsByClassName("caret")[0].style.color = "#fff";
     }
     if (pathArray[1] == "affiliate") {
         $("#app-used-affilite").find(".imgfirst").hide();
         $("#app-used-affilite").find(".imglast").show();
         $('#app-used-affilite').css("background", "#00afee");
         $('#app-used-affilite').css('color', '#fff');
-
+        document.getElementById("app-used-affilite").getElementsByClassName("caret")[0].style.color = "#fff";
     }
     if (pathArray[1] == "membership") {
         $("#membership").find(".imgfirst").hide();
         $("#membership").find(".imglast").show();
         $('#membership').css("background", "#00afee");
         $('#membership').css('color', '#fff');
-
     }
 });
 

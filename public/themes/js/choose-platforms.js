@@ -112,10 +112,10 @@ $(document).ready(function() {
                         //alert('Error: ' + result.content);
                         $('.errPopup').show();
                         $('.alert-upload').html(result.content);
-                        $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function() {
-                            $("#danger-alert").slideUp(1000);
-                            $('.errPopup').hide();
-                        });
+                        // $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function() {
+                        //     $("#danger-alert").slideUp(1000);
+                        //     $('.errPopup').hide();
+                        // });
                         // $('.error-all').find('.help-block').html(result.content);
                         // $('.error-all').removeClass('has-success').addClass('has-error');
                     } else {

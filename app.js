@@ -71,7 +71,7 @@ mongoose.Promise = require('bluebird');
 // 'mongodb://deployapp:admindeployapp@45.76.180.221/deployapp'
 // 'mongodb://deployapp:admindeployapp@104.207.148.242/deployapp'
 
-mongoose.connect('mongodb://deployapp:admindeployapp@45.76.180.221/deployapp', {
+mongoose.connect('mongodb://127.0.0.1/deployapp', {
     poolSize: 20,
     socketTimeoutMS: 480000,
     useMongoClient: true,

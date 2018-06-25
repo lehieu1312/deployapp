@@ -81,8 +81,8 @@ router.get("/notification/alluser/:idApp", checkAdmin, (req, res) => {
                         function get_all_player() {
                             return new Promise((resolve, reject) => {
                                 for (let i = 0; i < play_user.length; i++) {
-                                    console.log(play_user[i].session_count);
-                                    console.log("---");
+                                    // console.log(play_user[i].session_count);
+                                    // console.log("---");
                                     if (play_user[i].session_count) {
                                         session_count = play_user[i].session_count;
                                     }

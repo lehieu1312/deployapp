@@ -5,9 +5,17 @@ $(document).ready(() => {
         var istest;
         $(this).click(() => {
             if (istest_client[i].value == "true") {
-                istest = false
+                $(this).addClass("btn-deploy");
+                $(this).removeClass("btn-del-to-test");
+                $(this).text("Add to Test");
+                istest_client[i].value = "false";
+                istest = false;
             } else {
-                istest = true
+                $(this).addClass("btn-del-to-test");
+                $(this).removeClass("btn-deploy");
+                $(this).text("Delete to Test");
+                istest_client[i].value = "true";
+                istest = true;
             }
             $.ajax({
                 url: "/dashboard/notification/alluser/edituser",
@@ -19,7 +27,8 @@ $(document).ready(() => {
                 type: 'PUT',
                 success: function (data) {
                     if (data.status == 1) {
-                        window.location.href = "/dashboard/notification/alluser/" + $("#idapp-using").val()
+                        console.log("ok");
+                        // window.location.href = "/dashboard/notification/alluser/" + $("#idapp-using").val()
                     }
                 }
             })

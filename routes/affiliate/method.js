@@ -75,7 +75,6 @@ function settimelocal(a){
 
 router.get("/affiliate/payment-method", checkAdmin, (req, res) => {
     try {
-        moment.locale();
         affiliate_method_modal.find({
             idUser: req.session.iduser,
             status: true

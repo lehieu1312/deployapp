@@ -191,3 +191,26 @@
     color: #ef5350;
     background-color: #F1EEEE;
 }
+
+#content-appversion {
+    margin-left: 2%;
+    background: white;
+    width: 96%;
+    padding: 0px 20px 15px 20px;
+    border: solid 1px #ececec;
+}
+
+.multi-option {
+    padding-top: 15px;
+    height: 60px;
+}
+
+.box-search {
+    float: left;
+    width: 50%;
+}
+
+.box-bulk-actions {
+    float: left;
+    width: 50%;
+}

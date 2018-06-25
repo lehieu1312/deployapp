@@ -88,7 +88,7 @@
         <div class="row row1">
             <div id="content-appversion">
                 <div class="multi-option">
-                    <div class="input-group ">
+                    <div class="input-group box-bulk-actions">
                         <button data-toggle="dropdown" class="btn btn-white dropmenu-multi-option" type="button" aria-expanded="true">Bulk actions <span class="caret"></span></button>
                         <ul class="dropdown-menu">
                             <li>
@@ -109,8 +109,15 @@
                             </li>
                         </ul>
                     </div>
-
+                    <div class="box-search">
+                        <span class="setsearch">
+                                <img src="/themes/img/admin/search.png" class="img-search-text">
+                            <input type="text" onkeyup="searchFunc()" id="inputsearch-customer" name="search" placeholder="Search...">                            
+                        </span>
+                    </div>
                 </div>
+                <hr>
+
                 <table id="table-appversion">
                     <tr id="title-table-header">
                         <th width="5.8%"><input type="checkbox" id="checkboxall"></th>
@@ -137,85 +144,85 @@
                         <th width="15.8%">
                         </th>
                     </tr>
-                        <%var dem=1;%>
-                            <% dataApps.forEach(function(item){%>
-                                <tr id="" class="tr-content-appversion trrecord">
-                                    <td><input type="checkbox" name="name[]" id="<%=item.idApp%>"></td>
-                                    <td class="">
-                                        <span class="numberorder"><%=dem%></span>
-                                    </td>
+                    <%var dem=1;%>
+                        <% dataApps.forEach(function(item){%>
+                            <tr id="" class="tr-content-appversion trrecord">
+                                <td><input type="checkbox" name="name[]" id="<%=item.idApp%>"></td>
+                                <td class="">
+                                    <span class="numberorder"><%=dem%></span>
+                                </td>
 
-                                    <td class="table-version">
-                                        <a href="/admin/apps/edit/<%=item.idApp%>"> <span><%=item.nameApp%></span></a>
-                                    </td>
-                                    <td class="table-version">
-                                        <span><%=moment(item.dateCreate).format('DD/MM/YYYY HH:mm:ss')%></span>
-                                    </td>
-                                    <td class="table-changelog">
-                                        <span><%=moment(item.dateUpdate).format('DD/MM/YYYY HH:mm:ss')%></span>
-                                    </td>
-                                    <td class="table-time-appversion ">
-                                        <span><%=item.lastVersion%></span>
-                                    </td>
-                                    <td class="table-time-appversion ">
-                                        <span>$<%=item.cost.toLocaleString()%></span>
-                                    </td>
-                                    <td class="table-time-appversion ">
-                                        <span>$<%=item.price.toLocaleString()%></span>
-                                    </td>
-                                    <td class="table-time-appversion ">
-                                        <%if(item.status){%>
-                                            <span>Enable</span>
-                                            <%}else{%>
-                                                <span class="text-red">Disable</span>
-                                                <%}%>
-                                    </td>
+                                <td class="table-version">
+                                    <a href="/admin/apps/edit/<%=item.idApp%>"> <span><%=item.nameApp%></span></a>
+                                </td>
+                                <td class="table-version">
+                                    <span><%=moment(item.dateCreate).format('DD/MM/YYYY HH:mm:ss')%></span>
+                                </td>
+                                <td class="table-changelog">
+                                    <span><%=moment(item.dateUpdate).format('DD/MM/YYYY HH:mm:ss')%></span>
+                                </td>
+                                <td class="table-time-appversion ">
+                                    <span><%=item.lastVersion%></span>
+                                </td>
+                                <td class="table-time-appversion ">
+                                    <span>$<%=item.cost.toLocaleString()%></span>
+                                </td>
+                                <td class="table-time-appversion ">
+                                    <span>$<%=item.price.toLocaleString()%></span>
+                                </td>
+                                <td class="table-time-appversion ">
+                                    <%if(item.status){%>
+                                        <span>Enable</span>
+                                        <%}else{%>
+                                            <span class="text-red">Disable</span>
+                                            <%}%>
+                                </td>
 
-                                    <td class="set-position-relative">
-                                        <img class="setimg-head-myapp more-menu" src="/themes/img/admin/moreoption.png">
-                                        <div class="box-more-menu" style="display:none">
-                                            <a href="javascript:void(0)" onclick="enableApp('<%=item.idApp%>')">
-                                                <div class=" element-delete ">
-                                                    <div class="box-edit-customer box-option-apps ">
-                                                        <div class="left-box-item ">
-                                                            <img class="imgicondelete " src="/themes/img/admin/enable.png "><span> Enable</span>
-                                                        </div>
-                                                    </div>
-                                            </a>
-
-
-                                            <a href="javascript:void(0) " onclick="disableApp( '<%=item.idApp%>') ">
+                                <td class="set-position-relative">
+                                    <img class="setimg-head-myapp more-menu" src="/themes/img/admin/moreoption.png">
+                                    <div class="box-more-menu" style="display:none">
+                                        <a href="javascript:void(0)" onclick="enableApp('<%=item.idApp%>')">
+                                            <div class=" element-delete ">
                                                 <div class="box-edit-customer box-option-apps ">
                                                     <div class="left-box-item ">
-                                                        <img class="imgicondelete " src="/themes/img/admin/disable.png "><span> Disable</span>
+                                                        <img class="imgicondelete " src="/themes/img/admin/enable.png "><span> Enable</span>
                                                     </div>
                                                 </div>
-                                            </a>
-                                            <a href="/admin/apps/version/<%=item.idApp%>">
-                                                <div class="box-edit-customer box-option-apps">
-                                                    <div class="left-box-item">
-                                                        <img class="imgicondelete" src="/themes/img/admin/versionapps.png"><span> Version</span>
-                                                    </div>
+                                        </a>
+
+
+                                        <a href="javascript:void(0) " onclick="disableApp( '<%=item.idApp%>') ">
+                                            <div class="box-edit-customer box-option-apps ">
+                                                <div class="left-box-item ">
+                                                    <img class="imgicondelete " src="/themes/img/admin/disable.png "><span> Disable</span>
                                                 </div>
-                                            </a>
-
-                                            <a href="javascript:void(0)" onclick="deleteApp('<%=item.idApp%>')">
-                                                <div class="box-edit-customer box-option-apps">
-                                                    <div class="left-box-item">
-                                                        <img class="imgicondelete" src="/themes/img/admin/deletemultioption.png"><span>Delete</span>
-                                                    </div>
+                                            </div>
+                                        </a>
+                                        <a href="/admin/apps/version/<%=item.idApp%>">
+                                            <div class="box-edit-customer box-option-apps">
+                                                <div class="left-box-item">
+                                                    <img class="imgicondelete" src="/themes/img/admin/versionapps.png"><span> Version</span>
                                                 </div>
-                                            </a>
                                             </div>
+                                        </a>
 
-                                            <div class="arrowmenuuser-left">
+                                        <a href="javascript:void(0)" onclick="deleteApp('<%=item.idApp%>')">
+                                            <div class="box-edit-customer box-option-apps">
+                                                <div class="left-box-item">
+                                                    <img class="imgicondelete" src="/themes/img/admin/deletemultioption.png"><span>Delete</span>
+                                                </div>
                                             </div>
-                                            <div class="arrowmenuuser-left1">
-                                            </div>
+                                        </a>
+                                        </div>
 
-                                    </td>
-                                </tr>
-                                <% dem++;})%>
+                                        <div class="arrowmenuuser-left">
+                                        </div>
+                                        <div class="arrowmenuuser-left1">
+                                        </div>
+
+                                </td>
+                            </tr>
+                            <% dem++;})%>
                 </table>
                 <div class="multi-option">
                     <div class="multi-option">

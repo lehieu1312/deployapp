@@ -775,7 +775,6 @@ router.post('/build-android', multipartMiddleware, async function(req, res, next
                 var argv = ['build', 'android', '--release', '--prod'];
                 process.chdir(path.join(appRoot, 'public', 'project', sKeyFolder));
                 return commandLine(cmdRelease, argv);
-                // return commandCordova(argv)
             })
             .then(() => {
                 console.log('copy  file apk sign....');

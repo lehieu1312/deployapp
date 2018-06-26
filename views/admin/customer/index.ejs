@@ -186,6 +186,7 @@
                                 </td>
                                 <td class="table-time-appversion adminfilldate">
                                     <span><%=moment(item.dateCreate).format('MM/DD/YYYY HH:mm:ss')%></span>
+                                    <input type="hidden" value="<%=item.dateCreate%>">
                                 </td>
                                 <td>
                                     <a href="/admin/customer/login/<%=item.id%>" target="_blank" class="btn-login-customer">

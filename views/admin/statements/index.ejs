@@ -202,7 +202,10 @@
                                 <td>
                                     <span class="numberorder"><%=dem%></span>
                                 </td>
-                                <td> <span><%=moment(item.dateCreate).format('DD/MM/YYYY HH:mm:ss')%></span> </td>
+                                <td class="adminfilldate">
+                                    <span></span>
+                                    <input type="hidden" class="daterecord" value="<%=item.dateCreate%>">
+                                </td>
                                 <td>
                                     <span><%=item.username%></span>
                                 </td>

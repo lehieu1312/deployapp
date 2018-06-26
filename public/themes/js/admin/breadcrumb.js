@@ -6,7 +6,7 @@ $(document).ready(() => {
     $.post(
         "/admin/getbreadcrumb", {},
         function(data) {
-            console.log(data.breadcrumbs);
+            // console.log(data.breadcrumbs);
             var breadCrumbs = data.breadcrumbs;
             for (var i = 0; i < breadCrumbs.length; i++) {
                 if (breadCrumbs.length == 1) {

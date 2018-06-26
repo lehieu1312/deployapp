@@ -226,11 +226,13 @@ $(document).ready(() => {
     // }
 
     $(window).on("load", function() {
+        var timedifference = new Date().getTimezoneOffset();
+        console.log((timedifference / 60) * -1)
         $(".adminfilldate").each(function() {
             var strDate = $(this).find('input').val();
             // console.log($(this).find('span').text());
-            console.log(moment(strDate));
-            $(this).find('input').text(moment(strDate).format('DD/MM/YYYY HH:mm:ss'));
+            console.log(moment(strDate).add(timedifference, 'hours'));
+            $(this).find('span').text(moment(strDate).format('DD/MM/YYYY HH:mm:ss'));
         })
     })
 });

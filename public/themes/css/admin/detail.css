@@ -646,7 +646,7 @@ button {
 
 .form-control-feedback2 {
     position: absolute;
-    /* top: 25px; */
+    top: 5px;
     bottom: 9px;
     display: block;
     line-height: 34px;
@@ -1404,4 +1404,8 @@ a:hover .menumore-listmyapp {
     float: right;
     position: relative;
     top: 8px;
+}
+
+.content-home-admin {
+    padding-left: 20px;
 }

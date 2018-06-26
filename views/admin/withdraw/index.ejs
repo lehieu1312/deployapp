@@ -126,81 +126,87 @@
                         <th width="10%">Status
                         </th>
                     </tr>
-                        <%var dem =1;%>
-                            <%dataWithdraw.forEach((item)=>{%>
-                                <tr class="tr-content-appversion trrecord">
-                                    <td>
-                                        <span class="numberorder"><%=dem%></span>
-                                    </td>
-                                    <td>
-                                        <span><%=moment(item.dateCreate).format('DD/MM/YYYY HH:mm:ss')%></span>
-                                        <input type="hidden" class="daterecord" value="<%=item.dateCreate%>">
-                                    </td>
-                                    <td>
-                                        <span><%=item.accountHolder%></span>
-                                    </td>
-                                    <td>
-                                        <span><%=item.content%></span>
-                                    </td>
-                                    <td>
-                                        <span><%=item.method%></span>
-                                    </td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <input class="getstatuspayment" hidden value=" <%=item.status%>">
-                                            <input class="getcodeorder idwithdraw" hidden value=" <%=item.id%>">
+                    <%var dem =1;%>
+                        <%dataWithdraw.forEach((item)=>{%>
+                            <tr class="tr-content-appversion trrecord">
+                                <td>
+                                    <span class="numberorder"><%=dem%></span>
+                                </td>
+                                <td>
+                                    <span><%=moment(item.dateCreate).format('DD/MM/YYYY HH:mm:ss')%></span>
+                                    <input type="hidden" class="daterecord" value="<%=item.dateCreate%>">
+                                </td>
+                                <td>
+                                    <span><%=item.accountHolder%></span>
+                                </td>
+                                <td>
+                                    <span><%=item.content%></span>
+                                </td>
+                                <td>
+                                    <span><%=item.method%></span>
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <input class="getstatuspayment" hidden value=" <%=item.status%>">
+                                        <input class="getcodeorder idwithdraw" hidden value=" <%=item.id%>">
 
-                                            <% switch(item.statusWithdraw){
+                                        <% switch(item.statusWithdraw){
                                         case 1:%>
-                                                <span class="paddingstatus orderblue statuspayment bgstatuspending" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <span class="paddingstatus orderblue statuspayment bgstatuspending" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         <span class="textstatus">
                                            Pending
                                         </span>
-                                                <img class="arrowselecstatus" src="/themes/img/admin/arrow-downwhite.png" alt="">
-                                                </span>
-                                                <% break; 
+                                            <img class="arrowselecstatus" src="/themes/img/admin/arrow-downwhite.png" alt="">
+                                            </span>
+                                            <% break; 
                                         case 2: %>
-                                                    <span class="paddingstatus orderblue statuspayment bgstatuscomplete" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                <span class="paddingstatus orderblue statuspayment bgstatuscomplete" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 <span class="textstatus">
                                                    Completed
                                                 </span>
-                                                    <img class="arrowselecstatus" src="/themes/img/admin/arrow-downwhite.png" alt="">
-                                                    </span>
-                                                    <%break; 
+                                                <img class="arrowselecstatus" src="/themes/img/admin/arrow-downwhite.png" alt="">
+                                                </span>
+                                                <%break; 
                                             case 3:%>
-                                                        <span class="paddingstatus orderblue statuspayment bgstatuscancel" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    <span class="paddingstatus orderblue statuspayment bgstatuscancel" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                     <span class="textstatus">
                                                        Cancelled
                                                     </span>
-                                                        <img class="arrowselecstatus" src="/themes/img/admin/arrow-downwhite.png" alt="">
-                                                        </span>
-                                                        <%break;} %>
-                                                            <!-- <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img class="arrowselecstatus" src="/themes/img/admin/arrow-downwhite.png" alt="">
+                                                    </span>
+                                                    <%break;} %>
+                                                        <!-- <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                 <span id="span-show-number" class="span-button-select">18</span>
                                                                 <span class="caret arow-button-select"></span>
                                                             </button> -->
-                                                            <ul aria-labelledby="dropdownMenu1" class="dropdown-menu dropdown-menu-left selectstatuspayment">
-                                                                <!-- <div class=" arrow-upper-order setarrowabot-upper-withdraw">
+                                                        <ul aria-labelledby="dropdownMenu1" class="dropdown-menu dropdown-menu-left selectstatuspayment">
+                                                            <!-- <div class=" arrow-upper-order setarrowabot-upper-withdraw">
                                         </div> -->
-                                                                <div class="arrow-under-order setarrowabot-under-withdraw">
-                                                                </div>
-                                                                <li value="1">
+                                                            <div class="arrow-under-order setarrowabot-under-withdraw">
+                                                            </div>
+                                                            <li value="1" id="status1" <%if(item.statusWithdraw==1){%>
+                                                                class="activestatus"
+                                                                <%}%>>
                                                                     <a>Pending</a>
-                                                                </li>
-                                                                <li value="2">
+                                                            </li>
+                                                            <li value="2" id="status2" <%if(item.statusWithdraw==2){%>
+                                                                class="activestatus"
+                                                                <%}%>>
                                                                     <a>Completed</a>
-                                                                </li>
-                                                                <li value="3">
-                                                                    <a>Canelled</a>
-                                                                </li>
+                                                            </li>
+                                                            <li value="3" id="status3" <%if(item.statusWithdraw==3){%>
+                                                                class="activestatus"
+                                                                <%}%>>
+                                                                    <a>Cancelled</a>
+                                                            </li>
 
-                                                            </ul>
+                                                        </ul>
 
-                                        </div>
-                                    </td>
-                                </tr>
+                                    </div>
+                                </td>
+                            </tr>
 
-                                <%dem++})%>
+                            <%dem++})%>
                 </table>
 
             </div>

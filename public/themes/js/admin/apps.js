@@ -362,3 +362,28 @@ function deleteApp(idApp) {
         // alert('Deleted: ' + idUser);
     });
 }
+
+function searchFunc() {
+
+    var input, filter, table, tr, td, i, j;
+    input = document.getElementById("inputsearch-customer");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("table-appversion");
+    tr = table.getElementsByTagName("tr");
+    console.log(filter);
+
+    for (i = 1; i < tr.length; i++) {
+        span = tr[i].getElementsByTagName("span");
+        for (j = 0; j < span.length; j++) {
+            if (span[j]) {
+                console.log(span[j].innerHTML.toUpperCase().indexOf(filter));
+                if (span[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    break;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+}

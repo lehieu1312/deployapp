@@ -90,3 +90,12 @@
 .displayblock {
     display: block;
 }
+
+.selectstatuspayment li {
+    cursor: pointer;
+}
+
+.dropdown-menu .activestatus a {
+    color: #00afee !important;
+    background-color: #f5f5f5;
+}

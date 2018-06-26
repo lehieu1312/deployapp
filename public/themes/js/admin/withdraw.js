@@ -24,16 +24,6 @@ $(document).ready(() => {
         var a = ul[i].getElementsByTagName("a")
         for (let j = 0; j < li.length; j++) {
             li[j].addEventListener("click", () => {
-                if (j == 0) {
-                    statuspayment[i].style.background = "#4169e1"
-                }
-                if (j == 1) {
-                    statuspayment[i].style.background = "#32cd32"
-                }
-                if (j == 2) {
-                    statuspayment[i].style.background = "#dc143c"
-                }
-
 
                 setStatusWithdraw = Number(li[j].value)
                 $.ajax({
@@ -46,27 +36,33 @@ $(document).ready(() => {
                     },
                     success: (data) => {
                         if (data.status == "1") {
-                            textstatus[i].innerHTML = a[j].innerHTML
-                                // $('#successPopup').show();
-                                // $('.contenemail').text('Update success.');
-                                // $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function() {
-                                //     $("#danger-alert").slideUp(1000);
-                                //     $('#successPopup').hide();
-                                // });
+                            textstatus[i].innerHTML = a[j].innerHTML;
+                            if (j == 0) {
+                                statuspayment[i].style.background = "#4169e1"
+                            }
+                            if (j == 1) {
+                                statuspayment[i].style.background = "#32cd32"
+                            }
+                            if (j == 2) {
+                                statuspayment[i].style.background = "#dc143c"
+                            }
+                            $('.selectstatuspayment li').removeClass('activestatus');
+                            // console.log(setStatusWithdraw);
+                            $('#status' + setStatusWithdraw).addClass('activestatus');
                         } else if (data.status == 2) {
                             $('#errPopup').show();
                             $('.alert-upload').text(data.msg[0].msg);
-                            $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function() {
-                                $("#danger-alert").slideUp(1000);
-                                $('.errPopup').hide();
-                            });
+                            // $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function() {
+                            //     $("#danger-alert").slideUp(1000);
+                            //     $('.errPopup').hide();
+                            // });
                         } else {
                             $('#errPopup').show();
                             $('.alert-upload').text(data.msg);
-                            $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function() {
-                                $("#danger-alert").slideUp(1000);
-                                $('.errPopup').hide();
-                            });
+                            // $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function() {
+                            //     $("#danger-alert").slideUp(1000);
+                            //     $('.errPopup').hide();
+                            // });
                         }
                         // else if (data.status == "2") {
                         //     $('#myModal').modal('hide');

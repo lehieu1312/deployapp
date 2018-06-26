@@ -225,6 +225,14 @@ $(document).ready(() => {
 
     // }
 
+    $(window).on("load", function() {
+        $(".adminfilldate").each(function() {
+            var strDate = $(this).find('span').text();
+            // console.log($(this).find('span').text());
+            console.log(moment(strDate));
+            $(this).find('span').text(moment(strDate).format('DD/MM/YYYY HH:mm:ss'));
+        })
+    })
 });
 
 function unblockUser(idUser) {

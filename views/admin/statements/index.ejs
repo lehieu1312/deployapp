@@ -177,81 +177,81 @@
             <div id="content-appversion">
                 <table id="table-appversion">
                     <tr id="title-table-header">
-                        <th width="7.8%">#</th>
-                        <th width="15.2%">Date
+                        <th width="8%">#</th>
+                        <th width="10%">Date
                             <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                         </th>
                         <th width="13%">User
                             <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                         </th>
-                        <th width="15.2%">Content
+                        <th width="20%">Content
                             <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                         </th>
-                        <th width="10.2%">Amount
+                        <th width="10%">Amount
                             <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
                         </th>
                         <th width="12%">Status
                         </th>
-                        <th width="10%">Note
+                        <th width="12%">Note
                         </th>
                     </tr>
-                        <%var dem =1;%>
-                            <%data.forEach((item)=>{%>
-                                <tr class="tr-content-appversion trrecord">
+                    <%var dem =1;%>
+                        <%data.forEach((item)=>{%>
+                            <tr class="tr-content-appversion trrecord">
 
-                                    <td>
-                                        <span class="numberorder"><%=dem%></span>
-                                    </td>
-                                    <td> <span><%=moment(item.dateCreate).format('DD/MM/YYYY')%></span> </td>
-                                    <td>
-                                        <span><%=item.username%></span>
-                                    </td>
-                                    <td>
-                                        <span><%=item.content%></span>
-                                    </td>
-                                    <td>
-                                        $<span><%=item.amount.toLocaleString()%></span>
-                                    </td>
-                                    <td>
-                                        <div class="dropdown">
+                                <td>
+                                    <span class="numberorder"><%=dem%></span>
+                                </td>
+                                <td> <span><%=moment(item.dateCreate).format('DD/MM/YYYY HH:mm:ss')%></span> </td>
+                                <td>
+                                    <span><%=item.username%></span>
+                                </td>
+                                <td>
+                                    <span><%=item.content%></span>
+                                </td>
+                                <td>
+                                    $<span><%=item.amount.toLocaleString()%></span>
+                                </td>
+                                <td>
+                                    <div class="dropdown">
 
-                                            <%  if(item.statusWithdraw){switch(item.statusWithdraw){
+                                        <%  if(item.statusWithdraw){switch(item.statusWithdraw){
                                                 case 1:%>
-                                                <span class="paddingstatus orderblue statuspayment bgstatuspending" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <span class="paddingstatus orderblue statuspayment bgstatuspending" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 <span class="textstatus">
                                                    Pending
                                                 </span>
-                                                <!-- <img class="arrowselecstatus" src="/themes/img/admin/arrow-downwhite.png" alt=""> -->
-                                                </span>
-                                                <% break; 
+                                            <!-- <img class="arrowselecstatus" src="/themes/img/admin/arrow-downwhite.png" alt=""> -->
+                                            </span>
+                                            <% break; 
                                                 case 2: %>
-                                                    <span class="paddingstatus orderblue statuspayment bgstatuscomplete" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                <span class="paddingstatus orderblue statuspayment bgstatuscomplete" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                         <span class="textstatus">
                                                            Completed
                                                         </span>
-                                                    <!-- <img class="arrowselecstatus" src="/themes/img/admin/arrow-downwhite.png" alt=""> -->
-                                                    </span>
-                                                    <%break; 
+                                                <!-- <img class="arrowselecstatus" src="/themes/img/admin/arrow-downwhite.png" alt=""> -->
+                                                </span>
+                                                <%break; 
                                                     case 3:%>
-                                                        <span class="paddingstatus orderblue statuspayment bgstatuscancel" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    <span class="paddingstatus orderblue statuspayment bgstatuscancel" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                             <span class="textstatus">
                                                                Cancel
                                                             </span>
-                                                        <!-- <img class="arrowselecstatus" src="/themes/img/admin/arrow-downwhite.png" alt=""> -->
-                                                        </span>
-                                                        <%break;} }else{%>
-                                                            <span class="paddingstatus orderblue statuspayment bgstatuscomplete" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    <!-- <img class="arrowselecstatus" src="/themes/img/admin/arrow-downwhite.png" alt=""> -->
+                                                    </span>
+                                                    <%break;} }else{%>
+                                                        <span class="paddingstatus orderblue statuspayment bgstatuscomplete" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                                     <span class="textstatus">
                                                                        Completed
                                                                     </span>
-                                                            <!-- <img class="arrowselecstatus" src="/themes/img/admin/arrow-downwhite.png" alt=""> -->
-                                                            </span>
-                                                            <%}%>
-                                                                <!-- <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <!-- <img class="arrowselecstatus" src="/themes/img/admin/arrow-downwhite.png" alt=""> -->
+                                                        </span>
+                                                        <%}%>
+                                                            <!-- <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                         <span id="span-show-number" class="span-button-select">18</span>
                                                                         <span class="caret arow-button-select"></span>
                                                                     </button> -->
-                                                                <!-- <ul aria-labelledby="dropdownMenu1" class="dropdown-menu dropdown-menu-left selectstatuspayment">
+                                                            <!-- <ul aria-labelledby="dropdownMenu1" class="dropdown-menu dropdown-menu-left selectstatuspayment">
 
                                                                 <div class="arrow-under-order setarrowabot-under-withdraw">
                                                                 </div>
@@ -267,13 +267,13 @@
 
                                                             </ul> -->
 
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span><%=item.note%></span>
-                                    </td>
-                                </tr>
-                                <%dem++})%>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span><%=item.note%></span>
+                                </td>
+                            </tr>
+                            <%dem++})%>
                 </table>
 
             </div>

@@ -227,7 +227,7 @@ $(document).ready(() => {
 
     $(window).on("load", function() {
         $(".adminfilldate").each(function() {
-            var strDate = $(this).find('input').text();
+            var strDate = $(this).find('input').val();
             // console.log($(this).find('span').text());
             console.log(moment(strDate));
             $(this).find('input').text(moment(strDate).format('DD/MM/YYYY HH:mm:ss'));

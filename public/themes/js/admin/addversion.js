@@ -1,4 +1,11 @@
 $(document).ready(() => {
+    $(window).on("load", function() {
+        $(".adminfilldate").each(function() {
+            var strDate = $(this).find('input').val();
+            $(this).find('span').text(moment(strDate).format('DD/MM/YYYY HH:mm:ss'));
+        })
+    })
+
     $(".button-close-notification").click(() => {
         $(".errPopup").fadeOut();
     })

@@ -153,11 +153,13 @@
                                     <td class="table-time-appversion ">
                                         <span><%=item.version%></span>
                                     </td>
-                                    <td class="table-version">
-                                        <span><%=moment(item.createDate).format('DD/MM/YYYY HH:mm:ss')%></span>
+                                    <td class="table-version adminfilldate">
+                                        <span></span>
+                                        <input type="hidden" class="daterecord" value="<%=item.createDate%>">
                                     </td>
-                                    <td class="table-changelog">
-                                        <span><%=moment(item.updatedDate).format('DD/MM/YYYY HH:mm:ss')%></span>
+                                    <td class="table-changelog adminfilldate">
+                                        <span></span>
+                                        <input type="hidden" class="daterecord" value="<%=item.updatedDate%>">
                                     </td>
 
                                     <td class="table-time-appversion ">

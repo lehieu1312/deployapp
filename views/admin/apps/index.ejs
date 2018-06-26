@@ -158,8 +158,9 @@
                                 <td class="table-version">
                                     <span><%=moment(item.dateCreate).format('DD/MM/YYYY HH:mm:ss')%></span>
                                 </td>
-                                <td class="table-changelog">
-                                    <span><%=moment(item.dateUpdate).format('DD/MM/YYYY HH:mm:ss')%></span>
+                                <td class="table-changelog adminfilldate">
+                                    <span></span>
+                                    <input type="hidden" class="daterecord" value="<%=item.dateCreate%>">
                                 </td>
                                 <td class="table-time-appversion ">
                                     <span><%=item.lastVersion%></span>

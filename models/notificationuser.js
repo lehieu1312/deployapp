@@ -4,7 +4,7 @@ let notificationUserChema = mongoose.Schema({
     id: String,
     idUser: String,
     idAdmin: String,
-    nameAdmin: string,
+    nameAdmin: String,
     title: String,
     content: String,
     dateCreate: Date,

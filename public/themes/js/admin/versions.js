@@ -1,4 +1,11 @@
 $(document).ready(() => {
+    $(window).on("load", function() {
+        $(".adminfilldate").each(function() {
+            var strDate = $(this).find('input').val();
+            $(this).find('span').text(moment(strDate).format('DD/MM/YYYY HH:mm:ss'));
+        })
+    })
+
     function trimSpace(str) {
         return str.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, "").replace(/\s+/g, " ");
     }

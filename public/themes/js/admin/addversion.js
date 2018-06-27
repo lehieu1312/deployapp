@@ -1,4 +1,6 @@
 $(document).ready(() => {
+
+
     $(".button-close-notification").click(() => {
         $(".errPopup").fadeOut();
     })

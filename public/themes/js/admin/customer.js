@@ -102,14 +102,16 @@ $(document).ready(() => {
     })
 
     $("#checkboxall").change(() => {
-        var checkboxes = document.getElementsByName('name[]');
+        // var checkboxes = document.getElementsByName('name[]');
+        // var trshow = document.getElementsByClassName('trrecord');
         var checkboxall = document.getElementById('checkboxall');
         var chkBox = checkboxall.checked;
-        // alert(chkBox);
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].checked = chkBox;
-        }
+        $('.trrecord').each(function() {
+            $(this).find('input[type="checkbox"]').attr("checked", chkBox);
+        })
+
     });
+
     $('#btn-block-multi').click(() => {
         // alert('1');
         var arrUser = [];

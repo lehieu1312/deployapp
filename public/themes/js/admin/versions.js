@@ -3,7 +3,7 @@ $(document).ready(() => {
         $(".adminfilldate").each(function() {
             var strDate = $(this).find('input').val();
             $(this).find('span').text(moment(strDate).format('DD/MM/YYYY HH:mm:ss'));
-        })
+        });
     })
 
     function trimSpace(str) {

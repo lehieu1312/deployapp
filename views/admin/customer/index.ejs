@@ -50,24 +50,25 @@
                     <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span id="span-selcect-date" class="span-button-select">All Dates</span>
                         <span class="caret arow-button-select"></span>
+                        <input type="hidden" id="type-fill-date" value="4">
                     </button>
                     <ul class="dropdown-menu">
-                        <li id="select-date-1">
-                            <a href="#">Hours Ago</a>
+                        <li id="filter-date-hoursago">
+                            <a href="javascript:void(0)">Hours Ago</a>
                         </li>
-                        <li id="select-date-2">
-                            <a href="#">Yesterday</a>
+                        <li id="filter-date-yesterday">
+                            <a href="javascript:void(0)">Yesterday</a>
                         </li>
                         <li id="select-date-3">
-                            <a href="#">Last Week</a>
+                            <a href="javascript:void(0)">Last Week</a>
                         </li>
-                        <li id="select-date-4">
-                            <a href="#">All Dates</a>
+                        <li id="filter-date-all">
+                            <a href="javascript:void(0)">All Dates</a>
                         </li>
                         <li role="separator" class="divider"></li>
                         <li id="select-date-5">
                             <input hidden id="fillter-date-custom" value="">
-                            <a href="#">Custom...</a>
+                            <a href="javascript:void(0)">Custom...</a>
                         </li>
                     </ul>
                 </div>
@@ -138,111 +139,115 @@
 
                 <hr>
                 <table id="table-appversion">
-                    <tr id="title-table-header">
-                        <th width="5.8%"><input type="checkbox" id="checkboxall"></th>
-                        <th width="7.8%">#</th>
-                        <th width="13%">Avatar
-                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
-                        </th>
-                        <th width="12.2%">First name
-                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
-                        </th>
-                        <th width="12.2%">Last name
-                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
-                        </th>
-                        <th width="25.2%">Email
-                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
-                        </th>
-                        <th width="15%">Date added
-                            <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
-                        </th>
-                        <th width="10%">Login
-                        </th>
-                        <th width="15.8%">
-                        </th>
-                    </tr>
-                    <%var dem=1;%>
-                        <% dataUser.forEach(function(item){%>
-                            <tr id="" class="tr-content-appversion trrecord">
-                                <td><input type="checkbox" name="name[]" id="<%=item.id%>"></td>
-                                <td class="">
-                                    <span class="numberorder"><%=dem%></span>
-                                </td>
-                                <td class="table-nameapp ">
-                                    <%if(!item.picture){%>
-                                        <img class="imgavatarsmall1" src="/themes/img/admin/avatar.png" alt="avatar">
-                                        <%}else{%>
-                                            <img class="imgavatarsmallcircle" src="/themes/img/profile/<%=item.picture%>" alt="avatar">
-                                            <%}%>
-                                </td>
-                                <td class="table-version">
-                                    <span><%=item.firstname%></span>
-                                </td>
-                                <td class="table-version">
-                                    <span><%=item.lastname%></span>
-                                </td>
-                                <td class="table-changelog">
-                                    <span class="color-email-customer"><%=item.email%></span>
-                                </td>
-                                <td class="table-time-appversion adminfilldate">
-                                    <span></span>
-                                    <input type="hidden" value="<%=item.dateCreate%>">
-                                </td>
-                                <td>
-                                    <a href="/admin/customer/login/<%=item.id%>" target="_blank" class="btn-login-customer">
-                                        <img class="login-first" src="/themes/img/admin/login.png" alt="login customer">
-                                        <img class="login-second" src="/themes/img/admin/loginactive.png" alt="login customer">
-                                    </a>
-                                </td>
-                                <td class="set-position-relative">
-                                    <img class="setimg-head-myapp more-menu" src="/themes/img/admin/moreoption.png">
-                                    <div class="box-more-menu" style="display:none">
-                                        <a href="/admin/customer/edit/<%=item.id%>">
-                                            <div class="element-delete">
-                                                <div class="box-edit-customer box-option-customer">
-                                                    <div class="left-box-item">
-                                                        <img class="imgicondelete" src="/themes/img/admin/iconedit.png">
-                                                        <span class="text-none">Edit</span>
-                                                    </div>
-                                                </div>
-                                        </a>
-                                        <%if(item.blocked==true){%>
-                                            <a href="javascript:void(0)" class="unblock-user" onclick="unblockUser('<%=item.id%>')">
-                                                <div class="box-edit-customer box-option-customer">
-                                                    <div class="left-box-item">
-                                                        <img class="imgicondelete" src="/themes/img/admin/iconunblock.png">
-                                                        <span class="text-none">Unblock</span>
-                                                    </div>
-                                                </div>
-                                            </a>
+                    <thead>
+                        <tr id="title-table-header">
+                            <th width="5.8%"><input type="checkbox" id="checkboxall"></th>
+                            <th width="7.8%">#</th>
+                            <th width="13%">Avatar
+                                <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                            </th>
+                            <th width="12.2%">First name
+                                <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                            </th>
+                            <th width="12.2%">Last name
+                                <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                            </th>
+                            <th width="25.2%">Email
+                                <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                            </th>
+                            <th width="15%">Date added
+                                <!-- <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp"> -->
+                            </th>
+                            <th width="10%">Login
+                            </th>
+                            <th width="15.8%">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%var dem=1;%>
+                            <% dataUser.forEach(function(item){%>
+                                <tr id="" class="tr-content-appversion trrecord">
+                                    <td><input type="checkbox" name="name[]" class="arrcheckbox" id="<%=item.id%>"></td>
+                                    <td class="">
+                                        <span class="numberorder"><%=dem%></span>
+                                    </td>
+                                    <td class="table-nameapp ">
+                                        <%if(!item.picture){%>
+                                            <img class="imgavatarsmall1" src="/themes/img/admin/avatar.png" alt="avatar">
                                             <%}else{%>
-                                                <a href="javascript:void(0)" onclick="blockUser('<%=item.id%>')">
+                                                <img class="imgavatarsmallcircle" src="/themes/img/profile/<%=item.picture%>" alt="avatar">
+                                                <%}%>
+                                    </td>
+                                    <td class="table-version">
+                                        <span><%=item.firstname%></span>
+                                    </td>
+                                    <td class="table-version">
+                                        <span><%=item.lastname%></span>
+                                    </td>
+                                    <td class="table-changelog">
+                                        <span class="color-email-customer"><%=item.email%></span>
+                                    </td>
+                                    <td class="table-time-appversion adminfilldate">
+                                        <span></span>
+                                        <input class="admin-datecreate" type="hidden" value="<%=item.dateCreate%>">
+                                    </td>
+                                    <td>
+                                        <a href="/admin/customer/login/<%=item.id%>" target="_blank" class="btn-login-customer">
+                                            <img class="login-first" src="/themes/img/admin/login.png" alt="login customer">
+                                            <img class="login-second" src="/themes/img/admin/loginactive.png" alt="login customer">
+                                        </a>
+                                    </td>
+                                    <td class="set-position-relative">
+                                        <img class="setimg-head-myapp more-menu" src="/themes/img/admin/moreoption.png">
+                                        <div class="box-more-menu" style="display:none">
+                                            <a href="/admin/customer/edit/<%=item.id%>">
+                                                <div class="element-delete">
                                                     <div class="box-edit-customer box-option-customer">
                                                         <div class="left-box-item">
-                                                            <img class="imgicondelete" src="/themes/img/admin/iconblock.png">
-                                                            <span class="text-none">Block</span>
+                                                            <img class="imgicondelete" src="/themes/img/admin/iconedit.png">
+                                                            <span class="text-none">Edit</span>
+                                                        </div>
+                                                    </div>
+                                            </a>
+                                            <%if(item.blocked==true){%>
+                                                <a href="javascript:void(0)" class="unblock-user" onclick="unblockUser('<%=item.id%>')">
+                                                    <div class="box-edit-customer box-option-customer">
+                                                        <div class="left-box-item">
+                                                            <img class="imgicondelete" src="/themes/img/admin/iconunblock.png">
+                                                            <span class="text-none">Unblock</span>
                                                         </div>
                                                     </div>
                                                 </a>
-                                                <%}%>
-                                                    <a href="javascript:void(0)" onclick="deleteUser('<%=item.id%>')">
+                                                <%}else{%>
+                                                    <a href="javascript:void(0)" onclick="blockUser('<%=item.id%>')">
                                                         <div class="box-edit-customer box-option-customer">
                                                             <div class="left-box-item">
-                                                                <img class="imgicondelete iicon-delete" src="/themes/img/admin/icondelete.png">
-                                                                <span class="text-none">Delete</span>
+                                                                <img class="imgicondelete" src="/themes/img/admin/iconblock.png">
+                                                                <span class="text-none">Block</span>
                                                             </div>
                                                         </div>
                                                     </a>
-                                                    </div>
+                                                    <%}%>
+                                                        <a href="javascript:void(0)" onclick="deleteUser('<%=item.id%>')">
+                                                            <div class="box-edit-customer box-option-customer">
+                                                                <div class="left-box-item">
+                                                                    <img class="imgicondelete iicon-delete" src="/themes/img/admin/icondelete.png">
+                                                                    <span class="text-none">Delete</span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        </div>
 
-                                                    <div class="arrowmenuuser-left">
-                                                    </div>
-                                                    <div class="arrowmenuuser-left1">
-                                                    </div>
+                                                        <div class="arrowmenuuser-left">
+                                                        </div>
+                                                        <div class="arrowmenuuser-left1">
+                                                        </div>
 
-                                </td>
-                            </tr>
-                            <% dem++;})%>
+                                    </td>
+                                </tr>
+                                <% dem++;})%>
+                    </tbody>
                 </table>
                 </div>
                 <!-- Paging bottom -->

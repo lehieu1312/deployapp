@@ -9,40 +9,24 @@ $(document).ready(function() {
         pageSize = $('#span-show-number').html();
         currentPage = 1;
     }
-    setDefault();
-    mathFuncDefault($('#span-show-number').html(), 1);
-
-    function mathFuncDefault(mPageSize, mCurrentPage) {
-        var tmlpage = $('.trrecord').length % mPageSize;
-        if (tmlpage == 0) {
-            totalPages = $('.trrecord').length / mPageSize;
-        } else {
-            if (($('.trrecord').length / mPageSize) == 0) {
-                totalPages = $('.trrecord').length / mPageSize;
-            } else {
-                totalPages = $('.trrecord').length / mPageSize + 1;
-            }
-
-        }
-        totalPages = Math.floor(totalPages);
-        totalRecord = $('.trrecord').length;
-        $('.totalitems').html(totalRecord + ' item(s)');
-        $('.totalpagetext').html("of " + totalPages);
-        showRecord(mPageSize, mCurrentPage, totalRecord, totalPages);
-    }
 
     function showRecord(fPageSize, fCurrentPage, fTotalRecord, fTotalPage) {
         var trnum = 0;
         $('.currentpagetext').html(fCurrentPage);
         if ($('.trrecord').length > 0) {
+            console.log('vao length > 0');
             $('.trrecord').each(function() {
                 trnum++;
+                console.log('trnum: ' + trnum);
                 if (fCurrentPage == 1) {
                     if (trnum <= fPageSize) {
+                        console.log('hahaha');
                         $('.totalshowcurrent').html('1-' + trnum);
                         $(this).show();
+                        console.log($(this));
                         $(this).find('.numberorder').html(trnum);
                     } else {
+                        console.log('hide');
                         $(this).hide();
                     }
                 } else {
@@ -65,6 +49,44 @@ $(document).ready(function() {
             $(this).find('.numberorder').html(trnum);
         }
     }
+
+    function mathFuncDefault(mPageSize, mCurrentPage) {
+        console.log('math');
+        console.log(mPageSize);
+        console.log(mCurrentPage);
+        var tmlpage = $('.trrecord').length % mPageSize;
+        console.log(tmlpage);
+        if (tmlpage == 0) {
+            totalPages = $('.trrecord').length / mPageSize;
+        } else {
+            console.log($('.trrecord').length);
+            console.log(mPageSize);
+            console.log($('.trrecord').length / mPageSize);
+            if (($('.trrecord').length / mPageSize) == 0) {
+                console.log('vao =0');
+                totalPages = $('.trrecord').length / mPageSize;
+            } else {
+                console.log('vao !=0');
+                totalPages = $('.trrecord').length / mPageSize + 1;
+            }
+
+        }
+        totalPages = Math.floor(totalPages);
+        totalRecord = $('.trrecord').length;
+        $('.totalitems').html(totalRecord + ' item(s)');
+        $('.totalpagetext').html("of " + totalPages);
+        console.log(mPageSize);
+        console.log(mCurrentPage);
+        console.log(totalRecord);
+        console.log(totalPages);
+        showRecord(mPageSize, mCurrentPage, totalRecord, totalPages);
+    }
+
+    setDefault();
+    mathFuncDefault($('#span-show-number').html(), 1);
+
+
+
     $('.btnfirstpage').click(() => {
         currentPage = 1;
         showRecord(pageSize, currentPage, totalRecord, totalPages);
@@ -88,37 +110,98 @@ $(document).ready(function() {
     $('#inputsearch-customer').on('keyup', () => {
         var textSearch = $('#inputsearch-customer').val();
         if (textSearch != "") {
-            searchFunc(textSearch);
+            mathRecordWithDate();
+            searchFunc();
             currentPage = 1;
             mathFuncDefault($('#span-show-number').html(), currentPage);
         } else {
+            mathRecordWithDate();
+            searchFunc();
             currentPage = 1;
             mathFuncDefault($('#span-show-number').html(), currentPage);
         }
     });
 
-    function searchFunc(fTextSearch) {
+    function mathRecordWithDate() {
+        var fTypeDate = $('#type-fill-date').val();
+        if (fTypeDate == 4) {
+            $('#table-appversion tr').each(function() {
+                $(this).show();
+                $(this).addClass("trrecord");
+            })
+        }
+        if (fTypeDate == 1) {
+            $('#table-appversion tbody tr').each(function() {
+                var sDate = $(this).find('.admin-datecreate').val();
+                var newDate = new Date(sDate);
+                var nowDate = new Date();
+                var mathDate = (nowDate - newDate);
+                if (mathDate <= (1000 * 60 * 60)) {
+                    $(this).show();
+                    $(this).addClass("trrecord");
+                } else {
+                    $(this).hide();
+                    $(this).removeClass("trrecord");
+                }
+            })
+        }
+        if (fTypeDate == 2) {
+            var nowDate = new Date();
 
+            $('#table-appversion tbody tr').each(function() {
+                var sDate = $(this).find('.admin-datecreate').val();
+                var newDate = new Date(sDate);
+                var mathDate = (nowDate - newDate);
+                if (mathDate <= (1000 * 60 * 60)) {
+                    $(this).show();
+                    $(this).addClass("trrecord");
+                } else {
+                    $(this).hide();
+                    $(this).removeClass("trrecord");
+                }
+            })
+        }
+    }
+
+    function searchFunc() {
+        var textSearch = $('#inputsearch-customer').val();
+        console.log(textSearch);
         var input, filter, table, tr, td, i, j;
-        filter = fTextSearch.toUpperCase();
+        filter = textSearch.toUpperCase();
         table = document.getElementById("table-appversion");
         tr = table.getElementsByTagName("tr");
 
-        for (i = 1; i < tr.length; i++) {
-            span = tr[i].getElementsByTagName("span");
-            for (j = 0; j < span.length; j++) {
-                if (span[j]) {
-                    if (span[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                        tr[i].classList.add("trrecord");
-                        break;
-                    } else {
-                        tr[i].style.display = "none";
-                        tr[i].classList.remove("trrecord");
+        $('#table-appversion .trrecord').each(function() {
+                var span = $(this).find('span');
+                for (j = 0; j < span.length; j++) {
+                    if (span[j]) {
+                        if (span[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            $(this).show();
+                            $(this).addClass("trrecord");
+                            break;
+                        } else {
+                            $(this).hide();
+                            $(this).removeClass("trrecord");
+                        }
                     }
                 }
-            }
-        }
+
+            })
+            // for (i = 1; i < tr.length; i++) {
+            //     span = tr[i].getElementsByTagName("span");
+            //     for (j = 0; j < span.length; j++) {
+            //         if (span[j]) {
+            //             if (span[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+            //                 tr[i].style.display = "";
+            //                 tr[i].classList.add("trrecord");
+            //                 break;
+            //             } else {
+            //                 tr[i].style.display = "none";
+            //                 tr[i].classList.remove("trrecord");
+            //             }
+            //         }
+            //     }
+            // }
     }
 
     ///////////////FILER PERPAGE//////////
@@ -149,28 +232,32 @@ $(document).ready(function() {
     });
 
     //////////// FILTER DATE///////////////
+    $('#filter-date-all').click(() => {
+        $('#span-selcect-date').text('All Dates');
+        $('#type-fill-date').val('4');
+        mathRecordWithDate();
+        searchFunc();
+        currentPage = 1;
+        mathFuncDefault($('#span-show-number').html(), currentPage);
+    });
+
     $('#filter-date-hoursago').click(() => {
-        $('.trrecord').each(function() {
-
-            var sDate = $(this).find('.daterecord').val();
-            console.log(sDate);
-            var newDate = new Date(sDate);
-            // console.log(newDate);
-            var nowDate = new Date();
-            // console.log(nowDate);
-            var mathDate = (nowDate - newDate);
-            if (mathDate <= (1000 * 60 * 60)) {
-                console.log('lon hon');
-            }
-            // else {
-            // }
-            // console.log('-------------------------');
-
-
-        })
-
-    })
-
+        $('#span-selcect-date').text('Hours Ago');
+        $('#type-fill-date').val('1');
+        mathRecordWithDate();
+        searchFunc();
+        currentPage = 1;
+        mathFuncDefault($('#span-show-number').html(), currentPage);
+    });
+    // filter-date-yesterday
+    $('#filter-date-yesterday').click(() => {
+        $('#span-selcect-date').text('Yesterday');
+        $('#type-fill-date').val('2');
+        mathRecordWithDate();
+        searchFunc();
+        currentPage = 1;
+        mathFuncDefault($('#span-show-number').html(), currentPage);
+    });
 
 
     // function mathRecordSearch(mPageSize, mCurrentPage) {

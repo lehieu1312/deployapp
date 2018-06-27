@@ -271,9 +271,19 @@ router.post('/platform-dash', async(req, res) => {
                     console.log('Extract fail: ' + err);
                     return res.json({ status: 3, content: "Error extract file: " + err + '' });
                 } else {
+                    console.log('Extract complete');
+                    console.log('Remove folder node_nodules');
+                    if (fs.existsSync(path.join(appRoot, 'public', 'project', idAppUser, 'node_modules'))) {
+                        fse.removeSync(path.join(appRoot, 'public', 'project', idAppUser, 'node_modules'));
+                        console.log('Removed node_modules.');
+                    }
+
+                    if (fs.existsSync(path.join(appRoot, 'public', 'project', idAppUser, 'platforms'))) {
+                        fse.removeSync(path.join(appRoot, 'public', 'project', idAppUser, 'platforms'));
+                        console.log('Removed platforms.');
+                    }
                     ////////Check Replace File In Setting App///////////////
                     //////Create file config.xml/////////////
-                    console.log('Extract complete');
                     var pathFileConfigExample = path.join(appRoot, 'public', 'project', idAppUser, 'config-example.xml');
                     var pathFileConfigMain = path.join(appRoot, 'public', 'project', idAppUser, 'config.xml');
                     if (fs.existsSync(pathFileConfigExample)) {
@@ -323,6 +333,11 @@ router.post('/platform-dash', async(req, res) => {
                             console.log('...Access file...');
                             return commandLine('chmod', ['-R', '777', './']);
                         }
+                    })
+                    .then(() => {
+                        process.chdir(path.join(appRoot, 'public', 'project', idAppUser));
+                        console.log('Start Install node_modules...');
+                        return commandLine('npm', ['install']);
                     })
                     .then(() => {
                         process.chdir(path.join(appRoot, 'public', 'project', idAppUser));

@@ -110,7 +110,7 @@ router.post('/addneworder', multipartMiddleware, (req, res) => {
         if (req.body.curency) {
             sCurency = req.body.curency;
         } else {
-            sCurency = null;
+            sCurency = '$';
         }
         if (req.body.statusorder) {
             sStatusOrder = req.body.statusorder;

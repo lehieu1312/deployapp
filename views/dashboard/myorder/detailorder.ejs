@@ -18,6 +18,12 @@
             </span>
         </a>
     </div>
+    <%
+        function set_money(a) {
+            a = Number(a.toFixed(2));
+            return a.toLocaleString('en');
+        }
+    %>
     </div>
     <div class="xcontent clsmenu">
         <div id="title-detail" class="row row1">
@@ -115,20 +121,19 @@
                                 </span>
                                 <br>
                                 <span>
-                                    <%=detailOrder.curency+detailOrder.discount.toFixed(2)%>
+                                    <%=detailOrder.curency+set_money(detailOrder.discount)%>
                                 </span>
                                 <br>
                                 <span>
-                                    <%=detailOrder.curency+detailOrder.feeShip.toFixed(2)%>
+                                    <%=detailOrder.curency+ set_money(detailOrder.feeShip)%>
                                 </span>
                                 <br>
                                 <span>
-                                    <%=detailOrder.curency+detailOrder.feeVat.toFixed(2)%>
+                                    <%=detailOrder.curency+ set_money(detailOrder.feeVat)%>
                                 </span>
                                 <br>
                                 <span class="title-gray-Regular-small ">
-
-                                    <%=detailOrder.curency + detailOrder.totalMonney%>
+                                    <%=detailOrder.curency + set_money(detailOrder.totalMonney)%>
                                 </span>
                             </div>
                         </div>
@@ -230,14 +235,13 @@
                             </span>
                         </td>
                         <td width="15.5%">
-                            <%=detailOrder.product[i].price%>
+                            <%=set_money(detailOrder.product[i].price)%>
                         </td>
                         <td width="15.5%">
                             <%=detailOrder.product[i].quantity%>
                         </td>
                         <td width="13%">
-
-                            <%=detailOrder.curency + total%>
+                            <%=detailOrder.curency + set_money(total)%>
                         </td>
                     </tr>
                     <% }%>
@@ -257,20 +261,20 @@
                     </div>
                     <div id="bill-product3" align="right">
                         <span>
-                            <%=detailOrder.curency+detailOrder.discount.toFixed(2)%>
+                            <%=detailOrder.curency+ set_money(detailOrder.discount)%>
                         </span>
                         <br>
                         <span>
-                            <%=detailOrder.curency+detailOrder.feeShip.toFixed(2)%>
+                            <%=detailOrder.curency+ set_money(detailOrder.feeShip)%>
                         </span>
                         <br>
                         <span>
-                            <%=detailOrder.curency+detailOrder.feeVat.toFixed(2)%>
+                            <%=detailOrder.curency+ set_money(detailOrder.feeVat)%>
                         </span>
                         <br>
                         <span class="title-gray-Regular-small ">
 
-                            <%=detailOrder.curency + detailOrder.totalMonney%>
+                            <%=detailOrder.curency + set_money(detailOrder.totalMonney)%>
                         </span>
                     </div>
                 </div>

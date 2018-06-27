@@ -9,6 +9,12 @@
         <span id="text-href">My Order</span>
     </div>
     </div>
+    <%
+        function set_money(a) {
+            a = Number(a.toFixed(2));
+            return a.toLocaleString('en');
+        }
+    %>
     <div class="xcontent clsmenu">
         <div id="title-detail" class="row row1">
             <div id="title-appversion" class="content-title-detail has-feedback">
@@ -255,7 +261,7 @@
                                                             <%=myorder[i].order.methodOrder%>
                                                     </td>
                                                     <td class="table-version findversion">
-                                                        <%=myorder[i].order.totalMonney%>
+                                                        <%=set_money(myorder[i].order.totalMonney)%>
                                                             <%=myorder[i].order.curency%>
                                                                 <br> Via
                                                                 <%=myorder[i].order.methodPayment%>

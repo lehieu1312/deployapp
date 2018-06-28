@@ -14,19 +14,19 @@ $(document).ready(function() {
         var trnum = 0;
         $('.currentpagetext').html(fCurrentPage);
         if ($('.trrecord').length > 0) {
-            console.log('vao length > 0');
+            // console.log('vao length > 0');
             $('.trrecord').each(function() {
                 trnum++;
-                console.log('trnum: ' + trnum);
+                // console.log('trnum: ' + trnum);
                 if (fCurrentPage == 1) {
                     if (trnum <= fPageSize) {
-                        console.log('hahaha');
+                        // console.log('hahaha');
                         $('.totalshowcurrent').html('1-' + trnum);
                         $(this).show();
-                        console.log($(this));
+                        // console.log($(this));
                         $(this).find('.numberorder').html(trnum);
                     } else {
-                        console.log('hide');
+                        // console.log('hide');
                         $(this).hide();
                     }
                 } else {
@@ -51,22 +51,22 @@ $(document).ready(function() {
     }
 
     function mathFuncDefault(mPageSize, mCurrentPage) {
-        console.log('math');
-        console.log(mPageSize);
-        console.log(mCurrentPage);
+        // console.log('math');
+        // console.log(mPageSize);
+        // console.log(mCurrentPage);
         var tmlpage = $('.trrecord').length % mPageSize;
-        console.log(tmlpage);
+        // console.log(tmlpage);
         if (tmlpage == 0) {
             totalPages = $('.trrecord').length / mPageSize;
         } else {
-            console.log($('.trrecord').length);
-            console.log(mPageSize);
-            console.log($('.trrecord').length / mPageSize);
+            // console.log($('.trrecord').length);
+            // console.log(mPageSize);
+            // console.log($('.trrecord').length / mPageSize);
             if (($('.trrecord').length / mPageSize) == 0) {
-                console.log('vao =0');
+                // console.log('vao =0');
                 totalPages = $('.trrecord').length / mPageSize;
             } else {
-                console.log('vao !=0');
+                // console.log('vao !=0');
                 totalPages = $('.trrecord').length / mPageSize + 1;
             }
 
@@ -75,10 +75,10 @@ $(document).ready(function() {
         totalRecord = $('.trrecord').length;
         $('.totalitems').html(totalRecord + ' item(s)');
         $('.totalpagetext').html("of " + totalPages);
-        console.log(mPageSize);
-        console.log(mCurrentPage);
-        console.log(totalRecord);
-        console.log(totalPages);
+        // console.log(mPageSize);
+        // console.log(mCurrentPage);
+        // console.log(totalRecord);
+        // console.log(totalPages);
         showRecord(mPageSize, mCurrentPage, totalRecord, totalPages);
     }
 
@@ -124,12 +124,16 @@ $(document).ready(function() {
 
     function mathRecordWithDate() {
         var fTypeDate = $('#type-fill-date').val();
+
+        //All Date
         if (fTypeDate == 4) {
-            $('#table-appversion tr').each(function() {
+            $('#table-appversion tbody tr').each(function() {
                 $(this).show();
                 $(this).addClass("trrecord");
             })
         }
+
+        //Hours ago
         if (fTypeDate == 1) {
             $('#table-appversion tbody tr').each(function() {
                 var sDate = $(this).find('.admin-datecreate').val();
@@ -145,14 +149,19 @@ $(document).ready(function() {
                 }
             })
         }
+
+        //Yesterday
         if (fTypeDate == 2) {
-            var nowDate = new Date();
+            var dateNow = new Date();
+            var mathDateLastYesterday = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate());
+            var mathDateFirstYesterDay = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate() - 1);
 
             $('#table-appversion tbody tr').each(function() {
                 var sDate = $(this).find('.admin-datecreate').val();
-                var newDate = new Date(sDate);
-                var mathDate = (nowDate - newDate);
-                if (mathDate <= (1000 * 60 * 60)) {
+                var recordDate = new Date(sDate);
+                // console.log('recordDate');
+                // console.log(recordDate);
+                if (recordDate > mathDateFirstYesterDay && recordDate < mathDateLastYesterday) {
                     $(this).show();
                     $(this).addClass("trrecord");
                 } else {
@@ -161,6 +170,47 @@ $(document).ready(function() {
                 }
             })
         }
+
+        //Last Week
+        if (fTypeDate == 3) {
+            var dateNow = new Date();
+            var mathDateLastWeek = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate());
+            var mathDateFirstWeek = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate() - 7);
+
+            $('#table-appversion tbody tr').each(function() {
+                var sDate = $(this).find('.admin-datecreate').val();
+                var recordDate = new Date(sDate);
+                // console.log('recordDate');
+                // console.log(recordDate);
+                if (recordDate > mathDateFirstWeek && recordDate < mathDateLastWeek) {
+                    $(this).show();
+                    $(this).addClass("trrecord");
+                } else {
+                    $(this).hide();
+                    $(this).removeClass("trrecord");
+                }
+            })
+        }
+
+        //Custom date
+        if (fTypeDate == 5) {
+            var dateNow = new Date();
+            var mathDateStart = $('#filter-date-custom-start').val();
+            var mathDateEnd = $('#filter-date-custom-end').val();
+            $('#table-appversion tbody tr').each(function() {
+                var sDate = $(this).find('.admin-datecreate').val();
+                var recordDate = moment(sDate).format();
+                if (recordDate >= mathDateStart && recordDate <= mathDateEnd) {
+                    $(this).show();
+                    $(this).addClass("trrecord");
+                } else {
+                    $(this).hide();
+                    $(this).removeClass("trrecord");
+                }
+            })
+        }
+
+
     }
 
     function searchFunc() {
@@ -232,6 +282,8 @@ $(document).ready(function() {
     });
 
     //////////// FILTER DATE///////////////
+
+    // filter-date-all
     $('#filter-date-all').click(() => {
         $('#span-selcect-date').text('All Dates');
         $('#type-fill-date').val('4');
@@ -240,7 +292,7 @@ $(document).ready(function() {
         currentPage = 1;
         mathFuncDefault($('#span-show-number').html(), currentPage);
     });
-
+    // filter-date-hoursago
     $('#filter-date-hoursago').click(() => {
         $('#span-selcect-date').text('Hours Ago');
         $('#type-fill-date').val('1');
@@ -258,8 +310,35 @@ $(document).ready(function() {
         currentPage = 1;
         mathFuncDefault($('#span-show-number').html(), currentPage);
     });
+    // filter-date-lastweek
+    $('#filter-date-lastweek').click(() => {
+        $('#span-selcect-date').text('Last Week');
+        $('#type-fill-date').val('3');
+        mathRecordWithDate();
+        searchFunc();
+        currentPage = 1;
+        mathFuncDefault($('#span-show-number').html(), currentPage);
+    });
+    // filter-date-custom
+    $('#filter-date-custom').click((event) => {
+        $('#span-selcect-date').text('Custom');
+        $('#type-fill-date').val('5');
+        event.stopPropagation();
+    });
 
+    $("#filter-date-custom").daterangepicker({
+        drops: "up",
+        opens: "left"
+    }, function(start, end) {
+        $('#filter-date-custom-start').val(moment(start._d).format());
+        $('#filter-date-custom-end').val(moment(end._d).format());
 
+        mathRecordWithDate();
+        searchFunc();
+        currentPage = 1;
+        mathFuncDefault($('#span-show-number').html(), currentPage);
+
+    });
     // function mathRecordSearch(mPageSize, mCurrentPage) {
     //     var tmlpage = $('.trrecord').length % mPageSize;
     //     if (tmlpage == 0) {

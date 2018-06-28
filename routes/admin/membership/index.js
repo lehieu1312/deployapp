@@ -54,7 +54,7 @@ router.post('/send-noti-to-user', checkAdmin, multipartMiddleware, (req, res) =>
                 content: req.body.content,
                 dateCreate: sDate,
                 statusNoti: false,
-                status: true
+                status: false
             });
             return notificationUserData.save().then(() => {
                 return sendNotiUserModels.find({

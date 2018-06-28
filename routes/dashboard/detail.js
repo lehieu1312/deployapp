@@ -172,53 +172,59 @@ router.get('/dashboard', checkAdmin, (req, res) => {
                     var today = moment().startOf('day')
                     var tomorrow = moment(today).add(1, 'days')
                     for (let i = 0; i < data.myapp.length; i++) {
-                        await TrafficModel.find({
-                            idApp: data.myapp[i].idApp,
+                        await infor_app_admin.findOne({
+                            idApp: data.myapp[i].idAppAdmin,
                             status: true
-                        }).then((result) => {
-                            if (result == []) {
-                                var userOnline = [];
-                                var appToday = [];
-                                var useIos = [];
-                                var useAndroid = [];
-                                myapps[i] = {
+                        }).then(appadmin => {
+                            if (appadmin) {
+                                TrafficModel.find({
                                     idApp: data.myapp[i].idApp,
-                                    nameApp: data.myapp[i].nameApp,
-                                    userOnline: userOnline.length,
-                                    useToday: appToday.length,
-                                    useIos: useIos.length,
-                                    useAndroid: useAndroid.length
-                                }
-                            } else {
-                                var userOnline = result.filter(function (el) {
-                                    return el.dateOutSession == null;
+                                    status: true
+                                }).then((result) => {
+                                    if (result == []) {
+                                        var userOnline = [];
+                                        var appToday = [];
+                                        var useIos = [];
+                                        var useAndroid = [];
+                                        myapps[i] = {
+                                            idApp: data.myapp[i].idApp,
+                                            nameApp: data.myapp[i].nameApp,
+                                            userOnline: userOnline.length,
+                                            useToday: appToday.length,
+                                            useIos: useIos.length,
+                                            useAndroid: useAndroid.length
+                                        }
+                                    } else {
+                                        var userOnline = result.filter(function (el) {
+                                            return el.dateOutSession == null;
+                                        })
+                                        var appToday = result.filter(function (el) {
+                                            return el.dateAccess - today >= 0 &&
+                                                el.dateAccess - today <= 86400000
+                                        })
+                                        var useIos = result.filter(function (el) {
+                                            return el.platform == "ios" &&
+                                                el.dateAccess - today >= 0 &&
+                                                el.dateAccess - today <= 86400000
+                                        });
+                                        var useAndroid = result.filter(function (el) {
+                                            return el.platform == "android" &&
+                                                el.dateAccess - today >= 0 &&
+                                                el.dateAccess - today <= 86400000
+                                        });
+                                        // console.log(useIos)
+                                        myapps[i] = {
+                                            idApp: data.myapp[i].idApp,
+                                            nameApp: data.myapp[i].nameApp,
+                                            userOnline: userOnline.length,
+                                            useToday: appToday.length,
+                                            useIos: useIos.length,
+                                            useAndroid: useAndroid.length
+                                        }
+                                    }
                                 })
-                                var appToday = result.filter(function (el) {
-                                    return el.dateAccess - today >= 0 &&
-                                        el.dateAccess - today <= 86400000
-                                })
-                                var useIos = result.filter(function (el) {
-                                    return el.platform == "ios" &&
-                                        el.dateAccess - today >= 0 &&
-                                        el.dateAccess - today <= 86400000
-                                });
-                                var useAndroid = result.filter(function (el) {
-                                    return el.platform == "android" &&
-                                        el.dateAccess - today >= 0 &&
-                                        el.dateAccess - today <= 86400000
-                                });
-                                // console.log(useIos)
-                                myapps[i] = {
-                                    idApp: data.myapp[i].idApp,
-                                    nameApp: data.myapp[i].nameApp,
-                                    userOnline: userOnline.length,
-                                    useToday: appToday.length,
-                                    useIos: useIos.length,
-                                    useAndroid: useAndroid.length
-                                }
                             }
                         })
-
                     }
                     infor_app_admin.find({
                         status: true

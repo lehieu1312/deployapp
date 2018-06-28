@@ -1,0 +1,76 @@
+.tr-content-appversion {
+    height: 60px;
+}
+
+.set-view-noti-yes {
+    color: #666666;
+}
+
+.set-view-noti-no {
+    color: #00afee;
+}
+
+.set-view-noti-no:hover {
+    color: #02aae7;
+}
+
+#title-table-header {
+    border-top: solid 1px #ececec;
+}
+
+#table-appversion{
+    border-bottom: solid 1px #ececec;
+}
+
+.option-noti-user {
+    height: 50px;
+    padding-top: 10px;
+}
+
+#content-appversion .dropdown-menu {
+    padding: 0;
+}
+
+#content-appversion .dropdown-menu li {
+    cursor: pointer;
+    padding: 4px;
+    margin: 0;
+    width: 142px;
+    height: 28px;
+    border-radius: 2px;
+    font-size: 13px;
+}
+.xcontent{
+    padding: 20px;
+}
+.content-detail-noti{
+    padding: 20px 20px 50px 20px;
+    width: 100%;
+    background: white;
+    height: auto;
+}
+
+#content-appversion .dropdown-menu li:hover {
+    background-color: #f5f5f5;
+}
+.title-noti{
+    height: 45px;
+}
+.set-title-noti{
+    padding-left: 15px;
+}
+.text-title{
+    font-family: 'OpenSans-Semibold';
+    font-size: 20px;
+    color: #666666;
+}
+.text-time{
+    font-family: 'OpenSans-Regular';
+    color: #acb0b6;
+    font-size: 13px;
+}
+.set-part-content{
+    padding-top: 15px;
+    width: auto;
+    height: auto;
+}

@@ -24,6 +24,7 @@ let userChema = mongoose.Schema({
     myapp: [{
         id: String,
         idApp: String,
+        idAppAdmin: String,
         nameApp: String,
         status: String
     }],

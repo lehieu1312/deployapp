@@ -28,6 +28,7 @@ var affiliate_withdrawal_modal = require("../../models/withdraw");
 var affiliate_modal = require("../../models/affiliate");
 var affiliate_method_modal = require("../../models/paymentmethod");
 var membership_modal = require("../../models/membership");
+var notiUser_Models = require('../../models/notificationuser');
 
 var http = require('http');
 var server = http.Server(app);
@@ -272,6 +273,78 @@ router.get("/membership/checkout", checkAdmin, (req, res) => {
 
 })
 
+router.get("/notification", checkAdmin, (req, res) => {
+    try {
+        notiUser_Models.find({
+            idUser: req.session.iduser
+        })
+        .sort({dateCreate: -1})
+        .then((all_noti) => {
+            res.render("./notificationuser/notification", {
+                title: "Notification",
+                appuse: "",
+                noti: all_noti
+            })
+        })
+    } catch (error) {
+        console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
+
+})
+
+router.get('/notification/:id', checkAdmin, (req, res) => {
+    try {
+        notiUser_Models.findOneAndUpdate({
+            id: req.params.id
+        }, {
+            status: true
+        }, (err, noti) => {
+            if (err) throw err;
+            res.render("./notificationuser/detailnotification", {
+                title: "Detail Notification",
+                appuse: "",
+                noti: {
+                    id: noti.id,
+                    title: noti.title,
+                    content: noti.content.split("\n"),
+                    dateCreate: noti.dateCreate,
+                }
+            })
+        })
+    } catch (error) {
+        console.log(error + "");
+        res.render("error", {
+            title: "Error",
+            error: error + ""
+        })
+    }
+})
+
+
+router.post('/notification/delete-noti/ok', (req, res) => {
+    try {
+        console.log(req.body);
+        console.log(req.body.id);
+        async function deletenoti() {
+            for (let i = 0; i < req.body.id.length; i++) {
+                await notiUser_Models.remove({
+                    id: req.body.id[i]
+                }).exec()
+            }
+            await res.json({
+                status: 1,
+                message: "ok"
+            });
+        }
+        deletenoti();
+    } catch (error) {
+        console.log(error + "");
+    }
+})
 
 
 module.exports = router;

@@ -1,0 +1,318 @@
+<% include ../dashboard/headerdetail %>
+    <link rel="stylesheet" type="text/css" href="/themes/css/notification/notification.css" />
+    <div id="navigate-text">
+        <a class="colora" href="/dashboard">
+            <span>Home</span>
+        </a>
+        <span class="setarrownavigate">
+            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
+        </span>
+        <span id="text-href">Nottification</span>
+    </div>
+    </div>
+    <div class="xcontent clsmenu">
+        <div id="title-detail" class="row row1">
+            <div id="title-appversion" class="content-title-detail has-feedback">
+                <span class="textmyapp">Notification</span>
+            </div>
+        </div>
+        <div id="filter-table-appversion" class="row row1">
+            <span class="table-show">Show</span>
+            <div id="filter-number" class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span id="span-show-number" class="span-button-select">18</span>
+                    <span class="caret arow-button-select"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li id="show9">
+                        <a>9 Per page</a>
+                    </li>
+                    <li id="show18">
+                        <a>18 Per page</a>
+                    </li>
+                    <li id="show27">
+                        <a>27 Per page</a>
+                    </li>
+                    <li id="show36">
+                        <a>36 Per page</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="filter-date" class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span id="span-selcect-date" class="span-button-select">All Dates</span>
+                    <span class="caret arow-button-select"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li id="select-date-1">
+                        <a>Hours Ago</a>
+                    </li>
+                    <li id="select-date-2">
+                        <a>Yesterday</a>
+                    </li>
+                    <li id="select-date-3">
+                        <a>Last Weed</a>
+                    </li>
+                    <li id="select-date-4">
+                        <a>All Dates</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li id="select-date-5">
+                        <input hidden id="fillter-date-custom" value="">
+                        <a>Custom...</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- <div id="filter-status" class="btn-group">
+                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span id="span-selcect-status" class="span-button-select">New</span>
+                        <span class="caret arow-button-select"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li id="slect-status-1">
+                            <a>New</a>
+                        </li>
+                        <li id="slect-status-2">
+                            <a>Feature</a>
+                        </li>
+                        <li id="slect-status-3">
+                            <a>All</a>
+                        </li>
+                    </ul>
+                </div> -->
+            <div class="pagination-table-appversion1 row">
+                <ul class="pagination">
+                    <li class="edit-li-pagination">
+                        <a class="number-items"></a>
+                    </li>
+                    <li class="limitsuperback">
+                        <a class="limitpagination">
+                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="superback">
+                        <a>
+                            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="backpage">
+                        <a>
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="limitback">
+                        <a class="limitpagination">
+                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="thispage">
+
+                        </a>
+                    </li>
+                    <li class="edit-li-pagination">
+                        <a class="numberpage">
+                        </a>
+                    </li>
+                    <li class="limitnext">
+                        <a class="limitpagination">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="nextpage">
+                        <a>
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="supernext">
+                        <a>
+                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="limitsupernext">
+                        <a class="limitpagination">
+                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row row1">
+            <div id="content-appversion">
+                <div class="option-noti-user">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span id="span-show-number" class="span-button-select">Bulk actions</span>
+                            <span class="caret arow-button-select"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li id="del-seleded-noti1" data-toggle="modal" data-target="#mymodal-deletenoti">
+                                <img class="imgicondelete" src="/themes/img/dashboard/icondelete.png">Delete Selected
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <table id="table-appversion">
+                    <tr id="title-table-header">
+                        <th width="7.6%">
+                            <input type="checkbox" id="checkboxall">
+                        </th>
+                        <th width="15%">Name
+                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                        </th>
+                        <th width="52.2%">Message
+                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                        </th>
+                        <th width="32.9%">Date
+                            <img class="setarrow showmenuuser" src="/themes/img/login/iconarrow.png" alt="deployapp">
+                        </th>
+                        <th width="12.3%"></th>
+                    </tr>
+                    <%for(let i = 0; i< noti.length;i++){ %>
+                        <input hidden class="id-noti" value="<%=noti[i].id%>">
+                        <tr id="version<%=i%>" class="tr-content-appversion">
+                            <td class="findcode">
+                                <input type="checkbox" name="checkitem" class="checkitem">
+                            </td>
+                            <td class="table-nameapp findnameapp">
+                                <%if(noti[i].status == true){%>
+                                    <a class="set-view-noti-yes" href="/notification/<%=noti[i].id%>">
+                                        <%=noti[i].title%>
+                                    </a>
+                                    <%}else{%>
+                                        <a class="set-view-noti-no" href="/notification/<%=noti[i].id%>">
+                                            <%=noti[i].title%>
+                                        </a>
+                                        <%}%>
+                            </td>
+                            <td class="table-version findversion">
+                                <%if(noti[i].content.length > 72){%>
+                                    <%=noti[i].content.slice(0, 72) + "..."%>
+                                    <%}else{%>
+                                         <%=noti[i].content%>
+                                        <%}%>
+                            </td>
+                            <td class="table-time-appversion finddate">
+                                <%=noti[i].dateCreate.toLocaleString()%>
+                            </td>
+                            <td class="set-position-relative">
+                                <img class="setimg-head-myapp deleteuser" src="/themes/img/dashboard/iconmenumore.png">
+                                <div class="delete-user" style="display:none">
+                                    <a href="#" data-toggle="modal" data-target="#mymodal-deletenoti">
+                                        <div class="element-delete">
+                                            <img class="imgicondelete" src="/themes/img/dashboard/icondelete.png">
+                                            <span>Delete</span>
+                                        </div>
+                                    </a>
+                                    <div class="arrowmenuuser-left">
+                                    </div>
+                                    <div class="arrowmenuuser-left1">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <%}%>
+                </table>
+                <div class="option-noti-user">
+                    <div class="btn-group dropup">
+                        <button class="btn btn-default btn-sm dropdown-toggle btn-filternumber" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span id="span-show-number" class="span-button-select">Bulk actions</span>
+                            <span class="caret arow-button-select"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li id="del-seleded-noti" data-toggle="modal" data-target="#mymodal-deletenoti">
+                                <img class="imgicondelete" src="/themes/img/dashboard/icondelete.png">Delete Selected
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <span class="showing-footer1">Showing 1-
+                    <span id="number-show-footer"></span> of
+                    <span class="number-items" href="#"></span>
+                    <span class="number-items"></span>
+                </span>
+                <div class="example">
+                    <div class="container">
+                        <div class="pagination-table-appversion row">
+                            <ul class="pagination">
+                                <li class="edit-li-pagination">
+                                    <a class="number-items"></a>
+                                </li>
+                                <li class="limitsuperback">
+                                    <a class="limitpagination">
+                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="superback">
+                                    <a>
+                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="backpage">
+                                    <a>
+                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="limitback">
+                                    <a class="limitpagination">
+                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="thispage">
+
+                                    </a>
+                                </li>
+                                <li class="edit-li-pagination">
+                                    <a class="numberpage">
+                                    </a>
+                                </li>
+                                <li class="limitnext">
+                                    <a class="limitpagination">
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="nextpage">
+                                    <a>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="supernext">
+                                    <a>
+                                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="limitsupernext">
+                                    <a class="limitpagination">
+                                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container ">
+        <div class="modal fade" id="mymodal-deletenoti" role="dialog">
+            <div class="modal-dialog  ">
+                <div class="modal-content1">
+                    <div class="dialogdeleteapp">
+                        <div class="dialogdeleteapp-head">
+                            Are you sure you want to Delete all selected item ?
+                        </div>
+                        <div class="dialogdeleteapp-foot">
+                            <button id="delete-ok">Delete</button>
+                            <button type="button" id="close-ok" data-dismiss="modal" aria-label="Close">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <script type="text/javascript" charset="utf-8" src="/themes/js/membership/notification.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/appversion/pagination.js"></script>

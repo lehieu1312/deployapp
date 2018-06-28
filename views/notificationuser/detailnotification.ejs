@@ -1,0 +1,70 @@
+<% include ../dashboard/headerdetail %>
+    <link rel="stylesheet" type="text/css" href="/themes/css/notification/notification.css" />
+    <div id="navigate-text">
+        <a class="colora" href="/dashboard">
+            <span>Home</span>
+        </a>
+        <span class="setarrownavigate">
+            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
+        </span>
+        <a class="colora" href="/notification">
+            <span>Notification</span>
+        </a>
+        <span class="setarrownavigate">
+            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
+        </span>
+        <a class="colora" href="">
+            <span id="text-href">
+                Detail Notification
+            </span>
+        </a>
+    </div>
+    </div>
+
+    <%
+         var get_time;
+         var now = new Date();
+         var time = now - noti.dateCreate;
+         time = Math.ceil(time /60000);
+         if(time/60 > 1){
+             if(time/60/24 > 1){
+                get_time = Math.ceil(time/60/24) + " day ago"
+             }else{
+                get_time = Math.ceil(time/60) + " hours ago"
+             }
+         }else{
+            get_time = Math.ceil(time) + " minute ago"
+         }
+         %>
+
+        <div class="xcontent clsmenu">
+            <div class="content-detail-noti">
+                <div class="title-noti">
+                    <img class="float-left" src="/themes/img/membership/iconnoti.png">
+                    <div class="float-left set-title-noti">
+                        <span class="text-title">
+                            <%=noti.title%>
+                        </span>
+                        <br>
+                        <span class="text-time">
+                            <%=get_time%>
+                        </span>
+                    </div>
+                </div>
+                <div class="content-noti">
+                    <%for(let i =0; i < noti.content.length; i++){%>
+                        <div class="set-part-content">
+                            <span>
+                                <%=noti.content[i]%>
+                            </span>
+                        </div>
+                        <%}%>
+                </div>
+            </div>
+        </div>
+
+        </div>
+        </div>
+        </div>
+        <script type="text/javascript" charset="utf-8" src="/themes/js/membership/notification.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/themes/js/dashboard/appversion/pagination.js"></script>

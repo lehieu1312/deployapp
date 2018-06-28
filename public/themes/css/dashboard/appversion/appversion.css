@@ -924,3 +924,7 @@ textarea {
 .selectstatuspayment li {
     cursor: pointer;
 }
+#table-appversion .setarrow{
+    padding: 3px;
+    cursor: pointer;
+}

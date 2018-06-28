@@ -347,6 +347,7 @@ router.get('/checkout/ok/process', (req, res) => {
                                         "$push": {
                                             myapp: {
                                                 idApp: base64_custom.Base64.encode(id_inforapp),
+                                                idAppAdmin: getdata.idApp,
                                                 nameApp: getdata.nameApp,
                                                 status: true
                                             }

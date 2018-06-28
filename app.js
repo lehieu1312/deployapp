@@ -93,6 +93,9 @@ dbMongo.on('open', function() {
     // console.log(io);
 })
 
+const timeZone = require('time-zone');
+console.log(timeZone());
+
 // dang nhap fb, gg, tw su dung passport
 var passport = require('passport');
 

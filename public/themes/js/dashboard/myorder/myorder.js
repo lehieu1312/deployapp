@@ -46,55 +46,47 @@ $(document).ready(() => {
     var ul = document.getElementsByClassName("selectstatuspayment");
     var textstatus = document.getElementsByClassName("textstatus");
 
-    var statusOrder = document.getElementsByClassName("value-status-order");
+    var statusOrder  =document.getElementsByClassName('value-status-order');
 
-    console.log(ul)
 
     for (let i = 0; i < ul.length; i++) {
         console.log(i)
-        var li = ul[i].getElementsByTagName("li")
-        console.log(li.length);
+        var lix = ul[i].getElementsByTagName("li")
+        console.log( lix[0].getElementsByTagName("a").length);
         if (statusOrder[i].value == 1) {
-            let a = li[0].getElementsByTagName("a")
-            a.innerHTML = "abc";
-            a.className = "active-status";
+            lix[0].getElementsByTagName("a")[0].style.color = "#00afee";
+            lix[0].getElementsByTagName("a")[0].style.background = "#f5f5f5";
         }
         if (statusOrder[i].value == 2) {
-            let a = li[0].getElementsByTagName("a")
-            a.innerHTML = "abc";
-            a.className = "active-status";
+            lix[1].getElementsByTagName("a")[0].style.color = "#00afee";
+            lix[1].getElementsByTagName("a")[0].style.background = "#f5f5f5";
         }
         if (statusOrder[i].value == 3) {
-            let a = li[0].getElementsByTagName("a")
-            a.innerHTML = "abc";
-            a.className = "active-status";
+            lix[2].getElementsByTagName("a")[0].style.color = "#00afee";
+            lix[2].getElementsByTagName("a")[0].style.background = "#f5f5f5";
         }
         if (statusOrder[i].value == 4) {
-            let a = li[0].getElementsByTagName("a")
-            a.innerHTML = "abc";
-            a.className = "active-status";
+            lix[3].getElementsByTagName("a")[0].style.color = "#00afee";
+            lix[3].getElementsByTagName("a")[0].style.background = "#f5f5f5";
         }
         if (statusOrder[i].value == 5) {
-            let a = li[0].getElementsByTagName("a")
-            a.innerHTML = "abc";
-            a.className = "active-status";
+            lix[4].getElementsByTagName("a")[0].style.color = "#00afee";
+            lix[4].getElementsByTagName("a")[0].style.background = "#f5f5f5";
         }
         if (statusOrder[i].value == 6) {
-            let a = li[0].getElementsByTagName("a")
-            a.innerHTML = "abc";
-            a.className = "active-status";
+            lix[5].getElementsByTagName("a")[0].style.color = "#00afee";
+            lix[5].getElementsByTagName("a")[0].style.background = "#f5f5f5";
         }
         if (statusOrder[i].value == 7) {
-            let a = li[0].getElementsByTagName("a")
-            a.innerHTML = "abc";
-            a.className = "active-status";
+            lix[6].getElementsByTagName("a")[0].style.color = "#00afee";
+            lix[6].getElementsByTagName("a")[0].style.background = "#f5f5f5";
         }
     }
 
+
     for (let i = 0; i < statuspayment.length; i++) {
         statuspayment[i].addEventListener("click", () => {
-            codeOrder = trimSpace(getcodeorder[i].value)
-
+            codeOrder = trimSpace(getcodeorder[i].value);
         });
         btndelete[i].addEventListener('click', () => {
             codeOrder = trimSpace(getcodeorder[i].value)

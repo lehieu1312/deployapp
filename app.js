@@ -145,7 +145,7 @@ let updateDataDBDeployed = async() => {
     var sUploaded, sDeployed, sRegister;
     try {
         let staticUpload = await Statistic.find().exec();
-        // console.log(staticUpload);
+        console.log('staticUpload: ' + staticUpload);
 
         await staticUpload.forEach(function(kq) {
             // sUploaded = kq.uploaded;

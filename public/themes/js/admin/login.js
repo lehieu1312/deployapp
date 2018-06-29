@@ -184,7 +184,7 @@ $(document).ready(function() {
                             $('.errPopup').hide();
                         });
                     } else if (data.status == "1") {
-                        window.location.href = "/admin/apps";
+                        window.location.href = "/admin/customer";
                     } else if (data.status == "2") {
                         $('.errPopup').show();
                         $('.alert-upload').text(data.message);

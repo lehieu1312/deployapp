@@ -15,77 +15,109 @@ $(document).ready(() => {
     var getcodeorder = document.getElementsByClassName("getcodeorder");
     var idWithdraw = document.getElementsByClassName("idwithdraw");
     var ul = document.getElementsByClassName("selectstatuspayment");
-    var textstatus = document.getElementsByClassName("textstatus")
+    var textstatus = document.getElementsByClassName("textstatus");
+    var dropDownMenuStatus = document.getElementsByClassName("dropdown-menu-status");
 
-    for (let i = 0; i < statuspayment.length; i++) {
-        statuspayment[i].addEventListener("click", () => {
+    for (let i = 0; i < dropDownMenuStatus.length; i++) {
+        dropDownMenuStatus[i].addEventListener("click", () => {
             idWith = trimSpace(idWithdraw[i].value)
+                // console.log(idWith);
+            var li = dropDownMenuStatus[i].getElementsByTagName("li");
+            var a = dropDownMenuStatus[i].getElementsByTagName("a");
+            for (let j = 0; j < li.length; j++) {
+                li[j].addEventListener("click", () => {
 
+                    setStatusWithdraw = Number(li[j].value)
+                        // console.log(setStatusWithdraw);
+                    $.ajax({
+                        type: "POST",
+                        url: "/admin/withdraw/changestatuswithdraw",
+                        dataType: "json",
+                        data: {
+                            id: idWith,
+                            status: setStatusWithdraw
+                        },
+                        success: (data) => {
+                            if (data.status == "1") {
+                                textstatus[i].innerHTML = a[j].innerHTML;
+                                if (j == 0) {
+                                    statuspayment[i].style.background = "#4169e1"
+                                }
+                                if (j == 1) {
+                                    statuspayment[i].style.background = "#32cd32"
+                                }
+                                if (j == 2) {
+                                    statuspayment[i].style.background = "#dc143c"
+                                }
+                                for (let a = 0; a < li.length; a++) {
+                                    li[a].classList.remove('activestatus');
+                                }
+                                li[j].classList.add('activestatus');
+                            } else if (data.status == 2) {
+                                $('#errPopup').show();
+                                $('.alert-upload').text(data.msg[0].msg);
+
+                            } else {
+                                $('#errPopup').show();
+                                $('.alert-upload').text(data.msg);
+                            }
+                        }
+                    }).always(function(data) {
+                        $('#loading').hide();
+                    });
+                })
+            }
         });
     }
 
-    for (let i = 0; i < ul.length; i++) {
-        var li = ul[i].getElementsByTagName("li")
-        var a = ul[i].getElementsByTagName("a")
-        for (let j = 0; j < li.length; j++) {
-            li[j].addEventListener("click", () => {
+    // for (let i = 0; i < ul.length; i++) {
+    //     var li = ul[i].getElementsByTagName("li");
+    //     var a = ul[i].getElementsByTagName("a");
+    //     // var li = $(this).getElementsByTagName('li');
 
-                setStatusWithdraw = Number(li[j].value)
-                $.ajax({
-                    type: "POST",
-                    url: "/admin/withdraw/changestatuswithdraw",
-                    dataType: "json",
-                    data: {
-                        id: idWith,
-                        status: setStatusWithdraw
-                    },
-                    success: (data) => {
-                        if (data.status == "1") {
-                            textstatus[i].innerHTML = a[j].innerHTML;
-                            if (j == 0) {
-                                statuspayment[i].style.background = "#4169e1"
-                            }
-                            if (j == 1) {
-                                statuspayment[i].style.background = "#32cd32"
-                            }
-                            if (j == 2) {
-                                statuspayment[i].style.background = "#dc143c"
-                            }
-                            $('.selectstatuspayment li').removeClass('activestatus');
-                            // console.log(setStatusWithdraw);
-                            $('#status' + setStatusWithdraw).addClass('activestatus');
-                        } else if (data.status == 2) {
-                            $('#errPopup').show();
-                            $('.alert-upload').text(data.msg[0].msg);
-                            // $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function() {
-                            //     $("#danger-alert").slideUp(1000);
-                            //     $('.errPopup').hide();
-                            // });
-                        } else {
-                            $('#errPopup').show();
-                            $('.alert-upload').text(data.msg);
-                            // $("#danger-alert").fadeTo(5000, 1000).slideUp(1000, function() {
-                            //     $("#danger-alert").slideUp(1000);
-                            //     $('.errPopup').hide();
-                            // });
-                        }
-                        // else if (data.status == "2") {
-                        //     $('#myModal').modal('hide');
-                        //     $('#errPopup').show();
-                        //     $('.alert-upload').text(data.message);
-                        //     $("#errPopup").fadeTo(5000, 1000).slideUp(1000, function () {
-                        //         $("#errPopup").slideUp(1000);
-                        //         $('#errPopup').hide();
-                        //     });
-                        // }
-                    }
-                }).always(function(data) {
-                    $('#loading').hide();
-                });
-                // console.log(i)
+    //     for (let j = 0; j < li.length; j++) {
 
-            });
-        }
-    }
+    //         li[j].addEventListener("click", () => {
+    //             // activestatus
+    //             console.log(li[j]);
+    //             li[j].classList.remove('aa');
+    //             setStatusWithdraw = Number(li[j].value)
+    //             $.ajax({
+    //                 type: "POST",
+    //                 url: "/admin/withdraw/changestatuswithdraw",
+    //                 dataType: "json",
+    //                 data: {
+    //                     id: idWith,
+    //                     status: setStatusWithdraw
+    //                 },
+    //                 success: (data) => {
+    //                     if (data.status == "1") {
+    //                         textstatus[i].innerHTML = a[j].innerHTML;
+    //                         if (j == 0) {
+    //                             statuspayment[i].style.background = "#4169e1"
+    //                         }
+    //                         if (j == 1) {
+    //                             statuspayment[i].style.background = "#32cd32"
+    //                         }
+    //                         if (j == 2) {
+    //                             statuspayment[i].style.background = "#dc143c"
+    //                         }
+
+    //                     } else if (data.status == 2) {
+    //                         $('#errPopup').show();
+    //                         $('.alert-upload').text(data.msg[0].msg);
+
+    //                     } else {
+    //                         $('#errPopup').show();
+    //                         $('.alert-upload').text(data.msg);
+    //                     }
+    //                 }
+    //             }).always(function(data) {
+    //                 $('#loading').hide();
+    //             });
+    //         });
+
+    //     }
+    // }
 
 });

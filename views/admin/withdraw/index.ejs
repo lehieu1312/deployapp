@@ -151,9 +151,9 @@
                                         <span><%=item.method%></span>
                                     </td>
                                     <td>
-                                        <div class="dropdown">
-                                            <input class="getstatuspayment" hidden value=" <%=item.status%>">
-                                            <input class="getcodeorder idwithdraw" hidden value=" <%=item.id%>">
+                                        <div class="dropdown dropdown-menu-status">
+                                            <input class="getstatuspayment" hidden value="<%=item.status%>">
+                                            <input class="getcodeorder idwithdraw" hidden value="<%=item.id%>">
 
                                             <% switch(item.statusWithdraw){
                                         case 1:%>
@@ -189,17 +189,17 @@
                                         </div> -->
                                                                 <div class="arrow-under-order setarrowabot-under-withdraw">
                                                                 </div>
-                                                                <li value="1" id="status1" <%if(item.statusWithdraw==1){%>
+                                                                <li value="1" id="status1" rules="<%=item.id%>" <%if(item.statusWithdraw==1){%>
                                                                     class="activestatus"
                                                                     <%}%>>
                                                                         <a>Pending</a>
                                                                 </li>
-                                                                <li value="2" id="status2" <%if(item.statusWithdraw==2){%>
+                                                                <li value="2" id="status2" rules="<%=item.id%>" <%if(item.statusWithdraw==2){%>
                                                                     class="activestatus"
                                                                     <%}%>>
                                                                         <a>Completed</a>
                                                                 </li>
-                                                                <li value="3" id="status3" <%if(item.statusWithdraw==3){%>
+                                                                <li value="3" id="status3" rules="<%=item.id%>" <%if(item.statusWithdraw==3){%>
                                                                     class="activestatus"
                                                                     <%}%>>
                                                                         <a>Cancelled</a>
@@ -210,7 +210,6 @@
                                         </div>
                                     </td>
                                 </tr>
-
                                 <%dem++})%>
                     </tbody>
                 </table>

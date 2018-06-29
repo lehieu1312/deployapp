@@ -149,13 +149,15 @@ let updateDataDBDeployed = async() => {
 
         await staticUpload.forEach(function(kq) {
             // sUploaded = kq.uploaded;
+            console.log('kq: ' + kq);
             sDeployed = kq.deployed;
             sRegister = kq.register;
         });
-
+        console.log('1: ' + sRegister);
         // sUploaded = sUploaded + 1;
         sDeployed = sDeployed + 1;
         sRegister = sRegister + 1;
+        console.log('2: ' + sRegister);
         //, deployed: sDeployed, register: sRegister
         let udStatistic = await Statistic.update({}, {
             $set: {

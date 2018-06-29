@@ -24,6 +24,11 @@
     background-color: #F5F5F5;
 }
 
+.active-status{
+    color: rgb(0, 175, 238);
+    background-color: #f5f5f5;
+}
+
 #text-changelog::-webkit-scrollbar-thumb {
     background-color: #cecece;
     border: 2px solid #cecece;

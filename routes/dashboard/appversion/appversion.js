@@ -12,10 +12,13 @@ var app = express();
 var md5 = require('md5');
 var User = require('../../../models/user');
 var libSetting = require('../../../lib/setting');
+var timezone_setting = require('../../../lib/timezone');
+
 var devMode = libSetting.devMode;
 var Country = require('../../../models/country');
 var hostServer = libSetting.hostServer;
-var isoCountries = libSetting.isoCountries;
+var isoCountries = timezone_setting.isoCountries;
+var getCountryFromHTTP = timezone_setting.getCountryFromHTTP;
 var Appversion = require('../../../models/appversionadmin');
 var appversionUser = require('../../../models/appversionuser');
 var appsetting_model = require("../../../models/appsettings");
@@ -23,6 +26,7 @@ var fs = require('fs');
 var Inforapp = require('../../../models/inforapp');
 
 var moment = require("moment");
+require("moment/min/locales.min");
 
 function checkAdmin(req, res, next) {
     if (req.session.iduser) {
@@ -47,43 +51,10 @@ function setStringVersion(a) {
     return a1 + "." + a2 + "." + a3;
 }
 
-var getCountryFromHTTP = function (accept_language){
-
-    var CC; //Country Code
-
-    //in some cases like "fr" or "hu" the language and the country codes are the same
-    if (accept_language.length === 2){
-        CC = accept_language.toUpperCase(); 
-    }
-    //get "PT" out of "pt-PT"
-    else if (accept_language.length === 5){          
-        CC = accept_language.substring(3, 5); 
-    }
-    //ex: "pt-PT,pt;q=0.9,en;q=0.8,en-GB;q=0.7,de-DE;q=0.6,de;q=0.5,fr-FR;q=0.4,fr;q=0.3,es;q=0.2"
-    //gets the first two capial letters that fit into 2-letter ISO country code
-    else if (accept_language.length > 5) {
-        var substr;
-        for (var i=7; i+2<accept_language.length; i++){
-            substr = accept_language.substring(i, i+2);
-            if (isoCountries.hasOwnProperty(substr)){
-                return substr;
-            }            
-        }
-    }
-
-    if (isoCountries.hasOwnProperty(CC)){
-        return CC;
-    }
-
-    return false;
-};
-
-
-
 router.get('/appversion/:idapp', checkAdmin, (req, res) => {
     try {
         var timezone = getCountryFromHTTP(req.headers["accept-language"]);
-         console.log("timezone :" + timezone)
+        console.log("timezone :" + timezone);
         appsetting_model.findOne({
             idApp: req.params.idapp
         }).then(setting => {
@@ -123,6 +94,12 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
                                     if (err) throw err;
                                     // console.log(count)
 
+                                    for (let i = 0; i < count.inforAppversion.length; i++) {
+                                        console.log(moment(count.inforAppversion[i].updatedDate))
+                                        count.inforAppversion[i].updatedDate = moment(count.inforAppversion[i].updatedDate);
+                                        count.inforAppversion[i].createDate = moment(count.inforAppversion[i].createDate);
+                                    }
+
                                     var appuse = {
                                         idApp: data1.idApp,
                                         nameApp: data1.nameApp
@@ -152,6 +129,13 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
                                 }, (err, count) => {
                                     if (err) throw err;
                                     // console.log(count)
+
+                                    for (let i = 0; i < count.inforAppversion.length; i++) {
+                                        console.log(moment(count.inforAppversion[i].updatedDate))
+                                        count.inforAppversion[i].updatedDate = moment(count.inforAppversion[i].updatedDate);
+                                        count.inforAppversion[i].createDate = moment(count.inforAppversion[i].createDate);
+                                    }
+
                                     var appuse = {
                                         idApp: data1.idApp,
                                         nameApp: data1.nameApp
@@ -196,6 +180,13 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
                                 }, (err, count) => {
                                     if (err) throw err;
                                     // console.log(count)
+
+                                    for (let i = 0; i < count.inforAppversion.length; i++) {
+                                        console.log(moment(count.inforAppversion[i].updatedDate))
+                                        count.inforAppversion[i].updatedDate = moment(count.inforAppversion[i].updatedDate);
+                                        count.inforAppversion[i].createDate = moment(count.inforAppversion[i].createDate);
+                                    }
+
                                     var appuse = {
                                         idApp: data1.idApp,
                                         nameApp: data1.nameApp
@@ -226,6 +217,13 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
                                 }, (err, count) => {
                                     if (err) throw err;
                                     // console.log(count)
+
+                                    for (let i = 0; i < count.inforAppversion.length; i++) {
+                                        console.log(moment(count.inforAppversion[i].updatedDate))
+                                        count.inforAppversion[i].updatedDate = moment(count.inforAppversion[i].updatedDate);
+                                        count.inforAppversion[i].createDate = moment(count.inforAppversion[i].createDate);
+                                    }
+
                                     var appuse = {
                                         idApp: data1.idApp,
                                         nameApp: data1.nameApp

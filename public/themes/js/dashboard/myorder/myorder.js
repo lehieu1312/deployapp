@@ -44,7 +44,52 @@ $(document).ready(() => {
     var getstatuspayment = document.getElementsByClassName("getstatuspayment");
     var getcodeorder = document.getElementsByClassName("getcodeorder");
     var ul = document.getElementsByClassName("selectstatuspayment");
-    var textstatus = document.getElementsByClassName("textstatus")
+    var textstatus = document.getElementsByClassName("textstatus");
+
+    var statusOrder = document.getElementsByClassName("value-status-order");
+
+    console.log(ul)
+
+    for (let i = 0; i < ul.length; i++) {
+        console.log(i)
+        var li = ul[i].getElementsByTagName("li")
+        console.log(li.length);
+        if (statusOrder[i].value == 1) {
+            let a = li[0].getElementsByTagName("a")
+            a.innerHTML = "abc";
+            a.className = "active-status";
+        }
+        if (statusOrder[i].value == 2) {
+            let a = li[0].getElementsByTagName("a")
+            a.innerHTML = "abc";
+            a.className = "active-status";
+        }
+        if (statusOrder[i].value == 3) {
+            let a = li[0].getElementsByTagName("a")
+            a.innerHTML = "abc";
+            a.className = "active-status";
+        }
+        if (statusOrder[i].value == 4) {
+            let a = li[0].getElementsByTagName("a")
+            a.innerHTML = "abc";
+            a.className = "active-status";
+        }
+        if (statusOrder[i].value == 5) {
+            let a = li[0].getElementsByTagName("a")
+            a.innerHTML = "abc";
+            a.className = "active-status";
+        }
+        if (statusOrder[i].value == 6) {
+            let a = li[0].getElementsByTagName("a")
+            a.innerHTML = "abc";
+            a.className = "active-status";
+        }
+        if (statusOrder[i].value == 7) {
+            let a = li[0].getElementsByTagName("a")
+            a.innerHTML = "abc";
+            a.className = "active-status";
+        }
+    }
 
     for (let i = 0; i < statuspayment.length; i++) {
         statuspayment[i].addEventListener("click", () => {

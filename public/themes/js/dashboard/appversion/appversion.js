@@ -138,30 +138,38 @@ function clickdeployapp(fIDAppAdmin, fVersionAdmin, idAppUser) {
                             console.log(vDefault);
                             var name = arrFile[0]['field'][j]['$'].name;
                             var path = arrFile[0]['$'].path;
-                            $('#fmSetting').append(`<div class="form-group group-input-setting has-feedback input-error">
+                            $('#fmSetting').append(`
+                            <div class="form-group group-input-setting has-feedback input-error">
                                 <label class="control-label ">
                                 ` + arrFile[0]['field'][j]['$'].label + `
                                 </label>
-                                
                                 ` + (type == 'string' ? `
                                 <div class="` + rules + `">
                                 <input class="form-control" maxlength="` + maxLength + `" required="` + required + `" type="text" name="` + path + `=` + name + `" rules="` + rules + `"
                                 value="` + (typeof vDefault != 'undefined' ? vDefault : '') + `" />
-
                                 </div>
                                   ` : '') + `` +
                                 (type == 'boolean' ? `
                                   <div class="">
-                                  <label class="radio-inline">
-                                   <input type="radio" name="` + path + `=` + name + `"  value="true" checked rules="` + rules + `" /> true
-                              </label>
-                                  <label class="radio-inline">
-                                  <input type="radio" name="` + path + `=` + name + `"  value="false" rules="` + rules + `" /> false
-                              </label>
-                              </div>
-                                  ` : '') +
-                                `
-                                </div>`);
+                                    <label class="radio-inline">
+                                        <input type="radio" name="` + path + `=` + name + `"  value="true" checked rules="` + rules + `" /> true
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="` + path + `=` + name + `"  value="false" rules="` + rules + `" /> false
+                                    </label>
+                                  </div>
+                                  ` : '') + `` +
+                                (type == 'date-format' ? `
+                                  <div class="">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="` + path + `=` + name + `"  value="true" checked rules="` + rules + `" /> true
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="` + path + `=` + name + `"  value="false" rules="` + rules + `" /> false
+                                    </label>
+                                  </div>
+                                  ` : '')
+                                `</div>`);
                         }
 
                         $('#dialog-noti-choose-android-dashboard').fadeOut();
@@ -188,9 +196,6 @@ function clickdeployapp(fIDAppAdmin, fVersionAdmin, idAppUser) {
             }).always(function(data) {
                 $('#loading').hide();
             });
-
-
-
 
         }
     });

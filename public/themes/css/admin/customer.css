@@ -44,7 +44,7 @@ hr {
     width: 50%;
 }
 
-#inputsearch-customer {
+.inputsearch-customer {
     padding-bottom: 3px;
     padding-left: 20px;
     border: none;
@@ -516,4 +516,8 @@ label {
 
 .iicon-delete {
     padding: 0px 7px 0px 4px;
+}
+
+.search-in-box {
+    margin-right: 0px;
 }

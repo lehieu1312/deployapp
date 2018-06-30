@@ -207,14 +207,14 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
 
 
 
-        let copyFileApkDebug = (pathProjectApp, pathBackupAPK, skeyFolder, nApp) => {
+        let copyFileApkDebug = (pathProjectApp, pathBackupAPK, skeyFolder, sVersionApp, nApp) => {
             return new Promise((resolve, reject) => {
                 try {
-                    var path_backupapk = path.join(pathBackupAPK, skeyFolder);
+                    var path_backupapk = path.join(pathBackupAPK, skeyFolder, sVersionApp);
                     if (!fs.existsSync(path_backupapk)) {
                         fs.mkdirSync(path_backupapk);
                     }
-                    var path_unsigned = path.join(pathBackupAPK, skeyFolder, 'unsigned');
+                    var path_unsigned = path.join(pathBackupAPK, skeyFolder, sVersionApp, 'unsigned');
                     if (!fs.existsSync(path_unsigned)) {
                         fs.mkdirSync(path_unsigned);
                     }
@@ -574,7 +574,7 @@ router.post('/build-android-dash', multipartMiddleware, async(req, res) => {
                     return commandLine(cmd, argvBuild);
                 }).then(() => {
                     console.log('...Copy File Apk Unsign...');
-                    return copyFileApkDebug(path.join(appRoot, 'public', 'project', idAppUser), path.join(appRoot, 'public', 'backupapk'), idAppUser, nameApp);
+                    return copyFileApkDebug(path.join(appRoot, 'public', 'project', idAppUser), path.join(appRoot, 'public', 'backupapk'), idAppUser, versionApp, nameApp);
                 }).then(() => {
                     console.log('...Build Android Release...');
                     var cmdRelease = 'ionic';

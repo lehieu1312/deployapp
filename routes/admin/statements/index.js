@@ -11,6 +11,7 @@ var moment = require('moment');
 var nodemailer = require('nodemailer');
 var hbs = require('nodemailer-express-handlebars');
 var multipart = require('connect-multiparty');
+var libBase64 = require('../../../lib/base64');
 var multipartMiddleware = multipart();
 
 var withdrawModels = require('../../../models/withdraw');
@@ -458,8 +459,6 @@ router.get('/', checkAdmin, async(req, res) => {
                 // if (sProfitTwoWeek < 0)
                 //     sProfitTwoWeek = -sProfitTwoWeek;
 
-
-
                 console.log('=================================close====================================');
                 // console.log(sProfit);
                 arrData = arrData.slice(0);
@@ -562,20 +561,28 @@ router.get('/', checkAdmin, async(req, res) => {
                 ////////////Customer/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             } else {
                 console.log('Customize');
-                var sRevenueTwoWeek = 0,
-                    sWithdrawTwoWeek = 0,
-                    sProfitTwoWeek = 0,
-                    sPendingTwoWeek = 0;
+                var sRevenueAll = 0,
+                    sWithdrawAll = 0,
+                    sProfitAll = 0,
+                    sPendingAll = 0;
                 var sDateNow = new Date();
 
                 // var testdate = '1332262800000';
                 console.log('-------');
-                console.log(req.query.f);
-                console.log(req.query.t);
-
-                var startDate = new Date(req.query.f);
+                // console.log(req.query.f);
+                // console.log(req.query.t);
+                var getQueryStartDate = req.query.f;
+                console.log(getQueryStartDate);
+                var startDate = libBase64.Base64.decode(getQueryStartDate);
                 console.log(startDate);
-                var endDate = new Date(req.query.t);
+                startDate = new Date(startDate);
+                console.log(startDate);
+
+                var getQueryEndDate = req.query.t;
+                console.log(getQueryEndDate);
+                var endDate = libBase64.Base64.decode(getQueryEndDate);
+                console.log(endDate);
+                endDate = new Date(endDate);
                 console.log(endDate);
                 console.log('-------');
 
@@ -589,9 +596,9 @@ router.get('/', checkAdmin, async(req, res) => {
 
                 console.log('================================== Start End date===================================');
 
-                var dataWithdrawLastWeek = await withdrawModels.find({ dateCreate: { $gt: mathDateLastWeek, $lt: mathDateNow } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusWithdraw: 1, isWithdraw: 1, dateCreate: 1, status: 1 }).exec();
+                var dataWithdrawStartEnd = await withdrawModels.find({ dateCreate: { $gt: mathDateStart, $lt: mathDateEnd } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusWithdraw: 1, isWithdraw: 1, dateCreate: 1, status: 1 }).exec();
                 // console.log(dataWithdraw);
-                async.forEach(dataWithdrawLastWeek, (item) => {
+                async.forEach(dataWithdrawStartEnd, (item) => {
                     arrData.push(item);
                     if (item.statusWithdraw == 2) {
                         sWithdraw += item.amount;
@@ -602,35 +609,35 @@ router.get('/', checkAdmin, async(req, res) => {
                 });
                 console.log(sWithdraw);
 
-                var dataOrdersLastWeek = await orderModels.find({ dateCreate: { $gt: mathDateLastWeek, $lt: mathDateNow } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusOrder: 1, isOrder: 1, dateCreate: 1, status: 1 }).exec();
-                async.forEach(dataOrdersLastWeek, (item) => {
+                var dataOrdersStartEnd = await orderModels.find({ dateCreate: { $gt: mathDateStart, $lt: mathDateEnd } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusOrder: 1, isOrder: 1, dateCreate: 1, status: 1 }).exec();
+                async.forEach(dataOrdersStartEnd, (item) => {
                     arrData.push(item);
                     sRevenue += item.amount;
                 });
                 console.log(sRevenue);
                 sProfit = sRevenue - sWithdraw;
 
-                console.log('=================================TWO WEEK ====================================');
-                var dataWithdrawTwoWeek = await withdrawModels.find({ dateCreate: { $lt: mathDateLastWeek, $gt: mathDateTwoWeek } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusWithdraw: 1, isWithdraw: 1, dateCreate: 1, status: 1 }).exec();
+                console.log('=================================All ====================================');
+                var dataWithdrawAll = await withdrawModels.find({}, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusWithdraw: 1, isWithdraw: 1, dateCreate: 1, status: 1 }).exec();
                 // console.log(dataWithdraw);
-                async.forEach(dataWithdrawTwoWeek, (item) => {
+                async.forEach(dataWithdrawAll, (item) => {
                     arrDataMath.push(item);
                     if (item.statusWithdraw == 2) {
-                        sWithdrawTwoWeek += item.amount;
+                        sWithdrawAll += item.amount;
                     }
                     if (item.statusWithdraw == 1) {
-                        sPendingTwoWeek += item.amount;
+                        sPendingAll += item.amount;
                     }
                 });
 
-                var dataOrdersTwoWeek = await orderModels.find({ dateCreate: { $lt: mathDateLastWeek, $gt: mathDateTwoWeek } }, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusOrder: 1, isOrder: 1, dateCreate: 1, status: 1 }).exec();
-                async.forEach(dataOrdersTwoWeek, (item) => {
+                var dataOrdersAll = await orderModels.find({}, { idUser: 1, username: 1, amount: 1, content: 1, note: 1, statusOrder: 1, isOrder: 1, dateCreate: 1, status: 1 }).exec();
+                async.forEach(dataOrdersAll, (item) => {
                     arrDataMath.push(item);
-                    sRevenueTwoWeek += item.amount;
+                    sRevenueAll += item.amount;
                 });
-                console.log(sWithdrawTwoWeek);
-                console.log(sRevenueTwoWeek);
-                sProfitTwoWeek = sRevenueTwoWeek - sWithdrawTwoWeek;
+                console.log(sWithdrawAll);
+                console.log(sRevenueAll);
+                sProfitAll = sRevenueAll - sWithdrawAll;
                 // if (sProfitTwoWeek < 0)
                 //     sProfitTwoWeek = -sProfitTwoWeek;
 
@@ -643,94 +650,94 @@ router.get('/', checkAdmin, async(req, res) => {
                     return a.dateCreate - b.dateCreate;
                 });
                 //////////////////Renvue//////////
-                if (sRevenue == 0 && sRevenueTwoWeek != 0) {
+                if (sRevenue == 0 && sRevenueAll != 0) {
                     checkRevenue = 0;
                     pRevenue = 100;
-                } else if (sRevenue != 0 && sRevenueTwoWeek == 0) {
+                } else if (sRevenue != 0 && sRevenueAll == 0) {
                     checkRevenue = 1;
                     pRevenue = 100;
-                } else if (sRevenue == 0 && sRevenueTwoWeek == 0) {
+                } else if (sRevenue == 0 && sRevenueAll == 0) {
                     checkRevenue = 0;
                     pRevenue = 0;
-                } else if (sRevenue <= sRevenueTwoWeek) {
+                } else if (sRevenue <= sRevenueAll) {
                     checkRevenue = 0;
-                    var vTemp = sRevenueTwoWeek - sRevenue;
-                    pRevenue = (vTemp * 100 / sRevenueTwoWeek).toFixed(2);
+                    var vTemp = sRevenueAll - sRevenue;
+                    pRevenue = (vTemp * 100 / sRevenueAll).toFixed(2);
                 } else {
                     checkRevenue = 1;
-                    var vTemp = sRevenue - sRevenueTwoWeek;
-                    pRevenue = (vTemp * 100 / sRevenueTwoWeek).toFixed(2);
+                    var vTemp = sRevenue - sRevenueAll;
+                    pRevenue = (vTemp * 100 / sRevenueAll).toFixed(2);
                 }
 
                 //////////////////////WithDraw//////
-                if (sWithdraw == 0 && sWithdrawTwoWeek != 0) {
+                if (sWithdraw == 0 && sWithdrawAll != 0) {
                     checkWithdraw = 0;
                     pWithdraw = 100;
-                } else if (sWithdraw != 0 && sWithdrawTwoWeek == 0) {
+                } else if (sWithdraw != 0 && sWithdrawAll == 0) {
                     checkWithdraw = 1;
                     pWithdraw = 100;
-                } else if (sWithdraw == 0 && sWithdrawTwoWeek == 0) {
+                } else if (sWithdraw == 0 && sWithdrawAll == 0) {
                     checkWithdraw = 0;
                     pWithdraw = 0;
-                } else if (sWithdraw <= sWithdrawTwoWeek) {
+                } else if (sWithdraw <= sWithdrawAll) {
                     checkWithdraw = 0;
-                    var vTemp = sWithdrawTwoWeek - sWithdraw;
-                    pWithdraw = (vTemp * 100 / sWithdrawTwoWeek).toFixed(2);
+                    var vTemp = sWithdrawAll - sWithdraw;
+                    pWithdraw = (vTemp * 100 / sWithdrawAll).toFixed(2);
                 } else {
                     checkWithdraw = 1;
-                    var vTemp = sWithdraw - sWithdrawTwoWeek;
-                    pWithdraw = (vTemp * 100 / sWithdrawTwoWeek).toFixed(2);
+                    var vTemp = sWithdraw - sWithdrawAll;
+                    pWithdraw = (vTemp * 100 / sWithdrawAll).toFixed(2);
                 }
 
                 //////////////////////Profit//////////////
-                if (sProfit == 0 && sProfitTwoWeek != 0) {
+                if (sProfit == 0 && sProfitAll != 0) {
                     console.log('1');
                     checkProfit = 0;
                     pProfit = 100;
-                } else if (sProfit != 0 && sProfitTwoWeek == 0) {
+                } else if (sProfit != 0 && sProfitAll == 0) {
                     console.log('2');
                     checkProfit = 1;
                     pProfit = 100;
-                } else if (sProfit == 0 && sProfitTwoWeek == 0) {
+                } else if (sProfit == 0 && sProfitAll == 0) {
                     console.log('3');
                     checkProfit = 0;
                     pProfit = 0;
-                } else if (sProfit <= sProfitTwoWeek) {
+                } else if (sProfit <= sProfitAll) {
                     console.log('4');
                     checkProfit = 0;
-                    var vTemp = sProfitTwoWeek - sProfit;
-                    pProfit = (vTemp * 100 / sProfitTwoWeek).toFixed(2);
+                    var vTemp = sProfitAll - sProfit;
+                    pProfit = (vTemp * 100 / sProfitAll).toFixed(2);
                 } else {
                     console.log('5');
                     console.log(sProfit);
-                    console.log(sProfitTwoWeek);
+                    console.log(sProfitAll);
                     checkProfit = 1;
-                    var vTemp = sProfit - sProfitTwoWeek;
-                    if (sProfitTwoWeek < 0) {
-                        pProfit = (vTemp * 100 / -(sProfitTwoWeek)).toFixed(2);
+                    var vTemp = sProfit - sProfitAll;
+                    if (sProfitAll < 0) {
+                        pProfit = (vTemp * 100 / -(sProfitAll)).toFixed(2);
                     } else {
-                        pProfit = (vTemp * 100 / sProfitTwoWeek).toFixed(2);
+                        pProfit = (vTemp * 100 / sProfitAll).toFixed(2);
                     }
 
                 }
                 /////////////////////
-                if (sPending == 0 && sPendingTwoWeek != 0) {
+                if (sPending == 0 && sPendingAll != 0) {
                     checkPending = 0;
                     pPending = 100;
-                } else if (sPending != 0 && sPendingTwoWeek == 0) {
+                } else if (sPending != 0 && sPendingAll == 0) {
                     checkPending = 1;
                     pPending = 100;
-                } else if (sPending == 0 && sPendingTwoWeek == 0) {
+                } else if (sPending == 0 && sPendingAll == 0) {
                     checkPending = 0;
                     pPending = 0;
-                } else if (sPending <= sPendingTwoWeek) {
+                } else if (sPending <= sPendingAll) {
                     checkPending = 0;
-                    var vTemp = sPendingTwoWeek - sPending;
-                    pPending = (vTemp * 100 / sPendingTwoWeek).toFixed(2);
+                    var vTemp = sPendingAll - sPending;
+                    pPending = (vTemp * 100 / sPendingAll).toFixed(2);
                 } else {
                     checkPending = 1;
-                    var vTemp = sPending - sPendingTwoWeek;
-                    pPending = (vTemp * 100 / sPendingTwoWeek).toFixed(2);
+                    var vTemp = sPending - sPendingAll;
+                    pPending = (vTemp * 100 / sPendingAll).toFixed(2);
                 }
 
             }

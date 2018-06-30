@@ -168,7 +168,7 @@ function clickdeployapp(fIDAppAdmin, fVersionAdmin, idAppUser) {
                                         <input type="radio" name="` + path + `=` + name + `"  value="false" rules="` + rules + `" /> false
                                     </label>
                                   </div>
-                                  ` : '')
+                                  ` : '') +
                                 `</div>`);
                         }
 

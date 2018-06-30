@@ -132,9 +132,9 @@
                   $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
                   //   $(this).find('#icon-err').removeClass('display-none').addClass('display-inline');
                   checkValid = false;
-                  $(this).find('input').val();
-                  console.log('1');
-                  console.log($(this).find('input').val());
+                  //   $(this).find('input').val();
+                  //   console.log('1');
+                  //   console.log($(this).find('input').val());
               }
               // else {
               //       $(this).find('input').removeClass('input-holder').removeClass('border-bottom-red');

@@ -158,13 +158,8 @@ function clickdeployapp(fIDAppAdmin, fVersionAdmin, idAppUser) {
                                         <input type="radio" name="` + path + `=` + name + `"  value="false" rules="` + rules + `" /> false
                                     </label>
                                   </div>
-                                  ` : '') + `` +
-                                (type == 'date-format' ? `
-                                  <div class="` + rules + `">
-                                  <input class="form-control" maxlength="` + maxLength + `" required="` + required + `" type="text" name="` + path + `=` + name + `" rules="` + rules + `"
-                                  value="` + (typeof vDefault != 'undefined' ? vDefault : '') + `" />
-                                  </div>
-                                    ` : '') +
+                                  ` : '') +
+
                                 `</div>`);
                         }
 

@@ -120,6 +120,11 @@ $(document).ready(() => {
                 $(this).find('input').attr('placeholder', '');
                 $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
                 checkValid = false;
+                console.log($(this));
+                console.log(require);
+                console.log(rules);
+                console.log($(this).find('input').val());
+                console.log('1');
             } else if (rules.toLowerCase() == "packageid") {
                 var value = $(this).find('input').val();
                 var checkSpecial = validPackageID(value);
@@ -132,9 +137,11 @@ $(document).ready(() => {
                     $(this).find('input').attr('placeholder', 'This ID uniquely identifies your app on the device and in Google Play, like: com.example.myapp');
                     $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
                     checkValid = false;
+                    console.log('2');
                 } else {
                     $(this).find('input').removeClass('input-holder').removeClass('border-bottom-red');
                 }
+                console.log('3');
             } else if (rules.toLowerCase() == "email") {
                 var checkmail = validateEmail($(this).find('input').val());
                 if ($(this).find('input').val() == '') {
@@ -145,6 +152,7 @@ $(document).ready(() => {
                     $(this).find('input').attr('placeholder', 'Enter valid email');
                     $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
                     checkValid = false;
+                    console.log('4');
                 } else {
                     $(this).find('input').removeClass('input-holder').removeClass('border-bottom-red');
                 }
@@ -155,11 +163,13 @@ $(document).ready(() => {
                     $(this).find('input').attr('placeholder', 'Enter valid number [0-9]');
                     $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
                     checkValid = false;
+                    console.log('5');
                 } else if (checkNumber == false) {
                     $(this).find('input').val('');
                     $(this).find('input').attr('placeholder', 'Enter valid number [0-9]');
                     $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
                     checkValid = false;
+                    console.log('6');
                 } else {
                     $(this).find('input').removeClass('input-holder').removeClass('border-bottom-red');
                 }
@@ -168,13 +178,17 @@ $(document).ready(() => {
                     $(this).find('input').attr('placeholder', 'Enter valid OneSignal App ID, like: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
                     $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
                     checkValid = false;
+                    console.log('7');
                 } else if (validateIdentifier($(this).find('input').val()) == false) {
                     $(this).find('input').val('');
                     $(this).find('input').attr('placeholder', 'Enter valid OneSignal App ID, like: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
                     $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
                     checkValid = false;
+                    console.log('8');
                 } else {
                     $(this).find('input').removeClass('input-holder').removeClass('border-bottom-red');
+                    console.log('else check');
+                    console.log(checkValid);
                 }
             } else if (rules.toLowerCase() == "wordpressurl") {
                 var val = $(this).find('input').val();
@@ -182,11 +196,13 @@ $(document).ready(() => {
                     $(this).find('input').attr('placeholder', 'Enter valid URL to your wordpress, like: http(s)://your_website.com');
                     $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
                     checkValid = false;
+                    console.log('9');
                 } else if (ValidURL(val) == false) {
                     $(this).find('input').val('');
                     $(this).find('input').attr('placeholder', 'Enter valid URL to your wordpress, like: http(s)://your_website.com');
                     $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
                     checkValid = false;
+                    console.log('10');
                 } else {
                     $(this).find('input').removeClass('input-holder').removeClass('border-bottom-red');
                 }
@@ -203,6 +219,8 @@ $(document).ready(() => {
     }
 
     $('#btn-setting-app-dash').click(() => {
+
+        console.log(validateForm_setting_app());
         if (validateForm_setting_app() == true) {
             $('#loading').show();
             var obj = {};

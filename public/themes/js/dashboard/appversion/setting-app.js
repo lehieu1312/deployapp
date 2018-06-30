@@ -121,6 +121,7 @@ $(document).ready(() => {
                 $(this).find('input').addClass('input-holder').addClass('border-bottom-red');
                 checkValid = false;
                 console.log($(this));
+                console.log(require);
                 console.log('1');
             } else if (rules.toLowerCase() == "packageid") {
                 var value = $(this).find('input').val();

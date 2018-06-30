@@ -123,7 +123,7 @@ $(document).ready(() => {
                 console.log($(this));
                 console.log(require);
                 console.log(rules);
-                console.log($(this).find('input').value());
+                console.log($(this).find('input').val());
                 console.log('1');
             } else if (rules.toLowerCase() == "packageid") {
                 var value = $(this).find('input').val();

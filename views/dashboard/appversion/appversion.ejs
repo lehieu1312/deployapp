@@ -231,7 +231,7 @@
                                     </td>
                                     <td>
                                         <%if(setNumberVersion(appversions.inforAppversion[number].version) <= countversion){%>
-                                            <button class="btn-deploy" readonly>DEPLOYED</button>
+                                            <button class="btn-deploy" onclick="clickdeployapp('<%=appversions.idApp%>','<%=appversions.inforAppversion[number].version %>','<%=appuse.idApp%>');">DEPLOYED</button>
                                             <%}else{%>
                                                 <button class="btn-blue-deploy btn-deploy-app-dash" onclick="clickdeployapp('<%=appversions.idApp%>','<%=appversions.inforAppversion[number].version %>','<%=appuse.idApp%>');">DEPLOY</button>
                                                 <%}%>

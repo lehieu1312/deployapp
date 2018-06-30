@@ -24,7 +24,7 @@
     background-color: #F5F5F5;
 }
 
-.active-status{
+.active-status {
     color: rgb(0, 175, 238);
     background-color: #f5f5f5;
 }
@@ -117,6 +117,7 @@ table {
     padding-left: 10px;
 }
 
+
 /* .btn:hover {
     color: #fff;
 } */
@@ -130,6 +131,11 @@ table {
     border-radius: 3px;
     border: solid 1px rgb(0, 175, 238);
 }
+
+.btn-deploy:hover {
+    background-color: #FEFEFE;
+}
+
 
 /* #app-used-menuleft {
     color: white;
@@ -148,6 +154,7 @@ table {
 .btn-blue-deploy:hover {
     background: #0d89ed;
 }
+
 
 /* 
 #btn-deploy:hover {
@@ -257,6 +264,7 @@ table {
     border: none !important;
 }
 
+
 /* .pagination li a:hover{
     color: #666666!important;
 } */
@@ -314,6 +322,7 @@ table {
 input:focus {
     outline: none;
 }
+
 
 /* .daterangepicker {
     top: 240px !important;
@@ -595,11 +604,13 @@ textarea {
     position: absolute;
 }
 
+
 /* caret style */
 
 .caret {
     position: relative;
 }
+
 
 /* dropdown style */
 
@@ -926,10 +937,12 @@ textarea {
 .more-changelog:hover {
     color: #00afee !important;
 }
+
 .selectstatuspayment li {
     cursor: pointer;
 }
-#table-appversion .setarrow{
+
+#table-appversion .setarrow {
     padding: 3px;
     cursor: pointer;
 }

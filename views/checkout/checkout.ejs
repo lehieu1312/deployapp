@@ -6,377 +6,377 @@
             return "$" + a.toLocaleString('en');
         }
     %>
-    <div id="navigate-text">
-        <a class="colora" href="/dashboard">
-            <span>Home</span>
-        </a>
-        <span class="setarrownavigate">
-            <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
-        </span>
-        <span id="text-href">Checkout</span>
-    </div>
-    </div>
-    <div class="xcontent clsmenu">
-        <div id="title-detail" class="row row1">
-            <div class="content-title-detail has-feedback">
-                <h3 class="textmyapp">Checkout</h3>
-            </div>
+        <div id="navigate-text">
+            <a class="colora" href="/dashboard">
+                <span>Home</span>
+            </a>
+            <span class="setarrownavigate">
+                <img src="/themes/img/dashboard/iconarrowbreadcrumb.png">
+            </span>
+            <span id="text-href">Checkout</span>
         </div>
-        <div id="content-checkout">
-            <div class="col-sm-8">
-                <form id="form-checkout" onsubmit="return false">
-                    <div class="left-content-checkout">
-                        <div id="billing">
-                            <div class="col-sm-12 set-title-billing">
-                                <span>
-                                    <span class="status-tast-1">1</span> Billing address</span>
-                            </div>
-                            <div class="col-sm-6 ">
-                                <div class="form-group has-feedback">
-                                    <label class="control-label" for="inputSuccess2">First Name *</label>
-                                    <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-firstname" name="firstname" value="<%=user.firstname%>">
-                                    <span class="form-control-feedback" aria-hidden="true">
-                                        <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
-                                    </span>
+        </div>
+        <div class="xcontent clsmenu">
+            <div id="title-detail" class="row row1">
+                <div class="content-title-detail has-feedback">
+                    <h3 class="textmyapp">Checkout</h3>
+                </div>
+            </div>
+            <div id="content-checkout">
+                <div class="col-sm-8">
+                    <form id="form-checkout" onsubmit="return false">
+                        <div class="left-content-checkout">
+                            <div id="billing">
+                                <div class="col-sm-12 set-title-billing">
+                                    <span>
+                                        <span class="status-tast-1">1</span> Billing address</span>
                                 </div>
-                                <div class="form-group has-feedback">
-                                    <label class="control-label" for="inputSuccess2">Last Name *</label>
-                                    <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-lastname" name="lastname" value="<%=user.lastname%>">
-                                    <span class="form-control-feedback" aria-hidden="true">
-                                        <img class="seticoneye iconerr icon" id="iconerr2" src="" alt="">
-                                    </span>
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <label class="control-label" for="inputSuccess2">Company *</label>
-                                    <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-company" name="company">
-                                    <span class="form-control-feedback" aria-hidden="true">
-                                        <img class="seticoneye iconerr icon" id="iconerr3" src="" alt="">
-                                    </span>
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <label class="control-label" for="inputSuccess2">Address *</label>
-                                    <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-address" name="address" value="<%=user.address%>">
-                                    <span class="form-control-feedback" aria-hidden="true">
-                                        <img class="seticoneye iconerr icon" id="iconerr4" src="" alt="">
-                                    </span>
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <label class="control-label" for="inputSuccess2">City *</label>
-                                    <input autocomplete="off" type="text" name="checkout-city" id="checkout-city" class="resetinputlogin" placeholder="Please enter at least 6 characters">
-                                    <span class="form-control-feedback" aria-hidden="true">
-                                        <img class="seticoneye iconerr icon" id="iconerr5" src="" alt="">
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group has-feedback">
-                                    <label class="control-label" for="inputSuccess2">State *</label>
-                                    <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-state" name="state">
-                                    <span class="form-control-feedback" aria-hidden="true">
-                                        <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
-                                    </span>
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <label class="control-label" for="inputSuccess2">Zip/Postal *</label>
-                                    <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-zipcode" name="zipcode" value="<%=user.zipcode%>">
-                                    <span class="form-control-feedback" aria-hidden="true">
-                                        <img class="seticoneye iconerr icon" id="iconerr7" src="" alt="">
-                                    </span>
-                                </div>
-                                <div class="form-group has-feedback" id="checkout-country5">
-                                    <label class="control-label" for="inputSuccess2">Country *</label>
-                                    <option id="checkout-country" value="US" class="resetoption clickcountry">
-                                        United States
-                                    </option>
-                                    <span class="glyphicon glyphicon-triangle-bottom setarrowcountry clickcountry">
-                                        <img class="seticoneye iconerr" id="iconeye" src="/themes/img/login/iconarrow.png" alt="">
-                                    </span>
-                                    <div id="country1">
-                                        <option class="licountry" value="AF" class="init">Afghanistan</option>
-                                        <option class="licountry" value="AX">&Aring;land Islands</option>
-                                        <option class="licountry" value="AL">Albania</option>
-                                        <option class="licountry" value="DZ">Algeria</option>
-                                        <option class="licountry" value="AS">American Samoa</option>
-                                        <option class="licountry" value="AD">Andorra</option>
-                                        <option class="licountry" value="AO">Angola</option>
-                                        <option class="licountry" value="AI">Anguilla</option>
-                                        <option class="licountry" value="AQ">Antarctica</option>
-                                        <option class="licountry" value="AG">Antigua and Barbuda</option>
-                                        <option class="licountry" value="AR">Argentina</option>
-                                        <option class="licountry" value="AM">Armenia</option>
-                                        <option class="licountry" value="AW">Aruba</option>
-                                        <option class="licountry" value="AU">Australia</option>
-                                        <option class="licountry" value="AT">Austria</option>
-                                        <option class="licountry" value="AZ">Azerbaijan</option>
-                                        <option class="licountry" value="BS">Bahamas</option>
-                                        <option class="licountry" value="BH">Bahrain</option>
-                                        <option class="licountry" value="BD">Bangladesh</option>
-                                        <option class="licountry" value="BB">Barbados</option>
-                                        <option class="licountry" value="BY">Belarus</option>
-                                        <option class="licountry" value="BE">Belgium</option>
-                                        <option class="licountry" value="BZ">Belize</option>
-                                        <option class="licountry" value="BJ">Benin</option>
-                                        <option class="licountry" value="BM">Bermuda</option>
-                                        <option class="licountry" value="BT">Bhutan</option>
-                                        <option class="licountry" value="BO">Bolivia, Plurinational State of</option>
-                                        <option class="licountry" value="BA">Bosnia and Herzegovina</option>
-                                        <option class="licountry" value="BW">Botswana</option>
-                                        <option class="licountry" value="BV">Bouvet Island</option>
-                                        <option class="licountry" value="BR">Brazil</option>
-                                        <option class="licountry" value="IO">British Indian Ocean Territory</option>
-                                        <option class="licountry" value="BN">Brunei Darussalam</option>
-                                        <option class="licountry" value="BG">Bulgaria</option>
-                                        <option class="licountry" value="BF">Burkina Faso</option>
-                                        <option class="licountry" value="BI">Burundi</option>
-                                        <option class="licountry" value="KH">Cambodia</option>
-                                        <option class="licountry" value="CM">Cameroon</option>
-                                        <option class="licountry" value="CA">Canada</option>
-                                        <option class="licountry" value="CV">Cape Verde</option>
-                                        <option class="licountry" value="KY">Cayman Islands</option>
-                                        <option class="licountry" value="CF">Central African Republic</option>
-                                        <option class="licountry" value="TD">Chad</option>
-                                        <option class="licountry" value="CL">Chile</option>
-                                        <option class="licountry" value="CN">China</option>
-                                        <option class="licountry" value="CX">Christmas Island</option>
-                                        <option class="licountry" value="CC">Cocos (Keeling) Islands</option>
-                                        <option class="licountry" value="CO">Colombia</option>
-                                        <option class="licountry" value="KM">Comoros</option>
-                                        <option class="licountry" value="CG">Congo</option>
-                                        <option class="licountry" value="CD">Congo, the Democratic Republic of the</option>
-                                        <option class="licountry" value="CK">Cook Islands</option>
-                                        <option class="licountry" value="CR">Costa Rica</option>
-                                        <option class="licountry" value="CI">C&ocirc;te d'Ivoire</option>
-                                        <option class="licountry" value="HR">Croatia</option>
-                                        <option class="licountry" value="CU">Cuba</option>
-                                        <option class="licountry" value="CY">Cyprus</option>
-                                        <option class="licountry" value="CZ">Czech Republic</option>
-                                        <option class="licountry" value="DK">Denmark</option>
-                                        <option class="licountry" value="DJ">Djibouti</option>
-                                        <option class="licountry" value="DM">Dominica</option>
-                                        <option class="licountry" value="DO">Dominican Republic</option>
-                                        <option class="licountry" value="EC">Ecuador</option>
-                                        <option class="licountry" value="EG">Egypt</option>
-                                        <option class="licountry" value="SV">El Salvador</option>
-                                        <option class="licountry" value="GQ">Equatorial Guinea</option>
-                                        <option class="licountry" value="ER">Eritrea</option>
-                                        <option class="licountry" value="EE">Estonia</option>
-                                        <option class="licountry" value="ET">Ethiopia</option>
-                                        <option class="licountry" value="FK">Falkland Islands (Malvinas)</option>
-                                        <option class="licountry" value="FO">Faroe Islands</option>
-                                        <option class="licountry" value="FJ">Fiji</option>
-                                        <option class="licountry" value="FI">Finland</option>
-                                        <option class="licountry" value="FR">France</option>
-                                        <option class="licountry" value="GF">French Guiana</option>
-                                        <option class="licountry" value="PF">French Polynesia</option>
-                                        <option class="licountry" value="TF">French Southern Territories</option>
-                                        <option class="licountry" value="GA">Gabon</option>
-                                        <option class="licountry" value="GM">Gambia</option>
-                                        <option class="licountry" value="GE">Georgia</option>
-                                        <option class="licountry" value="DE">Germany</option>
-                                        <option class="licountry" value="GH">Ghana</option>
-                                        <option class="licountry" value="GI">Gibraltar</option>
-                                        <option class="licountry" value="GR">Greece</option>
-                                        <option class="licountry" value="GL">Greenland</option>
-                                        <option class="licountry" value="GD">Grenada</option>
-                                        <option class="licountry" value="GP">Guadeloupe</option>
-                                        <option class="licountry" value="GU">Guam</option>
-                                        <option class="licountry" value="GT">Guatemala</option>
-                                        <option class="licountry" value="GG">Guernsey</option>
-                                        <option class="licountry" value="GN">Guinea</option>
-                                        <option class="licountry" value="GW">Guinea-Bissau</option>
-                                        <option class="licountry" value="GY">Guyana</option>
-                                        <option class="licountry" value="HT">Haiti</option>
-                                        <option class="licountry" value="HM">Heard Island and McDonald Islands</option>
-                                        <option class="licountry" value="VA">Holy See (Vatican City State)</option>
-                                        <option class="licountry" value="HN">Honduras</option>
-                                        <option class="licountry" value="HK">Hong Kong</option>
-                                        <option class="licountry" value="HU">Hungary</option>
-                                        <option class="licountry" value="IS">Iceland</option>
-                                        <option class="licountry" value="IN">India</option>
-                                        <option class="licountry" value="ID">Indonesia</option>
-                                        <option class="licountry" value="IR">Iran, Islamic Republic of</option>
-                                        <option class="licountry" value="IQ">Iraq</option>
-                                        <option class="licountry" value="IE">Ireland</option>
-                                        <option class="licountry" value="IM">Isle of Man</option>
-                                        <option class="licountry" value="IL">Israel</option>
-                                        <option class="licountry" value="IT">Italy</option>
-                                        <option class="licountry" value="JM">Jamaica</option>
-                                        <option class="licountry" value="JP">Japan</option>
-                                        <option class="licountry" value="JE">Jersey</option>
-                                        <option class="licountry" value="JO">Jordan</option>
-                                        <option class="licountry" value="KZ">Kazakhstan</option>
-                                        <option class="licountry" value="KE">Kenya</option>
-                                        <option class="licountry" value="KI">Kiribati</option>
-                                        <option class="licountry" value="KP">Korea, Democratic People's Republic of</option>
-                                        <option class="licountry" value="KR">Korea, Republic of</option>
-                                        <option class="licountry" value="KW">Kuwait</option>
-                                        <option class="licountry" value="KG">Kyrgyzstan</option>
-                                        <option class="licountry" value="LA">Lao People's Democratic Republic</option>
-                                        <option class="licountry" value="LV">Latvia</option>
-                                        <option class="licountry" value="LB">Lebanon</option>
-                                        <option class="licountry" value="LS">Lesotho</option>
-                                        <option class="licountry" value="LR">Liberia</option>
-                                        <option class="licountry" value="LY">Libyan Arab Jamahiriya</option>
-                                        <option class="licountry" value="LI">Liechtenstein</option>
-                                        <option class="licountry" value="LT">Lithuania</option>
-                                        <option class="licountry" value="LU">Luxembourg</option>
-                                        <option class="licountry" value="MO">Macao</option>
-                                        <option class="licountry" value="MK">Macedonia, the former Yugoslav Republic of</option>
-                                        <option class="licountry" value="MG">Madagascar</option>
-                                        <option class="licountry" value="MW">Malawi</option>
-                                        <option class="licountry" value="MY">Malaysia</option>
-                                        <option class="licountry" value="MV">Maldives</option>
-                                        <option class="licountry" value="ML">Mali</option>
-                                        <option class="licountry" value="MT">Malta</option>
-                                        <option class="licountry" value="MH">Marshall Islands</option>
-                                        <option class="licountry" value="MQ">Martinique</option>
-                                        <option class="licountry" value="MR">Mauritania</option>
-                                        <option class="licountry" value="MU">Mauritius</option>
-                                        <option class="licountry" value="YT">Mayotte</option>
-                                        <option class="licountry" value="MX">Mexico</option>
-                                        <option class="licountry" value="FM">Micronesia, Federated States of</option>
-                                        <option class="licountry" value="MD">Moldova, Republic of</option>
-                                        <option class="licountry" value="MC">Monaco</option>
-                                        <option class="licountry" value="MN">Mongolia</option>
-                                        <option class="licountry" value="ME">Montenegro</option>
-                                        <option class="licountry" value="MS">Montserrat</option>
-                                        <option class="licountry" value="MA">Morocco</option>
-                                        <option class="licountry" value="MZ">Mozambique</option>
-                                        <option class="licountry" value="MM">Myanmar</option>
-                                        <option class="licountry" value="NA">Namibia</option>
-                                        <option class="licountry" value="NR">Nauru</option>
-                                        <option class="licountry" value="NP">Nepal</option>
-                                        <option class="licountry" value="NL">Netherlands</option>
-                                        <option class="licountry" value="AN">Netherlands Antilles</option>
-                                        <option class="licountry" value="NC">New Caledonia</option>
-                                        <option class="licountry" value="NZ">New Zealand</option>
-                                        <option class="licountry" value="NI">Nicaragua</option>
-                                        <option class="licountry" value="NE">Niger</option>
-                                        <option class="licountry" value="NG">Nigeria</option>
-                                        <option class="licountry" value="NU">Niue</option>
-                                        <option class="licountry" value="NF">Norfolk Island</option>
-                                        <option class="licountry" value="MP">Northern Mariana Islands</option>
-                                        <option class="licountry" value="NO">Norway</option>
-                                        <option class="licountry" value="OM">Oman</option>
-                                        <option class="licountry" value="PK">Pakistan</option>
-                                        <option class="licountry" value="PW">Palau</option>
-                                        <option class="licountry" value="PS">Palestinian Territory, Occupied</option>
-                                        <option class="licountry" value="PA">Panama</option>
-                                        <option class="licountry" value="PG">Papua New Guinea</option>
-                                        <option class="licountry" value="PY">Paraguay</option>
-                                        <option class="licountry" value="PE">Peru</option>
-                                        <option class="licountry" value="PH">Philippines</option>
-                                        <option class="licountry" value="PN">Pitcairn</option>
-                                        <option class="licountry" value="PL">Poland</option>
-                                        <option class="licountry" value="PT">Portugal</option>
-                                        <option class="licountry" value="PR">Puerto Rico</option>
-                                        <option class="licountry" value="QA">Qatar</option>
-                                        <option class="licountry" value="RE">R&eacute;union</option>
-                                        <option class="licountry" value="RO">Romania</option>
-                                        <option class="licountry" value="RU">Russian Federation</option>
-                                        <option class="licountry" value="RW">Rwanda</option>
-                                        <option class="licountry" value="BL">Saint Barth&eacute;lemy</option>
-                                        <option class="licountry" value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
-                                        <option class="licountry" value="KN">Saint Kitts and Nevis</option>
-                                        <option class="licountry" value="LC">Saint Lucia</option>
-                                        <option class="licountry" value="MF">Saint Martin (French part)</option>
-                                        <option class="licountry" value="PM">Saint Pierre and Miquelon</option>
-                                        <option class="licountry" value="VC">Saint Vincent and the Grenadines</option>
-                                        <option class="licountry" value="WS">Samoa</option>
-                                        <option class="licountry" value="SM">San Marino</option>
-                                        <option class="licountry" value="ST">Sao Tome and Principe</option>
-                                        <option class="licountry" value="SA">Saudi Arabia</option>
-                                        <option class="licountry" value="SN">Senegal</option>
-                                        <option class="licountry" value="RS">Serbia</option>
-                                        <option class="licountry" value="SC">Seychelles</option>
-                                        <option class="licountry" value="SL">Sierra Leone</option>
-                                        <option class="licountry" value="SG">Singapore</option>
-                                        <option class="licountry" value="SK">Slovakia</option>
-                                        <option class="licountry" value="SI">Slovenia</option>
-                                        <option class="licountry" value="SB">Solomon Islands</option>
-                                        <option class="licountry" value="SO">Somalia</option>
-                                        <option class="licountry" value="ZA">South Africa</option>
-                                        <option class="licountry" value="GS">South Georgia and the South Sandwich Islands</option>
-                                        <option class="licountry" value="ES">Spain</option>
-                                        <option class="licountry" value="LK">Sri Lanka</option>
-                                        <option class="licountry" value="SD">Sudan</option>
-                                        <option class="licountry" value="SR">Suriname</option>
-                                        <option class="licountry" value="SJ">Svalbard and Jan Mayen</option>
-                                        <option class="licountry" value="SZ">Swaziland</option>
-                                        <option class="licountry" value="SE">Sweden</option>
-                                        <option class="licountry" value="CH">Switzerland</option>
-                                        <option class="licountry" value="SY">Syrian Arab Republic</option>
-                                        <option class="licountry" value="TW">Taiwan, Province of China</option>
-                                        <option class="licountry" value="TJ">Tajikistan</option>
-                                        <option class="licountry" value="TZ">Tanzania, United Republic of</option>
-                                        <option class="licountry" value="TH">Thailand</option>
-                                        <option class="licountry" value="TL">Timor-Leste</option>
-                                        <option class="licountry" value="TG">Togo</option>
-                                        <option class="licountry" value="TK">Tokelau</option>
-                                        <option class="licountry" value="TO">Tonga</option>
-                                        <option class="licountry" value="TT">Trinidad and Tobago</option>
-                                        <option class="licountry" value="TN">Tunisia</option>
-                                        <option class="licountry" value="TR">Turkey</option>
-                                        <option class="licountry" value="TM">Turkmenistan</option>
-                                        <option class="licountry" value="TC">Turks and Caicos Islands</option>
-                                        <option class="licountry" value="TV">Tuvalu</option>
-                                        <option class="licountry" value="UG">Uganda</option>
-                                        <option class="licountry" value="UA">Ukraine</option>
-                                        <option class="licountry" value="AE">United Arab Emirates</option>
-                                        <option class="licountry" value="GB">United Kingdom</option>
-                                        <option class="licountry" value="US">United States</option>
-                                        <option class="licountry" value="UM">United States Minor Outlying Islands</option>
-                                        <option class="licountry" value="UY">Uruguay</option>
-                                        <option class="licountry" value="UZ">Uzbekistan</option>
-                                        <option class="licountry" value="VU">Vanuatu</option>
-                                        <option class="licountry" value="VE">Venezuela, Bolivarian Republic of</option>
-                                        <option class="licountry" value="VN">Viet Nam</option>
-                                        <option class="licountry" value="VG">Virgin Islands, British</option>
-                                        <option class="licountry" value="VI">Virgin Islands, U.S.</option>
-                                        <option class="licountry" value="WF">Wallis and Futuna</option>
-                                        <option class="licountry" value="EH">Western Sahara</option>
-                                        <option class="licountry" value="YE">Yemen</option>
-                                        <option class="licountry" value="ZM">Zambia</option>
-                                        <option class="licountry" value="ZW">Zimbabwe</option>
+                                <div class="col-sm-6 ">
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label" for="inputSuccess2">First Name *</label>
+                                        <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-firstname" name="firstname" value="<%=user.firstname%>">
+                                        <span class="form-control-feedback" aria-hidden="true">
+                                            <img class="seticoneye iconerr icon" id="iconerr1" src="" alt="">
+                                        </span>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label" for="inputSuccess2">Last Name *</label>
+                                        <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-lastname" name="lastname" value="<%=user.lastname%>">
+                                        <span class="form-control-feedback" aria-hidden="true">
+                                            <img class="seticoneye iconerr icon" id="iconerr2" src="" alt="">
+                                        </span>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label" for="inputSuccess2">Company *</label>
+                                        <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-company" name="company">
+                                        <span class="form-control-feedback" aria-hidden="true">
+                                            <img class="seticoneye iconerr icon" id="iconerr3" src="" alt="">
+                                        </span>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label" for="inputSuccess2">Address *</label>
+                                        <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-address" name="address" value="<%=user.address%>">
+                                        <span class="form-control-feedback" aria-hidden="true">
+                                            <img class="seticoneye iconerr icon" id="iconerr4" src="" alt="">
+                                        </span>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label" for="inputSuccess2">City *</label>
+                                        <input autocomplete="off" type="text" name="checkout-city" id="checkout-city" class="resetinputlogin" placeholder="Please enter at least 6 characters">
+                                        <span class="form-control-feedback" aria-hidden="true">
+                                            <img class="seticoneye iconerr icon" id="iconerr5" src="" alt="">
+                                        </span>
                                     </div>
                                 </div>
-                                <div class="form-group has-feedback">
-                                    <label class="control-label" for="inputSuccess2">Mobiphone *</label>
-                                    <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-mobiphone" name="mobiphone">
-                                    <span class="form-control-feedback" aria-hidden="true">
-                                        <img class="seticoneye iconerr icon" id="iconerr8" src="" alt="">
-                                    </span>
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <label class="control-label" for="inputSuccess2">Email Address *</label>
-                                    <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-email" value="<%=user.email%>" name="mail">
-                                    <span autocomplete="off" class="form-control-feedback" aria-hidden="true">
-                                        <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
-                                    </span>
-                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label" for="inputSuccess2">State *</label>
+                                        <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-state" name="state">
+                                        <span class="form-control-feedback" aria-hidden="true">
+                                            <img class="seticoneye iconerr icon" id="iconerr6" src="" alt="">
+                                        </span>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label" for="inputSuccess2">Zip/Postal *</label>
+                                        <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-zipcode" name="zipcode" value="<%=user.zipcode%>">
+                                        <span class="form-control-feedback" aria-hidden="true">
+                                            <img class="seticoneye iconerr icon" id="iconerr7" src="" alt="">
+                                        </span>
+                                    </div>
+                                    <div class="form-group has-feedback" id="checkout-country5">
+                                        <label class="control-label" for="inputSuccess2">Country *</label>
+                                        <option id="checkout-country" value="US" class="resetoption clickcountry">
+                                            United States
+                                        </option>
+                                        <span class="glyphicon glyphicon-triangle-bottom setarrowcountry clickcountry">
+                                            <img class="seticoneye iconerr" id="iconeye" src="/themes/img/login/iconarrow.png" alt="">
+                                        </span>
+                                        <div id="country1">
+                                            <li class="licountry" value="AF" class="init">Afghanistan</li>
+                                            <li class="licountry" value="AX">&Aring;land Islands</li>
+                                            <li class="licountry" value="AL">Albania</li>
+                                            <li class="licountry" value="DZ">Algeria</li>
+                                            <li class="licountry" value="AS">American Samoa</li>
+                                            <li class="licountry" value="AD">Andorra</li>
+                                            <li class="licountry" value="AO">Angola</li>
+                                            <li class="licountry" value="AI">Anguilla</li>
+                                            <li class="licountry" value="AQ">Antarctica</li>
+                                            <li class="licountry" value="AG">Antigua and Barbuda</li>
+                                            <li class="licountry" value="AR">Argentina</li>
+                                            <li class="licountry" value="AM">Armenia</li>
+                                            <li class="licountry" value="AW">Aruba</li>
+                                            <li class="licountry" value="AU">Australia</li>
+                                            <li class="licountry" value="AT">Austria</li>
+                                            <li class="licountry" value="AZ">Azerbaijan</li>
+                                            <li class="licountry" value="BS">Bahamas</li>
+                                            <li class="licountry" value="BH">Bahrain</li>
+                                            <li class="licountry" value="BD">Bangladesh</li>
+                                            <li class="licountry" value="BB">Barbados</li>
+                                            <li class="licountry" value="BY">Belarus</li>
+                                            <li class="licountry" value="BE">Belgium</li>
+                                            <li class="licountry" value="BZ">Belize</li>
+                                            <li class="licountry" value="BJ">Benin</li>
+                                            <li class="licountry" value="BM">Bermuda</li>
+                                            <li class="licountry" value="BT">Bhutan</li>
+                                            <li class="licountry" value="BO">Bolivia, Plurinational State of</li>
+                                            <li class="licountry" value="BA">Bosnia and Herzegovina</li>
+                                            <li class="licountry" value="BW">Botswana</li>
+                                            <li class="licountry" value="BV">Bouvet Island</li>
+                                            <li class="licountry" value="BR">Brazil</li>
+                                            <li class="licountry" value="IO">British Indian Ocean Territory</li>
+                                            <li class="licountry" value="BN">Brunei Darussalam</li>
+                                            <li class="licountry" value="BG">Bulgaria</li>
+                                            <li class="licountry" value="BF">Burkina Faso</li>
+                                            <li class="licountry" value="BI">Burundi</li>
+                                            <li class="licountry" value="KH">Cambodia</li>
+                                            <li class="licountry" value="CM">Cameroon</li>
+                                            <li class="licountry" value="CA">Canada</li>
+                                            <li class="licountry" value="CV">Cape Verde</li>
+                                            <li class="licountry" value="KY">Cayman Islands</li>
+                                            <li class="licountry" value="CF">Central African Republic</li>
+                                            <li class="licountry" value="TD">Chad</li>
+                                            <li class="licountry" value="CL">Chile</li>
+                                            <li class="licountry" value="CN">China</li>
+                                            <li class="licountry" value="CX">Christmas Island</li>
+                                            <li class="licountry" value="CC">Cocos (Keeling) Islands</li>
+                                            <li class="licountry" value="CO">Colombia</li>
+                                            <li class="licountry" value="KM">Comoros</li>
+                                            <li class="licountry" value="CG">Congo</li>
+                                            <li class="licountry" value="CD">Congo, the Democratic Republic of the</li>
+                                            <li class="licountry" value="CK">Cook Islands</li>
+                                            <li class="licountry" value="CR">Costa Rica</li>
+                                            <li class="licountry" value="CI">C&ocirc;te d'Ivoire</li>
+                                            <li class="licountry" value="HR">Croatia</li>
+                                            <li class="licountry" value="CU">Cuba</li>
+                                            <li class="licountry" value="CY">Cyprus</li>
+                                            <li class="licountry" value="CZ">Czech Republic</li>
+                                            <li class="licountry" value="DK">Denmark</li>
+                                            <li class="licountry" value="DJ">Djibouti</li>
+                                            <li class="licountry" value="DM">Dominica</li>
+                                            <li class="licountry" value="DO">Dominican Republic</li>
+                                            <li class="licountry" value="EC">Ecuador</li>
+                                            <li class="licountry" value="EG">Egypt</li>
+                                            <li class="licountry" value="SV">El Salvador</li>
+                                            <li class="licountry" value="GQ">Equatorial Guinea</li>
+                                            <li class="licountry" value="ER">Eritrea</li>
+                                            <li class="licountry" value="EE">Estonia</li>
+                                            <li class="licountry" value="ET">Ethiopia</li>
+                                            <li class="licountry" value="FK">Falkland Islands (Malvinas)</li>
+                                            <li class="licountry" value="FO">Faroe Islands</li>
+                                            <li class="licountry" value="FJ">Fiji</li>
+                                            <li class="licountry" value="FI">Finland</li>
+                                            <li class="licountry" value="FR">France</li>
+                                            <li class="licountry" value="GF">French Guiana</li>
+                                            <li class="licountry" value="PF">French Polynesia</li>
+                                            <li class="licountry" value="TF">French Southern Territories</li>
+                                            <li class="licountry" value="GA">Gabon</li>
+                                            <li class="licountry" value="GM">Gambia</li>
+                                            <li class="licountry" value="GE">Georgia</li>
+                                            <li class="licountry" value="DE">Germany</li>
+                                            <li class="licountry" value="GH">Ghana</li>
+                                            <li class="licountry" value="GI">Gibraltar</li>
+                                            <li class="licountry" value="GR">Greece</li>
+                                            <li class="licountry" value="GL">Greenland</li>
+                                            <li class="licountry" value="GD">Grenada</li>
+                                            <li class="licountry" value="GP">Guadeloupe</li>
+                                            <li class="licountry" value="GU">Guam</li>
+                                            <li class="licountry" value="GT">Guatemala</li>
+                                            <li class="licountry" value="GG">Guernsey</li>
+                                            <li class="licountry" value="GN">Guinea</li>
+                                            <li class="licountry" value="GW">Guinea-Bissau</li>
+                                            <li class="licountry" value="GY">Guyana</li>
+                                            <li class="licountry" value="HT">Haiti</li>
+                                            <li class="licountry" value="HM">Heard Island and McDonald Islands</li>
+                                            <li class="licountry" value="VA">Holy See (Vatican City State)</li>
+                                            <li class="licountry" value="HN">Honduras</li>
+                                            <li class="licountry" value="HK">Hong Kong</li>
+                                            <li class="licountry" value="HU">Hungary</li>
+                                            <li class="licountry" value="IS">Iceland</li>
+                                            <li class="licountry" value="IN">India</li>
+                                            <li class="licountry" value="ID">Indonesia</li>
+                                            <li class="licountry" value="IR">Iran, Islamic Republic of</li>
+                                            <li class="licountry" value="IQ">Iraq</li>
+                                            <li class="licountry" value="IE">Ireland</li>
+                                            <li class="licountry" value="IM">Isle of Man</li>
+                                            <li class="licountry" value="IL">Israel</li>
+                                            <li class="licountry" value="IT">Italy</li>
+                                            <li class="licountry" value="JM">Jamaica</li>
+                                            <li class="licountry" value="JP">Japan</li>
+                                            <li class="licountry" value="JE">Jersey</li>
+                                            <li class="licountry" value="JO">Jordan</li>
+                                            <li class="licountry" value="KZ">Kazakhstan</li>
+                                            <li class="licountry" value="KE">Kenya</li>
+                                            <li class="licountry" value="KI">Kiribati</li>
+                                            <li class="licountry" value="KP">Korea, Democratic People's Republic of</li>
+                                            <li class="licountry" value="KR">Korea, Republic of</li>
+                                            <li class="licountry" value="KW">Kuwait</li>
+                                            <li class="licountry" value="KG">Kyrgyzstan</li>
+                                            <li class="licountry" value="LA">Lao People's Democratic Republic</li>
+                                            <li class="licountry" value="LV">Latvia</li>
+                                            <li class="licountry" value="LB">Lebanon</li>
+                                            <li class="licountry" value="LS">Lesotho</li>
+                                            <li class="licountry" value="LR">Liberia</li>
+                                            <li class="licountry" value="LY">Libyan Arab Jamahiriya</li>
+                                            <li class="licountry" value="LI">Liechtenstein</li>
+                                            <li class="licountry" value="LT">Lithuania</li>
+                                            <li class="licountry" value="LU">Luxembourg</li>
+                                            <li class="licountry" value="MO">Macao</li>
+                                            <li class="licountry" value="MK">Macedonia, the former Yugoslav Republic of</li>
+                                            <li class="licountry" value="MG">Madagascar</li>
+                                            <li class="licountry" value="MW">Malawi</li>
+                                            <li class="licountry" value="MY">Malaysia</li>
+                                            <li class="licountry" value="MV">Maldives</li>
+                                            <li class="licountry" value="ML">Mali</li>
+                                            <li class="licountry" value="MT">Malta</li>
+                                            <li class="licountry" value="MH">Marshall Islands</li>
+                                            <li class="licountry" value="MQ">Martinique</li>
+                                            <li class="licountry" value="MR">Mauritania</li>
+                                            <li class="licountry" value="MU">Mauritius</li>
+                                            <li class="licountry" value="YT">Mayotte</li>
+                                            <li class="licountry" value="MX">Mexico</li>
+                                            <li class="licountry" value="FM">Micronesia, Federated States of</li>
+                                            <li class="licountry" value="MD">Moldova, Republic of</li>
+                                            <li class="licountry" value="MC">Monaco</li>
+                                            <li class="licountry" value="MN">Mongolia</li>
+                                            <li class="licountry" value="ME">Montenegro</li>
+                                            <li class="licountry" value="MS">Montserrat</li>
+                                            <li class="licountry" value="MA">Morocco</li>
+                                            <li class="licountry" value="MZ">Mozambique</li>
+                                            <li class="licountry" value="MM">Myanmar</li>
+                                            <li class="licountry" value="NA">Namibia</li>
+                                            <li class="licountry" value="NR">Nauru</li>
+                                            <li class="licountry" value="NP">Nepal</li>
+                                            <li class="licountry" value="NL">Netherlands</li>
+                                            <li class="licountry" value="AN">Netherlands Antilles</li>
+                                            <li class="licountry" value="NC">New Caledonia</li>
+                                            <li class="licountry" value="NZ">New Zealand</li>
+                                            <li class="licountry" value="NI">Nicaragua</li>
+                                            <li class="licountry" value="NE">Niger</li>
+                                            <li class="licountry" value="NG">Nigeria</li>
+                                            <li class="licountry" value="NU">Niue</li>
+                                            <li class="licountry" value="NF">Norfolk Island</li>
+                                            <li class="licountry" value="MP">Northern Mariana Islands</li>
+                                            <li class="licountry" value="NO">Norway</li>
+                                            <li class="licountry" value="OM">Oman</li>
+                                            <li class="licountry" value="PK">Pakistan</li>
+                                            <li class="licountry" value="PW">Palau</li>
+                                            <li class="licountry" value="PS">Palestinian Territory, Occupied</li>
+                                            <li class="licountry" value="PA">Panama</li>
+                                            <li class="licountry" value="PG">Papua New Guinea</li>
+                                            <li class="licountry" value="PY">Paraguay</li>
+                                            <li class="licountry" value="PE">Peru</li>
+                                            <li class="licountry" value="PH">Philippines</li>
+                                            <li class="licountry" value="PN">Pitcairn</li>
+                                            <li class="licountry" value="PL">Poland</li>
+                                            <li class="licountry" value="PT">Portugal</li>
+                                            <li class="licountry" value="PR">Puerto Rico</li>
+                                            <li class="licountry" value="QA">Qatar</li>
+                                            <li class="licountry" value="RE">R&eacute;union</li>
+                                            <li class="licountry" value="RO">Romania</li>
+                                            <li class="licountry" value="RU">Russian Federation</li>
+                                            <li class="licountry" value="RW">Rwanda</li>
+                                            <li class="licountry" value="BL">Saint Barth&eacute;lemy</li>
+                                            <li class="licountry" value="SH">Saint Helena, Ascension and Tristan da Cunha</li>
+                                            <li class="licountry" value="KN">Saint Kitts and Nevis</li>
+                                            <li class="licountry" value="LC">Saint Lucia</li>
+                                            <li class="licountry" value="MF">Saint Martin (French part)</li>
+                                            <li class="licountry" value="PM">Saint Pierre and Miquelon</li>
+                                            <li class="licountry" value="VC">Saint Vincent and the Grenadines</li>
+                                            <li class="licountry" value="WS">Samoa</li>
+                                            <li class="licountry" value="SM">San Marino</li>
+                                            <li class="licountry" value="ST">Sao Tome and Principe</li>
+                                            <li class="licountry" value="SA">Saudi Arabia</li>
+                                            <li class="licountry" value="SN">Senegal</li>
+                                            <li class="licountry" value="RS">Serbia</li>
+                                            <li class="licountry" value="SC">Seychelles</li>
+                                            <li class="licountry" value="SL">Sierra Leone</li>
+                                            <li class="licountry" value="SG">Singapore</li>
+                                            <li class="licountry" value="SK">Slovakia</li>
+                                            <li class="licountry" value="SI">Slovenia</li>
+                                            <li class="licountry" value="SB">Solomon Islands</li>
+                                            <li class="licountry" value="SO">Somalia</li>
+                                            <li class="licountry" value="ZA">South Africa</li>
+                                            <li class="licountry" value="GS">South Georgia and the South Sandwich Islands</li>
+                                            <li class="licountry" value="ES">Spain</li>
+                                            <li class="licountry" value="LK">Sri Lanka</li>
+                                            <li class="licountry" value="SD">Sudan</li>
+                                            <li class="licountry" value="SR">Suriname</li>
+                                            <li class="licountry" value="SJ">Svalbard and Jan Mayen</li>
+                                            <li class="licountry" value="SZ">Swaziland</li>
+                                            <li class="licountry" value="SE">Sweden</li>
+                                            <li class="licountry" value="CH">Switzerland</li>
+                                            <li class="licountry" value="SY">Syrian Arab Republic</li>
+                                            <li class="licountry" value="TW">Taiwan, Province of China</li>
+                                            <li class="licountry" value="TJ">Tajikistan</li>
+                                            <li class="licountry" value="TZ">Tanzania, United Republic of</li>
+                                            <li class="licountry" value="TH">Thailand</li>
+                                            <li class="licountry" value="TL">Timor-Leste</li>
+                                            <li class="licountry" value="TG">Togo</li>
+                                            <li class="licountry" value="TK">Tokelau</li>
+                                            <li class="licountry" value="TO">Tonga</li>
+                                            <li class="licountry" value="TT">Trinidad and Tobago</li>
+                                            <li class="licountry" value="TN">Tunisia</li>
+                                            <li class="licountry" value="TR">Turkey</li>
+                                            <li class="licountry" value="TM">Turkmenistan</li>
+                                            <li class="licountry" value="TC">Turks and Caicos Islands</li>
+                                            <li class="licountry" value="TV">Tuvalu</li>
+                                            <li class="licountry" value="UG">Uganda</li>
+                                            <li class="licountry" value="UA">Ukraine</li>
+                                            <li class="licountry" value="AE">United Arab Emirates</li>
+                                            <li class="licountry" value="GB">United Kingdom</li>
+                                            <li class="licountry" value="US">United States</li>
+                                            <li class="licountry" value="UM">United States Minor Outlying Islands</li>
+                                            <li class="licountry" value="UY">Uruguay</li>
+                                            <li class="licountry" value="UZ">Uzbekistan</li>
+                                            <li class="licountry" value="VU">Vanuatu</li>
+                                            <li class="licountry" value="VE">Venezuela, Bolivarian Republic of</li>
+                                            <li class="licountry" value="VN">Viet Nam</li>
+                                            <li class="licountry" value="VG">Virgin Islands, British</li>
+                                            <li class="licountry" value="VI">Virgin Islands, U.S.</li>
+                                            <li class="licountry" value="WF">Wallis and Futuna</li>
+                                            <li class="licountry" value="EH">Western Sahara</li>
+                                            <li class="licountry" value="YE">Yemen</li>
+                                            <li class="licountry" value="ZM">Zambia</li>
+                                            <li class="licountry" value="ZW">Zimbabwe</li>
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label" for="inputSuccess2">Mobiphone *</label>
+                                        <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-mobiphone" name="mobiphone">
+                                        <span class="form-control-feedback" aria-hidden="true">
+                                            <img class="seticoneye iconerr icon" id="iconerr8" src="" alt="">
+                                        </span>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label class="control-label" for="inputSuccess2">Email Address *</label>
+                                        <input autocomplete="off" type="text" class="resetinputlogin" id="checkout-email" value="<%=user.email%>" name="mail">
+                                        <span autocomplete="off" class="form-control-feedback" aria-hidden="true">
+                                            <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
+                                        </span>
+                                    </div>
 
+                                </div>
                             </div>
-                        </div>
 
-                        <div id="payment">
-                            <div class="col-sm-12 set-title-payment">
-                                <span>
-                                    <span class="status-tast-1">2</span> Payment Method</span>
-                            </div>
-                            <div class="item-select-payment">
-                                <div class="col-sm-10">
-                                    <label class="container-radio-custom">Paypal
-                                        <br>
-                                        <span class="set-text-description">Safe payment online. Credit card needed. Paypal account is not necessary</span>
-                                        <input checked type="radio" name="notiradio" value="1">
-                                        <span class="checkmark"></span>
-                                    </label>
+                            <div id="payment">
+                                <div class="col-sm-12 set-title-payment">
+                                    <span>
+                                        <span class="status-tast-1">2</span> Payment Method</span>
                                 </div>
-                                <div class="col-sm-2">
-                                    <img src="/themes/img/checkout/iconpaypal.png">
+                                <div class="item-select-payment">
+                                    <div class="col-sm-10">
+                                        <label class="container-radio-custom">Paypal
+                                            <br>
+                                            <span class="set-text-description">Safe payment online. Credit card needed. Paypal account is not necessary</span>
+                                            <input checked type="radio" name="notiradio" value="1">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <img src="/themes/img/checkout/iconpaypal.png">
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- <div class="item-select-payment">
+                                <!-- <div class="item-select-payment">
                             <div id="payment-credit-card" class="col-sm-9">
                                 <label class="container-radio-custom">Credit Card
                                     <br>
@@ -393,7 +393,7 @@
                                 <img src="/themes/img/checkout/iconcard3.png" alt="icon card">
                             </div>
                         </div> -->
-                            <!-- <div class="col-sm-12 div-title-payment">
+                                <!-- <div class="col-sm-12 div-title-payment">
                             <span class="set-text-title-payment"> CARD DETAILS:</span>
                         </div>
                         <div id="paypal-detail">
@@ -457,94 +457,98 @@
                                 </div>
                             </div>
                         </div> -->
+                            </div>
+                            <button type="submit" class="btn-blue-deploy btn-complate-checkout">Complete Checkout</button>
                         </div>
-                        <button type="submit" class="btn-blue-deploy btn-complate-checkout">Complete Checkout</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-sm-4">
-                <div class="right-content-checkout">
-                    <div class="header-you-order">
-                        <span>Your Cart</span>
-                    </div>
-                    <div class="content-modal-cart">
-                        <% var tong = 0; %>
-                            <%for(let i =0; i< cart.length;i++){%>
-                                <% tong = tong + cart[i].cart.price*cart[i].count%>
-                                    <div class="item-product-in-cart">
-                                        <div class="left-content-product-in-cart">
-                                            <img src="/themes/img/appdashboard/<%=cart[i].cart.image%>">
+                    </form>
+                </div>
+                <div class="col-sm-4">
+                    <div class="right-content-checkout">
+                        <div class="header-you-order">
+                            <span>Your Cart</span>
+                        </div>
+                        <div class="content-modal-cart">
+                            <% var tong = 0; %>
+                                <%for(let i =0; i< cart.length;i++){%>
+                                    <% tong = tong + cart[i].cart.price*cart[i].count%>
+                                        <div class="item-product-in-cart">
+                                            <div class="left-content-product-in-cart">
+                                                <img src="/themes/img/appdashboard/<%=cart[i].cart.image%>">
+                                            </div>
+                                            <div class="right-content-product-in-cart">
+                                                <span>
+                                                    <%=cart[i].cart.nameApp%>
+                                                </span>
+                                                <br>
+                                                <span>
+                                                    <input hidden class="idApp-hidden" value="<%=cart[i].cart.idApp%>">
+                                                    <input hidden class="price-hidden" value="<%=cart[i].cart.price%>">
+                                                    <%="$" + cart[i].cart.price%>
+                                                </span>
+                                                <span class="set-text-olde-price">
+                                                    <%="$" + cart[i].cart.cost%>
+                                                </span>
+                                            </div>
+                                            <div class="border-add-product">
+                                                <div class="set-btn-cart float-left reduce-product">
+                                                    <span class="removeitem">-</span>
+                                                </div>
+                                                <div class="set-input-add-product float-left number-product">
+                                                    <%=cart[i].count%>
+                                                </div>
+                                                <div class="set-btn-cart float-left add-product">
+                                                    <span class="additem">+</span>
+                                                </div>
+                                                <div class="float-right">
+                                                    <span class="price-product">
+                                                        <%=set_money(cart[i].cart.price*cart[i].count)%>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <img class="set-icon-delte-app-checkout" src="/themes/img/checkout/icondeletesmallv2.png">
                                         </div>
-                                        <div class="right-content-product-in-cart">
-                                            <span>
-                                                <%=cart[i].cart.nameApp%>
-                                            </span>
-                                            <br>
-                                            <span>
-                                                <input hidden class="idApp-hidden" value="<%=cart[i].cart.idApp%>">
-                                                <input hidden class="price-hidden" value="<%=cart[i].cart.price%>">
-                                                <%="$" + cart[i].cart.price%>
-                                            </span>
-                                            <span class="set-text-olde-price">
-                                                <%="$" + cart[i].cart.cost%>
-                                            </span>
-                                        </div>
-                                        <div class="border-add-product">
-                                                    <div class="set-btn-cart float-left reduce-product"><span class="removeitem">-</span></div>
-                                                    <div class="set-input-add-product float-left number-product">
-                                                        <%=cart[i].count%>
-                                                    </div>
-                                                    <div class="set-btn-cart float-left add-product"><span  class="additem">+</span></div>
-                                                    <div class="float-right">
-                                                        <span class="price-product">
-                                                            <%=set_money(cart[i].cart.price*cart[i].count)%>
-                                                        </span>
-                                                    </div>
-                                        </div>
-                                        <img class="set-icon-delte-app-checkout" src="/themes/img/checkout/icondeletesmallv2.png">
-                                    </div>
-                                    <%}%>
+                                        <%}%>
+
+                        </div>
+                        <div class="set-div-promo">
+                        </div>
+                        <div class="footer-modal-cart">
+                            <div class="div-total-price">
+                                <span>Total</span>
+                                <span class="float-right total-price-product">
+                                    <%=set_money(tong)%>
+                                </span>
+                            </div>
+                        </div>
 
                     </div>
-                    <div class="set-div-promo">
-                    </div>
-                    <div class="footer-modal-cart">
-                        <div class="div-total-price">
-                            <span>Total</span>
-                            <span class="float-right total-price-product">
-                                <%=set_money(tong)%>
+                    <div class="promo-code">
+                        <div class="col-sm-12">
+                            <img src="/themes/img/checkout/iconpromocode.png">
+                            <span class="set-text-promo-code">
+                                PROMO CODE:
                             </span>
                         </div>
+                        <div class="form-group has-feedback col-sm-8 div-input-promo-code">
+                            <input autocomplete="off" type="text" class="resetinputlogin" id="promo-code" name="promo" placeholder="Enter your coupon code...">
+                            <span class="form-control-feedback" aria-hidden="true">
+                                <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
+                            </span>
+                        </div>
+                        <button id="apply-promo-code" class="btn-blue-deploy btn-complate-checkout col-sm-3">APPLY</button>
                     </div>
+                    <div class="billing-address-complate display-none">
+                        <div class="col-sm-12">
+                            <span class="set-text-promo-code">
+                                BILLING ADDRESS
+                            </span>
+                            <!-- <img src="/themes/img/checkout/iconpromocode.png"> -->
+                        </div>
+                        <div class="form-group has-feedback col-sm-8 div-input-promo-code">
 
-                </div>
-                <div class="promo-code">
-                    <div class="col-sm-12">
-                        <img src="/themes/img/checkout/iconpromocode.png">
-                        <span class="set-text-promo-code">
-                            PROMO CODE:
-                        </span>
-                    </div>
-                    <div class="form-group has-feedback col-sm-8 div-input-promo-code">
-                        <input autocomplete="off" type="text" class="resetinputlogin" id="promo-code" name="promo" placeholder="Enter your coupon code...">
-                        <span class="form-control-feedback" aria-hidden="true">
-                            <img class="seticoneye iconerr icon" id="iconerr9" src="" alt="">
-                        </span>
-                    </div>
-                    <button id="apply-promo-code" class="btn-blue-deploy btn-complate-checkout col-sm-3">APPLY</button>
-                </div>
-                <div class="billing-address-complate display-none">
-                    <div class="col-sm-12">
-                        <span class="set-text-promo-code">
-                            BILLING ADDRESS
-                        </span>
-                        <!-- <img src="/themes/img/checkout/iconpromocode.png"> -->
-                    </div>
-                    <div class="form-group has-feedback col-sm-8 div-input-promo-code">
-
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script type="text/javascript " charset="utf-8 " src="/themes/js/checkout/checkout.js"></script>
+        <script type="text/javascript " charset="utf-8 " src="/themes/js/checkout/checkout.js"></script>

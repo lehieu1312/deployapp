@@ -53,8 +53,8 @@ function setStringVersion(a) {
 
 router.get('/appversion/:idapp', checkAdmin, (req, res) => {
     try {
-        var timezone = getCountryFromHTTP(req.headers["accept-language"]);
-        console.log("timezone :" + timezone);
+        // var timezone = getCountryFromHTTP(req.headers["accept-language"]);
+        // console.log("timezone :" + timezone);
         appsetting_model.findOne({
             idApp: req.params.idapp
         }).then(setting => {
@@ -94,11 +94,11 @@ router.get('/appversion/:idapp', checkAdmin, (req, res) => {
                                     if (err) throw err;
                                     // console.log(count)
 
-                                    for (let i = 0; i < count.inforAppversion.length; i++) {
-                                        console.log(moment(count.inforAppversion[i].updatedDate))
-                                        count.inforAppversion[i].updatedDate = moment(count.inforAppversion[i].updatedDate);
-                                        count.inforAppversion[i].createDate = moment(count.inforAppversion[i].createDate);
-                                    }
+                                    // for (let i = 0; i < count.inforAppversion.length; i++) {
+                                    //     console.log(moment(count.inforAppversion[i].updatedDate))
+                                    //     count.inforAppversion[i].updatedDate = moment(count.inforAppversion[i].updatedDate);
+                                    //     count.inforAppversion[i].createDate = moment(count.inforAppversion[i].createDate);
+                                    // }
 
                                     var appuse = {
                                         idApp: data1.idApp,

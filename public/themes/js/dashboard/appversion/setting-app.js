@@ -123,7 +123,7 @@ $(document).ready(() => {
                 console.log($(this));
                 console.log(require);
                 console.log(rules);
-                console.log($(this).find('input').val());
+                console.log($(this).find('input').value());
                 console.log('1');
             } else if (rules.toLowerCase() == "packageid") {
                 var value = $(this).find('input').val();
@@ -187,6 +187,8 @@ $(document).ready(() => {
                     console.log('8');
                 } else {
                     $(this).find('input').removeClass('input-holder').removeClass('border-bottom-red');
+                    console.log('else check');
+                    console.log(checkValid);
                 }
             } else if (rules.toLowerCase() == "wordpressurl") {
                 var val = $(this).find('input').val();
